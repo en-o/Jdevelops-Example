@@ -50,3 +50,7 @@ hs_err_pid*
 /GlobalException/mvnw
 /GlobalException/.gitignore
 /GlobalException/.mvn/
+/HJPA/.mvn/
+/HJPA/.gitignore
+/HJPA/mvnw
+/HJPA/mvnw.cmd
