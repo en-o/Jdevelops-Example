@@ -15,7 +15,7 @@
     <description>AutoSchema</description>
     <properties>
         <java.version>1.8</java.version>
-        <last.version>2.0.1</last.version>
+        <last.version>2.0.2</last.version>
     </properties>
     <dependencies>
         <dependency>
