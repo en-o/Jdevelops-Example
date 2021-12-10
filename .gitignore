@@ -54,3 +54,7 @@ hs_err_pid*
 /HJPA/.gitignore
 /HJPA/mvnw
 /HJPA/mvnw.cmd
+/Swagger/.gitignore
+/Swagger/.mvn/
+/Swagger/mvnw
+/Swagger/mvnw.cmd
