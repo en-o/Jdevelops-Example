@@ -46,3 +46,7 @@ hs_err_pid*
 /AutoSchema/mvnw.cmd
 /AutoSchema/mvnw
 /AutoSchema/.mvn/
+/GlobalException/mvnw.cmd
+/GlobalException/mvnw
+/GlobalException/.gitignore
+/GlobalException/.mvn/
