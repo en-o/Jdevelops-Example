@@ -58,3 +58,8 @@ hs_err_pid*
 /Swagger/.mvn/
 /Swagger/mvnw
 /Swagger/mvnw.cmd
+/Jwt/.gitignore
+/Jwt/mvnw
+/Jwt/mvnw.cmd
+/Jwt/pom.xml
+/Jwt/.mvn/
