@@ -63,3 +63,8 @@ hs_err_pid*
 /Jwt/mvnw.cmd
 /Jwt/pom.xml
 /Jwt/.mvn/
+/logs/
+/ApiSign/.mvn/
+/ApiSign/.gitignore
+/ApiSign/mvnw
+/ApiSign/mvnw.cmd
