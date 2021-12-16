@@ -80,3 +80,7 @@ hs_err_pid*
 /WebSocket/mvnw.cmd
 /WebSocket/mvnw
 /WebSocket/.mvn/
+/TestWebJPA/.gitignore
+/TestWebJPA/.mvn/
+/TestWebJPA/mvnw.cmd
+/TestWebJPA/mvnw
