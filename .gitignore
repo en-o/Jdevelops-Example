@@ -68,3 +68,7 @@ hs_err_pid*
 /ApiSign/.gitignore
 /ApiSign/mvnw
 /ApiSign/mvnw.cmd
+/ApiLog/.gitignore
+/ApiLog/mvnw
+/ApiLog/mvnw.cmd
+/ApiLog/.mvn/
