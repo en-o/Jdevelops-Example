@@ -34,5 +34,13 @@ public class HeaderVersionController {
     public String version3_2() {
         return "Hello,Welcome to version 3.0 header";
     }
+
+
+    @GetMapping("/api/test_2")
+    @ApiVersion(21312312312312312313213.123123123)
+    public String version4_2() {
+        return "Hello,Welcome to version 21312312312312312313213.123123123 header";
+    }
+
     /*********         parameter                     *******/
 }
