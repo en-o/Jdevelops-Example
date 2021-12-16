@@ -76,3 +76,7 @@ hs_err_pid*
 /ApiVersion/mvnw
 /ApiVersion/.gitignore
 /ApiVersion/.mvn/
+/WebSocket/.gitignore
+/WebSocket/mvnw.cmd
+/WebSocket/mvnw
+/WebSocket/.mvn/
