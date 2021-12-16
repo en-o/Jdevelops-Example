@@ -74,7 +74,7 @@ class SignParamsMD5ControllerTest {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/params/md5/isSignMD5?"+userParamsSortError))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect(jsonPath("$.message", is("签名不正确")))
+                .andExpect(jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
 
         // 数据更改
@@ -82,7 +82,7 @@ class SignParamsMD5ControllerTest {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/params/md5/isSignMD5?"+userParamsUpdateError))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect(jsonPath("$.message", is("签名不正确")))
+                .andExpect(jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
     }
 
@@ -114,7 +114,7 @@ class SignParamsMD5ControllerTest {
                 .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect( jsonPath("$.message", is("签名不正确")))
+                .andExpect( jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
     }
 
@@ -145,7 +145,7 @@ class SignParamsMD5ControllerTest {
                 .param("sign",sign))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect(jsonPath("$.message", is("签名不正确")))
+                .andExpect(jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
 
         // 数据更改
@@ -155,7 +155,7 @@ class SignParamsMD5ControllerTest {
                 .param("age","123")
                 .param("sign",sign))
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect(jsonPath("$.message", is("签名不正确")))
+                .andExpect(jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
     }
 
@@ -188,7 +188,7 @@ class SignParamsMD5ControllerTest {
                 .content(JSONObject.toJSONString(userEntity2)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect(jsonPath("$.message", is("签名不正确")))
+                .andExpect(jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
 
 //        // 数据更改
@@ -199,7 +199,7 @@ class SignParamsMD5ControllerTest {
                 .content(JSONObject.toJSONString(TempUtil.beanToLinkedHashMap(userEntity2))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect(jsonPath("$.message", is("签名不正确")))
+                .andExpect(jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
     }
 }

@@ -58,7 +58,7 @@ class SignParamsSHAControllerTest {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/params/sha/isSignSHA?"+userParamsSortError))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect((ResultMatcher) jsonPath("$.message", is("签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
 
         // 数据更改
@@ -66,7 +66,7 @@ class SignParamsSHAControllerTest {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/params/sha/isSignSHA?"+userParamsUpdateError))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect((ResultMatcher) jsonPath("$.message", is("签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
     }
 
@@ -98,7 +98,7 @@ class SignParamsSHAControllerTest {
                 .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect((ResultMatcher) jsonPath("$.message", is("签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
     }
 
@@ -129,7 +129,7 @@ class SignParamsSHAControllerTest {
                 .param("sign",sign))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect((ResultMatcher) jsonPath("$.message", is("签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
 
         // 数据更改
@@ -139,7 +139,7 @@ class SignParamsSHAControllerTest {
                 .param("age","123")
                 .param("sign",sign))
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect((ResultMatcher) jsonPath("$.message", is("签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
     }
 
@@ -171,7 +171,7 @@ class SignParamsSHAControllerTest {
                 .content(JSONObject.toJSONString(userEntity2)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect((ResultMatcher) jsonPath("$.message", is("签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
 
 //        // 数据更改
@@ -182,7 +182,7 @@ class SignParamsSHAControllerTest {
                 .content(JSONObject.toJSONString(TempUtil.beanToLinkedHashMap(userEntity2))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect((ResultMatcher) jsonPath("$.message", is("签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
     }
 }

@@ -77,7 +77,7 @@ class SignHeaderMD5ControllerTest {
                 .content(JSONObject.toJSONString(userParamsUpdateError)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect((ResultMatcher) jsonPath("$.message", is("签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
     }
 
@@ -108,7 +108,7 @@ class SignHeaderMD5ControllerTest {
                 .headers(heanders))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect((ResultMatcher) jsonPath("$.message", is("签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
 
         // 数据更改
@@ -118,7 +118,7 @@ class SignHeaderMD5ControllerTest {
                 .headers(heanders))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect((ResultMatcher) jsonPath("$.message", is("签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
 
     }
@@ -162,7 +162,7 @@ class SignHeaderMD5ControllerTest {
                 .content(userParamsSortError))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect((ResultMatcher) jsonPath("$.message", is("签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
 
         // 数据更改
@@ -176,7 +176,7 @@ class SignHeaderMD5ControllerTest {
                 .content(userParamsUpdateError))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect((ResultMatcher) jsonPath("$.message", is("签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
 
     }

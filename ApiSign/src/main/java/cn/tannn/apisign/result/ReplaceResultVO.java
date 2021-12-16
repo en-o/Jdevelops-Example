@@ -29,7 +29,7 @@ public class ReplaceResultVO<T> implements Serializable {
     /**
      * 返回消息
      */
-    private String xiaoXi;
+    private String message;
 
     /**
      * 数据
@@ -48,14 +48,14 @@ public class ReplaceResultVO<T> implements Serializable {
     public static <T> ReplaceResultVO<T> success(int code, String message) {
         ReplaceResultVO<T> resultVO = new ReplaceResultVO<>();
         resultVO.setZhuangTaiMa(code);
-        resultVO.setXiaoXi(message);
+        resultVO.setMessage(message);
         return resultVO;
     }
 
     public static <T> ReplaceResultVO<T> fail(int code, String message, T data) {
         ReplaceResultVO<T> resultVO = new ReplaceResultVO<>();
         resultVO.setZhuangTaiMa(code);
-        resultVO.setXiaoXi(message);
+        resultVO.setMessage(message);
         resultVO.setSJu(data);
         return resultVO;
     }
@@ -63,7 +63,7 @@ public class ReplaceResultVO<T> implements Serializable {
     public static <T> ReplaceResultVO<T> fail(int code, String message) {
         ReplaceResultVO<T> resultVO = new ReplaceResultVO<>();
         resultVO.setZhuangTaiMa(code);
-        resultVO.setXiaoXi(message);
+        resultVO.setMessage(message);
         return resultVO;
     }
 
