@@ -16,10 +16,6 @@ public class HeaderVersionController {
 
     /*********         header                     *******/
 
-    @GetMapping("/api/test_2")
-    public String version1_0() {
-        return "Hello,Welcome to default version header";
-    }
 
     @GetMapping("/api/test_2")
     @ApiVersion()

@@ -16,11 +16,6 @@ public class ParameterVersionController {
 
 
     /*********         parameter                     *******/
-    @GetMapping("/api/test_1")
-    @ApiVersion(1.0)
-    public String version1_0(String version) {
-        return "Hello,Welcome to default version  parameter";
-    }
 
     @GetMapping("/api/test_1")
     @ApiVersion(1.0)
