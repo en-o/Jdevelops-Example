@@ -12,9 +12,10 @@ import org.springframework.stereotype.Component;
  * @date 2021-12-16 12:34
  */
 @Component
+@Slf4j
 public class ApiLogSaveImpl implements ApiLogSave {
     @Override
     public void saveLog(ApiMonitoring apilog) {
-        System.out.println(apilog.toString());
+       log.info("你可以做入库操作同时也可做数据库打印操作："+apilog.toString());
     }
 }
