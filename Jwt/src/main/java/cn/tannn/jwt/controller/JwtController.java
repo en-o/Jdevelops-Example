@@ -1,6 +1,8 @@
 package cn.tannn.jwt.controller;
 
 import cn.jdevelops.jwtweb.annotation.ApiMapping;
+import cn.jdevelops.result.result.ResultVO;
+import cn.tannn.jwt.result.ReplaceResultVO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,13 +21,13 @@ public class JwtController {
 
 
     @GetMapping("letGo")
-    public String letGo(){
-        return "通过配置放行我";
+    public ResultVO<String> letGo(){
+        return ResultVO.success("通过配置放行我");
     }
 
     @GetMapping("letGo2")
-    public String letGo2(){
-        return "通过配置放行我";
+    public ReplaceResultVO<String> letGo2(){
+        return ReplaceResultVO.success(200,"通过配置放行我");
     }
 
     @ApiMapping(value = "/api/letGo",checkToken = false)
