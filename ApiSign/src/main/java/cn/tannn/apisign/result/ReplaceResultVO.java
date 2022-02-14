@@ -40,7 +40,7 @@ public class ReplaceResultVO<T> implements Serializable {
      * 自动转换success的返回值：true,false
      */
     public boolean isSuccess() {
-        return this.zhuangTaiMa == ResultCodeEnum.Success.getCode();
+        return this.zhuangTaiMa == ResultCodeEnum.SUCCESS.getCode();
     }
 
 
