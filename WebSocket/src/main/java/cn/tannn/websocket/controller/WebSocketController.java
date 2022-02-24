@@ -1,10 +1,13 @@
 package cn.tannn.websocket.controller;
 
+import cn.jdevelops.jwt.util.JwtUtil;
 import cn.jdevelops.websocket.client.controller.SocketController;
 import cn.tannn.websocket.service.AlarmWebSocketServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collections;
 
 /**
  * @author tn
@@ -26,6 +29,17 @@ public class WebSocketController implements SocketController {
     @RequestMapping("/test01")
     public String testo01(){
         return "websocket";
+    }
+
+
+    /**
+     * 测试接口是否通畅
+     * @return
+     */
+    @RequestMapping("/getToken")
+    public String getToken(){
+        return  JwtUtil.sign("tan", Collections.singletonMap("sex","男"));
+
     }
 
      /**
