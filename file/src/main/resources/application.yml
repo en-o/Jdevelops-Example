@@ -2,11 +2,19 @@
 # minio\u914D\u7F6E
 jdevelops:
   oss:
-    # \u4E0A\u4F20\u5BF9\u8C61\u5B58\u50A8\u670D\u52A1\u7684URL
-    upload_url: ${MINIO_UPLOAD_URL:http://oss.databstech.com}
-    # \u6D4F\u89C8\u670D\u52A1\u5668\u5BF9\u8C61\u5B58\u50A8
-    browse_url: ${MINIO_BROWSE_URL:http://oss.databstech.com}
-    # Access key\u5C31\u50CF\u7528\u6237ID\uFF0C\u53EF\u4EE5\u552F\u4E00\u6807\u8BC6\u4F60\u7684\u8D26\u6237\u3002
-    access_key: xx
-    # Secret key\u662F\u4F60\u8D26\u6237\u7684\u5BC6\u7801\u3002
-    secret_key: xx
+    # minio服务ip或者域名
+    upload_url: ${MINIO_UPLOAD_URL:oss.xx.com}
+    # minio服务端口或者代理端口
+    port: ${MINIO_PORT:443}
+    # 是否使用https
+    https: ${MINIO_SECURE:true}
+    # Access key就像用户ID，可以唯一标识你的账户。
+    access_key: ${MINIO_ROOT_USER:xx}
+    # Secret key是你账户的密码。
+    secret_key: ${MINIO_ROOT_PASSWORD:xx}
+    # 直接浏览地址，若有端口则加上端口
+    browse_url: ${MINIO_BROWSE_URL:https://oss.xx.com}
+
+  swagger:
+    base-package: cn.jdevelops.file.controller
+    add-header-token: false
