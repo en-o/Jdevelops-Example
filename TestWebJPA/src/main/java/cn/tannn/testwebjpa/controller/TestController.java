@@ -36,6 +36,11 @@ public class TestController {
     }
 
 
+    @ApiMapping(value = "/zore",checkToken = false)
+    public Integer zore(){
+        return 1/0;
+    }
+
     @GetMapping("letGo")
     public String letGo(){
         return "通过配置放行我";
