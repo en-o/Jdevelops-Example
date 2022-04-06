@@ -1,0 +1,16 @@
+
+# minio\u914D\u7F6E
+jdevelops:
+  oss:
+    # minio服务ip或者域名
+    upload_url: oss.xx.com
+    # minio服务端口或者代理端口
+    port: 443
+    # 是否使用https
+    https: true
+    # Access key就像用户ID，可以唯一标识你的账户。
+    access_key: access_key
+    # Secret key是你账户的密码。
+    secret_key: access_key
+    # 直接浏览地址，若有端口则加上端口
+    browse_url: https://oss.xx.com
