@@ -1,0 +1,10 @@
+
+# 本地
+jdevelops:
+  oss:
+    local-upload-dir: E:/test/file
+    browse-url: http://127.0.0.1:8080
+spring:
+  web:
+    resources:
+      static-locations: file:${jdevelops.oss.local-upload-dir}
