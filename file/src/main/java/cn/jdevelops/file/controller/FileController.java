@@ -49,7 +49,7 @@ public class FileController {
 		try {
 			fileOperation.downloadFile(response, dto);
 		} catch (Exception e) {
-			throw new BusinessException("文件下载失败！");
+			throw new BusinessException("文件下载失败！",e);
 		}
 	}
 
