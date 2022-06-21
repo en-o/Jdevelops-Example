@@ -6,4 +6,4 @@ jdevelops:
 
 spring:
   profiles:
-    active: local
+    active: qiniu
