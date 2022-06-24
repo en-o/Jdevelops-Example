@@ -1,0 +1,14 @@
+### 单个异常
+GET http://localhost:8111/a
+
+
+### 多个异常处理 - 1
+GET http://localhost:8111/b?i=1
+### 多个异常处理 - 2
+GET http://localhost:8111/b?i=2
+
+
+### 全部公用默认code - 1
+GET http://localhost:8111/c?i=1
+### 全部公用默认code - 2
+GET http://localhost:8111/c?i=2
