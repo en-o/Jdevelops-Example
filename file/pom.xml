@@ -56,9 +56,9 @@
         </dependency>
         <dependency>
             <groupId>cn.jdevelops</groupId>
-            <!--            <artifactId>minio-driver</artifactId>-->
-            <!--<artifactId>qiniu-driver</artifactId>-->
-            <artifactId>local-driver</artifactId>
+            <!--<artifactId>minio-driver</artifactId>-->
+          <artifactId>qiniu-driver</artifactId>
+            <!-- <artifactId>local-driver</artifactId>-->
             <version>2.0.4</version>
         </dependency>
     </dependencies>

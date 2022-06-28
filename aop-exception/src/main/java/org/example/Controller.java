@@ -65,4 +65,24 @@ public class Controller {
         }
         return ResultVO.success();
     }
+
+
+    /**
+     * 全部公用默认code,和原本的异常消息
+     * @param i
+     * @return
+     */
+    @GetMapping("/d")
+    @DisposeException(messages ={"你错了"}, exceptions = {
+            ArithmeticException.class,
+            ArrayIndexOutOfBoundsException.class} )
+    public ResultVO<String>  test4(int i){
+        if(i ==  1){
+            int zero = 1 / 0;
+        }else {
+            int[] indexs = {1,2,3};
+            System.out.println(indexs[4]);
+        }
+        return ResultVO.success();
+    }
 }

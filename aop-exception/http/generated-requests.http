@@ -12,3 +12,10 @@ GET http://localhost:8111/b?i=2
 GET http://localhost:8111/c?i=1
 ### 全部公用默认code - 2
 GET http://localhost:8111/c?i=2
+
+
+
+### 全部公用默认code和原本的异常消息 - 1
+GET http://localhost:8111/d?i=1
+### 全部公用默认code和原本的异常消息 - 2
+GET http://localhost:8111/d?i=2
