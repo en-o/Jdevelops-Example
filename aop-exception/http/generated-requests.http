@@ -19,3 +19,13 @@ GET http://localhost:8111/c?i=2
 GET http://localhost:8111/d?i=1
 ### 全部公用默认code和原本的异常消息 - 2
 GET http://localhost:8111/d?i=2
+
+
+
+### 测试注解在类上 - 1
+GET http://localhost:8111/e
+
+
+### 测试注解在类上 - 2
+GET http://localhost:8111/f
+
