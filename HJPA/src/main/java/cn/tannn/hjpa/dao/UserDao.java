@@ -4,6 +4,8 @@ package cn.tannn.hjpa.dao;
 import cn.jdevelops.jpa.server.dao.JpaBasicsDao;
 import cn.tannn.hjpa.entity.User;
 
+import java.util.Collection;
+
 /**
  * 用户表
  *
@@ -12,4 +14,5 @@ import cn.tannn.hjpa.entity.User;
  */
 public interface UserDao extends JpaBasicsDao<User, Integer> {
 
+    <T> T findByLoginName(String name, Class<T> type);
 }
