@@ -15,7 +15,7 @@
     <description>AutoSchema</description>
     <properties>
         <java.version>1.8</java.version>
-        <last.version>2.0.2</last.version>
+        <last.version>2.0.5</last.version>
     </properties>
     <dependencies>
         <dependency>
@@ -32,9 +32,15 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>cn.jdevelops</groupId>-->
+<!--            <artifactId>utils-spring</artifactId>-->
+<!--            <version>${last.version}</version>-->
+<!--        </dependency>-->
+        <!-- 自定建库 2.0.5开始从utils-spring中移除，单独建jar -->
         <dependency>
             <groupId>cn.jdevelops</groupId>
-            <artifactId>utils-spring</artifactId>
+            <artifactId>caches-auto-schema</artifactId>
             <version>${last.version}</version>
         </dependency>
         <dependency>

@@ -1,6 +1,7 @@
 package cn.tannn.autoschema;
 
-import cn.jdevelops.spring.scan.EnableAutoSchema;
+import cn.jdevelops.schema.scan.EnableAutoSchema;
+//import cn.jdevelops.spring.scan.EnableAutoSchema; <=2.0.5
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
