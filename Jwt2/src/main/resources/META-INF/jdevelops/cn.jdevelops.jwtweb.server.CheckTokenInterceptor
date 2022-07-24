@@ -1,0 +1,2 @@
+# 注释
+defaultInterceptor=cn.tannn.jwt.interceptor.ReTokenInterceptor
