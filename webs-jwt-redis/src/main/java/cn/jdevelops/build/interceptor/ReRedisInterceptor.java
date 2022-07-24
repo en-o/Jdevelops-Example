@@ -7,7 +7,7 @@ import cn.jdevelops.jwtweb.server.CheckTokenInterceptor;
 import cn.jdevelops.spi.JoinSPI;
 
 /**
- * redis 验证token
+ * redis 验证token 默认的redisinterceptor可以实现完整功能，这里只是测试下能不能在实现一次
  *
  * @author tnnn
  * @version V1.0

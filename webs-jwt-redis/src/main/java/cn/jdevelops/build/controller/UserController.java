@@ -6,6 +6,7 @@ import cn.jdevelops.build.account.AuthUserVO;
 import cn.jdevelops.build.account.SettingUserStatusDTO;
 import cn.jdevelops.entity.basics.vo.SerializableVO;
 import cn.jdevelops.jredis.service.RedisService;
+import cn.jdevelops.jwt.annotation.NotRefreshToken;
 import cn.jdevelops.jwt.constant.JwtConstant;
 import cn.jdevelops.jwt.util.JwtUtil;
 import cn.jdevelops.result.result.ResultVO;
@@ -53,6 +54,15 @@ public class UserController {
     public ResultVO<List<AuthUserVO>> findAll() {
         return ResultVO.success(SerializableVO.to(accountService.findAll(),AuthUserVO.class),"角色查询成功");
     }
+
+    @ApiOperation(value = "查询时不刷新缓存", notes = "用户管理")
+    @PostMapping("finAll2")
+    @ApiOperationSupport(order = 4)
+    @NotRefreshToken
+    public ResultVO<List<AuthUserVO>> finAll2() {
+        return ResultVO.success(SerializableVO.to(accountService.findAll(),AuthUserVO.class),"角色查询成功");
+    }
+
 
     /**
      * 用户状态(1.正常 2.锁定 3.删除 4.非法)
