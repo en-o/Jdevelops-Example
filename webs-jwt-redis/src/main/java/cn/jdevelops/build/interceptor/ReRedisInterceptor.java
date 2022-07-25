@@ -1,5 +1,6 @@
 package cn.jdevelops.build.interceptor;
 
+import cn.jdevelops.jredis.exception.ExpiredRedisException;
 import cn.jdevelops.jredis.service.RedisService;
 import cn.jdevelops.jwt.util.ContextUtil;
 import cn.jdevelops.jwt.util.JwtUtil;
@@ -25,5 +26,16 @@ public class ReRedisInterceptor implements CheckTokenInterceptor {
     public void refreshToken(String userCode) {
         RedisService redisService = ContextUtil.getBean(RedisService.class);
         redisService.refreshUserToken(userCode);
+    }
+
+    /**
+     * 2.0.6 版本才有的功能
+     * @param userCode 用户唯一编码
+     * @throws ExpiredRedisException Exception
+     */
+    @Override
+    public void checkUserStatus(String userCode) throws ExpiredRedisException {
+        RedisService redisService = ContextUtil.getBean(RedisService.class);
+        redisService.verifyUserStatus(userCode);
     }
 }

@@ -4,6 +4,7 @@ import cn.jdevelops.annotation.mapping.PathRestController;
 import cn.jdevelops.build.account.AccountService;
 import cn.jdevelops.build.account.LoginDTO;
 import cn.jdevelops.build.account.RegisterDTO;
+import cn.jdevelops.jredis.entity.RedisAccount;
 import cn.jdevelops.jredis.service.RedisService;
 import cn.jdevelops.jredis.util.JwtRedisUtil;
 import cn.jdevelops.jwt.annotation.ApiMapping;
@@ -72,6 +73,15 @@ public class LoginController {
         if (log.isDebugEnabled()) {
             log.debug("issue token success, account: {} -- token: {}", login, sign);
         }
+        // 此处数据最好用查出来的用,我这里没有查返回所以自己写了
+        RedisAccount<Map<String, String>> build = RedisAccount.<Map<String, String>>builder().disabledAccount(false)
+                .excessiveAttempts(false)
+                .userCode(login.getUsername())
+                .salt("")
+                .password(login.getPassword())
+                .userInfo(responseData).build();
+        // 设置当前登录用的状态
+        redisService.storageUserStatus(build);
         return ResultVO.successForData(responseData);
     }
 
@@ -101,6 +111,8 @@ public class LoginController {
             e.printStackTrace();
         }
         return ResultVO.success("成功退出");
-
     }
+
+
+
 }
