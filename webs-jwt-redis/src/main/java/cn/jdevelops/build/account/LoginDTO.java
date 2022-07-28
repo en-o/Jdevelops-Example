@@ -35,4 +35,10 @@ public class LoginDTO {
     @NotBlank
     private String password;
 
+
+    /**
+     * 是否永久在线（默认 false
+     */
+    @ApiModelProperty(value = "登录密密", required = true, example = "true")
+    Boolean alwaysOnline;
 }

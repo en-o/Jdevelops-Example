@@ -5,6 +5,7 @@ import cn.jdevelops.build.account.AccountService;
 import cn.jdevelops.build.account.AuthUserVO;
 import cn.jdevelops.build.account.SettingUserStatusDTO;
 import cn.jdevelops.entity.basics.vo.SerializableVO;
+import cn.jdevelops.jredis.entity.only.StorageUserTokenEntity;
 import cn.jdevelops.jredis.service.RedisService;
 import cn.jdevelops.jwt.annotation.NotRefreshToken;
 import cn.jdevelops.jwt.constant.JwtConstant;
@@ -88,6 +89,21 @@ public class UserController {
             // 可以考虑从redis中拿。但是每次修改用户相关的数据时都要更新一份到redis中
             return ResultVO.successForData(accountService.getUser(JwtUtil.getSubject(token)));
         }
+    }
+
+
+    @ApiOperation(value = "redis中的token", notes = "用户管理")
+    @PostMapping("/tokenRedis")
+    @ApiOperationSupport(order = 3)
+    public ResultVO<StorageUserTokenEntity> tokenRedis(HttpServletRequest request) {
+        try {
+            String token = request.getHeader(JwtConstant.TOKEN);
+            StorageUserTokenEntity loginTokenRedis = redisService.loadUserTokenInfoByToken(token);
+            return ResultVO.successForData(loginTokenRedis);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResultVO.fail("");
     }
 
 }

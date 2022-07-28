@@ -1,11 +1,17 @@
 package cn.jdevelops.build.interceptor;
 
+import cn.jdevelops.jredis.entity.LoginTokenRedis;
 import cn.jdevelops.jredis.exception.ExpiredRedisException;
+import cn.jdevelops.jredis.interceptor.RedisInterceptor;
 import cn.jdevelops.jredis.service.RedisService;
 import cn.jdevelops.jwt.util.ContextUtil;
 import cn.jdevelops.jwt.util.JwtUtil;
 import cn.jdevelops.jwtweb.server.CheckTokenInterceptor;
 import cn.jdevelops.spi.JoinSPI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Objects;
 
 /**
  * redis 验证token 默认的redisinterceptor可以实现完整功能，这里只是测试下能不能在实现一次
@@ -17,11 +23,14 @@ import cn.jdevelops.spi.JoinSPI;
 @JoinSPI
 public class ReRedisInterceptor implements CheckTokenInterceptor {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ReRedisInterceptor.class);
+
     @Override
     public boolean checkToken(String token) {
-        return JwtUtil.verity(token);
+        RedisService redisService = ContextUtil.getBean(RedisService.class);
+        LoginTokenRedis loginTokenRedis = redisService.verifyUserTokenByToken(token);
+        return Objects.nonNull(loginTokenRedis) && loginTokenRedis.getToken().equalsIgnoreCase(token);
     }
-
     @Override
     public void refreshToken(String userCode) {
         RedisService redisService = ContextUtil.getBean(RedisService.class);

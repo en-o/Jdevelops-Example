@@ -1,2 +1,2 @@
 # 注释
-defaultInterceptor=cn.jdevelops.build.interceptor.ReRedisInterceptor
+# defaultInterceptor=cn.jdevelops.build.interceptor.ReRedisInterceptor

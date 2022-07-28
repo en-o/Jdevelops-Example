@@ -5,6 +5,7 @@ import cn.jdevelops.build.account.AccountService;
 import cn.jdevelops.build.account.LoginDTO;
 import cn.jdevelops.build.account.RegisterDTO;
 import cn.jdevelops.jredis.entity.RedisAccount;
+import cn.jdevelops.jredis.entity.only.SignEntity;
 import cn.jdevelops.jredis.service.RedisService;
 import cn.jdevelops.jredis.util.JwtRedisUtil;
 import cn.jdevelops.jwt.annotation.ApiMapping;
@@ -68,7 +69,11 @@ public class LoginController {
             }
             return ResultVO.fail("用户名或密不正确");
         }
-        String sign = JwtRedisUtil.sign(login.getUsername(),null);
+        // 2.0.6 可以只传一个参数了 ，同时新增了允许永久在线的参数设置
+//        String sign = JwtRedisUtil.sign(login.getUsername());'
+        String sign =  JwtRedisUtil.sign(SignEntity.builder()
+                .alwaysOnline(login.getAlwaysOnline())
+                .subject(login.getUsername()).build());
         Map<String, String> responseData = Collections.singletonMap("token", sign);
         if (log.isDebugEnabled()) {
             log.debug("issue token success, account: {} -- token: {}", login, sign);
