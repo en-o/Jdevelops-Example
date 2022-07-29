@@ -4,6 +4,9 @@ spring:
     name: build
   profiles:
     active: dev
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
 # 日志
 logging:
   # 根据 profiles.active 选择 springProfile
