@@ -1,11 +1,8 @@
 package cn.tannn.cachesjdbctemplate.service;
 
-import cn.jdevelops.jdbctemplate.annotation.Query;
 import cn.tannn.cachesjdbctemplate.UserBO;
 import cn.tannn.cachesjdbctemplate.entity.User;
-import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +10,7 @@ import java.util.List;
  * @version V1.0
  * @date 2022-08-01 13:41
  */
-public  interface UserService {
+public  interface QueryUserService {
 
 
     List<User> findAll();
@@ -24,4 +21,12 @@ public  interface UserService {
     User findById(Integer id);
 
     User findByBean(UserBO user);
+
+    List<User> findByBean2(UserBO user);
+
+    String  findNameById(Integer id);
+    List<String>  findName();
+
+    Integer  findIdByName(String name);
+    List<Integer>  findId();
 }
