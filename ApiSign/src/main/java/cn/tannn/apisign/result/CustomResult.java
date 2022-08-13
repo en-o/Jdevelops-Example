@@ -1,6 +1,6 @@
 package cn.tannn.apisign.result;
 
-import cn.jdevelops.exception.result.ExceptionResult;
+import cn.jdevelops.result.custom.ExceptionResult;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * @author tn
  * @date 2021-01-20 10:50
  */
-@Component("exceptionResult")
+//@Component("exceptionResult")
 public class CustomResult implements ExceptionResult<ReplaceResultVO> {
     @Override
     public ReplaceResultVO success(int code, String message, Object object) {

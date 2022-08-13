@@ -2,8 +2,7 @@ package cn.tannn.apisign.utils;
 
 import cn.jdevelops.apisign.bean.ApiSignBean;
 import cn.jdevelops.encryption.core.SignMD5Util;
-import cn.jdevelops.exception.utils.SpringBeanUtils;
-import cn.jdevelops.spring.core.context.ContextUtil;
+import cn.jdevelops.result.util.SpringBeanUtils;
 import cn.tannn.apisign.entity.UserEntity;
 import com.alibaba.fastjson.JSON;
 
