@@ -1,10 +1,7 @@
 package cn.tannn.apilog.controller;
 
 import cn.jdevelops.apilog.annotation.ApiLog;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -32,7 +29,7 @@ public class TestController {
     }
 
     @PostMapping("/lm2")
-    public String lm2(Map<String,Object> test){
+    public String lm2(@RequestParam Map<String,Object> test){
         return test.toString();
     }
 
@@ -45,5 +42,26 @@ public class TestController {
     @ApiLog
     public String test2(String param){
         return param;
+    }
+
+
+    @PostMapping("/3")
+    @ApiLog
+    public String test3(@RequestBody Map<String,Object> test){
+        return test.toString();
+    }
+
+
+    @PostMapping("/4")
+    @ApiLog(apiKey = "#{test.param}")
+    public String test34(@RequestBody Map<String,Object> test){
+        return test.toString();
+    }
+
+
+    @PostMapping("/5")
+    @ApiLog(apiKey = "#{test.param}")
+    public String test34(@RequestBody TestBean test){
+        return test.toString();
     }
 }
