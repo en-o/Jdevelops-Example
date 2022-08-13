@@ -1,7 +1,6 @@
 package org.example;
 
-import cn.jdevelops.exception.annotation.DisposeException;
-import cn.jdevelops.result.result.ResultVO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,9 +25,9 @@ public class ServiceController {
      * @return
      */
     @GetMapping("/e")
-    public ResultVO<String> test1(){
+    public Object test1(){
         iService.test1();
-        return ResultVO.success();
+        return "ok";
     }
 
 
@@ -37,8 +36,8 @@ public class ServiceController {
      * @return
      */
     @GetMapping("/f")
-    public ResultVO<String> test2(){
+    public Object test2(){
         iService.test2();
-        return ResultVO.success();
+        return "ok";
     }
 }

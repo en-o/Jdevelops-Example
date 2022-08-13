@@ -1,7 +1,7 @@
 package org.example;
 
 import cn.jdevelops.exception.annotation.DisposeException;
-import cn.jdevelops.result.result.ResultVO;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,18 +21,18 @@ public class IService {
      * 单个异常
      * @return
      */
-    public ResultVO<String> test1(){
+    public Object test1(){
         int zero = 1 / 0;
-        return ResultVO.success();
+        return "ok";
     }
     /**
      * 多个异常处理
      * @return
      */
 
-    public ResultVO<String>  test2(){
+    public Object  test2(){
         int[] indexs = {1,2,3};
         System.out.println(indexs[4]);
-        return ResultVO.success();
+        return "ok";
     }
 }
