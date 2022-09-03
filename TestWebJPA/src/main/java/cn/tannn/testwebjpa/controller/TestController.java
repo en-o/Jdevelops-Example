@@ -4,7 +4,7 @@ import cn.jdevelops.annotation.mapping.PathRestController;
 import cn.jdevelops.entity.basics.vo.SerializableVO;
 import cn.jdevelops.jap.core.util.CommUtils;
 import cn.jdevelops.jap.core.util.JPAUtilExpandCriteria;
-import cn.jdevelops.jwtweb.annotation.ApiMapping;
+import cn.jdevelops.jwt.annotation.ApiMapping;
 import cn.jdevelops.result.result.ResultVO;
 import cn.tannn.testwebjpa.dto.UserFindDTO;
 import cn.tannn.testwebjpa.entity.User;
