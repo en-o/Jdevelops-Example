@@ -40,6 +40,7 @@ public class UserPO extends CommonVO<UserPO> {
 		this.address = address;
 	}
 
+
 	public String getUserNo() {
 		return userNo;
 	}

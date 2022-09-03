@@ -15,6 +15,7 @@
     <description>HJPA</description>
     <properties>
         <java.version>1.8</java.version>
+        <jdevelops.version>2.0.6</jdevelops.version>
     </properties>
     <dependencies>
         <dependency>
@@ -34,7 +35,7 @@
         <dependency>
             <groupId>cn.jdevelops</groupId>
             <artifactId>caches-jpa-server</artifactId>
-            <version>2.0.5</version>
+            <version>${jdevelops.version}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -43,18 +44,23 @@
         <dependency>
             <groupId>cn.jdevelops</groupId>
             <artifactId>aops-jpaReturn</artifactId>
-            <version>2.0.5</version>
+            <version>${jdevelops.version}</version>
         </dependency>
         <dependency>
             <groupId>cn.jdevelops</groupId>
             <artifactId>utils-spring</artifactId>
-            <version>2.0.2</version>
+            <version>${jdevelops.version}</version>
         </dependency>
         <!-- p6spy -->
         <dependency>
             <groupId>cn.jdevelops</groupId>
             <artifactId>logs-cache-p6spy</artifactId>
-            <version>2.0.2</version>
+            <version>${jdevelops.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.jdevelops</groupId>
+            <artifactId>caches-auto-schema</artifactId>
+            <version>${jdevelops.version}</version>
         </dependency>
     </dependencies>
 

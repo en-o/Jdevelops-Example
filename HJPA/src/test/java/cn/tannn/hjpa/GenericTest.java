@@ -5,9 +5,12 @@ import cn.tannn.hjpa.entity.User;
 import cn.tannn.hjpa.service.UserService;
 import cn.tannn.hjpa.vo.UserPO;
 import cn.tannn.hjpa.vo.UserVO;
+import cn.tannn.hjpa.vo.UserVo2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Map;
 
 /**
  * 测试在dao层泛化
@@ -28,5 +31,12 @@ public class GenericTest {
 //        System.out.println(userDao.findByLoginName("admin", User.class));
         System.out.println(userDao.findByLoginName("admin", UserPO.class));
     }
+
+
+    @Test
+    void tests2() {
+        System.out.println(userDao.findByLoginNameQuery("admin"));
+    }
+
 
 }

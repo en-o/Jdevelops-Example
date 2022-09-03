@@ -4,7 +4,7 @@ import cn.jdevelops.entity.basics.vo.SerializableVO;
 import cn.jdevelops.jap.core.util.CommUtils;
 import cn.jdevelops.jap.core.util.JPAUtilExpandCriteria;
 import cn.jdevelops.result.result.ResultVO;
-import cn.jdevelops.spring.scan.EnableAutoSchema;
+import cn.jdevelops.schema.scan.EnableAutoSchema;
 import cn.tannn.hjpa.dto.UserFindDTO;
 import cn.tannn.hjpa.entity.User;
 import cn.tannn.hjpa.service.UserService;
