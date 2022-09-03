@@ -1,0 +1,17 @@
+
+spring:
+  application:
+    name: test_project
+  profiles:
+    active: dev
+# 日志
+logging:
+  # 根据 profiles.active 选择 springProfile
+  # logback-spring-tlog.xml 日志中会打印调用链路
+  config: classpath:logback-spring-tlog.xml
+detabes:
+  swagger:
+    base-package: cn.jdevelops.project.controller
+  jwt:
+    token-secret: test_project
+
