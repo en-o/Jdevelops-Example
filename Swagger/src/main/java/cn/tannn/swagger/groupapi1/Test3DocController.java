@@ -1,4 +1,4 @@
-package cn.tannn.swagger.api;
+package cn.tannn.swagger.groupapi1;
 
 import cn.tannn.swagger.controller.dto.TestDTO;
 import io.swagger.annotations.Api;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1
  * @date 2021-12-10 23:06
  */
-@Api(tags = {"一个组聚合多个_controller_1"},value = "多controller聚合分组")
+@Api(tags = {"第一接口组"},value = "分组测试")
 @RestController
-public class Test2DocController {
+public class Test3DocController {
 
-    @PostMapping("aggregate")
-    @ApiOperation(value = "一个组聚合多个_controller_api", notes = "多controller聚合分组")
+    @PostMapping("apigroup_1")
+    @ApiOperation(value = "接口组中的接口", notes = "分组测试")
     public String testDoc(TestDTO testDTO){
         return "swagger会扫描我吗";
     }

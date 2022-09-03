@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1
  * @date 2021-12-10 23:06
  */
-@Api(tags = {"测试文档"},value = "测试文档")
+@Api(tags = {"一个组聚合多个_controller_2"},value = "多controller聚合分组")
 @RestController
 public class TestDocController {
 
-    @PostMapping("doc")
-    @ApiOperation(value = "测试", notes = "测试文档")
+    @PostMapping("aggregate_1")
+    @ApiOperation(value = "一个组聚合多个_controller_api", notes = "多controller聚合分组")
     public TestVO testDoc(TestDTO testDTO){
         TestVO testVO = new TestVO();
         testVO.setId(testDTO.getId());
