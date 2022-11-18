@@ -65,6 +65,6 @@ public class IdempotentController {
     @PostMapping("postJson")
     @ApiIdempotent
     public ResultVO<String> postJson(@RequestBody UserEntity user){
-        return ResultVO.success("测试post json参数");
+        return ResultVO.success("测试post json参数"+user);
     }
 }

@@ -8,5 +8,5 @@ spring:
     timeout: 2000
 jdevelops:
   idempotent:
-    expire-time: 180000
+    expire-time: 30000
     group-str: tannnn
