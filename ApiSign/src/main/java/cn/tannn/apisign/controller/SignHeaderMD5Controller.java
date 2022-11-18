@@ -2,6 +2,7 @@ package cn.tannn.apisign.controller;
 
 import cn.jdevelops.apisign.annotation.Signature;
 import cn.jdevelops.apisign.enums.SginEnum;
+import cn.jdevelops.idempotent.annotation.ApiIdempotent;
 import cn.jdevelops.result.result.ResultVO;
 import cn.tannn.apisign.entity.UserEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ public class SignHeaderMD5Controller {
      */
     @PostMapping(value = "/isSignMD5BeanPJsonH")
     @Signature(type = SginEnum.MD5HEADER)
+    @ApiIdempotent
     public ResultVO<UserEntity> isSignMD5BeanPJsonH(@RequestBody UserEntity userEntity) {
         System.out.println("userEntity.toString() = " + userEntity.toString());
         return ResultVO.successForData(userEntity);
