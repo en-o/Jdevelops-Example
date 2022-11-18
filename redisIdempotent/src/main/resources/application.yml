@@ -1,0 +1,12 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  redis:
+    database: 8
+    host: 127.0.0.1
+    port: 6379
+    timeout: 2000
+jdevelops:
+  idempotent:
+    expire-time: 180000
+    group-str: tannnn
