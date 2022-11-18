@@ -2,6 +2,7 @@ package cn.tannn.testwebjpa.controller;
 
 import cn.jdevelops.annotation.mapping.PathRestController;
 import cn.jdevelops.entity.basics.vo.SerializableVO;
+import cn.jdevelops.idempotent.annotation.ApiIdempotent;
 import cn.jdevelops.jap.core.util.CommUtils;
 import cn.jdevelops.jap.core.util.JPAUtilExpandCriteria;
 import cn.jdevelops.jwt.annotation.ApiMapping;
@@ -52,6 +53,7 @@ public class TestController {
     }
 
     @ApiMapping(value = "/api/letGo",checkToken = false)
+    @ApiIdempotent
     public String apiLetGo(){
         return "利用注解@ApiMapping放行";
     }
