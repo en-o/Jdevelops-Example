@@ -26,7 +26,7 @@ class TestJpaPage {
         RoutinePageDTO page = new RoutinePageDTO("id", 1, 1, 10);
         User user = new User();
         user.setLoginPwd("123456");
-        ResourceJpaPage<List<UserVO>> byBean = userService.findByBean(user, page, UserVO.class);
+        ResourceJpaPage<UserVO> byBean = userService.findByBean(user, page, UserVO.class);
         System.out.println(byBean.toString());
     }
 
@@ -36,7 +36,7 @@ class TestJpaPage {
         RoutinePageDTO page = new RoutinePageDTO("id", 1, 1, 10);
         User user = new User();
         user.setLoginPwd("123456");
-        ResultJpaPageVO<ResourceJpaPage<List<UserVO>>> byBeanForVO = userService.findByBeanForVO(user, page, UserVO.class);
+        ResultJpaPageVO<UserVO> byBeanForVO = userService.findByBeanForVO(user, page, UserVO.class);
         System.out.println(byBeanForVO.toString());
     }
 }
