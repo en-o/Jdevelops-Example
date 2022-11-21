@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
 
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
@@ -22,21 +23,16 @@ class TestJpaPage {
     private UserService userService;
 
     @Test
-    void testPage_ResourceJpaPage(){
-        RoutinePageDTO page = new RoutinePageDTO("id", 1, 1, 10);
-        User user = new User();
-        user.setLoginPwd("123456");
-        ResourceJpaPage<UserVO> byBean = userService.findByBean(user, page, UserVO.class);
-        System.out.println(byBean.toString());
+    void testDeleteByUnique(){
+        userService.deleteByUnique("user2","loginName");
+        userService.deleteByUnique("user3",User::getLoginName);
     }
 
 
     @Test
-    void testPage_ResultJpaPageVO(){
-        RoutinePageDTO page = new RoutinePageDTO("id", 1, 1, 10);
-        User user = new User();
-        user.setLoginPwd("123456");
-        ResultJpaPageVO<UserVO> byBeanForVO = userService.findByBeanForVO(user, page, UserVO.class);
-        System.out.println(byBeanForVO.toString());
+    void testDeleteByUniques(){
+
+        userService.deleteByUnique(Arrays.asList("user5","user4"),"loginName");
+        userService.deleteByUnique(Arrays.asList("user6","user7"),User::getLoginName);
     }
 }
