@@ -23,21 +23,23 @@ public class UpdateTest {
     @Autowired
     private UserService userService;
 
+
     @Test
     public void  updateByBean() throws Exception {
         User user = new User();
-        user.setName("超级管理员3");
-        user.setLoginPwd("user");
-        user.setPhone("15888888888");
-        System.out.println(userService.updateByBean(user, "phone"));
+        user.setName("超级管理员6");
+        user.setLoginPwd("updateByBean1231");
+        user.setPhone("1312");
+        System.out.println(userService.updateByBean(user, User::getPhone));
     }
 
+
     @Test
-    public void  updateByBean2() throws Exception {
+    public void  updateByBeanForBean() throws Exception {
         User user = new User();
         user.setName("超级管理员6");
         user.setLoginPwd("updateByBean2");
         user.setPhone("1312");
-        System.out.println(userService.updateByBean(user, User::getPhone));
+        System.out.println(userService.updateByBeanForBean(user, User::getPhone));
     }
 }
