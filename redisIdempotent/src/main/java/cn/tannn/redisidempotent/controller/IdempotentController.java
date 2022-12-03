@@ -3,6 +3,7 @@ package cn.tannn.redisidempotent.controller;
 import cn.jdevelops.idempotent.annotation.ApiIdempotent;
 import cn.jdevelops.result.result.ResultVO;
 import cn.tannn.redisidempotent.entity.UserEntity;
+import cn.tannn.redisidempotent.entity.UserEntity2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -66,5 +67,16 @@ public class IdempotentController {
     @ApiIdempotent
     public ResultVO<String> postJson(@RequestBody UserEntity user){
         return ResultVO.success("测试post json参数"+user);
+    }
+
+
+    /**
+     * 测试post json参数参数多一点是试试
+     * @return  String
+     */
+    @PostMapping("postJsonMultiparameter")
+    @ApiIdempotent
+    public ResultVO<String> postJsonMultiparameter(@RequestBody UserEntity2 user){
+        return ResultVO.success("测试post json参数参数多一点是试试"+user);
     }
 }
