@@ -1,12 +1,13 @@
 package cn.tannn.validations;
 
-import com.detabes.validation.idcard.IdCard;
-import com.detabes.validation.mobile.Mobile;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import cn.jdevelops.validation.account.Account;
+import cn.jdevelops.validation.cname.Cname;
+import cn.jdevelops.validation.datetime.DateTime;
+import cn.jdevelops.validation.idcard.IdCard;
+import cn.jdevelops.validation.mobile.Mobile;
+import cn.jdevelops.validation.password.Password;
+import lombok.*;
 
-import javax.validation.constraints.NotBlank;
 
 /**
  * @author tnnn
@@ -16,19 +17,48 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserBean {
 
+    /**
+     * 手机号
+     */
     @Mobile
     String iphone;
 
+    /**
+     * 身份证
+     */
     @IdCard
     String idCard;
 
-    public UserBean(String iphone, String idCard) {
-        this.iphone = iphone;
-        this.idCard = idCard;
-    }
+    /**
+     * 中文姓名
+     */
+    @Cname
+    String cname;
 
-    public UserBean() {
-    }
+
+    /**
+     * 时间yyyy-MM-dd HH:mm:ss
+     */
+    @DateTime
+    String dateTime;
+
+    /**
+     * 密码
+     */
+    @Password
+    String password;
+
+
+    /**
+     * 账户名
+     */
+    @Account
+    String account;
+
+
+
 }
