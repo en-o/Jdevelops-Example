@@ -3,3 +3,4 @@ jdevelops:
     token-secret: adsaweadadcxa123
   websocket:
     multipart: false
+    on-close: true
