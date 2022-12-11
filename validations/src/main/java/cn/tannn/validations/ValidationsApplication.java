@@ -19,13 +19,23 @@ public class ValidationsApplication {
 
 
 	/**
-	 * 测试 值验证
+	 * 测试入参验证
 	 * @param userBean userBean
 	 * @return UserBean
 	 */
 	@PostMapping("validate")
 	public UserBean validate(@RequestBody @Valid UserBean userBean){
 		return userBean;
+	}
+
+
+	/**
+	 * 测试返回值遮掩
+	 * @return UserBean
+	 */
+	@GetMapping("cover")
+	public ResultBean cover(){
+		return new ResultBean();
 	}
 
 

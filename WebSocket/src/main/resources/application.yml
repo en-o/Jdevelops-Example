@@ -2,5 +2,15 @@ jdevelops:
   jwt:
     token-secret: adsaweadadcxa123
   websocket:
+    enable: false
     multipart: false
     on-close: true
+
+
+spring:
+  redis:
+    host: 192.168.0.65
+    password: 123456
+    port: 8502
+    database: 1
+    timeout: 2000
