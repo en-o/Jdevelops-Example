@@ -22,6 +22,14 @@ public class ResultBean {
     @Cover(rule = CoverRuleEnum.MOBILE_PHONE)
     String iphone;
 
+
+    /**
+     * 手机号
+     */
+    @Cover(rule = CoverRuleEnum.PASSWORD)
+    String iphone2;
+
+
     /**
      * 固定电话
      */
