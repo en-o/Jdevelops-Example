@@ -3,18 +3,12 @@ package cn.tannn.delayjdk;
 
 import cn.jdevelops.delay.core.service.DelayService;
 import cn.jdevelops.delay.task.DelayTask;
-import cn.tannn.delayjdk.constant.JdkDelayMessageChannel;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @author tnnn
@@ -23,8 +17,10 @@ import java.util.List;
  */
 @SpringBootApplication
 
-public class DelayJdkApplication {
+public class DelayJdkApplication  implements ApplicationRunner {
 
+    @Autowired
+    private DelayService<DelayTask> jdkDelayService;
 
 
     public static void main(String[] args) {
@@ -32,6 +28,9 @@ public class DelayJdkApplication {
     }
 
 
-
-
+    @Override
+    public void run(ApplicationArguments args)  {
+        // 启动就开始消费延迟队列数据
+//        jdkDelayService.consumeDelay();
+    }
 }
