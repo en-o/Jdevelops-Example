@@ -89,3 +89,4 @@ hs_err_pid*
 /TestWebJPA/mvnw
 /redis/.gitignore
 /webs-springs/.gitignore
+/delay/delay-jdk/.gitignore
