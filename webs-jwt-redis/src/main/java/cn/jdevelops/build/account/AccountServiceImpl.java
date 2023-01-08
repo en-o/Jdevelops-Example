@@ -3,12 +3,10 @@ package cn.jdevelops.build.account;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.jdevelops.entity.basics.util.UUIDUtils;
-import cn.jdevelops.exception.exception.BusinessException;
+import cn.jdevelops.exception.exception.UserException;
 import cn.jdevelops.http.core.IpUtil;
 import cn.jdevelops.jredis.entity.RedisAccount;
-import cn.jdevelops.jredis.enums.RedisExceptionEnum;
 import cn.jdevelops.jredis.service.RedisService;
-import cn.jdevelops.jwt.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Service;
@@ -18,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
+import static cn.jdevelops.enums.result.UserExceptionEnum.DISABLED_ACCOUNT;
+import static cn.jdevelops.enums.result.UserExceptionEnum.EXCESSIVE_ATTEMPTS_ACCOUNT;
 
 /**
  * @author tomsun28
@@ -49,10 +50,10 @@ public class AccountServiceImpl implements AccountService {
             password = SecureUtil.md5(password + authUser.getSalt());
         }
         if (authUser.disabledAccount()) {
-            throw new BusinessException(RedisExceptionEnum.DISABLED_ACCOUNT.getMessage());
+            throw new UserException(DISABLED_ACCOUNT);
         }
         if (authUser.disabledAccount()) {
-            throw new BusinessException(RedisExceptionEnum.EXCESSIVE_ATTEMPTS_ACCOUNT.getMessage());
+            throw new UserException(EXCESSIVE_ATTEMPTS_ACCOUNT);
         }
         boolean equals = authUser.getPassword().equals(password);
         if(equals){
