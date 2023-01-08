@@ -37,20 +37,21 @@ public class DelayController {
 
     @ApiOperation("生产延时队列数据")
     @GetMapping("produce")
-    public String produce()  {
-        long timeMillis = System.currentTimeMillis();
+    public String produce(Long timeMillis)  {
+        Long paramTime = timeMillis == null ? System.currentTimeMillis() : timeMillis;
+        System.out.println(paramTime);
         //  填充延时队列数据
         List<DelayTask> delayTasks = Arrays.asList(
                 new DelayTask("test1", JdkDelayMessageChannel.PAY,
-                        timeMillis+(10*1000),new Date(timeMillis+(10*1000)).toString(),""),
+                        paramTime+(10*1000),new Date(paramTime+(10*1000)).toString(),""),
                 new DelayTask("test2",JdkDelayMessageChannel.PAY,
-                        timeMillis+(20*1000),new Date(timeMillis+(20*1000)).toString(),""),
+                        paramTime+(20*1000),new Date(paramTime+(20*1000)).toString(),""),
                 new DelayTask("test3",JdkDelayMessageChannel.PAY,
-                        timeMillis+(30*1000),new Date(timeMillis+(30*1000)).toString(),""),
+                        paramTime+(30*1000),new Date(paramTime+(30*1000)).toString(),""),
                 new DelayTask("test4",JdkDelayMessageChannel.PAY,
-                        timeMillis+(40*1000),new Date(timeMillis+(40*1000)).toString(),""),
+                        paramTime+(40*1000),new Date(paramTime+(40*1000)).toString(),""),
                 new DelayTask("test5",JdkDelayMessageChannel.PAY,
-                        timeMillis+(50*1000),new Date(timeMillis+(50*1000)).toString(),"")
+                        paramTime+(50*1000),new Date(paramTime+(50*1000)).toString(),"")
         );
         jdkDelayService.produce(delayTasks);
         return "生产延时队列数据...";
