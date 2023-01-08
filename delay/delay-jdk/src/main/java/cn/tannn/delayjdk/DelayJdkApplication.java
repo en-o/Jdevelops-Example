@@ -31,6 +31,6 @@ public class DelayJdkApplication  implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args)  {
         // 启动就开始消费延迟队列数据
-//        jdkDelayService.consumeDelay();
+        jdkDelayService.consumeDelay();
     }
 }
