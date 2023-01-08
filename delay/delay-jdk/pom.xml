@@ -12,6 +12,7 @@
     <artifactId>delay-jdk</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>delay-jdk</name>
+    <packaging>jar</packaging>
     <description>测试 jdk延迟队列在spring项目中的应用</description>
     <properties>
         <java.version>1.8</java.version>
