@@ -1,0 +1,14 @@
+# redis
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  redis:
+    database: 2
+    host: 192.168.0.65
+    port: 8502
+    password: 123456
+jdevelops:
+  swagger:
+    add-header-token: false
+    base-package: cn.tannn.delayredis.controller

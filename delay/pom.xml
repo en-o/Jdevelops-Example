@@ -17,6 +17,7 @@
 
     <modules>
         <module>delay-jdk</module>
+        <module>delay-redis</module>
     </modules>
 
 </project>
