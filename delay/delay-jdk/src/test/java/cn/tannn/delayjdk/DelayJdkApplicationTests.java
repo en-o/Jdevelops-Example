@@ -9,5 +9,4 @@ class DelayJdkApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

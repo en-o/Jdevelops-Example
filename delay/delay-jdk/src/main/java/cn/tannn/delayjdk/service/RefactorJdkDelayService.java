@@ -21,9 +21,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @version V1.0
  * @date 2023-01-05 16:34
  */
-@Service
+//@Service
 @Slf4j
-@Primary
+//@Primary
 public class RefactorJdkDelayService implements DelayService<DelayTask> {
 
 
