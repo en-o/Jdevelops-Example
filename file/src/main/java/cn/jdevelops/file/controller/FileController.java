@@ -42,6 +42,17 @@ public class FileController {
 	}
 
 
+	@ApiOperation(value = "批量文件上传", notes = "文件管理")
+	@PostMapping(value = "uploads")
+	public ResultVO<List<FilePathResult>> uploads(@Valid UploadsDTO uploadDTO) {
+		try {
+			return ResultVO.successForData(fileOperation.uploadFile(uploadDTO));
+		} catch (Exception e) {
+			throw new BusinessException("文件上传失败！", e);
+		}
+	}
+
+
 
 	@GetMapping("/download")
 	@ApiOperation(value = "文件下载", notes = "文件管理")
