@@ -1,5 +1,6 @@
 package cn.tannn.hjpa;
 
+import cn.jdevelops.jpa.server.dao.JpaBasicsDao;
 import cn.tannn.hjpa.dao.UserDao;
 import cn.tannn.hjpa.entity.User;
 import cn.tannn.hjpa.service.UserService;
@@ -29,7 +30,9 @@ public class GenericTest {
     @Test
     void tests() {
 //        System.out.println(userDao.findByLoginName("admin", User.class));
-        System.out.println(userDao.findByLoginName("admin", UserPO.class));
+//        System.out.println(userDao.findByLoginName("admin", UserPO.class));
+        UserDao jpaBasicsDao = userService.getJpaBasicsDao();
+        System.out.println(jpaBasicsDao.findByLoginName("admin", UserPO.class));
     }
 
 
