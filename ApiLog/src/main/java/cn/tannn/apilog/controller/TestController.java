@@ -132,4 +132,16 @@ public class TestController {
     public ResultVO<String> mp4(String param, HttpServletRequest request, HttpServletResponse response){
         return ResultVO.success(param);
     }
+
+
+    /**
+     * 测试chineseApi参数
+     * @param param param
+     * @return String of ResultVO
+     */
+    @GetMapping("/chinese")
+    @ApiLog(apiKey = "chinese",chineseApi = "测试chineseApi参数")
+    public ResultVO<String> chineseApi(String param, HttpServletRequest request, HttpServletResponse response){
+        return ResultVO.success(param);
+    }
 }
