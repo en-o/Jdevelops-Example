@@ -1,8 +1,11 @@
 package cn.tannn.apilog.controller;
 
 import cn.jdevelops.apilog.annotation.ApiLog;
+import cn.jdevelops.result.result.ResultVO;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -63,5 +66,70 @@ public class TestController {
     @ApiLog(apiKey = "#{test.param}")
     public String test34(@RequestBody TestBean test){
         return test.toString();
+    }
+
+
+    /**
+     * 测试返回 ResultVO对象
+     * @param param param
+     * @return String of ResultVO
+     */
+    @GetMapping("/result/vo")
+    @ApiLog(apiKey = "resultVo")
+    public ResultVO<String> resultVo(String param){
+        if(param.equals("0")){
+            return ResultVO.fail(param);
+        } else if (param.equals("1")) {
+            throw new RuntimeException("RE");
+        } else{
+            return ResultVO.success(param);
+        }
+
+    }
+
+
+    /**
+     * 测试返回 多参数
+     * @param param param
+     * @return String of ResultVO
+     */
+    @GetMapping("/mp")
+    @ApiLog(apiKey = "mp")
+    public ResultVO<String> mp(String param,String param2){
+        return ResultVO.fail(param+param2);
+    }
+
+
+    /**
+     * 测试返回 多参数2(request)
+     * @param param param
+     * @return String of ResultVO
+     */
+    @GetMapping("/mp2")
+    @ApiLog(apiKey = "mp2")
+    public ResultVO<String> mp2(String param,HttpServletRequest request){
+        return ResultVO.success(param);
+    }
+
+    /**
+     * 测试返回 多参数3(response)
+     * @param param param
+     * @return String of ResultVO
+     */
+    @GetMapping("/mp3")
+    @ApiLog(apiKey = "mp3")
+    public ResultVO<String> mp3(String param, HttpServletResponse response){
+        return ResultVO.success(param);
+    }
+
+    /**
+     * 测试返回 多参数4(request,response)
+     * @param param param
+     * @return String of ResultVO
+     */
+    @GetMapping("/mp4")
+    @ApiLog(apiKey = "mp4")
+    public ResultVO<String> mp4(String param, HttpServletRequest request, HttpServletResponse response){
+        return ResultVO.success(param);
     }
 }
