@@ -10,5 +10,8 @@ jdevelops:
         #  add-path-patterns: /**
         # \u653E\u884C\u63A5\u53E3\u6216\u8005\u8D44\u6E90\u5730\u5740
         exclude-path-patterns: [/letGo,/letGo2]
-#    cookie: true
+    cookie:
+      cookie: true
+      cookie-key: tan
+
 
