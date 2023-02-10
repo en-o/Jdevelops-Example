@@ -5,14 +5,13 @@ import cn.jdevelops.build.account.AccountService;
 import cn.jdevelops.build.account.LoginDTO;
 import cn.jdevelops.build.account.RegisterDTO;
 import cn.jdevelops.jredis.entity.RedisAccount;
-import cn.jdevelops.jredis.entity.only.SignEntity;
 import cn.jdevelops.jredis.service.RedisService;
 import cn.jdevelops.jredis.util.JwtRedisUtil;
 import cn.jdevelops.jwt.annotation.ApiMapping;
 import cn.jdevelops.jwt.constant.JwtConstant;
+import cn.jdevelops.jwt.entity.SignEntity;
 import cn.jdevelops.jwt.util.JwtUtil;
 import cn.jdevelops.result.result.ResultVO;
-import com.alibaba.fastjson.JSON;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import io.swagger.annotations.Api;
@@ -27,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -79,14 +77,15 @@ public class LoginController {
             log.debug("issue token success, account: {} -- token: {}", login, sign);
         }
         // 此处数据最好用查出来的用,我这里没有查返回所以自己写了
-        RedisAccount<Map<String, String>> build = RedisAccount.<Map<String, String>>builder().disabledAccount(false)
-                .excessiveAttempts(false)
-                .userCode(login.getUsername())
-                .salt("")
-                .password(login.getPassword())
-                .userInfo(responseData).build();
+        RedisAccount redisAccount = new RedisAccount();
+        redisAccount.setDisabledAccount(false);
+        redisAccount.setExcessiveAttempts(false);
+        redisAccount.setUserCode(login.getUsername());
+        redisAccount.setSalt("");
+        redisAccount.setPassword(login.getPassword());
+        redisAccount.setUserInfo(responseData);
         // 设置当前登录用的状态
-        redisService.storageUserStatus(build);
+        redisService.storageUserStatus(redisAccount);
         return ResultVO.successForData(responseData);
     }
 

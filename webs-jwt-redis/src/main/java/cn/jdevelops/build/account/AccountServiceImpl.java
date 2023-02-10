@@ -133,16 +133,16 @@ public class AccountServiceImpl implements AccountService {
        try {
            if (authUserOptional.isPresent()) {
                AuthUser authUser = authUserOptional.get();
-               RedisAccount.RedisAccountBuilder accountBuilder = RedisAccount.builder().userCode(username)
-                       .password(authUser.getPassword())
-                       .salt(authUser.getSalt())
+               RedisAccount<AuthUser> accountBuilder = new RedisAccount<>();
+               accountBuilder.setUserCode(username);
+               accountBuilder.setPassword(authUser.getPassword());
+               accountBuilder.setSalt(authUser.getSalt());
                        //  是否禁用
-                       .disabledAccount(authUser.disabledAccount())
+               accountBuilder.setDisabledAccount(authUser.disabledAccount());
                        // 是否锁定账户
-                       .excessiveAttempts(authUser.excessiveAttempts());
-               RedisAccount build = accountBuilder.build();
-               redisService.storageUserStatus(build);
-               return build;
+               accountBuilder.setExcessiveAttempts(authUser.excessiveAttempts());
+               redisService.storageUserStatus(accountBuilder);
+               return accountBuilder;
            }
        }catch (Exception e){
            e.printStackTrace();

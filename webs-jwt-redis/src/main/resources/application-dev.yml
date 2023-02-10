@@ -6,9 +6,10 @@ server:
 # 数据库配置
 spring:
   redis:
-    database: 6
+    database: 2
     host: 127.0.0.1
-    port: 6379
+    port: 8502
+    password: 123456
   datasource:
     password: root
     username: root
