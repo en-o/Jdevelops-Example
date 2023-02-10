@@ -1,6 +1,7 @@
 package cn.tannn.jwt.controller;
 
-import cn.jdevelops.jwtweb.annotation.ApiMapping;
+import cn.jdevelops.jwt.annotation.ApiMapping;
+import cn.jdevelops.jwt.util.JwtUtil;
 import cn.jdevelops.result.result.ResultVO;
 import cn.tannn.jwt.result.ReplaceResultVO;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,12 @@ public class JwtController {
     @GetMapping("stop")
     public String stop(){
         return "拦截我";
+    }
+
+
+    @ApiMapping(value = "token",checkToken = false)
+    public String token(){
+        return JwtUtil.sign("ada");
     }
 
 

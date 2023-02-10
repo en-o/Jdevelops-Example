@@ -1,6 +1,6 @@
 package cn.tannn.jwt.result;
 
-import cn.jdevelops.exception.result.ExceptionResult;
+import cn.jdevelops.result.custom.ExceptionResult;
 import org.springframework.stereotype.Component;
 
 /**
