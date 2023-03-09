@@ -1,0 +1,18 @@
+### 测试新增
+GET http://localhost:8080/add?cron=0/2 * * * * ?
+
+### 测试分页
+GET http://localhost:8080/page
+
+### 测试删除
+GET http://localhost:8080/delete
+
+### 测试暂停
+GET http://localhost:8080/pause
+
+### 测试重启
+GET http://localhost:8080/resume
+
+### 测试重置
+GET http://localhost:8080/res?cron=0/3 * * * * ?
+
