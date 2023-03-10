@@ -22,7 +22,7 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>cn.tannn</groupId>
+            <groupId>cn.jdevelops</groupId>
             <artifactId>spring-quartz-quick</artifactId>
             <version>2.0.6</version>
         </dependency>
