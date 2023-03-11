@@ -1,9 +1,11 @@
-
+spring:
+  profiles:
+    active: local
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
 jdevelops:
   swagger:
     base-package: cn.jdevelops.file.controller
     add-header-token: false
 
-spring:
-  profiles:
-    active: local
