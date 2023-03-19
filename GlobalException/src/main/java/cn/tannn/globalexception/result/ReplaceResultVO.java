@@ -1,6 +1,6 @@
 package cn.tannn.globalexception.result;
 
-import cn.jdevelops.result.result.ResultVO;
+import cn.jdevelops.result.emums.ResultCodeEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -38,27 +38,32 @@ public class ReplaceResultVO<T> implements Serializable {
 
 
 
-    public static <T> ReplaceResultVO<T> success(int code, String message) {
+    public static <T> ReplaceResultVO<T> success() {
+        ReplaceResultVO<T> resultVO = new ReplaceResultVO<>();
+        resultVO.setZhuangTaiMa(200);
+        resultVO.setXiaoXi("success");
+        return resultVO;
+    }
+
+
+
+    public static <T> ReplaceResultVO<T> fail() {
+        ReplaceResultVO<T> resultVO = new ReplaceResultVO<>();
+        resultVO.setZhuangTaiMa(500);
+        resultVO.setXiaoXi("fail");
+        return resultVO;
+    }
+    public static <T> ReplaceResultVO result(int code, String message) {
         ReplaceResultVO<T> resultVO = new ReplaceResultVO<>();
         resultVO.setZhuangTaiMa(code);
         resultVO.setXiaoXi(message);
         return resultVO;
     }
 
-    public static <T> ReplaceResultVO<T> fail(int code, String message, T data) {
+    public static <T> ReplaceResultVO result(ResultCodeEnum  result) {
         ReplaceResultVO<T> resultVO = new ReplaceResultVO<>();
-        resultVO.setZhuangTaiMa(code);
-        resultVO.setXiaoXi(message);
-        resultVO.setSJu(data);
+        resultVO.setZhuangTaiMa(result.getCode());
+        resultVO.setXiaoXi(result.getMessage());
         return resultVO;
     }
-
-    public static <T> ReplaceResultVO<T> fail(int code, String message) {
-        ReplaceResultVO<T> resultVO = new ReplaceResultVO<>();
-        resultVO.setZhuangTaiMa(code);
-        resultVO.setXiaoXi(message);
-        return resultVO;
-    }
-
-
 }

@@ -1,7 +1,7 @@
 package cn.tannn.globalexception;
 
 import cn.jdevelops.exception.exception.BusinessException;
-import cn.jdevelops.result.result.ResultVO;
+import cn.jdevelops.result.response.ResultVO;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,7 +28,7 @@ public class GlobalExceptionApplication {
     @GetMapping("/testGlobalErrors")
     public ResultVO<Integer> testGlobalErrors(){
         Integer i  = 1/0;
-        return ResultVO.success(i, "测试全局异常拦截处理");
+        return ResultVO.success( "测试全局异常拦截处理",i);
     }
 
     /**
@@ -59,7 +59,7 @@ public class GlobalExceptionApplication {
      */
     @GetMapping("/testResult1")
     public ResultVO<Integer> testResult1(){
-        return ResultVO.<Integer>builder().code(100).message("测试").data(1).build();
+        return new ResultVO<>(100, "测试", 1);
     }
 
 
@@ -69,8 +69,7 @@ public class GlobalExceptionApplication {
      */
     @GetMapping("/testResult2")
     public ResultVO<Map<String,String>> testResult2(){
-        return ResultVO.<Map<String,String>>builder().code(100).message("测试")
-                .data(ImmutableMap.of("key","value")).build();
+        return new ResultVO<>(100, "测试", ImmutableMap.of("key","value"));
     }
 
 

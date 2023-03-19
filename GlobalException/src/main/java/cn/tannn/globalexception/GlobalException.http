@@ -1,0 +1,15 @@
+### by zero异常
+GET http://localhost:8080/testGlobalErrors
+
+### 测试全局异常拦截处理
+GET http://localhost:8080/testGlobalTry
+
+### ResultVO
+GET http://localhost:8080/testResult0
+
+### ResultVO
+GET http://localhost:8080/testResult1
+
+### ResultVO
+GET http://localhost:8080/testResult2
+

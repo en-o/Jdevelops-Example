@@ -1,6 +1,7 @@
 package cn.tannn.globalexception.result;
 
 import cn.jdevelops.result.custom.ExceptionResult;
+import cn.jdevelops.result.emums.ResultCodeEnum;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,20 +9,27 @@ import org.springframework.stereotype.Component;
  * @author tn
  * @date 2021-01-20 10:50
  */
-@Component("exceptionResult")
+//@Component("exceptionResult")
 public class CustomResult implements ExceptionResult<ReplaceResultVO> {
+
+
     @Override
-    public ReplaceResultVO success(int code, String message, Object object) {
-        return ReplaceResultVO.success(code,message);
+    public ReplaceResultVO result(ResultCodeEnum resultCodeEnum) {
+        return ReplaceResultVO.result(resultCodeEnum);
     }
 
     @Override
-    public ReplaceResultVO error(int code, String message, Object object) {
-        return ReplaceResultVO.fail(code, message, object);
+    public ReplaceResultVO result(int code, String message) {
+        return ReplaceResultVO.result(code,message);
     }
 
     @Override
-    public ReplaceResultVO error(int code, String message) {
-        return ReplaceResultVO.fail(code, message);
+    public ReplaceResultVO success() {
+        return ReplaceResultVO.success();
+    }
+
+    @Override
+    public ReplaceResultVO error() {
+        return ReplaceResultVO.fail();
     }
 }
