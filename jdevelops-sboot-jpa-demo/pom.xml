@@ -15,6 +15,7 @@
     <description>jdevelops-sboot-jpa-demo</description>
     <properties>
         <java.version>8</java.version>
+        <jdevelops.last.version>2.0.7</jdevelops.last.version>
     </properties>
     <dependencies>
         <dependency>
@@ -25,7 +26,7 @@
         <dependency>
             <groupId>cn.jdevelops</groupId>
             <artifactId>jdevelops-sboot-jpa</artifactId>
-            <version>2.0.7</version>
+            <version>${jdevelops.last.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
