@@ -1,5 +1,6 @@
 package cn.tannn.jdevelopssbootjpademo.dto;
 
+import cn.jdevelops.data.jap.annotation.JpaSelectIgnoreField;
 import cn.jdevelops.data.jap.annotation.JpaSelectOperator;
 import cn.jdevelops.data.jap.enums.SQLConnect;
 import cn.jdevelops.data.jap.enums.SQLOperator;
@@ -26,7 +27,7 @@ public class UserFindDTO extends SerializableBean<UserFindDTO> {
 	/**
 	 * 姓名
 	 */
-	@JpaSelectOperator(operator = SQLOperator.LIKE ,connect = SQLConnect.AND)
+	@JpaSelectOperator(operator = SQLOperator.LIKE ,connect = SQLConnect.AND,fieldName = "name")
 	private String name;
 	/**
 	 * 地址
@@ -44,6 +45,7 @@ public class UserFindDTO extends SerializableBean<UserFindDTO> {
 	 * 手机号/联系电话
 	 */
 	@JpaSelectOperator(operator = SQLOperator.EQ ,connect = SQLConnect.AND)
+	@JpaSelectIgnoreField
 	private String phone;
 
 }

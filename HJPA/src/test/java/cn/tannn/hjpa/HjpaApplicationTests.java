@@ -31,14 +31,14 @@ class HjpaApplicationTests {
         jpaSelect.or(Restrictions.like("name", "用户", true));
         jpaSelect.or(Restrictions.like("loginName", "user", true));
         jpaSelect.add(Restrictions.eq("address", "重庆", true));
+//        userService.getJpaBasicsDao().findAll(jpaSelect).forEach(System.out::println);
+        JPAUtilExpandCriteria<User> where1 = new JPAUtilExpandCriteria<>();
+        where1.add(Restrictions.eq("address", "重庆", true));
+        JPAUtilExpandCriteria<User> where2= new JPAUtilExpandCriteria<>();
+        where2.or(Restrictions.like("name", "用户", true));
+        where2.or(Restrictions.eq("loginPwd", "1231", true));
+        jpaSelect.and(where1);
         userService.getJpaBasicsDao().findAll(jpaSelect).forEach(System.out::println);
-//        JPAUtilExpandCriteria<User> where1 = new JPAUtilExpandCriteria<>();
-//        where1.add(Restrictions.eq("address", "重庆", true));
-//        JPAUtilExpandCriteria<User> where2= new JPAUtilExpandCriteria<>();
-//        where2.or(Restrictions.like("name", "用户", true));
-//        where2.or(Restrictions.eq("loginPwd", "1231", true));
-//        jpaSelect.and(where1);
-//        userService.getJpaBasicsDao().findAll(jpaSelect);
     }
 
 
