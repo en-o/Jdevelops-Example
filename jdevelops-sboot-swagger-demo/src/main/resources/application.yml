@@ -1,5 +1,5 @@
 springdoc:
-  # \u9ED8\u8BA4\u662Ffalse\uFF0C\u9700\u8981\u8BBE\u7F6E\u4E3Atrue
+  # default  false（parameter abnormality），need setting true
   default-flat-param-object: true
 knife4j:
   enable: true
@@ -7,10 +7,11 @@ knife4j:
     language: zh-CN
     custom-code: 500
     enable-footer-custom: false
-    footer-custom-content: \u6211\u662F\u81EA\u5B9A\u4E49\u7684Footer
 jdevelops:
   swagger:
-    base-package: cn.tannn.springbootparentswagger.controller,cn.tannn.springbootparentswagger.api
+    base-package:
+      - cn.tannn.springbootparentswagger.controller
+      - cn.tannn.springbootparentswagger.api
     swagger-security-schemes:
       - {
           security: false,
