@@ -16,10 +16,11 @@ import java.util.Map;
  */
 @RequestMapping("get")
 @Slf4j
+@RestController
 public class GetController {
 
 
-    @GetMapping("/")
+    @GetMapping()
     public void test(String param){
         log.info("参数:{}", param);
     }
@@ -27,7 +28,7 @@ public class GetController {
     /**
      * 测试get常规请求
      */
-    @GetMapping("/v1/get")
+    @GetMapping("/v1")
     public void v1(@RequestParam("one") String one,
                     @RequestParam("two") BigDecimal number) {
         log.info("参数:{},{}", one, number);
@@ -36,7 +37,7 @@ public class GetController {
     /**
      * 测试get rest  请求
      */
-    @GetMapping("/v2/get/{one}/{two}")
+    @GetMapping("/v2/{one}/{two}")
     public void v2(@PathVariable("one") String one,
                     @PathVariable("two") BigDecimal number) {
         log.info("参数:{},{}", one, number);
@@ -45,15 +46,15 @@ public class GetController {
     /**
      * 测试get map  请求
      */
-    @GetMapping("/v3/get")
-    public void v3(Map<String,String> map) {
+    @GetMapping("/v3")
+    public void v3(@RequestParam Map<String,String> map) {
         log.info("{}", new Gson().toJson(map));
     }
 
     /**
      * 测试get bean  请求
      */
-    @GetMapping("/v4/get")
+    @GetMapping("/v4")
     public void v4(UserEntity map) {
         log.info("{}", map.toString());
     }
@@ -61,7 +62,7 @@ public class GetController {
     /**
      * 测试get request  请求
      */
-    @GetMapping("/v5/get")
+    @GetMapping("/v5")
     public void v5(String param, HttpServletRequest request) {
         log.info("{}", param);
     }
@@ -70,7 +71,7 @@ public class GetController {
     /**
      * 测试get response  请求
      */
-    @GetMapping("/v6/get")
+    @GetMapping("/v6")
     public void v6(String param,  HttpServletResponse response) {
         log.info("{}", param);
     }
@@ -78,8 +79,8 @@ public class GetController {
     /**
      * 测试get response，request  请求
      */
-    @GetMapping("/v6/get")
-    public void v6(String param, HttpServletRequest request,  HttpServletResponse response) {
+    @GetMapping("/v7")
+    public void v7(String param, HttpServletRequest request,  HttpServletResponse response) {
         log.info("{}", param);
     }
 
