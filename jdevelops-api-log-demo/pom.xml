@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.tan</groupId>
-    <artifactId>jdevelops-api-log</artifactId>
+    <artifactId>jdevelops-api-log-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>jdevelops-api-log</name>
-    <description>jdevelops-api-log</description>
+    <name>jdevelops-api-log-demo</name>
+    <description>jdevelops-api-log-demo</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
