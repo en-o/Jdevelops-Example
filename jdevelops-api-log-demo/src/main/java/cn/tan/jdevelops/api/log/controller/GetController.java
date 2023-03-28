@@ -4,6 +4,7 @@ package cn.tan.jdevelops.api.log.controller;
 import cn.tan.jdevelops.api.log.entity.UserEntity;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,10 +20,13 @@ import java.util.Map;
 @RestController
 public class GetController {
 
+//    @Value("${jdevelops.api.log.enabled:xx}")
+//    private String ddd;
 
     @GetMapping()
     public void test(String param){
         log.info("参数:{}", param);
+//        log.info("ddd:{}", ddd);
     }
 
     /**
