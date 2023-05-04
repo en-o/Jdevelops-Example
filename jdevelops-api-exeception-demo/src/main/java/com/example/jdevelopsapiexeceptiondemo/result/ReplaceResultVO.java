@@ -1,6 +1,7 @@
-package cn.tannn.globalexception.result;
+package com.example.jdevelopsapiexeceptiondemo.result;
 
-import cn.jdevelops.result.emums.ResultCodeEnum;
+
+import cn.jdevelops.api.result.emums.ResultCodeEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -60,7 +61,7 @@ public class ReplaceResultVO<T> implements Serializable {
         return resultVO;
     }
 
-    public static <T> ReplaceResultVO result(ResultCodeEnum  result) {
+    public static <T> ReplaceResultVO result(ResultCodeEnum result) {
         ReplaceResultVO<T> resultVO = new ReplaceResultVO<>();
         resultVO.setZhuangTaiMa(result.getCode());
         resultVO.setXiaoXi(result.getMessage());

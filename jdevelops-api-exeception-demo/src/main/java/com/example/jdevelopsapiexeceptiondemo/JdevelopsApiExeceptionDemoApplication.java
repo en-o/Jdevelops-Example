@@ -1,7 +1,7 @@
-package cn.tannn.globalexception;
+package com.example.jdevelopsapiexeceptiondemo;
 
-import cn.jdevelops.exception.exception.BusinessException;
-import cn.jdevelops.result.response.ResultVO;
+import cn.jdevelops.api.exception.exception.BusinessException;
+import cn.jdevelops.api.result.response.ResultVO;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,17 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-/**
- * @author tnnn
- */
 @SpringBootApplication
 @RestController
-public class GlobalExceptionApplication {
+public class JdevelopsApiExeceptionDemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GlobalExceptionApplication.class, args);
+        SpringApplication.run(JdevelopsApiExeceptionDemoApplication.class, args);
     }
-
     /**
      * 测试全局异常拦截处理
      * @return ResultVO
@@ -71,7 +67,5 @@ public class GlobalExceptionApplication {
     public ResultVO<Map<String,String>> testResult2(){
         return new ResultVO<>(100, "测试", ImmutableMap.of("key","value"));
     }
-
-
 
 }

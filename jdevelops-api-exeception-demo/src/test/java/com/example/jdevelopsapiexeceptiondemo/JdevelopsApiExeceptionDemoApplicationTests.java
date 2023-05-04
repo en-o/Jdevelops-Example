@@ -1,10 +1,10 @@
-package cn.tannn.globalexception;
+package com.example.jdevelopsapiexeceptiondemo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GlobalExceptionApplicationTests {
+class JdevelopsApiExeceptionDemoApplicationTests {
 
     @Test
     void contextLoads() {

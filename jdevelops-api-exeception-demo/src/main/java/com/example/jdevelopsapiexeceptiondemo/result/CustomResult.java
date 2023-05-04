@@ -1,8 +1,7 @@
-package cn.tannn.globalexception.result;
+package com.example.jdevelopsapiexeceptiondemo.result;
 
-import cn.jdevelops.result.custom.ExceptionResult;
-import cn.jdevelops.result.emums.ResultCodeEnum;
-import org.springframework.stereotype.Component;
+import cn.jdevelops.api.result.custom.ExceptionResult;
+import cn.jdevelops.api.result.emums.ResultCodeEnum;
 
 /**
  * 自定义返回包装类
