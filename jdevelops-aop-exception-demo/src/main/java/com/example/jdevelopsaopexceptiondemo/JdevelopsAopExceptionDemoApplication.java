@@ -1,16 +1,13 @@
-package org.example;
+package com.example.jdevelopsaopexceptiondemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * @author tnnn
- */
 @SpringBootApplication
-public class AopExceptionApplication {
+public class JdevelopsAopExceptionDemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AopExceptionApplication.class, args);
+        SpringApplication.run(JdevelopsAopExceptionDemoApplication.class, args);
     }
 
 }

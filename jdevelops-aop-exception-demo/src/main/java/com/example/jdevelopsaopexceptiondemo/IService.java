@@ -1,7 +1,7 @@
-package org.example;
+package com.example.jdevelopsaopexceptiondemo;
 
-import cn.jdevelops.exception.annotation.DisposeException;
 
+import cn.jdevelops.aop.exception.exception.annotation.DisposeException;
 import org.springframework.stereotype.Service;
 
 /**

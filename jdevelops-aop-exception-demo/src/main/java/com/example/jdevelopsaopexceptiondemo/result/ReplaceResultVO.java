@@ -1,8 +1,4 @@
-package org.example.result;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+package com.example.jdevelopsaopexceptiondemo.result;
 
 import java.io.Serializable;
 
@@ -13,9 +9,7 @@ import java.io.Serializable;
  * @version 1
  * @date 2020/6/8 17:28
  */
-@Getter
-@Setter
-@ToString
+
 public class ReplaceResultVO<T> implements Serializable {
 
     private static final long serialVersionUID = -7719394736046024902L;
@@ -48,7 +42,7 @@ public class ReplaceResultVO<T> implements Serializable {
         ReplaceResultVO<T> resultVO = new ReplaceResultVO<>();
         resultVO.setZhuangTaiMa(code);
         resultVO.setXiaoXi(message);
-        resultVO.setSJu(data);
+        resultVO.setsJu(data);
         return resultVO;
     }
 
@@ -59,5 +53,36 @@ public class ReplaceResultVO<T> implements Serializable {
         return resultVO;
     }
 
+    @Override
+    public String toString() {
+        return "ReplaceResultVO{" +
+                "zhuangTaiMa=" + zhuangTaiMa +
+                ", xiaoXi='" + xiaoXi + '\'' +
+                ", sJu=" + sJu +
+                '}';
+    }
 
+    public Integer getZhuangTaiMa() {
+        return zhuangTaiMa;
+    }
+
+    public void setZhuangTaiMa(Integer zhuangTaiMa) {
+        this.zhuangTaiMa = zhuangTaiMa;
+    }
+
+    public String getXiaoXi() {
+        return xiaoXi;
+    }
+
+    public void setXiaoXi(String xiaoXi) {
+        this.xiaoXi = xiaoXi;
+    }
+
+    public T getsJu() {
+        return sJu;
+    }
+
+    public void setsJu(T sJu) {
+        this.sJu = sJu;
+    }
 }

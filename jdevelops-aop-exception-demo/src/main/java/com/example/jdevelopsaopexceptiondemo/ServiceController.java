@@ -1,4 +1,4 @@
-package org.example;
+package com.example.jdevelopsaopexceptiondemo;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
