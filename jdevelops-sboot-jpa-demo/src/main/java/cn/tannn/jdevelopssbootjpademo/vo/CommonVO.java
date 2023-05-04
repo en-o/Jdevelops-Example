@@ -1,6 +1,6 @@
 package cn.tannn.jdevelopssbootjpademo.vo;
 
-import cn.jdevelops.result.bean.SerializableBean;
+import cn.jdevelops.api.result.bean.SerializableBean;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
