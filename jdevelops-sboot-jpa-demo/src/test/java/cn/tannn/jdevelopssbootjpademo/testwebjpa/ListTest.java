@@ -1,10 +1,7 @@
 package cn.tannn.jdevelopssbootjpademo.testwebjpa;
 
-import cn.jdevelops.data.jap.page.JpaPageResult;
-import cn.jdevelops.result.request.SortPageDTO;
 import cn.tannn.jdevelopssbootjpademo.entity.User;
 import cn.tannn.jdevelopssbootjpademo.service.UserService;
-import cn.tannn.jdevelopssbootjpademo.vo.UserVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

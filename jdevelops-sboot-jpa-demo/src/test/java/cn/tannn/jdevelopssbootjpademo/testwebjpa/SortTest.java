@@ -1,6 +1,6 @@
 package cn.tannn.jdevelopssbootjpademo.testwebjpa;
 
-import cn.jdevelops.result.request.SortDTO;
+import cn.jdevelops.api.result.request.SortDTO;
 import cn.tannn.jdevelopssbootjpademo.entity.User;
 import cn.tannn.jdevelopssbootjpademo.service.UserService;
 import cn.tannn.jdevelopssbootjpademo.vo.UserVO;
