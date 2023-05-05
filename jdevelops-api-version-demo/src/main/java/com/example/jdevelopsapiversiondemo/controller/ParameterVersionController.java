@@ -1,4 +1,4 @@
-package cn.tannn.apiversion.controller;
+package com.example.jdevelopsapiversiondemo.controller;
 
 import cn.jdevelops.version.annotation.ApiVersion;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.1</version>
+        <version>2.7.9</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>cn.tannn</groupId>
-    <artifactId>ApiVersion</artifactId>
+    <groupId>com.example</groupId>
+    <artifactId>jdevelops-api-version-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ApiVersion</name>
-    <description>ApiVersion</description>
+    <name>jdevelops-api-version-demo</name>
+    <description>jdevelops-api-version-demo</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -21,17 +21,21 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <!-- 全局异常 -->
+        <dependency>
+            <groupId>cn.jdevelops</groupId>
+            <artifactId>jdevelops-api-exception</artifactId>
+            <version>2.0.7</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.jdevelops</groupId>
+            <artifactId>jdevelops-api-version</artifactId>
+            <version>2.0.7</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.jdevelops</groupId>
-            <artifactId>aops-apiversion</artifactId>
-            <version>2.0.6</version>
         </dependency>
     </dependencies>
 
