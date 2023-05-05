@@ -32,7 +32,7 @@ spring:
         temp:
           use_jdbc_metadata_defaults: false
 ---
-# \u6570\u636E\u5E93\u914D\u7F6E
+# mysql
 spring:
   profiles:
     - mysql

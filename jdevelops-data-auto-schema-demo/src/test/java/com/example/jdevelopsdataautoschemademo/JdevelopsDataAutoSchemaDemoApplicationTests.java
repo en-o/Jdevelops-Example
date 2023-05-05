@@ -1,10 +1,10 @@
-package cn.tannn.autoschema;
+package com.example.jdevelopsdataautoschemademo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AutoSchemaApplicationTests {
+class JdevelopsDataAutoSchemaDemoApplicationTests {
 
     @Test
     void contextLoads() {
