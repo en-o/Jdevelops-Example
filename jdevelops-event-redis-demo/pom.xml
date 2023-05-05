@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.3</version>
+        <version>2.7.9</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>cn.tannn</groupId>
-    <artifactId>redis</artifactId>
+    <groupId>com.example</groupId>
+    <artifactId>jdevelops-event-redis-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>redis</name>
-    <description>redis使用</description>
+    <name>jdevelops-event-redis-demo</name>
+    <description>jdevelops-event-redis-demo</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -22,25 +22,22 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- redis  -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <groupId>cn.jdevelops</groupId>
+            <artifactId>jdevelops-event-redis</artifactId>
+            <version>2.0.7</version>
+        </dependency>
+        <!-- 全局注解 -->
+        <dependency>
+            <groupId>cn.jdevelops</groupId>
+            <artifactId>jdevelops-api-exception</artifactId>
+            <version>2.0.7</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>cn.jdevelops</groupId>
-            <artifactId>caches-redis-pub</artifactId>
-            <version>2.0.3</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.jdevelops</groupId>
-            <artifactId>apis-exception</artifactId>
-            <version>2.0.3</version>
         </dependency>
     </dependencies>
 
@@ -49,14 +46,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
             </plugin>
         </plugins>
     </build>

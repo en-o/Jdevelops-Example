@@ -1,10 +1,10 @@
-package cn.tannn.redis;
+package com.example.jdevelopseventredisdemo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RedisApplicationTests {
+class JdevelopsEventRedisDemoApplicationTests {
 
     @Test
     void contextLoads() {
