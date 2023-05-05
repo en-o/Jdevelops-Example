@@ -1,6 +1,9 @@
 package com.example.jdevelopswebswebsocketdemo;
 
+import cn.jdevelops.sboot.websocket.core.SocketController;
+import cn.jdevelops.util.jwt.core.JwtService;
 import cn.jdevelops.webs.websocket.service.WebSocketServer;
+import org.jose4j.lang.JoseException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,8 +39,8 @@ public class TanWebSocketController extends SocketController {
      * @return
      */
     @RequestMapping("/getToken")
-    public String getToken(){
-        return  JwtUtil.sign("tan", Collections.singletonMap("sex","男"));
+    public String getToken() throws JoseException {
+        return  JwtService.generateToken("tan");
 
     }
 
