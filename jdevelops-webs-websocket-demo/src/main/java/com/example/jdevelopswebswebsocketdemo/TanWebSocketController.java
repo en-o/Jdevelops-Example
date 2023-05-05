@@ -1,8 +1,6 @@
-package cn.tannn.websocket.controller;
+package com.example.jdevelopswebswebsocketdemo;
 
-import cn.jdevelops.jwt.util.JwtUtil;
-import cn.jdevelops.websocket.client.controller.SocketController;
-import cn.jdevelops.websocket.core.service.WebSocketServer;
+import cn.jdevelops.webs.websocket.service.WebSocketServer;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,10 +14,10 @@ import java.util.Collections;
  */
 @RestController
 @RequestMapping("websocket")
-public class WebSocketController extends SocketController {
+public class TanWebSocketController extends SocketController {
 
 
-    public WebSocketController(WebSocketServer webSocketServer) {
+    public TanWebSocketController(WebSocketServer webSocketServer) {
         super(webSocketServer);
     }
 

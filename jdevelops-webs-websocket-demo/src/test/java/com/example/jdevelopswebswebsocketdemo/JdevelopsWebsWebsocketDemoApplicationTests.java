@@ -1,10 +1,10 @@
-package cn.tannn.websocket;
+package com.example.jdevelopswebswebsocketdemo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WebSocketApplicationTests {
+class JdevelopsWebsWebsocketDemoApplicationTests {
 
     @Test
     void contextLoads() {
