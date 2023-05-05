@@ -1,7 +1,7 @@
-package cn.tannn.apilog.config;
+package cn.tan.jdevelops.api.log.save.config;
 
-import cn.jdevelops.apilog.bean.ApiMonitoring;
-import cn.jdevelops.apilog.server.ApiLogSave;
+import cn.jdevelops.aop.api.log.bean.ApiMonitoring;
+import cn.jdevelops.aop.api.log.server.ApiLogSave;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

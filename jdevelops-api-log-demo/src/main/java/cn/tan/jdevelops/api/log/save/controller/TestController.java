@@ -1,7 +1,6 @@
-package cn.tannn.apilog.controller;
+package cn.tan.jdevelops.api.log.save.controller;
 
-import cn.jdevelops.apilog.annotation.ApiLog;
-import cn.jdevelops.result.result.ResultVO;
+import cn.jdevelops.aop.api.log.annotation.ApiLog;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,14 +55,14 @@ public class TestController {
 
 
     @PostMapping("/4")
-    @ApiLog(apiKey = "#{test.param}")
+    @ApiLog(expression = "#{test.param}")
     public String test34(@RequestBody Map<String,Object> test){
         return test.toString();
     }
 
 
     @PostMapping("/5")
-    @ApiLog(apiKey = "#{test.param}")
+    @ApiLog(expression = "#{test.param}")
     public String test34(@RequestBody TestBean test){
         return test.toString();
     }
@@ -75,7 +74,7 @@ public class TestController {
      * @return String of ResultVO
      */
     @GetMapping("/result/vo")
-    @ApiLog(apiKey = "resultVo")
+    @ApiLog(expression = "resultVo")
     public ResultVO<String> resultVo(String param){
         if(param.equals("0")){
             return ResultVO.fail(param);
@@ -94,7 +93,7 @@ public class TestController {
      * @return String of ResultVO
      */
     @GetMapping("/mp")
-    @ApiLog(apiKey = "mp")
+    @ApiLog(expression = "mp")
     public ResultVO<String> mp(String param,String param2){
         return ResultVO.fail(param+param2);
     }
@@ -106,7 +105,7 @@ public class TestController {
      * @return String of ResultVO
      */
     @GetMapping("/mp2")
-    @ApiLog(apiKey = "mp2")
+    @ApiLog(expression = "mp2")
     public ResultVO<String> mp2(String param,HttpServletRequest request){
         return ResultVO.success(param);
     }
@@ -117,7 +116,7 @@ public class TestController {
      * @return String of ResultVO
      */
     @GetMapping("/mp3")
-    @ApiLog(apiKey = "mp3")
+    @ApiLog(expression = "mp3")
     public ResultVO<String> mp3(String param, HttpServletResponse response){
         return ResultVO.success(param);
     }
@@ -128,7 +127,7 @@ public class TestController {
      * @return String of ResultVO
      */
     @GetMapping("/mp4")
-    @ApiLog(apiKey = "mp4")
+    @ApiLog(expression = "mp4")
     public ResultVO<String> mp4(String param, HttpServletRequest request, HttpServletResponse response){
         return ResultVO.success(param);
     }
@@ -140,7 +139,7 @@ public class TestController {
      * @return String of ResultVO
      */
     @GetMapping("/chinese")
-    @ApiLog(apiKey = "chinese",chineseApi = "测试chineseApi参数")
+    @ApiLog(expression = "chinese",chineseApi = "测试chineseApi参数")
     public ResultVO<String> chineseApi(String param, HttpServletRequest request, HttpServletResponse response){
         return ResultVO.success(param);
     }
