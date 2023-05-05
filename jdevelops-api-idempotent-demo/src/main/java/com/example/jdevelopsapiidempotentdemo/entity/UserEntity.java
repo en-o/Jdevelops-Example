@@ -1,4 +1,4 @@
-package cn.tannn.redisidempotent.entity;
+package com.example.jdevelopsapiidempotentdemo.entity;
 
 /**
  * @author tnnn

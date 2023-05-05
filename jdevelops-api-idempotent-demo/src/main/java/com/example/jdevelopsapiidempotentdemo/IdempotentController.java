@@ -1,9 +1,9 @@
-package cn.tannn.redisidempotent.controller;
+package com.example.jdevelopsapiidempotentdemo;
 
-import cn.jdevelops.idempotent.annotation.ApiIdempotent;
-import cn.jdevelops.result.result.ResultVO;
-import cn.tannn.redisidempotent.entity.UserEntity;
-import cn.tannn.redisidempotent.entity.UserEntity2;
+import cn.jdevelops.api.idempotent.annotation.ApiIdempotent;
+import cn.jdevelops.api.result.response.ResultVO;
+import com.example.jdevelopsapiidempotentdemo.entity.UserEntity;
+import com.example.jdevelopsapiidempotentdemo.entity.UserEntity2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
