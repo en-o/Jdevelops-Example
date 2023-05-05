@@ -1,8 +1,8 @@
-package cn.tannn.cachesjdbctemplate.service;
+package com.example.jdevelopssbootjdbctemplatedemo.service;
 
-import cn.jdevelops.jdbctemplate.annotation.Query;
-import cn.tannn.cachesjdbctemplate.UserBO;
-import cn.tannn.cachesjdbctemplate.entity.User;
+import cn.jdevelops.data.jdbctemplate.annotation.Query;
+import com.example.jdevelopssbootjdbctemplatedemo.UserBO;
+import com.example.jdevelopssbootjdbctemplatedemo.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package cn.tannn.cachesjdbctemplate;
+package com.example.jdevelopssbootjdbctemplatedemo;
 
 
 /**

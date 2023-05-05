@@ -1,7 +1,7 @@
-package cn.tannn.cachesjdbctemplate.service;
+package com.example.jdevelopssbootjdbctemplatedemo.service;
 
-import cn.tannn.cachesjdbctemplate.UserBO;
-import cn.tannn.cachesjdbctemplate.entity.User;
+import com.example.jdevelopssbootjdbctemplatedemo.UserBO;
+import com.example.jdevelopssbootjdbctemplatedemo.entity.User;
 
 import java.util.List;
 

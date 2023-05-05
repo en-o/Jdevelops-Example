@@ -1,11 +1,11 @@
-package cn.tannn.cachesjdbctemplate;
+package com.example.jdevelopssbootjdbctemplatedemo;
 
-import cn.tannn.cachesjdbctemplate.service.QueryUserService;
-import org.junit.Assert;
+import com.example.jdevelopssbootjdbctemplatedemo.service.QueryUserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.EmptyResultDataAccessException;
+
 
 @SpringBootTest
 class QueryTest {
