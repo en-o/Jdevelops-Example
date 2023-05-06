@@ -1,6 +1,7 @@
 package com.example.jdevelopssbootjdbctemplatedemo;
 
 import com.example.jdevelopssbootjdbctemplatedemo.service.QueryUserService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,7 +30,7 @@ class QueryTest {
 
     @Test
     void findById3() {
-        Assert.assertThrows(EmptyResultDataAccessException.class, () ->{
+        Assertions.assertThrows(EmptyResultDataAccessException.class, () ->{
             userService.findById(3);
         });
     }
