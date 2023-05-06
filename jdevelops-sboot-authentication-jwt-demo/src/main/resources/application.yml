@@ -1,0 +1,9 @@
+jdevelops:
+  jwt:
+    expire-time: 100000
+    token-secret: adsaweadadcxa123
+    web:
+      interceptor:
+        #  add-path-patterns: /**
+        exclude-path-patterns: [/letGo,/letGo2]
+
