@@ -2,6 +2,7 @@ package com.example.jdevelopsapiexeceptiondemo.result;
 
 import cn.jdevelops.api.result.custom.ExceptionResult;
 import cn.jdevelops.api.result.emums.ResultCodeEnum;
+import org.springframework.stereotype.Component;
 
 /**
  * 自定义返回包装类

@@ -2,6 +2,7 @@ package com.example.jdevelopsapiexeceptiondemo;
 
 import cn.jdevelops.api.exception.exception.BusinessException;
 import cn.jdevelops.api.result.response.ResultVO;
+import com.example.jdevelopsapiexeceptiondemo.result.ReplaceResultVO;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,35 +38,25 @@ public class JdevelopsApiExeceptionDemoApplication {
     }
 
 
-
     /**
-     * 测试 ResultVO
+     * 测试全局异常拦截处理
      * @return ResultVO
      */
-    @GetMapping("/testResult0")
-    public ResultVO<Integer> testResult0(){
-        return ResultVO.successForData(1);
+    @GetMapping("/testGlobalErrors2")
+    public ReplaceResultVO<Integer> testGlobalErrors2(){
+        Integer i  = 1/0;
+        return ReplaceResultVO.success();
+    }
+
+    /**
+     * 测试全局异常拦截处理
+     * @return ResultVO
+     */
+    @GetMapping("/testGlobalTry2")
+    public ReplaceResultVO<Integer> testGlobalTry2(){
+        throw  new BusinessException("测试全局异常拦截处理");
     }
 
 
-
-    /**
-     * 测试 ResultVO
-     * @return ResultVO
-     */
-    @GetMapping("/testResult1")
-    public ResultVO<Integer> testResult1(){
-        return new ResultVO<>(100, "测试", 1);
-    }
-
-
-    /**
-     * 测试 ResultVO
-     * @return ResultVO
-     */
-    @GetMapping("/testResult2")
-    public ResultVO<Map<String,String>> testResult2(){
-        return new ResultVO<>(100, "测试", ImmutableMap.of("key","value"));
-    }
 
 }
