@@ -1,4 +1,4 @@
-package com.example.jdevelopsaopexceptiondemo;
+package com.example.jdevelopsaopexceptiondemo.controller;
 
 import cn.jdevelops.aop.exception.exception.annotation.DisposeException;
 import org.springframework.web.bind.annotation.GetMapping;

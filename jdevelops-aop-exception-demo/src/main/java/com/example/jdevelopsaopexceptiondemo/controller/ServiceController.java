@@ -1,6 +1,7 @@
-package com.example.jdevelopsaopexceptiondemo;
+package com.example.jdevelopsaopexceptiondemo.controller;
 
 
+import com.example.jdevelopsaopexceptiondemo.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

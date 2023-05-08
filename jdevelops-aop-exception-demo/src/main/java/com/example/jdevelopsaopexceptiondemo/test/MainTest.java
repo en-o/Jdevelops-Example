@@ -1,4 +1,4 @@
-package com.example.jdevelopsaopexceptiondemo;
+package com.example.jdevelopsaopexceptiondemo.test;
 
 
 import cn.jdevelops.aop.exception.exception.annotation.DisposeException;
