@@ -39,6 +39,17 @@ public class IdempotentController {
         return ResultVO.success("测试空参数");
     }
 
+
+    /**
+     * 自定义返回错误提示
+     * @return  String
+     */
+    @GetMapping("message")
+    @ApiIdempotent(message = "你再点封了你")
+    public ResultVO<String> message(){
+        return ResultVO.success("测试空参数");
+    }
+
     /**
      * 测试get有参数
      * @return  String
