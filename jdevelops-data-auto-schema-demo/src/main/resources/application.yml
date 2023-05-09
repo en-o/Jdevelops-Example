@@ -4,14 +4,13 @@ spring:
 #    active: mysql
   application:
     name: AutoSchema
+
 ---
 spring:
-  profiles:
-    - pgsql
   datasource:
     driver-class-name: org.postgresql.Driver
 #    url: jdbc:postgresql://192.168.0.173:5432/test_auto_schema?allowMultiQueries=true
-    url: jdbc:postgresql://192.168.0.173:5432/test_auto_schema
+    url: jdbc:postgresql://192.168.1.67:5433/test_auto_schema
     username: postgres
     password: root
     hikari:
@@ -25,17 +24,21 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: false
-    database: mysql
+    database: postgresql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties:
       hibernate:
         temp:
           use_jdbc_metadata_defaults: false
+  config:
+    activate:
+      on-profile: pgsql
+#jdevelops:
+#  database:
+#    init-script: db/create_schema_pgsql.sql
 ---
 # mysql
 spring:
-  profiles:
-    - mysql
   datasource:
     password: root
     username: root
@@ -55,6 +58,9 @@ spring:
     open-in-view: false
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-#jdevelops:
-#  database:
-#    init-enable: true
+  config:
+    activate:
+      on-profile: mysql
+jdevelops:
+  database:
+    init-script: db/create_schema_mysql.sql
