@@ -1,1 +1,1 @@
-CREATE DATABASE test_auto_schema;
+CREATE DATABASE  test_auto_schema ;
