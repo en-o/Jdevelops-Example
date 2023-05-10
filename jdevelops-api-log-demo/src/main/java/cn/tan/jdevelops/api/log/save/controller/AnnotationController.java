@@ -1,154 +1,101 @@
 package cn.tan.jdevelops.api.log.save.controller;
 
 import cn.jdevelops.aop.api.log.annotation.ApiLog;
+import cn.jdevelops.aop.api.log.enums.OperateTypeEnum;
 import cn.jdevelops.api.result.response.ResultVO;
 import cn.tan.jdevelops.api.log.console.entity.UserEntity;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.util.Map;
 
 
-@RequestMapping("annotation")
+@RequestMapping("annotation/test")
 @Slf4j
 @RestController
 public class AnnotationController {
 
+
     /**
-     * 测试get请求
+     * 返回String
      */
-    @GetMapping("/get/v1")
-    @ApiLog
-    public void gv1(String param, HttpServletRequest request, HttpServletResponse response) {
-        log.info("{}", param);
+    @GetMapping("/v1")
+    @ApiLog(type = OperateTypeEnum.GET ,expression = "#{map.one}",description = "测试v1",chineseApi = "v1")
+    public ResultVO<String> v4(UserEntity map) {
+        log.info("{}", map.toString());
+        return ResultVO.success();
     }
 
     /**
-     * 测试post
+     * 返回对象
      */
-    @PostMapping("/post/v1")
-    @ApiLog
-    public void pv1(@RequestBody UserEntity user, HttpServletRequest request, HttpServletResponse response) {
+    @PostMapping("/v2")
+    @ApiLog(type = OperateTypeEnum.GET ,expression = "#{user}",description = "测试v2",chineseApi = "v2")
+    public ResultVO<UserEntity> v2(@RequestBody UserEntity user, HttpServletRequest request, HttpServletResponse response) {
         log.info("{}", user.toString());
+       return ResultVO.successForData(user);
     }
 
 
     /**
-     * 测试post  apilog 取值
+     * 不记录日志
      */
-    @PostMapping("/post/v2")
-    @ApiLog(description = "#{user.one}")
-    public void pv2(@RequestBody UserEntity user, HttpServletRequest request, HttpServletResponse response) {
+    @PostMapping("/v3")
+    @ApiLog(type = OperateTypeEnum.GET ,
+            enable = false,
+            expression = "#{user}",
+            description = "测试v3",
+            chineseApi = "v3")
+    public ResultVO<String> v3() {
+        return ResultVO.success();
+    }
+
+
+    /**
+     * 不记录入参
+     */
+    @PostMapping("/v4")
+    @ApiLog(type = OperateTypeEnum.GET ,
+            expression = "#{user}",
+            logArgs = false,
+            description = "测试v4",
+            chineseApi = "v4")
+    public ResultVO<UserEntity> v4(@RequestBody UserEntity user, HttpServletRequest request, HttpServletResponse response) {
         log.info("{}", user.toString());
-    }
-
-
-
-
-    @GetMapping("/2")
-    @ApiLog
-    public String test2(String param){
-        return param;
-    }
-
-
-    @PostMapping("/3")
-    @ApiLog
-    public String test3(@RequestBody Map<String,Object> test){
-        return test.toString();
-    }
-
-
-    @PostMapping("/4")
-    @ApiLog(expression = "#{test.param}")
-    public String test34(@RequestBody Map<String,Object> test){
-        return test.toString();
-    }
-
-
-    @PostMapping("/5")
-    @ApiLog(expression = "#{test.param}")
-    public String test34(@RequestBody TestBean test){
-        return test.toString();
-    }
-
-
-    /**
-     * 测试返回 ResultVO对象
-     * @param param param
-     * @return String of ResultVO
-     */
-    @GetMapping("/result/vo")
-    @ApiLog(expression = "resultVo")
-    public ResultVO<String> resultVo(String param){
-        if(param.equals("0")){
-            return ResultVO.fail(param);
-        } else if (param.equals("1")) {
-            throw new RuntimeException("RE");
-        } else{
-            return ResultVO.success(param);
-        }
-
-    }
-
-
-    /**
-     * 测试返回 多参数
-     * @param param param
-     * @return String of ResultVO
-     */
-    @GetMapping("/mp")
-    @ApiLog(expression = "mp")
-    public ResultVO<String> mp(String param,String param2){
-        return ResultVO.fail(param+param2);
-    }
-
-
-    /**
-     * 测试返回 多参数2(request)
-     * @param param param
-     * @return String of ResultVO
-     */
-    @GetMapping("/mp2")
-    @ApiLog(expression = "mp2")
-    public ResultVO<String> mp2(String param,HttpServletRequest request){
-        return ResultVO.success(param);
+        return ResultVO.successForData(user);
     }
 
     /**
-     * 测试返回 多参数3(response)
-     * @param param param
-     * @return String of ResultVO
+     * 不记录出参
      */
-    @GetMapping("/mp3")
-    @ApiLog(expression = "mp3")
-    public ResultVO<String> mp3(String param, HttpServletResponse response){
-        return ResultVO.success(param);
+    @PostMapping("/v5")
+    @ApiLog(type = OperateTypeEnum.GET ,
+            expression = "#{user}",
+            logResultData = false,
+            description = "测试v5",
+            chineseApi = "v5")
+    public ResultVO<UserEntity> v5(@RequestBody UserEntity user, HttpServletRequest request, HttpServletResponse response) {
+        log.info("{}", user.toString());
+        return ResultVO.successForData(user);
     }
 
     /**
-     * 测试返回 多参数4(request,response)
-     * @param param param
-     * @return String of ResultVO
+     * 不记录入参和出参
      */
-    @GetMapping("/mp4")
-    @ApiLog(expression = "mp4")
-    public ResultVO<String> mp4(String param, HttpServletRequest request, HttpServletResponse response){
-        return ResultVO.success(param);
-    }
-
-
-    /**
-     * 测试chineseApi参数
-     * @param param param
-     * @return String of ResultVO
-     */
-    @GetMapping("/chinese")
-    @ApiLog(expression = "chinese",chineseApi = "测试chineseApi参数")
-    public ResultVO<String> chineseApi(String param, HttpServletRequest request, HttpServletResponse response){
-        return ResultVO.success(param);
+    @PostMapping("/v6")
+    @ApiLog(type = OperateTypeEnum.GET ,
+            expression = "#{user}",
+            logResultData = false,
+            logArgs = false,
+            description = "测试v6",
+            chineseApi = "v6")
+    public ResultVO<UserEntity> v6(@RequestBody UserEntity user, HttpServletRequest request, HttpServletResponse response) {
+        log.info("{}", user.toString());
+        return ResultVO.successForData(user);
     }
 
 }
