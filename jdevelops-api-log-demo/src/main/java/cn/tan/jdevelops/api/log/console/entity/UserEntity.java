@@ -1,6 +1,4 @@
-package cn.tan.jdevelops.api.log.entity;
-
-import org.springframework.web.bind.annotation.PathVariable;
+package cn.tan.jdevelops.api.log.console.entity;
 
 import java.math.BigDecimal;
 

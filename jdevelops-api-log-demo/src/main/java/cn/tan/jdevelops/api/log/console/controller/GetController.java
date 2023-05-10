@@ -1,10 +1,9 @@
-package cn.tan.jdevelops.api.log.controller;
+package cn.tan.jdevelops.api.log.console.controller;
 
 
-import cn.tan.jdevelops.api.log.entity.UserEntity;
+import cn.tan.jdevelops.api.log.console.entity.UserEntity;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;

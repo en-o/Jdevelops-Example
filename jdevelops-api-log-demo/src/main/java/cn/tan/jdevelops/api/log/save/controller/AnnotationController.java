@@ -2,44 +2,50 @@ package cn.tan.jdevelops.api.log.save.controller;
 
 import cn.jdevelops.aop.api.log.annotation.ApiLog;
 import cn.jdevelops.api.result.response.ResultVO;
+import cn.tan.jdevelops.api.log.console.entity.UserEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
-/**
- * @author tn
- * @version 1
- * @date 2021-12-16 11:40
- */
+
+@RequestMapping("annotation")
+@Slf4j
 @RestController
-public class TestController {
+public class AnnotationController {
 
-    @GetMapping("/")
-    public String test(String param){
-        return param;
+    /**
+     * 测试get请求
+     */
+    @GetMapping("/get/v1")
+    @ApiLog
+    public void gv1(String param, HttpServletRequest request, HttpServletResponse response) {
+        log.info("{}", param);
     }
 
-    @GetMapping("/lm")
-    public String lm(String param,String test){
-        return param+test;
+    /**
+     * 测试post
+     */
+    @PostMapping("/post/v1")
+    @ApiLog
+    public void pv1(@RequestBody UserEntity user, HttpServletRequest request, HttpServletResponse response) {
+        log.info("{}", user.toString());
     }
 
-    @PostMapping("/lm1")
-    public String lm1(String param,String test){
-        return param+test;
+
+    /**
+     * 测试post  apilog 取值
+     */
+    @PostMapping("/post/v2")
+    @ApiLog(description = "#{user.one}")
+    public void pv2(@RequestBody UserEntity user, HttpServletRequest request, HttpServletResponse response) {
+        log.info("{}", user.toString());
     }
 
-    @PostMapping("/lm2")
-    public String lm2(@RequestParam Map<String,Object> test){
-        return test.toString();
-    }
 
-    @PostMapping("/lm3")
-    public String lm3(@RequestBody Map<String,Object> test){
-        return test.toString();
-    }
+
 
     @GetMapping("/2")
     @ApiLog
@@ -144,4 +150,5 @@ public class TestController {
     public ResultVO<String> chineseApi(String param, HttpServletRequest request, HttpServletResponse response){
         return ResultVO.success(param);
     }
+
 }

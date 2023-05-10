@@ -1,7 +1,7 @@
-package cn.tan.jdevelops.api.log.controller;
+package cn.tan.jdevelops.api.log.console.controller;
 
 
-import cn.tan.jdevelops.api.log.entity.UserEntity;
+import cn.tan.jdevelops.api.log.console.entity.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +29,12 @@ public class PostController {
      */
     @PostMapping("/v2")
     public void v2(@RequestParam UserEntity user) {
+        log.info("{}", user.toString());
+    }
+
+
+    @PostMapping("/v21")
+    public void v2_1(UserEntity user) {
         log.info("{}", user.toString());
     }
 
