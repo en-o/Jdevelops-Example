@@ -1,7 +1,7 @@
 package com.example.jdevelopsapisigndemo.controller;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
 import com.example.jdevelopsapisigndemo.entity.UserEntity;
 import com.example.jdevelopsapisigndemo.utils.SignUtil;
 import org.junit.jupiter.api.Test;

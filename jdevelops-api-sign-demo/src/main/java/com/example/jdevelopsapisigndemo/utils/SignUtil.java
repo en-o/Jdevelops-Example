@@ -3,7 +3,7 @@ package com.example.jdevelopsapisigndemo.utils;
 import cn.jdevelops.api.result.util.SpringBeanUtils;
 import cn.jdevelops.api.sign.config.ApiSignConfig;
 import cn.jdevelops.util.encryption.core.SignMD5Util;
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.example.jdevelopsapisigndemo.entity.UserEntity;
 
 import java.util.LinkedHashMap;

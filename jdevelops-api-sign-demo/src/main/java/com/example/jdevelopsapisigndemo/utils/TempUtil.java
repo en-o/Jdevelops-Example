@@ -1,6 +1,6 @@
 package com.example.jdevelopsapisigndemo.utils;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.springframework.cglib.beans.BeanMap;
 import org.springframework.util.LinkedMultiValueMap;

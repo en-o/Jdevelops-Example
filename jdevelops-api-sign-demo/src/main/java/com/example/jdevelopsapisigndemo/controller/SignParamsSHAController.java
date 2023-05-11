@@ -3,7 +3,7 @@ package com.example.jdevelopsapisigndemo.controller;
 import cn.jdevelops.api.result.response.ResultVO;
 import cn.jdevelops.api.sign.annotation.Signature;
 import cn.jdevelops.api.sign.enums.SginEnum;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.example.jdevelopsapisigndemo.entity.UserEntity;
 import org.springframework.web.bind.annotation.*;
 

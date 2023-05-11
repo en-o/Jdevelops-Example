@@ -1,6 +1,6 @@
 package com.example.jdevelopsapisigndemo.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.example.jdevelopsapisigndemo.entity.UserEntity;
 import com.example.jdevelopsapisigndemo.entity.UserEntity2;
 import com.example.jdevelopsapisigndemo.utils.SignUtil;
