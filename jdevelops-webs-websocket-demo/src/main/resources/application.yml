@@ -1,6 +1,6 @@
 jdevelops:
   jwt:
-    token-secret: adsaweadadcxa123
+    token-secret: b4c33a6f172f13f91500b6c437a78d2cc5e5e9973e7dee431a1e8c34e68d365e
   websocket:
     enable: false
     multipart: false
