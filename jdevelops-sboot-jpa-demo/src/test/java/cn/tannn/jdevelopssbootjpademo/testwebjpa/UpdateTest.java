@@ -21,7 +21,7 @@ public class UpdateTest {
     @Test
     void updateByBean() throws Exception {
         User user = new User();
-        user.setUserNo("123");
+        user.setUserNo("1466649744075108352");
         user.setName("测试更qq 新");
         userService.updateByBean(user,User::getUserNo);
     }

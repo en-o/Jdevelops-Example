@@ -28,4 +28,11 @@ public class CommonBean<B> extends JpaAuditFields<B> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition="int(11) COMMENT '主键，自动生成'")
     private Integer id;
+
+    @Override
+    public String toString() {
+        return "CommonBean{" +
+                "id=" + id +
+                '}';
+    }
 }

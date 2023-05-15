@@ -26,7 +26,7 @@ class CommonTest {
     void testSort(){
         Sort sort = Sort.by("id").ascending();
         List<User> all = userDao.findAll(sort);
-        all.forEach(it -> System.err.println(it.toString()));
+        all.forEach(it -> System.err.println(it.getId()+it.toString()));
     }
 
     @Test

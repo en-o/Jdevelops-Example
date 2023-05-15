@@ -3,8 +3,8 @@ package cn.tannn.jdevelopssbootjpademo.entity;
 import cn.jdevelops.data.jap.annotation.JpaSelectOperator;
 import cn.jdevelops.data.jap.enums.SQLConnect;
 import cn.jdevelops.data.jap.enums.SQLOperator;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
+import java.util.Objects;
 
 /**
  * 用户表
@@ -24,8 +25,10 @@ import javax.persistence.Table;
 				@Index(name = "user_no_index", columnList = "userNo", unique = true),
 		})
 @org.hibernate.annotations.Table(appliesTo = "sys_user", comment = "用户表")
-@Data
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @DynamicUpdate
 @DynamicInsert
 public class User extends CommonBean<User> {
@@ -76,4 +79,35 @@ public class User extends CommonBean<User> {
 	@Column(columnDefinition = " varchar(60)   comment ' 用户头像' ")
 	private String userIcon;
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+			return false;
+		}
+		User user = (User) o;
+		return getId() != null && Objects.equals(getId(), user.getId());
+	}
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"userNo='" + userNo + '\'' +
+				", name='" + name + '\'' +
+				", address='" + address + '\'' +
+				", loginName='" + loginName + '\'' +
+				", loginPwd='" + loginPwd + '\'' +
+				", phone='" + phone + '\'' +
+				", userIcon='" + userIcon + '\'' +
+				'}';
+	}
+
+
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
 }

@@ -1,10 +1,10 @@
 package cn.tannn.jdevelopssbootjpademo.dto;
 
+import cn.jdevelops.api.result.bean.SerializableBean;
 import cn.jdevelops.data.jap.annotation.JpaSelectIgnoreField;
 import cn.jdevelops.data.jap.annotation.JpaSelectOperator;
 import cn.jdevelops.data.jap.enums.SQLConnect;
 import cn.jdevelops.data.jap.enums.SQLOperator;
-import cn.jdevelops.result.bean.SerializableBean;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
