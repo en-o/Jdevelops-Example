@@ -1,19 +1,6 @@
-jdevelops:
-  jwt:
-    ## 过期时间为一天 (24*60*60*1000) 单位 毫秒  （有默认 一天）
-    expire-time: 100000
-    ## 自定义token私钥  （有默认）
-    token-secret: adsaweadadcxa123
-    web:
-      interceptor:
-        # 默认拦截全部可不写
-        #  add-path-patterns: /**
-        # 放行接口或者资源地址
-        exclude-path-patterns: [/letGo,/letGo2,/dyFind]
-
 spring:
   application:
-    name: AutoSchema
+    name: JPA
   datasource:
     password: root
     username: root

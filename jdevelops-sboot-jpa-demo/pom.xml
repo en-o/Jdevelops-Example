@@ -22,7 +22,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- web starters -->
+        <!-- jpa -->
         <dependency>
             <groupId>cn.jdevelops</groupId>
             <artifactId>jdevelops-sboot-jpa</artifactId>
