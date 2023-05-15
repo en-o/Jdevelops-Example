@@ -1,12 +1,11 @@
 package cn.jdevelops.file.controller;
 
-import cn.jdevelops.exception.exception.BusinessException;
-import cn.jdevelops.file.OssOperateAPI;
-import cn.jdevelops.file.bean.*;
-import cn.jdevelops.local.driver.LocalDirverUtil;
-import cn.jdevelops.result.result.ResultVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import cn.jdevelops.api.exception.exception.BusinessException;
+import cn.jdevelops.api.result.response.ResultVO;
+import cn.jdevelops.file.oss.api.OssOperateAPI;
+import cn.jdevelops.file.oss.api.bean.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +21,7 @@ import java.util.List;
  * @date 2021/11/10
  */
 @RestController
-@Api(tags = "文件操作", value = "文件管理")
+@Tag(name = "文件上传下载")
 public class FileController {
 
 
@@ -31,7 +30,7 @@ public class FileController {
 
 
 
-	@ApiOperation(value = "文件上传", notes = "文件管理")
+	@Operation(summary = "文件上传")
 	@PostMapping(value = "upload")
 	public ResultVO<FilePathResult> upload(@Valid UploadDTO uploadDTO) {
 		try {
@@ -43,7 +42,7 @@ public class FileController {
 	}
 
 
-	@ApiOperation(value = "批量文件上传", notes = "文件管理")
+	@Operation(summary = "批量文件上传")
 	@PostMapping(value = "uploads")
 	public ResultVO<List<FilePathResult>> uploads(@Valid UploadsDTO uploadDTO) {
 		try {
@@ -56,7 +55,7 @@ public class FileController {
 
 
 	@GetMapping("/download")
-	@ApiOperation(value = "文件下载", notes = "文件管理")
+	@Operation(summary = "文件下载")
 	public void download(HttpServletResponse response, @Valid DownloadDTO dto) {
 		try {
 			fileOperation.downloadFile(response, dto);
@@ -66,7 +65,7 @@ public class FileController {
 	}
 
 	@GetMapping("/getExpiryObjectUrl")
-	@ApiOperation(value = "获取有效期访问地址", notes = "文件管理")
+	@Operation(summary = "获取有效期访问地址")
 	public ResultVO<String> getExpiryObjectUrl(@Valid ExpireDateDTO dto) {
 		try {
 			String url = fileOperation.expireDateUrl(dto);
@@ -79,7 +78,7 @@ public class FileController {
 
 
 	@DeleteMapping("/removeObjects")
-	@ApiOperation(value = "删除", notes = "文件管理")
+	@Operation(summary = "删除")
 	public ResultVO<List<String>> removeObjects(@RequestBody @Valid RemoveFileDTO dto) {
 		try {
 			fileOperation.removeFiles(dto);

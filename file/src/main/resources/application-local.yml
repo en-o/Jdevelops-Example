@@ -3,7 +3,7 @@
 jdevelops:
   oss:
     local:
-      upload-dir: E:/test/file
+      upload-dir: H:/test/file
       contextPath: /image
     browse-url: http://127.0.0.1:8080
 
