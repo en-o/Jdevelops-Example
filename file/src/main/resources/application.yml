@@ -1,17 +1,19 @@
 springdoc:
-  # 默认是false（参数显示会有问题），需要设置为true
   default-flat-param-object: true
-knife4j:
-  # 开启 knife4j 的增强模式
-  enable: true
+# 默认是false（参数显示会有问题），需要设置为true
 spring:
   profiles:
     active: local
-  mvc:
-    pathmatch:
-      matching-strategy: ant-path-matcher
 jdevelops:
   swagger:
-    base-package: cn.jdevelops.file.controller
-    add-header-token: false
+    base-package:
+      - cn.jdevelops.file.controller
+    security-scheme-default: false
+knife4j:
+  enable: true
+  setting:
+    language: zh-CN
+    custom-code: 500
+    enable-footer-custom: false
+debug: true
 
