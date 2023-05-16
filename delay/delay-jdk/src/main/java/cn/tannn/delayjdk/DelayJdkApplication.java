@@ -1,8 +1,7 @@
 package cn.tannn.delayjdk;
 
-
 import cn.jdevelops.delay.core.service.DelayService;
-import cn.jdevelops.delay.task.DelayTask;
+import cn.jdevelops.delay.jdk.task.DelayTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -20,7 +19,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DelayJdkApplication  implements ApplicationRunner {
 
     @Autowired
-    private DelayService<DelayTask> jdkDelayService;
+    private DelayService<DelayTask> delayService;
 
 
     public static void main(String[] args) {
@@ -31,6 +30,6 @@ public class DelayJdkApplication  implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args)  {
         // 启动就开始消费延迟队列数据
-        jdkDelayService.consumeDelay();
+        delayService.consumeDelay();
     }
 }

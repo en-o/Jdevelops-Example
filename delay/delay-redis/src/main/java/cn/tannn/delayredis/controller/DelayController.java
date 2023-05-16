@@ -24,12 +24,12 @@ import java.util.List;
 @Api(tags = {"测试redis延时"})
 public class DelayController {
     @Autowired
-    private DelayService<DelayQueueMessage> redisDelayService;
+    private DelayService<DelayQueueMessage> delayService;
 
     @ApiOperation("开始消费延时队列")
     @GetMapping("consume")
     public String consume() {
-        redisDelayService.consumeDelay();
+        delayService.consumeDelay();
         return "开始消费延时队列数据...";
     }
 
@@ -51,7 +51,7 @@ public class DelayController {
                 new DelayQueueMessage("body5", RedisDelayMessageChannel.ACTIVITY,
                         paramTime + (50 * 1000), new Date(paramTime + (50 * 1000)).toString(), "")
                 );
-        redisDelayService.produce(delayTasks);
+        delayService.produce(delayTasks);
         return "生产延时队列数据... => "+paramTime;
     }
 }
