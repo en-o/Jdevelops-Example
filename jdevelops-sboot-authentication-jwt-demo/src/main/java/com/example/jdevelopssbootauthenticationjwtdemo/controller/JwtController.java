@@ -2,9 +2,15 @@ package com.example.jdevelopssbootauthenticationjwtdemo.controller;
 
 import cn.jdevelops.api.result.response.ResultVO;
 import cn.jdevelops.sboot.authentication.jwt.annotation.ApiMapping;
+import cn.jdevelops.sboot.authentication.jwt.server.LoginService;
+import cn.jdevelops.util.jwt.core.JwtService;
+import cn.jdevelops.util.jwt.entity.SignEntity;
 import com.example.jdevelopssbootauthenticationjwtdemo.result.ReplaceResultVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author tn
@@ -13,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class JwtController {
+
+    @Autowired
+    private LoginService loginService;
 
     @GetMapping("stop")
     public String stop(){
@@ -40,4 +49,17 @@ public class JwtController {
     public String defaultLetGo(){
         return "默认放行</user/login>";
     }
+
+    @GetMapping("/login")
+    public String token(){
+        SignEntity signEntity = new SignEntity("tan","tan","tan","tan");
+        return loginService.login(signEntity);
+    }
+
+
+    @GetMapping("/isLogin")
+    public boolean isLogin(HttpServletRequest request){
+        return loginService.isLogin(request);
+    }
+
 }
