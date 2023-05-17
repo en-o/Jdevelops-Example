@@ -4,6 +4,7 @@ import cn.jdevelops.delay.core.service.DelayService;
 import cn.jdevelops.delay.jdk.task.DelayTask;
 import cn.tannn.delayjdk.constant.JdkDelayMessageChannel;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,9 @@ public class DelayController {
     @Autowired
     private DelayService<DelayTask> delayService;
 
+    /**
+     * 建议springboot 启动时就开始消费 <>Application  implements ApplicationRunner 中执行</>
+     */
     @Operation(summary = "开始消费延时队列")
     @GetMapping("consume")
     public String consume() {
@@ -38,6 +42,7 @@ public class DelayController {
 
     @Operation(summary = "生产延时队列数据")
     @GetMapping("produce")
+    @Parameter(name = "timeMillis",description = "延时消费的时间(时间戳<毫秒>)(默认当前)")
     public String produce(Long timeMillis)  {
         Long paramTime = timeMillis == null ? System.currentTimeMillis() : timeMillis;
         System.out.println(paramTime);
