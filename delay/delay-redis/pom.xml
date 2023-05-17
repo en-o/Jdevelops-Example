@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.7</version>
+        <version>2.7.9</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.tannn</groupId>
@@ -21,28 +21,25 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>cn.jdevelops</groupId>
             <artifactId>jdevelops-delay-redis</artifactId>
             <version>2.0.7</version>
         </dependency>
-
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.83</version>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>2.0.29</version>
         </dependency>
         <dependency>
             <groupId>cn.jdevelops</groupId>
-            <artifactId>caches-redis-core</artifactId>
-            <version>2.0.6</version>
+            <artifactId>jdevelops-caches-redis</artifactId>
+            <version>2.0.7</version>
         </dependency>
-
         <dependency>
             <groupId>cn.jdevelops</groupId>
-            <artifactId>doc-swagger-boot</artifactId>
-            <version>2.0.6</version>
+            <artifactId>jdevelops-sboot-swagger</artifactId>
+            <version>2.0.7</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
