@@ -5,6 +5,7 @@
 //import cn.jdevelops.delay.jdk.constant.DelayQueueConstant;
 //import cn.jdevelops.delay.jdk.task.DelayTask;
 //import lombok.extern.slf4j.Slf4j;
+//import org.springframework.stereotype.Service;
 //
 //import javax.annotation.Resource;
 //import java.util.List;
@@ -19,7 +20,7 @@
 // * @version V1.0
 // * @date 2023-01-05 16:34
 // */
-////@Service
+//@Service
 //@Slf4j
 //public class RefactorJdkDelayService implements DelayService<DelayTask> {
 //
