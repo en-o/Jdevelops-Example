@@ -31,23 +31,23 @@ class QueryTest {
     @Test
     void findById3() {
         Assertions.assertThrows(EmptyResultDataAccessException.class, () ->{
-            userService.findById(3);
+            userService.findById(10);
         });
     }
 
     @Test
     void findByBean() {
         UserBO userBO = new UserBO();
-        userBO.setName("根据指定key更新1");
-        userBO.setLoginName("user7");
+        userBO.setName("超级管理员");
+        userBO.setLoginName("admin");
         System.out.println(userService.findByBean(userBO));
     }
 
     @Test
     void findByBean2() {
         UserBO userBO = new UserBO();
-        userBO.setName("根据指定key更新");
-        userBO.setLoginName("user7");
+        userBO.setName("111");
+        userBO.setLoginName("SH-01");
         userService.findByBean2(userBO).forEach(it -> System.out.println(it.toString()));
     }
 
@@ -65,7 +65,7 @@ class QueryTest {
 
     @Test
     void findIdByName() {
-        System.out.println(userService.findIdByName("根据指定key更新1"));
+        System.out.println(userService.findIdByName("超级管理员"));
     }
 
 }
