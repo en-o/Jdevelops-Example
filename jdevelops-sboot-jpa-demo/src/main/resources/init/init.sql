@@ -1,3 +1,5 @@
+
+
 INSERT INTO `sys_user`(`id`, `create_time`, `create_user_name`, `update_time`, `update_user_name`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`) VALUES (1, '2021-11-17 11:08:38', 'admin', '2021-12-10 16:18:51', 'admin', '重庆', 'admin', '1231', '超级管理员', '15888888888', NULL, 'admin');
 INSERT INTO `sys_user`(`id`, `create_time`, `create_user_name`, `update_time`, `update_user_name`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`) VALUES (2, '2021-12-03 13:48:14', 'admin', '2021-12-10 16:20:06', 'admin', '重庆', 'user', '123', '用户1', '123', NULL, '1466645430750781440');
 INSERT INTO `sys_user`(`id`, `create_time`, `create_user_name`, `update_time`, `update_user_name`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`) VALUES (3, '2021-12-03 14:05:23', 'admin', '2021-12-10 16:20:07', 'admin', '重庆', 'user02', '123', '用户2', '123', NULL, '1466649744075108352');
