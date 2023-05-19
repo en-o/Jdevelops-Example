@@ -9,13 +9,10 @@ import cn.jdevelops.sboot.authentication.jredis.service.RedisLoginService;
 import cn.jdevelops.sboot.authentication.jwt.annotation.ApiMapping;
 import cn.jdevelops.sboot.authentication.jwt.annotation.NotRefreshToken;
 import cn.jdevelops.util.jwt.constant.JwtConstant;
-import cn.jdevelops.util.jwt.core.JwtService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.util.Collections;
 import java.util.Map;
 
@@ -30,6 +27,8 @@ public class JwtController {
     @Autowired
     private JwtRedisService jwtRedisService;
 
+    @Autowired
+    private RedisLoginService redisLoginService;
 
     /**
      * 退出
@@ -38,25 +37,19 @@ public class JwtController {
      */
     @PostMapping("/logout")
     public ResultVO<String> logout(HttpServletRequest request) {
-        try {
-            String token = request.getHeader(JwtConstant.TOKEN);
-            jwtRedisService.removeUserToken(JwtService.getSubject(token));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        redisLoginService.loginOut(request);
         return ResultVO.success("成功退出");
     }
 
 
     /**
      * 登录
+     * @param refresh true token刷新, false token重复使用 (用户存在登录时 token时更新还是依旧)
      * @return ResultVO
      */
     @ApiMapping(value = "/login", checkToken = false, method = RequestMethod.GET)
-    public ResultVO<Object> login(HttpServletRequest request, String username,String password) {
-
-        // 2.0.6 可以只传一个参数了 ，同时新增了允许永久在线的参数设置
-//        String sign = JwtRedisUtil.sign(login.getUsername());'
+    public ResultVO<Object> login(HttpServletRequest request, String username,String password,
+                                 boolean refresh) {
 
         RedisSignEntity redisSignEntity = new RedisSignEntity(username,
                 username,username,username,false);
@@ -70,8 +63,8 @@ public class JwtController {
         redisAccount.setPassword(password);
         redisAccount.setUserInfo(null);
 
-        String sign = new RedisLoginService().refreshLogin(request,
-                false,
+       String sign = redisLoginService.refreshLogin(request,
+               refresh,
                 redisSignEntity,
                 redisAccount);
         Map<String, String> responseData = Collections.singletonMap("token", sign);

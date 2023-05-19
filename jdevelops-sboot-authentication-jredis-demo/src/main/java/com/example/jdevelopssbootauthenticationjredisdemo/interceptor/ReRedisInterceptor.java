@@ -25,14 +25,14 @@ public class ReRedisInterceptor implements CheckTokenInterceptor {
 
     @Override
     public boolean checkToken(String token) {
-        JwtRedisService JwtRedisService = JwtContextUtil.getBean(JwtRedisService.class);
-        StorageUserTokenEntity storageUserTokenEntity = JwtRedisService.verifyUserTokenByToken(token);
+        JwtRedisService jwtRedisService = JwtContextUtil.getBean(JwtRedisService.class);
+        StorageUserTokenEntity storageUserTokenEntity = jwtRedisService.verifyUserTokenByToken(token);
         return Objects.nonNull(storageUserTokenEntity) && storageUserTokenEntity.getToken().equalsIgnoreCase(token);
     }
     @Override
     public void refreshToken(String userCode) {
-        JwtRedisService JwtRedisService = JwtContextUtil.getBean(JwtRedisService.class);
-        JwtRedisService.refreshUserToken(userCode);
+        JwtRedisService jwtRedisService = JwtContextUtil.getBean(JwtRedisService.class);
+        jwtRedisService.refreshUserToken(userCode);
     }
 
     /**
@@ -42,7 +42,7 @@ public class ReRedisInterceptor implements CheckTokenInterceptor {
      */
     @Override
     public void checkUserStatus(String userCode) throws ExpiredRedisException {
-        JwtRedisService JwtRedisService = JwtContextUtil.getBean(JwtRedisService.class);
-        JwtRedisService.verifyUserStatus(userCode);
+        JwtRedisService jwtRedisService = JwtContextUtil.getBean(JwtRedisService.class);
+        jwtRedisService.verifyUserStatus(userCode);
     }
 }
