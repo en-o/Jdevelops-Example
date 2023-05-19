@@ -1,8 +1,7 @@
 package cn.tannn.springbootquart;
 
-import cn.jdevelops.spring.quart.ScheduleService;
-import cn.jdevelops.spring.quart.dao.bo.JobAndTriggerBO;
-import cn.jdevelops.spring.quart.entity.QrtzJobDetailsEntity;
+import cn.jdevelops.quartz.quick.ScheduleService;
+import cn.jdevelops.quartz.quick.dao.bo.JobAndTriggerBO;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
