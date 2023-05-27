@@ -13,6 +13,13 @@
     <artifactId>jdevelops-sboot-authentication-sas</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <description>
+         博客：https://blog.csdn.net/ACE_U_005A/article/details/128851814
+        官方文档翻译：https://springdoc.cn/spring-authorization-server/configuration-model.html
+        官方文档：https://docs.spring.io/spring-authorization-server/docs/0.4.3-SNAPSHOT/reference/html/configuration-model.html#customizing-the-configuration
+    </description>
+
     <modules>
         <!---->
         <module>authorization-server</module>
