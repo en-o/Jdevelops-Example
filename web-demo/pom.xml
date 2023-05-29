@@ -22,6 +22,7 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+        <!-- web -->
         <dependency>
             <groupId>cn.jdevelops</groupId>
             <artifactId>jdevelops-sboot-web</artifactId>
@@ -35,19 +36,27 @@
             <groupId>cn.jdevelops</groupId>
             <artifactId>jdevelops-sboot-authentication-jredis</artifactId>
         </dependency>
+        <!-- 接口参数幂等 -->
         <dependency>
             <groupId>cn.jdevelops</groupId>
             <artifactId>jdevelops-api-idempotent</artifactId>
         </dependency>
+        <!-- jdbctemplate -->
         <dependency>
             <groupId>cn.jdevelops</groupId>
             <artifactId>jdevelops-data-jdbctemplate</artifactId>
+        </dependency>
+        <!-- 参数遮掩和校验-->
+        <dependency>
+            <groupId>cn.jdevelops</groupId>
+            <artifactId>jdevelops-util-validation</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
