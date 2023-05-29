@@ -5,14 +5,12 @@ import cn.jdevelops.api.annotation.mapping.PathRestController;
 import cn.jdevelops.api.result.response.ResultVO;
 import cn.jdevelops.sboot.authentication.jredis.entity.RedisAccount;
 import cn.jdevelops.sboot.authentication.jredis.entity.sign.RedisSignEntity;
-import cn.jdevelops.sboot.authentication.jredis.service.JwtRedisService;
+
 import cn.jdevelops.sboot.authentication.jredis.service.RedisLoginService;
 import cn.jdevelops.sboot.authentication.jwt.annotation.ApiMapping;
-import cn.jdevelops.sboot.authentication.jwt.server.LoginService;
-import cn.jdevelops.util.jwt.entity.SignEntity;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,11 +25,11 @@ import java.util.Map;
  */
 @Tag(name = "测试redis登录")
 @PathRestController("/jwt/redis/login")
+@RequiredArgsConstructor
 public class RedisLoginController {
 
 
-    @Autowired
-    private RedisLoginService redisLoginService;
+    private final RedisLoginService redisLoginService;
 
 
     /**
