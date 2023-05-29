@@ -12,7 +12,7 @@ spring:
     #    driver-class-name: com.mysql.cj.jdbc.Driver
     #    url: jdbc:mysql://127.0.0.1:3306/hjpa?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://127.0.0.1:3306/test_jpa?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
     hikari:
       connection-timeout: 30000
       idle-timeout: 600000
@@ -30,7 +30,7 @@ spring:
 jdevelops:
   database:
     # 如果建库报错，可以先关了，提issues，且处理成功后在开
-    init-enable: false
+#    init-enable: false
   swagger:
     base-package:
       - com.example.webdemo.controller # swagger 扫描接口的包路径
@@ -50,5 +50,6 @@ jdevelops:
           - /test/**
           - /swaggerTest/**
           - /idempotent/**
+          - /jpa/**
   apisign:
     salt: ASDF # 接口签名的密钥
