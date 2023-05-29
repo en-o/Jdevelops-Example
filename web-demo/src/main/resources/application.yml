@@ -49,5 +49,6 @@ jdevelops:
           - /header/md5/**
           - /test/**
           - /swaggerTest/**
+          - /idempotent/**
   apisign:
     salt: ASDF # 接口签名的密钥

@@ -21,6 +21,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.Map;
 
+/**
+ * 由于集体测试愿意不方便开启 authentication 所以，将文档管理->个性化设置->开启动态请求参数
+ *  *  在请求时，handler 中添加 token 属性
+ */
 @Tag(name = "测试redis登录")
 @PathRestController("/jwt/redis/login")
 public class RedisLoginController {

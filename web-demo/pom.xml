@@ -36,6 +36,10 @@
             <artifactId>jdevelops-sboot-authentication-jredis</artifactId>
         </dependency>
         <dependency>
+            <groupId>cn.jdevelops</groupId>
+            <artifactId>jdevelops-api-idempotent</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
