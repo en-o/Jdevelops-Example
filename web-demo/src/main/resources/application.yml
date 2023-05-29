@@ -51,5 +51,7 @@ jdevelops:
           - /swaggerTest/**
           - /idempotent/**
           - /jpa/**
+          - /jdbctemplate/**
+          - /log/annotation/post/**
   apisign:
     salt: ASDF # 接口签名的密钥
