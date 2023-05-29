@@ -1,4 +1,9 @@
 spring:
+  redis:
+    database: 3
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
   application:
     name: JPA
   datasource:
@@ -28,6 +33,21 @@ jdevelops:
     init-enable: false
   swagger:
     base-package:
-      - com.example # swagger 扫描接口的包路径
+      - com.example.webdemo.controller # swagger 扫描接口的包路径
+      - com.example.webdemo.api # swagger 扫描接口的包路径
     title: web-demo-apis
     security-scheme-default: false # 关闭默认认证
+  jwt:
+    token-secret: b4c33a6f172f13f91500b6c437a78d2cc5e5e9973e7dee431a1e8c34e68d365a
+    web:
+      interceptor:
+        exclude-path-patterns: # 放行这些其他测试接口
+          - /ex/**
+          - /version/**
+          - /jwt/login
+          - /jwt/redis/login
+          - /header/md5/**
+          - /test/**
+          - /swaggerTest/**
+  apisign:
+    salt: ASDF # 接口签名的密钥

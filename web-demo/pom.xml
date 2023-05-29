@@ -26,7 +26,15 @@
             <groupId>cn.jdevelops</groupId>
             <artifactId>jdevelops-sboot-web</artifactId>
         </dependency>
-
+<!--        <dependency>-->
+<!--            <groupId>cn.jdevelops</groupId>-->
+<!--            <artifactId>jdevelops-sboot-authentication-jwt</artifactId>-->
+<!--        </dependency>-->
+        <!-- 包含了 jdevelops-sboot-authentication-jwt -->
+        <dependency>
+            <groupId>cn.jdevelops</groupId>
+            <artifactId>jdevelops-sboot-authentication-jredis</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
