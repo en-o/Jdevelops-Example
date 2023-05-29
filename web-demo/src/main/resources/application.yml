@@ -53,5 +53,6 @@ jdevelops:
           - /jpa/**
           - /jdbctemplate/**
           - /log/annotation/post/**
+          - /validation/**
   apisign:
     salt: ASDF # 接口签名的密钥
