@@ -3,16 +3,14 @@ package com.example.webdemo.controller;
 import cn.jdevelops.api.annotation.mapping.PathRestController;
 import cn.jdevelops.api.result.response.ResultVO;
 import cn.jdevelops.api.result.util.ListTo;
+import cn.jdevelops.api.result.util.uuid.UUIDUtils;
 import com.example.webdemo.controller.dto.UserFindDTO;
 import com.example.webdemo.controller.vo.UserVO;
 import com.example.webdemo.entity.User;
 import com.example.webdemo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,5 +34,22 @@ public class JpaController {
     public ResultVO<List<UserVO>> dyFind(@RequestBody UserFindDTO user){
         List<User> complex = userService.findComplex(user);
         return ResultVO.successForData(ListTo.to(UserVO.class, complex));
+    }
+
+
+    @Operation(summary = "测试审计")
+    @GetMapping("auditorName")
+    public ResultVO<UserVO> auditorName(){
+        User user = new User();
+        user.setName("test");
+        user.setPhone("123");
+        user.setUserIcon("");
+        user.setUserNo(UUIDUtils.getInstance().generateShortUuid());
+        user.setLoginName("test");
+        user.setLoginPwd("123");
+        user.setAddress("123");
+        User saveByBean = userService.saveByBean(user);
+        UserVO userVO = saveByBean.to(UserVO.class);
+        return ResultVO.successForData(userVO);
     }
 }
