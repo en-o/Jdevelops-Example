@@ -6,9 +6,14 @@ import cn.jdevelops.sboot.authentication.jredis.entity.only.StorageUserTokenEnti
 import cn.jdevelops.sboot.authentication.jredis.entity.sign.RedisSignEntity;
 import cn.jdevelops.sboot.authentication.jredis.service.JwtRedisService;
 import cn.jdevelops.sboot.authentication.jredis.service.RedisLoginService;
+import cn.jdevelops.sboot.authentication.jredis.util.RsJwtWebUtil;
 import cn.jdevelops.sboot.authentication.jwt.annotation.ApiMapping;
 import cn.jdevelops.sboot.authentication.jwt.annotation.NotRefreshToken;
+import cn.jdevelops.sboot.authentication.jwt.util.JwtWebUtil;
 import cn.jdevelops.util.jwt.constant.JwtConstant;
+import cn.jdevelops.util.jwt.core.JwtService;
+import cn.jdevelops.util.jwt.entity.SignEntity;
+import com.example.jdevelopssbootauthenticationjredisdemo.bean.TestBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,11 +56,11 @@ public class JwtController {
     public ResultVO<Object> login(HttpServletRequest request, String username,String password,
                                  boolean refresh) {
 
-        RedisSignEntity redisSignEntity = new RedisSignEntity(username,
+        RedisSignEntity<TestBean> redisSignEntity = new RedisSignEntity<>(username,
                 username,username,username,false);
-
+        redisSignEntity.setMap(new TestBean("jwtRedis"));
         // 此处数据最好用查出来的用,我这里没有查返回所以自己写了
-        RedisAccount redisAccount = new RedisAccount();
+        RedisAccount<String> redisAccount = new RedisAccount<>();
         redisAccount.setDisabledAccount(false);
         redisAccount.setExcessiveAttempts(false);
         redisAccount.setUserCode(username);
@@ -98,6 +103,22 @@ public class JwtController {
             e.printStackTrace();
         }
         return ResultVO.fail("");
+    }
+
+    @GetMapping("/parseJwt")
+    public RedisSignEntity<TestBean> parseJwt(HttpServletRequest request){
+        RedisSignEntity<TestBean> tokenByRedisSignEntity = RsJwtWebUtil.getTokenByRedisSignEntity(request, TestBean.class);
+        if(tokenByRedisSignEntity.getMap() != null){
+            System.out.println(tokenByRedisSignEntity.getMap().getRemark());
+        }
+        return tokenByRedisSignEntity;
+    }
+
+
+    @GetMapping("/subject")
+    public String subject(HttpServletRequest request){
+        String token = JwtWebUtil.getToken(request);
+        return JwtService.getSubjectExpires(token);
     }
 
 
