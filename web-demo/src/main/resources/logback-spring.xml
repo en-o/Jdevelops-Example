@@ -131,7 +131,7 @@
         </rollingPolicy>
     </appender>
     <!-- API日志输出到文件 -->
-    <appender name="APILOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="APILOG" class="cn.jdevelops.logs.logback.rolling.CustomApiLogRollingFileAppenderInput">
         <encoder charset="utf-8" class="com.yomahub.tlog.core.enhance.logback.AspectLogbackEncoder">
             <pattern>[%-5level] %X{tl}  %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %logger{36} - %m%n</pattern>
         </encoder>
