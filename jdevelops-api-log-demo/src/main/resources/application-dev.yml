@@ -1,4 +1,4 @@
 jdevelops:
   api:
     log:
-      enabled: false
+      enabled: true
