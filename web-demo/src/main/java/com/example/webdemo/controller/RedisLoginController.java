@@ -7,6 +7,7 @@ import cn.jdevelops.sboot.authentication.jredis.entity.RedisAccount;
 import cn.jdevelops.sboot.authentication.jredis.entity.sign.RedisSignEntity;
 
 import cn.jdevelops.sboot.authentication.jredis.service.RedisLoginService;
+import cn.jdevelops.sboot.authentication.jredis.util.RsJwtWebUtil;
 import cn.jdevelops.sboot.authentication.jwt.annotation.ApiMapping;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -82,5 +83,16 @@ public class RedisLoginController {
     public String stop(){
         return "拦截还是放行！";
     }
+
+
+    @GetMapping("/parseJwt")
+    public RedisSignEntity<String> parseJwt(HttpServletRequest request){
+        RedisSignEntity<String> tokenByRedisSignEntity = RsJwtWebUtil.getTokenByRedisSignEntity(request, String.class);
+        if(tokenByRedisSignEntity.getMap() != null){
+            System.out.println(tokenByRedisSignEntity.getMap());
+        }
+        return tokenByRedisSignEntity;
+    }
+
 
 }

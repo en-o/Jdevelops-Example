@@ -2,9 +2,7 @@ package com.example.webdemo.config;
 
 import cn.jdevelops.sboot.authentication.jredis.entity.sign.RedisSignEntity;
 import cn.jdevelops.sboot.authentication.jredis.util.RsJwtWebUtil;
-import cn.jdevelops.sboot.authentication.jwt.util.JwtWebUtil;
 import cn.jdevelops.sboot.jpa.core.auditor.AuditorNameService;
-import cn.jdevelops.util.jwt.core.JwtService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +24,7 @@ public class TokenAuditorNameServiceImpl implements AuditorNameService {
     public Optional<String> settingAuditorName() {
         // 自己重新构建
         try {
-            RedisSignEntity signEntity = RsJwtWebUtil.getTokenByRedisSignEntity(request);
+            RedisSignEntity<String> signEntity = RsJwtWebUtil.getTokenByRedisSignEntity(request,String.class);
             return Optional.of(signEntity.getLoginName());
         } catch (Exception e) {
             log.error("自动填充数据创建者时获取当前登录用户的loginName失败");

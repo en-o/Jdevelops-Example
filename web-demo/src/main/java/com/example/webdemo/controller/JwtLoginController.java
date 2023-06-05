@@ -3,6 +3,8 @@ package com.example.webdemo.controller;
 
 import cn.jdevelops.api.annotation.mapping.PathRestController;
 import cn.jdevelops.api.result.response.ResultVO;
+import cn.jdevelops.sboot.authentication.jredis.entity.sign.RedisSignEntity;
+import cn.jdevelops.sboot.authentication.jredis.util.RsJwtWebUtil;
 import cn.jdevelops.sboot.authentication.jwt.server.LoginService;
 import cn.jdevelops.util.jwt.entity.SignEntity;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,5 +35,15 @@ public class JwtLoginController {
     @GetMapping("stop")
     public String stop(){
         return "拦截还是放行！";
+    }
+
+
+    @GetMapping("/parseJwt")
+    public SignEntity<String> parseJwt(HttpServletRequest request){
+        SignEntity<String> tokenBySignEntity = RsJwtWebUtil.getTokenBySignEntity(request, String.class);
+        if(tokenBySignEntity.getMap() != null){
+            System.out.println(tokenBySignEntity.getMap());
+        }
+        return tokenBySignEntity;
     }
 }
