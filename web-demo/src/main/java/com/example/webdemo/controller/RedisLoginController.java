@@ -94,5 +94,9 @@ public class RedisLoginController {
         return tokenByRedisSignEntity;
     }
 
-
+    @GetMapping("/parseJwt2")
+    public RedisSignEntity parseJwt2(HttpServletRequest request){
+        RedisSignEntity tokenByRedisSignEntity = RsJwtWebUtil.getTokenByRedisSignEntity(request);
+        return tokenByRedisSignEntity;
+    }
 }

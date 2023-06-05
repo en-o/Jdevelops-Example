@@ -24,7 +24,7 @@ public class TokenAuditorNameServiceImpl implements AuditorNameService {
     public Optional<String> settingAuditorName() {
         // 自己重新构建
         try {
-            RedisSignEntity<String> signEntity = RsJwtWebUtil.getTokenByRedisSignEntity(request,String.class);
+            RedisSignEntity<String> signEntity = RsJwtWebUtil.getTokenByRedisSignEntity(request);
             return Optional.of(signEntity.getLoginName());
         } catch (Exception e) {
             log.error("自动填充数据创建者时获取当前登录用户的loginName失败");
