@@ -10,7 +10,7 @@
         debug="false" scan="true" scanPeriod="10 second">
 
     <!-- 配置日志输出目录文件夹以及进行重命名 -->
-    <property name="PROJECT" value="web-demo" />
+    <property name="PROJECT" value="logger-level-test" />
     <property name="ROOT" value="logs/${PROJECT}/" />
     <!-- 配置日志文件大小 -->
     <property name="FILESIZE" value="50MB" />
@@ -30,7 +30,7 @@
         </encoder>
     </appender>
 
-    <!-- ERROR日志输出到文件  -->
+    <!-- ERROR日志输出到文件  （文件大小到达指定尺寸的时候产生一个新文件） -->
     <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder charset="utf-8" class="com.yomahub.tlog.core.enhance.logback.AspectLogbackEncoder">
             <pattern>[%-5level] %X{tl} %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %logger{36} - %m%n</pattern>
@@ -131,13 +131,16 @@
         </rollingPolicy>
     </appender>
     <!-- API日志输出到文件 -->
-    <appender name="APILOG" class="cn.jdevelops.logs.logback.rolling.CustomApiLogRollingFileAppenderInput">
+<!--    <appender name="APILOG" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+    <appender name="APILOG" class="com.example.loggerleveltest.CustomLog">
         <encoder charset="utf-8" class="com.yomahub.tlog.core.enhance.logback.AspectLogbackEncoder">
             <pattern>[%-5level] %X{tl}  %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %logger{36} - %m%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>
+            <!--表示匹配该级别及以上-->
             <onMatch>ACCEPT</onMatch>
+            <!--表示不匹配该级别以下的-->
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -159,7 +162,13 @@
 
     <springProfile name="dev">
         <root level="debug">
-            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="STDOUT" />
+<!--            <appender-ref ref="DEBUG" />-->
+<!--            <appender-ref ref="ERROR" />-->
+<!--            <appender-ref ref="WARN" />-->
+<!--            <appender-ref ref="INFO" />-->
+<!--            <appender-ref ref="TRACE" />-->
+<!--            <appender-ref ref="APILOG" />-->
         </root>
     </springProfile>
     <!--    非dev环境下-->
