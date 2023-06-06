@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -48,14 +49,14 @@ public class JpaController {
 
     @Operation(summary = "分页查询")
     @PostMapping("page")
-    public ResultPageVO<JpaPageResult<UserVO>> page(@RequestBody UserPage user){
+    public ResultPageVO<JpaPageResult<UserVO>> page(@Valid @RequestBody UserPage user){
         JpaPageResult<UserVO> byBean = userService.findByBean(user, user.getPage(),UserVO.class);
         return ResultPageVO.success(byBean);
     }
 
     @Operation(summary = "分页排序查询")
     @PostMapping("sortPage")
-    public ResultPageVO<JpaPageResult<UserVO>> sortPage(@RequestBody UserSortPage user){
+    public ResultPageVO<JpaPageResult<UserVO>> sortPage(@Valid @RequestBody UserSortPage user){
         JpaPageResult<UserVO> byBean = userService.findByBean(user, user.getSortPage(), UserVO.class);
         return ResultPageVO.success(byBean);
     }
@@ -63,7 +64,7 @@ public class JpaController {
 
     @Operation(summary = "排序查询")
     @PostMapping("sort")
-    public ResultVO<List<UserVO>> sort(@RequestBody UserSort user){
+    public ResultVO<List<UserVO>> sort(@Valid @RequestBody UserSort user){
         List<UserVO> complex = userService.findComplex(user, user.getSort(), UserVO.class);
         return ResultVO.successForData(complex);
     }
