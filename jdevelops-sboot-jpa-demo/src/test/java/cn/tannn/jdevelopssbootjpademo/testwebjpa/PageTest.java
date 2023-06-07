@@ -27,7 +27,7 @@ public class PageTest {
      */
     @Test
     void findByBeanPSFVO(){
-        SortPageDTO sortPage = new SortPageDTO("id", 1, 1, 10);
+        SortPageDTO sortPage = new SortPageDTO(1, 10, 1,"id" );
         User user = new User();
         user.setLoginPwd("123456");
         JpaPageResult<UserVO> byBean = userService.findByBean(user, sortPage, UserVO.class);
@@ -39,7 +39,7 @@ public class PageTest {
      */
     @Test
     void findByBeanPS(){
-        SortPageDTO sortPage = new SortPageDTO("id", 1, 1, 10);
+        SortPageDTO sortPage = new SortPageDTO(1, 10, 1,"id" );
         User user = new User();
         user.setLoginPwd("123456");
         JpaPageResult<User> byBean = userService.findByBean(user, sortPage);

@@ -27,7 +27,7 @@ public class SortTest {
      */
     @Test
     void findByBeanSFVO(){
-        SortDTO sort = new SortDTO("userNo", 0);
+        SortDTO sort = new SortDTO( 0, "userNo");
         User user = new User();
         user.setLoginPwd("123456");
         List<UserVO> complex = userService.findComplex(user, sort, UserVO.class);
@@ -39,7 +39,7 @@ public class SortTest {
      */
     @Test
     void findByBeanS(){
-        SortDTO sort = new SortDTO("userNo", 0);
+        SortDTO sort = new SortDTO( 0, "userNo");
         User user = new User();
         user.setLoginPwd("123456");
         List<User> complex = userService.findComplex(user, sort);
