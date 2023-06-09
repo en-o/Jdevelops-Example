@@ -39,4 +39,25 @@ public class SpecificationUtilTest {
                 );
         userService.getJpaBasicsDao().findAll(and).forEach(System.out::println);
     }
+
+
+
+    @Test
+    void testSpecificationUtil2() {
+        SpecificationUtil<User> instance = SpecificationUtil.getInstance();
+        Specification<User> and = instance.like(User::getAddress, "重庆", true)
+                .and(instance.eq(User::getName, "用户", true)
+                        .or(instance.eq(User::getLoginPwd, "123", true)
+                                .and(instance.eq(User::getPhone, "123", true))
+                                .or(instance.eq(User::getUserNo,"123", true))
+                        )
+                        .and(
+                                instance.eq(User::getPhone, "123", true)
+                                        .or(instance.eq(User::getUserNo, "123", true))
+                        )
+                        .or(instance.eq(User::getPhone, "123", true))
+                        .or(instance.eq(User::getUserNo, "123", true))
+                );
+        userService.getJpaBasicsDao().findAll(and).forEach(System.out::println);
+    }
 }
