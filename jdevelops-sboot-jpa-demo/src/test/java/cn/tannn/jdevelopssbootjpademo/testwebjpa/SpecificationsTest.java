@@ -284,6 +284,7 @@ public class SpecificationsTest {
     }
 
     /**
+     * 日期
      <sql>
          SELECT
             user0_.*
@@ -294,27 +295,58 @@ public class SpecificationsTest {
      </sql>
      */
     @Test
-    void testSpecTime() {
+    void testSpecDateTime() {
         Date date = getDate("2021-12-03 13:48:14");
         Date endDate = getDate("2021-12-10 15:02:49");
         Specification<User> between = Specifications.<User>where(e -> {
-            // 精确到了秒
-//            e.eq(e.getBuilder().function("date",Date.class,e.getRoot().get("createTime")),date);
-            // 精确到了分
+            // date 函数 是日期 ，所以查询只能精确到日期
+            e.eq(e.getBuilder().function("date",Date.class,e.getRoot().get("createTime")),date);
 //            e.lt(e.getBuilder().function("date",Date.class,e.getRoot().get("createTime")),date);
-//            // 精确到了秒
 //            e.le(e.getBuilder().function("date",Date.class,e.getRoot().get("createTime")),date);
-              // 精确到了秒
 //            e.gt(e.getBuilder().function("date",Date.class,e.getRoot().get("createTime")),date);
-            // 精确到了分
 //            e.ge(e.getBuilder().function("date",Date.class,e.getRoot().get("createTime")),date);
-            // 精确到了秒
-            e.between(e.getBuilder().function("date",Date.class,e.getRoot().get("createTime")),date,endDate);
+//            e.between(e.getBuilder().function("date",Date.class,e.getRoot().get("createTime")),date,endDate);
         });
         userService.getJpaBasicsDao().findAll(between).forEach(System.out::println);
     }
 
+    /**
+     * 有时分秒
+         <sql>
+             SELECT
+               user0_.*
+             FROM
+               sys_user user0_
+             WHERE
+              DATE ( user0_.create_time ) =?
+         </sql>
+     */
+    @Test
+    void testSpecTimestamp() {
+        String sqlDateFormat ="%Y-%m-%d %T";
+        String date = "2021-12-03 13:48:14";
+        String endDate = "2021-12-10 15:02:48";
+        Specification<User> between = Specifications.<User>where(e -> {
+            // date 函数 是日期 ，所以查询只能精确到日期
+//            e.eq(e.getBuilder().function("DATE_FORMAT",String.class,e.getRoot().get("createTime"),e.getBuilder().literal(sqlDateFormat))
+//                    ,date);
 
+//            e.lt(e.getBuilder().function("DATE_FORMAT",String.class,e.getRoot().get("createTime"),e.getBuilder().literal(sqlDateFormat))
+//                    ,date);
+
+//            e.le(e.getBuilder().function("DATE_FORMAT",String.class,e.getRoot().get("createTime"),e.getBuilder().literal(sqlDateFormat))
+//                    ,date);
+
+//            e.gt(e.getBuilder().function("DATE_FORMAT",String.class,e.getRoot().get("createTime"),e.getBuilder().literal(sqlDateFormat))
+//                    ,date);
+
+//            e.ge(e.getBuilder().function("DATE_FORMAT",String.class,e.getRoot().get("createTime"),e.getBuilder().literal(sqlDateFormat))
+//                    ,date);
+            e.between(e.getBuilder().function("DATE_FORMAT",String.class,e.getRoot().get("createTime"),e.getBuilder().literal(sqlDateFormat))
+                    ,date,endDate);
+        });
+        userService.getJpaBasicsDao().findAll(between).forEach(System.out::println);
+    }
 
 
 
