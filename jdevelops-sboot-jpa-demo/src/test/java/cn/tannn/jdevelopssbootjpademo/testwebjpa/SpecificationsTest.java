@@ -2,6 +2,7 @@ package cn.tannn.jdevelopssbootjpademo.testwebjpa;
 
 import cn.hutool.core.date.DateTime;
 import cn.jdevelops.data.jap.core.Specifications;
+import cn.jdevelops.data.jap.core.specification.SpecificationWrapper;
 import cn.tannn.jdevelopssbootjpademo.entity.User;
 import cn.tannn.jdevelopssbootjpademo.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -9,10 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.domain.Specification;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 复杂查询
@@ -322,6 +328,45 @@ public class SpecificationsTest {
             e.printStackTrace();
         }
         return new Date();
+    }
+
+
+
+
+    /**
+     * 使用非内置的方法  builder构造查询
+     */
+    @Test
+    void testSpecBuilder() {
+        // 等于  (from sys_user user0_ where user0_.name=? )
+        Specification<User> equal = Specifications.<User>where(e -> {
+            e.getPredicates().add(e.getBuilder().equal(e.getRoot().get("name"), "111"));
+        });
+        userService.getJpaBasicsDao().findAll(equal).forEach(System.out::println);
+
+
+        // 小于  (from sys_user user0_ where user0_.phone<? )
+        Specification<User> lessThan = Specifications.<User>where(e -> {
+            e.getPredicates().add(e.getBuilder().lessThan(e.getRoot().get("phone"), "1312"));
+        });
+        userService.getJpaBasicsDao().findAll(lessThan).forEach(System.out::println);
+
+
+
+        // 组合  (from sys_user user0_ where user0_.create_user_name=? and date(user0_.create_time)<? and (user0_.name like ? or user0_.user_no like ?) )
+        Date date = getDate("2021-12-10 15:02:39");
+        Specification<User> andCreateUserNameEqAndCreateTimeLessThanOrNameLikeOrUserNoLike = Specifications
+                .where(e -> {
+                    e.and( and -> {
+                        and.getPredicates().add(and.getBuilder().equal(and.getRoot().get("createUserName"), "admin"));
+                        and.getPredicates().add(and.getBuilder().lessThan(and.getBuilder().function("date",Date.class,and.getRoot().get("createTime")),date));
+                    });
+                    e.or( or -> {
+                        or.getPredicates().add(or.getBuilder().like(or.getRoot().get("name"), "%用户% "));
+                        or.getPredicates().add(or.getBuilder().like(or.getRoot().get("userNo"), "146%"));
+                    });
+        });
+        userService.getJpaBasicsDao().findAll(andCreateUserNameEqAndCreateTimeLessThanOrNameLikeOrUserNoLike).forEach(System.out::println);
     }
 
 }
