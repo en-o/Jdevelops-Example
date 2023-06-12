@@ -426,13 +426,14 @@ public class SpecificationsTest {
 
     @Test
     public void SpecificationBean(){
-//        //  from sys_user user0_ where user0_.name=? and (user0_.phone like ?)
-//        UserFindJpaSelectWrapperOperatorDTO bean = new UserFindJpaSelectWrapperOperatorDTO();
-//        bean.setName("111");
-//        bean.setPhone("1312");
-//        Specification<User> objectSpecification = Specifications.beanWhere(bean);
-//        userService.getJpaBasicsDao().findAll(objectSpecification).forEach(System.out::println);
-//
+        //  from sys_user user0_ where user0_.name=? and (user0_.phone like ?)
+        UserFindJpaSelectWrapperOperatorDTO bean = new UserFindJpaSelectWrapperOperatorDTO();
+        bean.setName("111");
+        bean.setPhone("1312");
+        bean.setAddress("222");
+        Specification<User> objectSpecification = Specifications.beanWhere(bean);
+        userService.getJpaBasicsDao().findAll(objectSpecification).forEach(System.out::println);
+
 //
 //        //当address 没有用注解表示的时候，为空不查，空则用 eq
 //        // from sys_user user0_ where user0_.name=? and (user0_.phone like ?) and user0_.address=?
@@ -451,10 +452,10 @@ public class SpecificationsTest {
 //
 
         //  from sys_user user0_ where user0_.login_pwd between ? and ?
-        UserFindJpaSelectWrapperOperatorDTO time = new UserFindJpaSelectWrapperOperatorDTO();
-        time.setCreateTime("2021-12-03 14:05:23");
-        Specification<User>  timeSpecification = Specifications.beanWhere(time);
-        userService.getJpaBasicsDao().findAll(timeSpecification).forEach(System.out::println);
+//        UserFindJpaSelectWrapperOperatorDTO time = new UserFindJpaSelectWrapperOperatorDTO();
+//        time.setCreateTime("2021-12-03 14:05:23");
+//        Specification<User>  timeSpecification = Specifications.beanWhere(time);
+//        userService.getJpaBasicsDao().findAll(timeSpecification).forEach(System.out::println);
     }
 
 }

@@ -27,18 +27,18 @@ public class UserFindJpaSelectWrapperOperatorDTO extends SerializableBean<UserFi
 	/**
 	 * LIKE 用户编号
 	 */
-	@JpaSelectWrapperOperator(operatorWrapper = SQLOperatorWrapper.LIKE)
+	@JpaSelectWrapperOperator(operatorWrapper = SQLOperatorWrapper.LIKE, connect = SQLConnect.OR)
 	private String userNo;
 	/**
 	 * EQ 姓名
 	 */
-	@JpaSelectWrapperOperator(operatorWrapper = SQLOperatorWrapper.EQ)
+	@JpaSelectWrapperOperator(operatorWrapper = SQLOperatorWrapper.EQ, connect = SQLConnect.OR)
 	private String name;
 
 	/**
 	 * LIKE 手机号/联系电话
 	 */
-	@JpaSelectWrapperOperator(operatorWrapper = SQLOperatorWrapper.LIKE)
+	@JpaSelectWrapperOperator(operatorWrapper = SQLOperatorWrapper.LIKE, connect = SQLConnect.OR)
 	private String phone;
 
 
