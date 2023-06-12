@@ -35,25 +35,12 @@ public class SpecificationsTest {
 
 
     /**
-
-     <sql>
-
-     FROM
-        sys_user user0_
-     WHERE
-         (
-         user0_.NAME LIKE ?)
-         AND (
-         user0_.phone =?
-         OR user0_.address LIKE ?)
-         AND (
-         user0_.user_icon IS NULL)
-
-     </sql>
-
+     * 混合
      */
     @Test
     void testSpec() {
+        // and ... （里面的e.or 可以自定义组合（or ...）,如果不用则默认全部用and）
+        // FROM sys_user user0_ WHERE (user0_.NAME LIKE ?) AND ( user0_.phone =? OR user0_.address LIKE ?)AND (user0_.user_icon IS NULL)
         Specification<User> where = Specifications.<User>where(e -> {
             e.likes(User::getName, "用户");
             e.or(e2 -> {
@@ -65,6 +52,21 @@ public class SpecificationsTest {
             e.isNull(User::getUserIcon);
         });
         userService.getJpaBasicsDao().findAll(where).forEach(System.out::println);
+
+
+        // or ... （里面的 and 可以自定义组合（and ...）,如果不用则默认全部用or ）
+        // from sys_user user0_ where user0_.name like ? or user0_.phone=? and (user0_.address like ?) or user0_.user_icon is null
+        Specification<User> or = Specifications.<User>where(false,e -> {
+            e.likes(User::getName, "用户");
+            e.and(e2 -> {
+                        e2.eq(User::getPhone, "123");
+                        e2.likes(User::getAddress, "重");
+                    }
+            );
+//            e.getBuilder().equal(e.getRoot(), "");
+            e.isNull(User::getUserIcon);
+        });
+        userService.getJpaBasicsDao().findAll(or).forEach(System.out::println);
     }
 
 
