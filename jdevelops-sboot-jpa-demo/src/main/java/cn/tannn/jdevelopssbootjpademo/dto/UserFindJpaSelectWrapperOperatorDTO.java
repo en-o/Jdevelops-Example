@@ -67,4 +67,11 @@ public class UserFindJpaSelectWrapperOperatorDTO extends SerializableBean<UserFi
 	 */
 	private String address;
 
+
+	/**
+	 * 测试重命名
+	 */
+	@JpaSelectWrapperOperator(operatorWrapper = SQLOperatorWrapper.EQ,fieldName = "updateUserName")
+	private String reName;
+
 }

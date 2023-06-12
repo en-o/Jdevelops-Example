@@ -288,6 +288,9 @@ public class SpecificationsTest {
         userService.getJpaBasicsDao().findAll(between).forEach(System.out::println);
     }
 
+
+
+
     /**
      * 日期
      <sql>
@@ -408,6 +411,18 @@ public class SpecificationsTest {
         userService.getJpaBasicsDao().findAll(andCreateUserNameEqAndCreateTimeLessThanOrNameLikeOrUserNoLike).forEach(System.out::println);
     }
 
+
+    /**
+     * 重命名
+     */
+    @Test
+    void testSpecReName() {
+        //  from sys_user user0_ where user0_.update_user_name=?
+        UserFindJpaSelectWrapperOperatorDTO reName = new UserFindJpaSelectWrapperOperatorDTO();
+        reName.setReName("admin");
+        Specification<User>  timeSpecification = Specifications.beanWhere(reName);
+        userService.getJpaBasicsDao().findAll(timeSpecification).forEach(System.out::println);
+    }
 
     @Test
     public void SpecificationBean(){
