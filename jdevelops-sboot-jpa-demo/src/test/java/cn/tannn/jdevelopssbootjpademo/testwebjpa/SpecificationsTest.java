@@ -3,6 +3,8 @@ package cn.tannn.jdevelopssbootjpademo.testwebjpa;
 import cn.hutool.core.date.DateTime;
 import cn.jdevelops.data.jap.core.Specifications;
 import cn.jdevelops.data.jap.core.specification.SpecificationWrapper;
+import cn.jdevelops.data.jap.enums.SpecBuilderDateFun;
+import cn.jdevelops.data.jap.util.JpaUtils;
 import cn.tannn.jdevelopssbootjpademo.dto.UserFindJpaSelectWrapperOperatorDTO;
 import cn.tannn.jdevelopssbootjpademo.entity.User;
 import cn.tannn.jdevelopssbootjpademo.service.UserService;
@@ -42,14 +44,14 @@ public class SpecificationsTest {
         // and ... （里面的e.or 可以自定义组合（or ...）,如果不用则默认全部用and）
         // FROM sys_user user0_ WHERE (user0_.NAME LIKE ?) AND ( user0_.phone =? OR user0_.address LIKE ?)AND (user0_.user_icon IS NULL)
         Specification<User> where = Specifications.<User>where(e -> {
-            e.likes(User::getName, "用户");
+            e.likes(true,"name", "用户");
             e.or(e2 -> {
-                        e2.eq(User::getPhone, "123");
-                        e2.likes(User::getAddress, "重");
+                        e2.eq(true,"phone", "123");
+                        e2.likes(true,"address", "重");
                     }
             );
 //            e.getBuilder().equal(e.getRoot(), "");
-            e.isNull(User::getUserIcon);
+            e.isNull("userIcon");
         });
         userService.getJpaBasicsDao().findAll(where).forEach(System.out::println);
 
@@ -57,14 +59,14 @@ public class SpecificationsTest {
         // or ... （里面的 and 可以自定义组合（and ...）,如果不用则默认全部用or ）
         // from sys_user user0_ where user0_.name like ? or user0_.phone=? and (user0_.address like ?) or user0_.user_icon is null
         Specification<User> or = Specifications.<User>where(false,e -> {
-            e.likes(User::getName, "用户");
+            e.likes(true,"name", "用户");
             e.and(e2 -> {
-                        e2.eq(User::getPhone, "123");
-                        e2.likes(User::getAddress, "重");
+                        e2.eq(true,"phone", "123");
+                        e2.likes(true,"address", "重");
                     }
             );
 //            e.getBuilder().equal(e.getRoot(), "");
-            e.isNull(User::getUserIcon);
+            e.isNull("userIcon");
         });
         userService.getJpaBasicsDao().findAll(or).forEach(System.out::println);
     }
@@ -83,7 +85,7 @@ public class SpecificationsTest {
     @Test
     void testSpecIsNull() {
         Specification<User> where = Specifications.<User>where(e -> {
-            e.isNull(User::getUserIcon);
+            e.isNull("userIcon");
         });
         userService.getJpaBasicsDao().findAll(where).forEach(System.out::println);
     }
@@ -101,7 +103,7 @@ public class SpecificationsTest {
     @Test
     void testSpecIsNotNull() {
         Specification<User> where = Specifications.<User>where(e -> {
-            e.isNotNull(User::getUserIcon);
+            e.isNotNull("userIcon");
         });
         userService.getJpaBasicsDao().findAll(where).forEach(System.out::println);
     }
@@ -121,7 +123,7 @@ public class SpecificationsTest {
     @Test
     void testSpecEq() {
         Specification<User> where = Specifications.<User>where(e -> {
-            e.eq(User::getUserNo,"admin");
+            e.eq(true,"userNO","admin");
         });
         userService.getJpaBasicsDao().findAll(where).forEach(System.out::println);
     }
@@ -140,7 +142,7 @@ public class SpecificationsTest {
     @Test
     void testSpecNe() {
         Specification<User> where = Specifications.<User>where(e -> {
-            e.ne(User::getUserNo,"admin");
+            e.ne(true,"userNO","admin");
         });
         userService.getJpaBasicsDao().findAll(where).forEach(System.out::println);
     }
@@ -164,24 +166,24 @@ public class SpecificationsTest {
     @Test
     void testSpecLike() {
         Specification<User> where = Specifications.<User>where(e -> {
-            e.likes(User::getLoginName,"u");
+            e.likes(true,"loginName","u");
         });
         userService.getJpaBasicsDao().findAll(where).forEach(System.err::println);
 
 
         Specification<User> where2 = Specifications.<User>where(e -> {
-            e.rlike(User::getLoginName,"u");
+            e.rlike(true,"loginName","u");
         });
         userService.getJpaBasicsDao().findAll(where2).forEach(System.err::println);
 
         Specification<User> where3 = Specifications.<User>where(e -> {
-            e.llike(User::getLoginName,"01");
+            e.llike(true,"loginName","01");
         });
         userService.getJpaBasicsDao().findAll(where3).forEach(System.err::println);
 
 
         Specification<User> where4 = Specifications.<User>where(e -> {
-            e.nlike(User::getLoginName,"02%");
+            e.nlike(true,"loginName","02%");
         });
         userService.getJpaBasicsDao().findAll(where4).forEach(System.err::println);
     }
@@ -204,24 +206,24 @@ public class SpecificationsTest {
     @Test
     void testSpecGe() {
         Specification<User> ge = Specifications.<User>where(e -> {
-            e.ge(User::getPhone,"1312");
+            e.ge(true,"phone","1312");
         });
         userService.getJpaBasicsDao().findAll(ge).forEach(System.out::println);
 
 
         Specification<User> gt = Specifications.<User>where(e -> {
-            e.gt(User::getPhone,"1312");
+            e.gt(true,"phone","1312");
         });
         userService.getJpaBasicsDao().findAll(gt).forEach(System.err::println);
 
         Specification<User> le = Specifications.<User>where(e -> {
-            e.le(User::getPhone,"1312");
+            e.le(true,"phone","1312");
         });
         userService.getJpaBasicsDao().findAll(le).forEach(System.out::println);
 
 
         Specification<User> lt = Specifications.<User>where(e -> {
-            e.lt(User::getPhone,"1312");
+            e.lt(true,"phone","1312");
         });
         userService.getJpaBasicsDao().findAll(lt).forEach(System.err::println);
 
@@ -243,7 +245,7 @@ public class SpecificationsTest {
     @Test
     void testSpecIn() {
         Specification<User> where = Specifications.<User>where(e -> {
-            e.in(User::getName,"超级管理员","111");
+            e.in(true,"name","超级管理员","111");
         });
         userService.getJpaBasicsDao().findAll(where).forEach(System.out::println);
     }
@@ -262,7 +264,7 @@ public class SpecificationsTest {
     @Test
     void testSpecNotIn() {
         Specification<User> notIn = Specifications.<User>where(e -> {
-            e.notIn(User::getName,"超级管理员","111");
+            e.notIn(true,"name","超级管理员","111");
         });
         userService.getJpaBasicsDao().findAll(notIn).forEach(System.out::println);
     }
@@ -281,7 +283,7 @@ public class SpecificationsTest {
     @Test
     void testSpecBetween() {
         Specification<User> between = Specifications.<User>where(e -> {
-            e.between(User::getPhone,"1312","15888888888");
+            e.between(true,"name","1312","15888888888");
         });
         userService.getJpaBasicsDao().findAll(between).forEach(System.out::println);
     }
@@ -345,8 +347,10 @@ public class SpecificationsTest {
 
 //            e.ge(e.getBuilder().function("DATE_FORMAT",String.class,e.getRoot().get("createTime"),e.getBuilder().literal(sqlDateFormat))
 //                    ,date);
-            e.between(e.getBuilder().function("DATE_FORMAT",String.class,e.getRoot().get("createTime"),e.getBuilder().literal(sqlDateFormat))
-                    ,date,endDate);
+//            e.between(e.getBuilder().function("DATE_FORMAT",String.class,e.getRoot().get("createTime"),e.getBuilder().literal(sqlDateFormat))
+//                    ,date,endDate);
+            e.between(JpaUtils.functionTimeFormat(SpecBuilderDateFun.DATE_FORMAT,
+                    e.getRoot(),e.getBuilder(),"createTime"),date,endDate);
         });
         userService.getJpaBasicsDao().findAll(between).forEach(System.out::println);
     }
