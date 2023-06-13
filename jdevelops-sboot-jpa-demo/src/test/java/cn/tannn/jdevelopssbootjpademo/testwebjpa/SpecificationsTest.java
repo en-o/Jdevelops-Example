@@ -43,32 +43,32 @@ public class SpecificationsTest {
     void testSpec() {
         // and ... （里面的e.or 可以自定义组合（or ...）,如果不用则默认全部用and）
         // FROM sys_user user0_ WHERE (user0_.NAME LIKE ?) AND ( user0_.phone =? OR user0_.address LIKE ?)AND (user0_.user_icon IS NULL)
-//        Specification<User> where = Specifications.<User>where(e -> {
-//            e.likes(true,"name", "用户");
-//            e.or(e2 -> {
-//                        e2.eq(true,"phone", "123");
-//                        e2.likes(true,"address", "重");
-//                    }
-//            );
-////            e.getBuilder().equal(e.getRoot(), "");
-//            e.isNull("userIcon");
-//        });
-//        userService.getJpaBasicsDao().findAll(where).forEach(System.out::println);
-//
-//
-//        // or ... （里面的 and 可以自定义组合（and ...）,如果不用则默认全部用or ）
-//        // from sys_user user0_ where user0_.name like ? or user0_.phone=? and (user0_.address like ?) or user0_.user_icon is null
-//        Specification<User> or = Specifications.<User>where(false,e -> {
-//            e.likes(true,"name", "用户");
-//            e.and(e2 -> {
-//                        e2.eq(true,"phone", "123");
-//                        e2.likes(true,"address", "重");
-//                    }
-//            );
-////            e.getBuilder().equal(e.getRoot(), "");
-//            e.isNull("userIcon");
-//        });
-//        userService.getJpaBasicsDao().findAll(or).forEach(System.out::println);
+        Specification<User> where = Specifications.<User>where(e -> {
+            e.likes(true,"name", "用户");
+            e.or(e2 -> {
+                        e2.eq(true,"phone", "123");
+                        e2.likes(true,"address", "重");
+                    }
+            );
+//            e.getBuilder().equal(e.getRoot(), "");
+            e.isNull("userIcon");
+        });
+        userService.getJpaBasicsDao().findAll(where).forEach(System.out::println);
+
+
+        // or ... （里面的 and 可以自定义组合（and ...）,如果不用则默认全部用or ）
+        // from sys_user user0_ where user0_.name like ? or user0_.phone=? and (user0_.address like ?) or user0_.user_icon is null
+        Specification<User> or = Specifications.<User>where(false,e -> {
+            e.likes(true,"name", "用户");
+            e.and(e2 -> {
+                        e2.eq(true,"phone", "123");
+                        e2.likes(true,"address", "重");
+                    }
+            );
+//            e.getBuilder().equal(e.getRoot(), "");
+            e.isNull("userIcon");
+        });
+        userService.getJpaBasicsDao().findAll(or).forEach(System.out::println);
 
 
 
