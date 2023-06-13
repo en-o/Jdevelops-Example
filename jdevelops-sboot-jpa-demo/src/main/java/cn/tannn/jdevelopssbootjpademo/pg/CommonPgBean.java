@@ -1,4 +1,4 @@
-package cn.tannn.jdevelopssbootjpademo.entity;
+package cn.tannn.jdevelopssbootjpademo.pg;
 
 
 import cn.jdevelops.data.jap.entity.JpaAuditFields;
@@ -24,8 +24,7 @@ import javax.persistence.*;
 @Access(AccessType.FIELD)
 @Getter
 @Setter
-//public class CommonBean<B> extends JpaAuditPgFields<B> {
-public class CommonBean<B> extends JpaAuditFields<B> {
+public class CommonPgBean<B> extends JpaAuditPgFields<B> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

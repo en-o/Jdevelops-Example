@@ -1,9 +1,12 @@
-package cn.tannn.jdevelopssbootjpademo.entity;
+package cn.tannn.jdevelopssbootjpademo.pg;
 
 import cn.jdevelops.data.jap.annotation.JpaSelectOperator;
 import cn.jdevelops.data.jap.enums.SQLConnect;
 import cn.jdevelops.data.jap.enums.SQLOperator;
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
@@ -21,18 +24,18 @@ import java.util.Objects;
  * @date : 2021-9-10
  */
 @Entity
-@Table(name = "sys_user",
+@Table(name = "sys_user_pg",
 		indexes = {
 				@Index(name = "user_no_index", columnList = "userNo", unique = true),
 		})
-@org.hibernate.annotations.Table(appliesTo = "sys_user", comment = "用户表")
+@org.hibernate.annotations.Table(appliesTo = "sys_user_pg", comment = "用户表")
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
 @DynamicUpdate
 @DynamicInsert
-public class User extends CommonBean<User> {
+public class UserPgsql extends CommonPgBean<UserPgsql> {
 
 	/**
 	 * 用户编号
@@ -95,7 +98,7 @@ public class User extends CommonBean<User> {
 		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
 			return false;
 		}
-		User user = (User) o;
+		UserPgsql user = (UserPgsql) o;
 		return getId() != null && Objects.equals(getId(), user.getId());
 	}
 
