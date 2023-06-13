@@ -43,32 +43,64 @@ public class SpecificationsTest {
     void testSpec() {
         // and ... （里面的e.or 可以自定义组合（or ...）,如果不用则默认全部用and）
         // FROM sys_user user0_ WHERE (user0_.NAME LIKE ?) AND ( user0_.phone =? OR user0_.address LIKE ?)AND (user0_.user_icon IS NULL)
-        Specification<User> where = Specifications.<User>where(e -> {
-            e.likes(true,"name", "用户");
-            e.or(e2 -> {
-                        e2.eq(true,"phone", "123");
-                        e2.likes(true,"address", "重");
-                    }
-            );
-//            e.getBuilder().equal(e.getRoot(), "");
-            e.isNull("userIcon");
-        });
-        userService.getJpaBasicsDao().findAll(where).forEach(System.out::println);
+//        Specification<User> where = Specifications.<User>where(e -> {
+//            e.likes(true,"name", "用户");
+//            e.or(e2 -> {
+//                        e2.eq(true,"phone", "123");
+//                        e2.likes(true,"address", "重");
+//                    }
+//            );
+////            e.getBuilder().equal(e.getRoot(), "");
+//            e.isNull("userIcon");
+//        });
+//        userService.getJpaBasicsDao().findAll(where).forEach(System.out::println);
+//
+//
+//        // or ... （里面的 and 可以自定义组合（and ...）,如果不用则默认全部用or ）
+//        // from sys_user user0_ where user0_.name like ? or user0_.phone=? and (user0_.address like ?) or user0_.user_icon is null
+//        Specification<User> or = Specifications.<User>where(false,e -> {
+//            e.likes(true,"name", "用户");
+//            e.and(e2 -> {
+//                        e2.eq(true,"phone", "123");
+//                        e2.likes(true,"address", "重");
+//                    }
+//            );
+////            e.getBuilder().equal(e.getRoot(), "");
+//            e.isNull("userIcon");
+//        });
+//        userService.getJpaBasicsDao().findAll(or).forEach(System.out::println);
+
 
 
         // or ... （里面的 and 可以自定义组合（and ...）,如果不用则默认全部用or ）
-        // from sys_user user0_ where user0_.name like ? or user0_.phone=? and (user0_.address like ?) or user0_.user_icon is null
-        Specification<User> or = Specifications.<User>where(false,e -> {
+        // from sys_user user0_ where user0_.name like ? or date_format(user0_.update_time, ?) between ? and ? or user0_.phone=? and (user0_.user_no=? or user0_.address like ? or date(user0_.create_time)=? or user0_.login_name=? or user0_.id=1 or user0_.login_pwd<=?) or user0_.user_icon is null
+        Date date = getDate("2021-12-03 13:48:14");
+        String dateStr = "2021-12-03 13:48:14";
+        String endDateStr = "2021-12-10 15:02:48";
+        Specification<User> orand = Specifications.<User>where(false,e -> {
             e.likes(true,"name", "用户");
             e.and(e2 -> {
                         e2.eq(true,"phone", "123");
-                        e2.likes(true,"address", "重");
+                        e2.or( e3 -> {
+                            e3.eq(true,"userNo", "123")
+                                    .or(e4 -> {
+                                        e4.likes(true,"address", "重");
+                                        e4.eq(JpaUtils.functionTime(e4.getRoot(), e4.getBuilder(), "createTime"),date);
+                                    });
+                            e3.eq(true,"loginName", "123")
+                                    .and(e41 -> {
+                                        e41.eq(true,"id", 1);
+                                        e.between(JpaUtils.functionTimeFormat(SpecBuilderDateFun.DATE_FORMAT,
+                                                e.getRoot(),e.getBuilder(),"updateTime"),dateStr,endDateStr);
+                                    });
+                            e3.le(true,"loginPwd", "重");
+                        });
                     }
             );
-//            e.getBuilder().equal(e.getRoot(), "");
             e.isNull("userIcon");
         });
-        userService.getJpaBasicsDao().findAll(or).forEach(System.out::println);
+        userService.getJpaBasicsDao().findAll(orand).forEach(System.out::println);
+
     }
 
 
@@ -308,6 +340,8 @@ public class SpecificationsTest {
         Date endDate = getDate("2021-12-10 15:02:49");
         Specification<User> between = Specifications.<User>where(e -> {
             // date 函数 是日期 ，所以查询只能精确到日期
+            //  from sys_user user0_ where date(user0_.create_time)=?
+//            e.eq(JpaUtils.functionTime(e.getRoot(), e.getBuilder(), "createTime"),date);
             e.eq(e.getBuilder().function("date",Date.class,e.getRoot().get("createTime")),date);
 //            e.lt(e.getBuilder().function("date",Date.class,e.getRoot().get("createTime")),date);
 //            e.le(e.getBuilder().function("date",Date.class,e.getRoot().get("createTime")),date);
@@ -326,7 +360,7 @@ public class SpecificationsTest {
              FROM
                sys_user user0_
              WHERE
-              DATE ( user0_.create_time ) =?
+                date_format(user0_.create_time, ?) =?
          </sql>
      */
     @Test
