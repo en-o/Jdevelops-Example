@@ -3,16 +3,11 @@ package cn.tannn.jdevelopssbootjpademo.dto;
 import cn.jdevelops.api.result.bean.SerializableBean;
 import cn.jdevelops.data.jap.annotation.JpaSelectIgnoreField;
 import cn.jdevelops.data.jap.annotation.JpaSelectOperator;
-import cn.jdevelops.data.jap.annotation.JpaSelectWrapperOperator;
-import cn.jdevelops.data.jap.core.specification.OperatorWrapper;
-import cn.jdevelops.data.jap.enums.SQLConnect;
-import cn.jdevelops.data.jap.enums.SQLOperator;
 import cn.jdevelops.data.jap.enums.SQLOperatorWrapper;
 import cn.jdevelops.data.jap.enums.SpecBuilderDateFun;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.dialect.function.SQLFunction;
 
 /**
  * 查询用户
@@ -27,32 +22,32 @@ public class UserFindJpaSelectWrapperOperatorDTO extends SerializableBean<UserFi
 	/**
 	 * LIKE 用户编号
 	 */
-	@JpaSelectWrapperOperator(operatorWrapper = SQLOperatorWrapper.LIKE, connect = SQLConnect.OR)
+	@JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.LIKE)
 	private String userNo;
 	/**
 	 * EQ 姓名
 	 */
-	@JpaSelectWrapperOperator(operatorWrapper = SQLOperatorWrapper.EQ, connect = SQLConnect.OR)
+	@JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.EQ)
 	private String name;
 
 	/**
 	 * LIKE 手机号/联系电话
 	 */
-	@JpaSelectWrapperOperator(operatorWrapper = SQLOperatorWrapper.LIKE, connect = SQLConnect.OR)
+	@JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.LIKE)
 	private String phone;
 
 
 	/**
 	 * 返回查询
 	 */
-	@JpaSelectWrapperOperator(operatorWrapper = SQLOperatorWrapper.BETWEEN)
+	@JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.BETWEEN)
 	private String loginPwd;
 
 
 	/**
 	 * 返回查询
 	 */
-//	@JpaSelectWrapperOperator(operatorWrapper = SQLOperatorWrapper.EQ, function = SpecBuilderDateFun.DATE_FORMAT)
+	@JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.EQ, function = SpecBuilderDateFun.DATE_FORMAT)
 	private String createTime;
 
 	/**
@@ -71,7 +66,7 @@ public class UserFindJpaSelectWrapperOperatorDTO extends SerializableBean<UserFi
 	/**
 	 * 测试重命名
 	 */
-	@JpaSelectWrapperOperator(operatorWrapper = SQLOperatorWrapper.EQ,fieldName = "updateUserName")
+	@JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.EQ,fieldName = "updateUserName")
 	private String reName;
 
 }
