@@ -2,7 +2,7 @@ package cn.tannn.jdevelopssbootjpademo.testwebjpa;
 
 import cn.jdevelops.api.result.request.PageDTO;
 import cn.jdevelops.api.result.request.SortPageDTO;
-import cn.jdevelops.data.jap.page.JpaPageResult;
+import cn.jdevelops.data.jap.result.JpaPageResult;
 import cn.tannn.jdevelopssbootjpademo.entity.User;
 import cn.tannn.jdevelopssbootjpademo.service.UserService;
 import cn.tannn.jdevelopssbootjpademo.vo.UserVO;

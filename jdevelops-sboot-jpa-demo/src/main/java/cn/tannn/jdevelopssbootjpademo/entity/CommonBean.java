@@ -1,8 +1,7 @@
 package cn.tannn.jdevelopssbootjpademo.entity;
 
 
-import cn.jdevelops.data.jap.entity.JpaAuditFields;
-import cn.jdevelops.data.jap.entity.postgresql.JpaAuditPgFields;
+import cn.jdevelops.data.jap.modle.JpaAuditFields;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
@@ -24,7 +23,6 @@ import javax.persistence.*;
 @Access(AccessType.FIELD)
 @Getter
 @Setter
-//public class CommonBean<B> extends JpaAuditPgFields<B> {
 public class CommonBean<B> extends JpaAuditFields<B> {
 
     @Id
