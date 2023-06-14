@@ -57,7 +57,7 @@ public class JpaSpecificationsTest {
      * @param <B>       查询对象
      * @return Specification
      */
-    public static <R, B> Specification<R> beanWhere( B bean, Consumer<SpecificationWrapper<R>> action) {
+    public static <R, B> Specification<R> beanWhere3( B bean, Consumer<SpecificationWrapper<R>> action) {
         Field[] fields = ReflectUtil.getFields(bean.getClass());
         Map<String, List<Field>> maps = Arrays.stream(fields).filter(field -> {
             JpaSelectOperator wrapperOperator = field.getAnnotation(JpaSelectOperator.class);
@@ -102,6 +102,65 @@ public class JpaSpecificationsTest {
             });
         });
         return andSpec.or(orSpec);
+    }
+
+
+
+
+    /**
+     * 根据实体自动组装 + 自定义查询
+     *
+     * @param bean      构造的查询对象
+     * @param action    除了bean还能自定义操作
+     * @param <R>       返回对象
+     * @param <B>       查询对象
+     * @return Specification
+     */
+    public static <R, B> Specification<R> beanWhere( B bean, Consumer<SpecificationWrapper<R>> action) {
+        Field[] fields = ReflectUtil.getFields(bean.getClass());
+        Map<String, List<Field>> maps = Arrays.stream(fields).filter(field -> {
+            JpaSelectOperator wrapperOperator = field.getAnnotation(JpaSelectOperator.class);
+            JpaSelectIgnoreField ignoreField = field.getAnnotation(JpaSelectIgnoreField.class);
+            // 字段值
+            Object fieldValue = ReflectUtil.getFieldValue(bean, field);
+            // 字段名
+            String fieldName = field.getName();
+            if ("serialVersionUID".equals(fieldName)) {// 忽略一些固定字段
+                return false;
+            } else if (IObjects.nonNull(ignoreField)) { // 过滤被忽略的
+                return false;
+            } else if (IObjects.nonNull(wrapperOperator)) { // 过滤值可以为空的
+                // true表示会判断value是否为空，空则不做查询条件，不空则做查询条件
+                // 值为空就不要了
+                return !wrapperOperator.ignoreNull() || !IObjects.isNull(fieldValue);
+            } else if (IObjects.isNull(ignoreField) && IObjects.isNull(wrapperOperator) && IObjects.isNull(fieldValue)) {
+                // 如果没有忽略且没有加JpaSelectWrapperOperator注解的，会默认判空，空则不查了
+                return false;
+            }
+            return true;
+
+        }).collect(Collectors.groupingBy(field -> {
+            // 获取组装条件
+            JpaSelectOperator wrapperOperator = field.getAnnotation(JpaSelectOperator.class);
+            if (IObjects.nonNull(wrapperOperator) && wrapperOperator.connect().equals(SQLConnect.AND)) {
+                return "and";
+            } else {
+                return "or";
+            }
+        }));
+
+        Specification<R> extend = where(true, action ==null?(e -> {}):action);
+        Specification<R> andSpec = where(true, and -> {
+            maps.get("and").forEach(field -> {
+                xxxx(field, and, bean);
+            });
+        });
+        Specification<R> orSpec = where(false, or -> {
+            maps.get("or").forEach(field -> {
+                xxxx(field, or, bean);
+            });
+        });
+        return andSpec.or(orSpec).and(extend);
     }
 
 
