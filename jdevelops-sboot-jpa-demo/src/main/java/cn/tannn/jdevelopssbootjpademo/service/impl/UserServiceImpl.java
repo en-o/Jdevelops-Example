@@ -1,6 +1,5 @@
 package cn.tannn.jdevelopssbootjpademo.service.impl;
 
-import cn.jdevelops.data.jap.core.Specifications;
 import cn.jdevelops.data.jap.service.impl.J2ServiceImpl;
 import cn.tannn.jdevelopssbootjpademo.dao.UserDao;
 import cn.tannn.jdevelopssbootjpademo.entity.User;
@@ -22,11 +21,23 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends J2ServiceImpl<UserDao, User, Integer> implements UserService {
 
 
-//    @Autowired
-//    private UserDao userDao;
+    @Autowired
+    private UserDao userDao;
+
 
     @Override
     public boolean deleteTest(Specification specifications) {
-        return getJpaBasicsDao().delete(specifications)>=0;
+//         getJpaBasicsDao().delete(specifications)>=0;
+        return true;
+    }
+
+    @Override
+    public User findByUserNoCopyDao(String userNo) {
+        return userDao.findByUserNo(userNo);
+    }
+
+    @Override
+    public User findByUserNoCopy2Dao(String userNo) {
+        return getJpaBasicsDao().findByUserNo(userNo);
     }
 }

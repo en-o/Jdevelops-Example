@@ -12,4 +12,11 @@ import org.springframework.stereotype.Repository;
  * @date 2021-09-10 1StudentDao1:08
  */
 public interface UserDao extends JpaBasicsRepository<User, Integer> {
+
+    /**
+     * 查询
+     * @param userNo userNo
+     * @return User
+     */
+    User findByUserNo(String userNo);
 }

@@ -17,4 +17,14 @@ public interface UserService extends J2Service<User> {
 
     boolean deleteTest(Specification spec);
 
+
+
+    /**
+     * 查询
+     * @param userNo userNo
+     * @return User
+     */
+    User findByUserNoCopyDao(String userNo);
+
+    User findByUserNoCopy2Dao(String userNo);
 }
