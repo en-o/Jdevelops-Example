@@ -50,4 +50,11 @@ class CommonTest {
         System.out.println("server2=============> "+userService.findByUserNoCopy2Dao("admin"));
     }
 
+
+    @Test
+    void customSqlTest(){
+        UserDao jpaBasicsDao = userService.getJpaBasicsDao();
+        jpaBasicsDao.customSql().forEach(System.out::println);
+    }
+
 }

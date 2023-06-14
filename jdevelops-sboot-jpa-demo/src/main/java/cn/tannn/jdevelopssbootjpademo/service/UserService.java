@@ -14,11 +14,6 @@ import org.springframework.data.jpa.domain.Specification;
  */
 public interface UserService extends J2Service<User> {
 
-
-    boolean deleteTest(Specification spec);
-
-
-
     /**
      * 查询
      * @param userNo userNo

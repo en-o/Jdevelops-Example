@@ -15,4 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserPgServiceImpl extends J2ServiceImpl<UserPgDao, UserPgsql, Integer> implements UserPgService {
 
+    public UserPgServiceImpl() {
+        super(UserPgsql.class);
+    }
 }
