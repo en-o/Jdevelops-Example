@@ -5,6 +5,8 @@ import cn.jdevelops.data.jap.core.Specifications;
 import cn.jdevelops.data.jap.core.specification.SpecificationWrapper;
 import cn.jdevelops.data.jap.enums.SpecBuilderDateFun;
 import cn.jdevelops.data.jap.util.JpaUtils;
+import cn.tannn.jdevelopssbootjpademo.JpaSpecificationsTest;
+import cn.tannn.jdevelopssbootjpademo.dto.UserFindJpaSelectWrapperOperatorConnectDTO;
 import cn.tannn.jdevelopssbootjpademo.dto.UserFindJpaSelectWrapperOperatorDTO;
 import cn.tannn.jdevelopssbootjpademo.entity.User;
 import cn.tannn.jdevelopssbootjpademo.service.UserService;
@@ -525,6 +527,21 @@ public class SpecificationsTest {
         time.setCreateTime("2021-12-03 14:05:23");
         Specification<User>  timeSpecification = Specifications.beanWhere(time);
         userService.getJpaBasicsDao().findAll(timeSpecification).forEach(System.out::println);
+    }
+
+
+    @Test
+    public void SpecificationBeanAndOr(){
+        //  from sys_user user0_ where user0_.name=? and (user0_.phone like ?) and (user0_.login_pwd between ? and ?) and date_format(user0_.create_time, ?)=?
+        UserFindJpaSelectWrapperOperatorConnectDTO bean = new UserFindJpaSelectWrapperOperatorConnectDTO();
+        bean.setName("111");
+        bean.setPhone("1312");
+        bean.setLoginPwd("1231,1234");
+        bean.setCreateTime("2021-12-03 14:05:23");
+        Specification<User> objectSpecification = JpaSpecificationsTest.beanWhere(bean);
+//        Specification<User> objectSpecification = JpaSpecificationsTest.beanWhere2(bean, e-> {});
+        userService.getJpaBasicsDao().findAll(objectSpecification).forEach(System.out::println);
+
     }
 
 }
