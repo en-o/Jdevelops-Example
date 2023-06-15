@@ -12,6 +12,7 @@ import cn.tannn.jdevelopssbootjpademo.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
@@ -106,6 +107,17 @@ public class JPAUtilExpandCriteriaTest {
         user.setPhone("123");
         user.setCreateTime("2021-12-03 13:48:14");
         JPAUtilExpandCriteria<User> selectRegionBean = JpaUtils.getSelectBean2(user);
+        userService.getJpaBasicsDao().findAll(selectRegionBean).forEach(System.out::println);
+
+    }
+
+
+    @Test
+    void testIn() {
+        // from sys_user user0_ where user0_.name=? or user0_.name=?
+        JPAUtilExpandCriteria<User> selectRegionBean = new JPAUtilExpandCriteria<>();
+        List<String> list = java.util.Arrays.asList("超级管理员", "111");
+        selectRegionBean.add(Restrictions.in("name", list , true));
         userService.getJpaBasicsDao().findAll(selectRegionBean).forEach(System.out::println);
 
     }
