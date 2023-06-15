@@ -1,6 +1,7 @@
 package cn.tannn.jdevelopssbootjpademo.entity;
 
 import cn.jdevelops.data.jap.annotation.JpaSelectOperator;
+import cn.jdevelops.data.jap.annotation.JpaUpdate;
 import cn.jdevelops.data.jap.enums.SQLConnect;
 import cn.jdevelops.data.jap.enums.SQLOperator;
 import lombok.*;
@@ -85,6 +86,7 @@ public class User extends CommonBean<User> {
 	 */
 	@Column(columnDefinition = " varchar(60)   ")
 	@Comment("用户头像")
+	@JpaUpdate(ignore = true)
 	private String userIcon;
 
 	@Override
