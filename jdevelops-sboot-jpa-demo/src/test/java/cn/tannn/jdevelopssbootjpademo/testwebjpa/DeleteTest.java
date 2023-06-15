@@ -39,12 +39,7 @@ public class DeleteTest {
     }
 
 
-    @Test
-    void testDeleteByUnique(){
-        //INSERT INTO `test`.`sys_user` (`update_user_name`, `create_user_name`, `create_time`, `update_time`, `user_no`, `name`, `address`, `login_name`, `login_pwd`, `phone`, `user_icon`) VALUES ('admin', 'admin', '2021-12-10 15:02:49', '2021-12-10 15:03:00', 'delete6', '111', '222', 'LR-01', '1231', '1312', NULL);
 
-        userService.deleteByUnique("delete6", User::getUserNo);
-    }
 
 
     @Test
@@ -52,5 +47,12 @@ public class DeleteTest {
         // INSERT INTO `test`.`sys_user` (`update_user_name`, `create_user_name`, `create_time`, `update_time`, `user_no`, `name`, `address`, `login_name`, `login_pwd`, `phone`, `user_icon`) VALUES ('admin', 'admin', '2021-12-10 15:02:49', '2021-12-10 15:03:00', 'delete7', '111', '222', 'LR-01', '1231', '1312', NULL);
         // INSERT INTO `test`.`sys_user` (`update_user_name`, `create_user_name`, `create_time`, `update_time`, `user_no`, `name`, `address`, `login_name`, `login_pwd`, `phone`, `user_icon`) VALUES ('admin', 'admin', '2021-12-10 15:02:49', '2021-12-10 15:03:00', 'delete8', '111', '222', 'LR-01', '1231', '1312', NULL);
         userService.deleteByUnique(Arrays.asList("delete7","delete8"),User::getUserNo);
+    }
+
+
+    @Test
+    void testDeleteByUnique(){
+        //INSERT INTO `test`.`sys_user` (`update_user_name`, `create_user_name`, `create_time`, `update_time`, `user_no`, `name`, `address`, `login_name`, `login_pwd`, `phone`, `user_icon`) VALUES ('admin', 'admin', '2021-12-10 15:02:49', '2021-12-10 15:03:00', 'delete6', '111', '222', 'LR-01', '1231', '1312', NULL);
+        userService.deleteByUnique("delete6", User::getUserNo);
     }
 }
