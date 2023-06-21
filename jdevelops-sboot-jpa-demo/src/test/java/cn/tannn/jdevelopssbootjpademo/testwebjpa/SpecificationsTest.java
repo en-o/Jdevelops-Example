@@ -6,6 +6,7 @@ import cn.jdevelops.data.jap.core.specification.SpecificationWrapper;
 import cn.jdevelops.data.jap.enums.SpecBuilderDateFun;
 import cn.jdevelops.data.jap.util.JpaUtils;
 import cn.tannn.jdevelopssbootjpademo.JpaSpecificationsTest;
+import cn.tannn.jdevelopssbootjpademo.controller.pojo.CustomResultUser;
 import cn.tannn.jdevelopssbootjpademo.dto.UserFindJpaSelectWrapperOperatorConnectDTO;
 import cn.tannn.jdevelopssbootjpademo.dto.UserFindJpaSelectWrapperOperatorDTO;
 import cn.tannn.jdevelopssbootjpademo.entity.User;
@@ -545,6 +546,24 @@ public class SpecificationsTest {
 //        Specification<User> objectSpecification = JpaSpecificationsTest.beanWhere3(bean, e-> {});
         userService.getJpaBasicsDao().findAll(objectSpecification).forEach(System.out::println);
 
+    }
+
+
+
+    @Test
+    void testSpecCustomResultBean() {
+        Specification<User> where = Specifications.<User>where(e -> {
+            List<Predicate> predicates = e.getPredicates();
+            Root<User> root = e.getRoot();
+            CriteriaQuery<?> query = e.getQuery();
+            query.multiselect(
+                    root.get("name"),root.get("id")
+            );
+            CriteriaBuilder builder = e.getBuilder();
+            Predicate equal = builder.equal(root.get("name"), "111");
+            predicates.add(equal);
+        });
+        userService.getJpaBasicsDao().findAll(where).forEach(System.out::println);
     }
 
 

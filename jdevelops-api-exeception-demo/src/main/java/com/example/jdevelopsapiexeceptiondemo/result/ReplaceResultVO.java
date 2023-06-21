@@ -1,7 +1,7 @@
 package com.example.jdevelopsapiexeceptiondemo.result;
 
 
-import cn.jdevelops.api.result.emums.ResultCodeEnum;
+import cn.jdevelops.api.result.emums.ExceptionCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -54,6 +54,20 @@ public class ReplaceResultVO<T> implements Serializable {
         resultVO.setXiaoXi("fail");
         return resultVO;
     }
+
+    public static <T> ReplaceResultVO<T> fail(String message) {
+        ReplaceResultVO<T> resultVO = new ReplaceResultVO<>();
+        resultVO.setZhuangTaiMa(500);
+        resultVO.setXiaoXi(message);
+        return resultVO;
+    }
+
+    public static <T> ReplaceResultVO success( T data) {
+        ReplaceResultVO<T> resultVO = new ReplaceResultVO<>();
+        resultVO.setZhuangTaiMa(200);
+        resultVO.setSJu(data);
+        return resultVO;
+    }
     public static <T> ReplaceResultVO result(int code, String message) {
         ReplaceResultVO<T> resultVO = new ReplaceResultVO<>();
         resultVO.setZhuangTaiMa(code);
@@ -68,8 +82,16 @@ public class ReplaceResultVO<T> implements Serializable {
         return resultVO;
     }
 
+    public static <T> ReplaceResultVO result(ExceptionCode result,T data) {
+        ReplaceResultVO<T> resultVO = new ReplaceResultVO<>();
+        resultVO.setZhuangTaiMa(result.getCode());
+        resultVO.setXiaoXi(result.getMessage());
+        resultVO.setSJu(data);
+        return resultVO;
+    }
 
-    public static <T> ReplaceResultVO result(ResultCodeEnum result) {
+
+    public static <T> ReplaceResultVO result(ExceptionCode result) {
         ReplaceResultVO<T> resultVO = new ReplaceResultVO<>();
         resultVO.setZhuangTaiMa(result.getCode());
         resultVO.setXiaoXi(result.getMessage());
