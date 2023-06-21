@@ -59,4 +59,15 @@ public class JdevelopsApiExeceptionDemoApplication {
 
 
 
+    /**
+     * 测试隐式添加包裹类
+     * @return ResultVO or ReplaceResultVO
+     */
+    @GetMapping("/resultHandlerMethodReturnValueHandler")
+    public String resultHandlerMethodReturnValueHandler(){
+        return "测试隐式添加包裹类";
+    }
+
+
+
 }
