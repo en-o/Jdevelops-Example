@@ -17,11 +17,11 @@ package cn.tan.authentication.sas.server.config;
 
 import java.util.UUID;
 
+import cn.tan.authentication.sas.server.jose.Jwks;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
-import sample.jose.Jwks;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
