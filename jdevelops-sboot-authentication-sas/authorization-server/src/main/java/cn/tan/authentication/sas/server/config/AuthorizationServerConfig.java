@@ -57,7 +57,19 @@ public class AuthorizationServerConfig {
 
 
     /**
+     *
      * 端点过滤器链
+     * <ul>
+     *     <li>OAuth2 Authorization endpoint</li>
+     *     <li>OAuth2 Token endpoint</li>
+     *     <li>OAuth2 Token Introspection endpoint</li>
+     *     <li>OAuth2 Token Revocation endpoint</li>
+     *     <li>OAuth2 Authorization Server Metadata endpoint</li>
+     *     <li>JWK Set endpoint</li>
+     *     <li>OpenID Connect 1.0 Provider Configuration endpoint</li>
+     *     <li>OpenID Connect 1.0 UserInfo endpoint</li>
+     * </ul>
+     *
      */
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
