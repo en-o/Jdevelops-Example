@@ -16,6 +16,7 @@
 package cn.tan.authentication.sas.server.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -32,19 +33,32 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class DefaultSecurityConfig {
 
-	// @formatter:off
+
+	/**
+	 * 拦截设置
+	 * @param http 请求
+	 * @return SecurityFilterChain
+	 * @throws Exception Exception
+	 */
 	@Bean
-	SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 		http
-			.authorizeRequests(authorizeRequests ->
-				authorizeRequests.anyRequest().authenticated()
-			)
-			.formLogin(withDefaults());
+				.authorizeRequests(authorizeRequests ->
+						authorizeRequests
+								// 放行静态资源
+								.mvcMatchers("/assets/**", "/webjars/**", "/login").permitAll()
+								// 拦截其余所有
+								.anyRequest().authenticated()
+				)
+				.formLogin(Customizer.withDefaults());
 		return http.build();
 	}
-	// @formatter:on
 
-	// @formatter:off
+
+	/**
+	 * 加载登录用户信息，用于登录
+	 * @return UserDetailsService
+	 */
 	@Bean
 	UserDetailsService users() {
 		UserDetails user = User.withDefaultPasswordEncoder()
@@ -54,6 +68,5 @@ public class DefaultSecurityConfig {
 				.build();
 		return new InMemoryUserDetailsManager(user);
 	}
-	// @formatter:on
 
 }

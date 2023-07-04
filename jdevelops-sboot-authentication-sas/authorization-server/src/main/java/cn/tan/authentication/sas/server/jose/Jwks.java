@@ -37,6 +37,11 @@ public final class Jwks {
 	private Jwks() {
 	}
 
+
+	/**
+	 * 生成秘钥对，为jwkSource提供服务。
+	 * @return RSAKey
+	 */
 	public static RSAKey generateRsa() {
 		KeyPair keyPair = KeyGeneratorUtils.generateRsaKey();
 		RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
@@ -49,6 +54,11 @@ public final class Jwks {
 		// @formatter:on
 	}
 
+
+	/**
+	 * 生成秘钥对，为jwkSource提供服务。
+	 * @return ECKey
+	 */
 	public static ECKey generateEc() {
 		KeyPair keyPair = KeyGeneratorUtils.generateEcKey();
 		ECPublicKey publicKey = (ECPublicKey) keyPair.getPublic();
@@ -62,6 +72,11 @@ public final class Jwks {
 		// @formatter:on
 	}
 
+
+	/**
+	 * 生成秘钥对，为jwkSource提供服务。
+	 * @return OctetSequenceKey
+	 */
 	public static OctetSequenceKey generateSecret() {
 		SecretKey secretKey = KeyGeneratorUtils.generateSecretKey();
 		// @formatter:off
