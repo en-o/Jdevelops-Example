@@ -1,14 +1,16 @@
+-- org\springframework\security\core\userdetails\jdbc\users.ddl(spring-security-core包)
 -- 用户
-create table users(
-    username varchar_ignorecase(50) not null primary key,
-    password varchar_ignorecase(500) not null,
-    enabled boolean not null
-);
+CREATE TABLE `users` (
+                         `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+                         `password` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+                         `enabled` tinyint(1) NOT NULL,
+                         PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 -- 权限
-create table authorities (
-    username varchar_ignorecase(50) not null,
-    authority varchar_ignorecase(50) not null,
-    constraint fk_authorities_users foreign key(username) references users(username)
-);
+CREATE TABLE `authorities` (
+                               `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+                               `authority` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+                               UNIQUE KEY `ix_auth_username` (`username`,`authority`),
+                               CONSTRAINT `fk_authorities_users` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-create unique index ix_auth_username on authorities (username,authority);
