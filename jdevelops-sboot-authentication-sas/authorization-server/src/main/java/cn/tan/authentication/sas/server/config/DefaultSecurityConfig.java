@@ -50,7 +50,8 @@ public class DefaultSecurityConfig {
 								// 拦截其余所有
 								.anyRequest().authenticated()
 				)
-				.formLogin(Customizer.withDefaults());
+				 // 设置登录表单页面
+                .formLogin(formLoginConfigurer -> formLoginConfigurer.loginPage("/login"));
 		return http.build();
 	}
 

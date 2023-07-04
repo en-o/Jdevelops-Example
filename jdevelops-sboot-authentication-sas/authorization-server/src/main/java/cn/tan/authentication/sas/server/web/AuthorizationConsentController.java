@@ -55,11 +55,16 @@ public class AuthorizationConsentController {
 			@RequestParam(OAuth2ParameterNames.STATE) String state) {
 
 		// Remove scopes that were already approved
+		// 要批准的范围和以前批准的范围
 		Set<String> scopesToApprove = new HashSet<>();
 		Set<String> previouslyApprovedScopes = new HashSet<>();
+		// 查询 clientId 是否存在
 		RegisteredClient registeredClient = this.registeredClientRepository.findByClientId(clientId);
+		// 查询当前的授权许可
 		OAuth2AuthorizationConsent currentAuthorizationConsent =
 				this.authorizationConsentService.findById(registeredClient.getId(), principal.getName());
+
+		// 已授权范围
 		Set<String> authorizedScopes;
 		if (currentAuthorizationConsent != null) {
 			authorizedScopes = currentAuthorizationConsent.getScopes();
@@ -70,6 +75,7 @@ public class AuthorizationConsentController {
 			if (OidcScopes.OPENID.equals(requestedScope)) {
 				continue;
 			}
+			// 如果已授权范围包含了请求范围，则添加到以前批准的范围的 Set, 否则添加到要批准的范围
 			if (authorizedScopes.contains(requestedScope)) {
 				previouslyApprovedScopes.add(requestedScope);
 			} else {
@@ -96,24 +102,29 @@ public class AuthorizationConsentController {
 	}
 
 	public static class ScopeWithDescription {
-		private static final String DEFAULT_DESCRIPTION = "UNKNOWN SCOPE - We cannot provide information about this permission, use caution when granting this.";
+//		private static final String DEFAULT_DESCRIPTION = "UNKNOWN SCOPE - We cannot provide information about this permission, use caution when granting this.";
+		private static final String DEFAULT_DESCRIPTION = "未知范围 - 我们无法提供有关此权限的信息, 请在授予此权限时谨慎";
 		private static final Map<String, String> scopeDescriptions = new HashMap<>();
 		static {
 			scopeDescriptions.put(
 					OidcScopes.PROFILE,
-					"This application will be able to read your profile information."
+//					"This application will be able to read your profile information."
+					"此应用程序将能够读取您的个人资料信息"
 			);
 			scopeDescriptions.put(
 					"message.read",
-					"This application will be able to read your message."
+//					"This application will be able to read your message."
+					"此应用程序将能够读取您的信息"
 			);
 			scopeDescriptions.put(
 					"message.write",
-					"This application will be able to add new messages. It will also be able to edit and delete existing messages."
+//					"This application will be able to add new messages. It will also be able to edit and delete existing messages."
+					"此应用程序将能够添加新信息, 它还可以编辑和删除现有信息"
 			);
 			scopeDescriptions.put(
 					"other.scope",
-					"This is another scope example of a scope description."
+//					"This is another scope example of a scope description."
+					"这是范围描述的另一个范围示例"
 			);
 		}
 
