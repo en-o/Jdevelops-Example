@@ -15,7 +15,6 @@
  */
 package cn.tan.authentication.sas.server.config;
 
-import java.util.UUID;
 
 import cn.tan.authentication.sas.server.jose.Jwks;
 import com.nimbusds.jose.jwk.JWKSet;
@@ -27,24 +26,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.server.authorization.InMemoryOAuth2AuthorizationConsentService;
-import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
-import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
+import org.springframework.security.oauth2.server.authorization.*;
+import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
-import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 /**
@@ -84,7 +77,7 @@ public class AuthorizationServerConfig {
                 .authorizationEndpoint(authorizationEndpoint ->
                         authorizationEndpoint.consentPage(CUSTOM_CONSENT_PAGE_URI))
                 // Enable OpenID Connect 1.0, 启用 OIDC 1.0
-                .oidc(Customizer.withDefaults());    // Enable OpenID Connect 1.0
+                .oidc(Customizer.withDefaults());
 
 
         // 获取授权服务器相关的请求端点
@@ -95,9 +88,7 @@ public class AuthorizationServerConfig {
                 // 拦截对授权服务器相关端点的请求
                 .requestMatcher(endpointsMatcher)
                 // 拦载到的请求需要认证
-                .authorizeRequests(authorizeRequests ->
-                        authorizeRequests.anyRequest().authenticated()
-                )
+                .authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
                 // 忽略掉相关端点的 CSRF(跨站请求): 对授权端点的访问可以是跨站的
                 .csrf(csrf -> csrf.ignoringRequestMatchers(endpointsMatcher))
                 // 处理运用access token拜访用户信息端点和客户端注册端点
@@ -105,51 +96,38 @@ public class AuthorizationServerConfig {
                 // 访问端点时表单登录
                 .formLogin()
                 .and()
+                // 应用授权服务器的配置
                 .apply(authorizationServerConfigurer);
         return http.build();
     }
 
 
     /**
-     * 客户端注册 （此处默认注册一个叫 8080 的客户端）
-     *
-     * @return RegisteredClientRepository
+     * 客户端注册 对应 oauth2_registered_client 表
      */
     @Bean
-    public RegisteredClientRepository registeredClientRepository() {
-        RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                // 客户端id
-                .clientId("messaging-client")
-                // 客户端秘钥，运用暗码解析器加密
-                .clientSecret("{noop}secret")
-                // 客户端认证办法，根据请求头的认证
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                // 装备资源服务器运用该客户端获取授权时支撑的办法
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                // 授权码形式回调地址，oauth2.1已改为精准匹配，不能只设置域名，而且屏蔽了localhost，本机运用127.0.0.1拜访
-                // OIDC身份验证
-                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
-                // 获取授权：grant_type=authorization_code / client_credentials
-                .redirectUri("http://127.0.0.1:8080/authorized")
-                // 该客户端的授权规模，OPENID与PROFILE是IdToken的scope，获取授权时恳求OPENID的scope时认证服务会回来IdToken
-                .scope(OidcScopes.OPENID)
-                .scope(OidcScopes.PROFILE)
-                // 自定scope
-                .scope("message.read")
-                .scope("message.write")
-                // 客户端设置，设置用户需求承认授权
-                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
-                .build();
-        return new InMemoryRegisteredClientRepository(registeredClient);
+    public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
+        return new JdbcRegisteredClientRepository(jdbcTemplate);
     }
 
+    /**
+     * 令牌的发放记录, 对应 oauth2_authorization 表
+     */
+    @Bean
+    public OAuth2AuthorizationService authorizationService(JdbcTemplate jdbcTemplate, RegisteredClientRepository registeredClientRepository) {
+        return new JdbcOAuth2AuthorizationService(jdbcTemplate, registeredClientRepository);
+    }
+
+    /**
+     * 把资源拥有者授权确认操作保存到数据库, 对应 oauth2_authorization_consent 表
+     */
+    @Bean
+    public OAuth2AuthorizationConsentService authorizationConsentService(JdbcTemplate jdbcTemplate, RegisteredClientRepository registeredClientRepository) {
+        return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate, registeredClientRepository);
+    }
 
     /**
      * 用于给 access_token 签名使用。
-     *
-     * @return JWKSource
      */
     @Bean
     public JWKSource<SecurityContext> jwkSource() {
@@ -161,33 +139,18 @@ public class AuthorizationServerConfig {
 
     /**
      * 用于给 access_token 解码使用。
-     *
-     * @return JwtDecoder
      */
     @Bean
     public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
         return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
     }
 
-
     /**
-     * 配置Authorization Server实例
+     *  AuthorizationServerS 的相关配置
      * - 增加认证服务器装备，设置jwt签发者、默许端点请求地址等
-     *
-     * @return AuthorizationServerSettings
      */
     @Bean
     public AuthorizationServerSettings authorizationServerSettings() {
         return AuthorizationServerSettings.builder().build();
     }
-
-    /**
-     * 授权确认信息处理服务
-     */
-    @Bean
-    public OAuth2AuthorizationConsentService authorizationConsentService() {
-        // Will be used by the ConsentController
-        return new InMemoryOAuth2AuthorizationConsentService();
-    }
-
 }

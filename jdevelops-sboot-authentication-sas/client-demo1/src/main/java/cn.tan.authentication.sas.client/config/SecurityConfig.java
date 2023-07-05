@@ -16,6 +16,7 @@
 package cn.tan.authentication.sas.client.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -30,23 +31,21 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig {
 
-	@Bean
-	WebSecurityCustomizer webSecurityCustomizer() {
-		return (web) -> web.ignoring().antMatchers("/webjars/**");
-	}
 
-	// @formatter:off
+	/**
+	 * 安全配置
+	 */
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http
-			.authorizeRequests(authorizeRequests ->
-				authorizeRequests.anyRequest().authenticated()
-			)
-			.oauth2Login(oauth2Login ->
-				oauth2Login.loginPage("/oauth2/authorization/messaging-client-oidc"))
-			.oauth2Client(withDefaults());
+		http.authorizeHttpRequests(authorize ->
+						// 任何请求都需要认证
+						authorize.anyRequest().authenticated()
+				)
+				// 登录
+//                .oauth2Login(oauth2Login -> oauth2Login.loginPage("/oauth2/authorization/messaging-client-oidc"))
+				.oauth2Login(Customizer.withDefaults())
+				.oauth2Client(Customizer.withDefaults());
+
 		return http.build();
 	}
-	// @formatter:on
-
 }

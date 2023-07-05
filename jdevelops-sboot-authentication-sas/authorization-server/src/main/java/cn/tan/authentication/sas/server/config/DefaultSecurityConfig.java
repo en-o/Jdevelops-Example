@@ -16,16 +16,19 @@
 package cn.tan.authentication.sas.server.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.springframework.security.config.Customizer.withDefaults;
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+
 
 /**
  * @author Joe Grandja
@@ -33,6 +36,9 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class DefaultSecurityConfig {
 
+
+	@Resource
+	private DataSource dataSource;
 
 	/**
 	 * 拦截设置
@@ -46,7 +52,7 @@ public class DefaultSecurityConfig {
 				.authorizeRequests(authorizeRequests ->
 						authorizeRequests
 								// 放行静态资源
-								.mvcMatchers("/assets/**", "/webjars/**", "/login").permitAll()
+								.mvcMatchers("/api/**", "/assets/**", "/webjars/**", "/login").permitAll()
 								// 拦截其余所有
 								.anyRequest().authenticated()
 				)
@@ -60,14 +66,18 @@ public class DefaultSecurityConfig {
 	 * 加载登录用户信息，用于登录
 	 * @return UserDetailsService
 	 */
+//	@Bean
+//	UserDetailsService users() {
+//		UserDetails user = User.withDefaultPasswordEncoder()
+//				.username("user")
+//				.password("password")
+//				.roles("USER")
+//				.build();
+//		return new InMemoryUserDetailsManager(user);
+//	}
 	@Bean
-	UserDetailsService users() {
-		UserDetails user = User.withDefaultPasswordEncoder()
-				.username("user")
-				.password("password")
-				.roles("USER")
-				.build();
-		return new InMemoryUserDetailsManager(user);
+	UserDetailsManager userDetailsManager() {
+		return new JdbcUserDetailsManager(dataSource);
 	}
 
 }
