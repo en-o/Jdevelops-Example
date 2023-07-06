@@ -70,7 +70,7 @@ public class ServerController {
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 // 回调地址：授权服务器向当前客户端响应时调用下面地址, 不在此列的地址将被拒绝, 只能使用IP或域名，不能使用 localhost
-                .redirectUri("http://127.0.0.1:8000/login/oauth2/code/messaging-client-oidc")
+                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
                 // OIDC 支持
                 .scope(OidcScopes.OPENID)
                 .scope(OidcScopes.PROFILE)
