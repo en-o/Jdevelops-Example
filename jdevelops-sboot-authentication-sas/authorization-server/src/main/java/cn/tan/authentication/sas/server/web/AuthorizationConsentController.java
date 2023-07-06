@@ -60,6 +60,9 @@ public class AuthorizationConsentController {
 		Set<String> previouslyApprovedScopes = new HashSet<>();
 		// 查询 clientId 是否存在
 		RegisteredClient registeredClient = this.registeredClientRepository.findByClientId(clientId);
+		if(registeredClient == null){
+			throw new IllegalStateException("客户端注册");
+		}
 		// 查询当前的授权许可
 		OAuth2AuthorizationConsent currentAuthorizationConsent =
 				this.authorizationConsentService.findById(registeredClient.getId(), principal.getName());
