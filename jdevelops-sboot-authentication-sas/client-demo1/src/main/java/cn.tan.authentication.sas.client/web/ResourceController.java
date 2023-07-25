@@ -14,22 +14,23 @@ public class ResourceController {
     private static final Logger logger = LoggerFactory.getLogger(ResourceController.class);
     @GetMapping("/server/a/resource1")
     public String getServerARes1(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient oAuth2AuthorizedClient) {
-        return getServer("http://127.0.0.1:8001/resource1", oAuth2AuthorizedClient);
+        return getServer("http://127.0.0.1:8090/resource1", oAuth2AuthorizedClient);
     }
 
     @GetMapping("/server/a/resource2")
     public String getServerARes2(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient oAuth2AuthorizedClient) {
-        return getServer("http://127.0.0.1:8001/resource2", oAuth2AuthorizedClient);
+        return getServer("http://127.0.0.1:8090/resource2", oAuth2AuthorizedClient);
     }
 
     @GetMapping("/server/a/resource3")
     public String getServerBRes1(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient oAuth2AuthorizedClient) {
-        return getServer("http://127.0.0.1:8001/resource3", oAuth2AuthorizedClient);
+        return getServer("http://127.0.0.1:8090/resource3", oAuth2AuthorizedClient);
     }
+
 
     @GetMapping("/server/a/publicResource")
     public String getServerBRes2(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient oAuth2AuthorizedClient) {
-        return getServer("http://127.0.0.1:8001/api/publicResource", oAuth2AuthorizedClient);
+        return getServer("http://127.0.0.1:8090/api/publicResource", oAuth2AuthorizedClient);
     }
 
     /**

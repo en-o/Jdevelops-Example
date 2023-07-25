@@ -25,6 +25,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 /**
+ * 安全配置类
  * @author Joe Grandja
  * @since 0.0.1
  */
