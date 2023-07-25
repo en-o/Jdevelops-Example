@@ -23,8 +23,7 @@ spring:
             client-id: messaging-client
             client-secret: secret
             authorization-grant-type: authorization_code
-            #            redirect-uri: "127.0.0.1:8000/login/oauth2/code/messaging-client-oidc"
-            redirect-uri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
+            redirect-uri: "http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc"
             scope: openid,message.read,message.write
             client-name: messaging-client-oidc
         provider:
