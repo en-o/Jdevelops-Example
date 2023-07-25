@@ -1,7 +1,6 @@
 package cn.tan.authentication.sas.resource.error;
 
 import cn.hutool.json.JSONUtil;
-import cn.jdevelops.api.result.emums.ExceptionCode;
 import cn.jdevelops.api.result.emums.TokenExceptionCode;
 import cn.jdevelops.api.result.response.ResultVO;
 import org.springframework.http.MediaType;
