@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.tan.authentication.sas.client.config;
+package com.example.clientdemo2.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,14 +39,12 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-				.authorizeRequests(authorizeRequests ->
-						// 任何请求都需要认证
-						authorizeRequests.anyRequest().authenticated()
-				)
-				// 登录验证
-				.oauth2Login(oauth2Login ->
-						oauth2Login.loginPage("/oauth2/authorization/messaging-client-oidc"))
-				.oauth2Client(withDefaults());
+			.authorizeRequests(authorizeRequests ->
+				authorizeRequests.anyRequest().authenticated()
+			)
+			.oauth2Login(oauth2Login ->
+				oauth2Login.loginPage("/oauth2/authorization/messaging-client-oidc"))
+			.oauth2Client(withDefaults());
 		return http.build();
 	}
 	// @formatter:on
