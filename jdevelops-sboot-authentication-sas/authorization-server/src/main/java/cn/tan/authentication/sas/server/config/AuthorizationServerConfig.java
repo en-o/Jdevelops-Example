@@ -82,17 +82,17 @@ public class AuthorizationServerConfig {
                 .authorizationEndpoint(authorizationEndpoint ->
                         authorizationEndpoint.consentPage(CUSTOM_CONSENT_PAGE_URI))
                 // Enable OpenID Connect 1.0, 启用 OIDC 1.0
-//                .oidc(Customizer.withDefaults());
+                .oidc(Customizer.withDefaults());
                 //  自定义返回 oidc userinfo 信息
-                .oidc(oidcConfigurer -> oidcConfigurer.userInfoEndpoint(userInfoEndpointConfigurer ->
-                        userInfoEndpointConfigurer.userInfoMapper(userInfoAuthenticationContext -> {
-                            OAuth2AccessToken accessToken = userInfoAuthenticationContext.getAccessToken();
-                            Map<String, Object> claims =new HashMap<>();
-                            claims.put("url", "http://127.0.0.1:9000");
-                            claims.put("accessToken", accessToken);
-                            claims.put("sub", userInfoAuthenticationContext.getAuthorization().getPrincipalName());
-                            return new OidcUserInfo(claims);
-                        })));
+//                .oidc(oidcConfigurer -> oidcConfigurer.userInfoEndpoint(userInfoEndpointConfigurer ->
+//                        userInfoEndpointConfigurer.userInfoMapper(userInfoAuthenticationContext -> {
+//                            OAuth2AccessToken accessToken = userInfoAuthenticationContext.getAccessToken();
+//                            Map<String, Object> claims =new HashMap<>();
+//                            claims.put("url", "http://127.0.0.1:9000");
+//                            claims.put("accessToken", accessToken);
+//                            claims.put("sub", userInfoAuthenticationContext.getAuthorization().getPrincipalName());
+//                            return new OidcUserInfo(claims);
+//                        })));
 
 
         // 获取授权服务器相关的请求端点
