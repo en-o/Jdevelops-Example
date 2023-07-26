@@ -19,10 +19,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.springframework.security.config.Customizer.withDefaults;
 
 /**
  * 安全配置类
@@ -43,8 +41,8 @@ public class SecurityConfig {
 						authorize.anyRequest().authenticated()
 				)
 				// 登录
-//                .oauth2Login(oauth2Login -> oauth2Login.loginPage("/oauth2/authorization/messaging-client-oidc"))
-				.oauth2Login(Customizer.withDefaults())
+                .oauth2Login(oauth2Login -> oauth2Login.loginPage("/oauth2/authorization/messaging-client-oidc"))
+//				.oauth2Login(Customizer.withDefaults())
 				.oauth2Client(Customizer.withDefaults());
 
 		return http.build();

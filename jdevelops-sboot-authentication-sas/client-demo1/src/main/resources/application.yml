@@ -12,31 +12,35 @@ logging:
 spring:
   thymeleaf:
     cache: false
-  application:
-    name: messages-client
   security:
     oauth2:
       client:
         registration:
           messaging-client-oidc:
-            provider: authorization-server
+            # provider.spring.issuer-uri
+            provider: spring
             client-id: messaging-client
             client-secret: secret
             authorization-grant-type: authorization_code
-            redirect-uri: "http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc"
-            scope: openid,message.read,message.write
+            redirect-uri: "http://127.0.0.1:8080/login/oauth2/code/{registrationId}"
+            scope: openid, profile
             client-name: messaging-client-oidc
+          messaging-client-authorization-code:
+            provider: spring
+            client-id: messaging-client
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:8080/authorized"
+            scope: message.read,message.write
+            client-name: messaging-client-authorization-code
+          messaging-client-client-credentials:
+            provider: spring
+            client-id: messaging-client
+            client-secret: secret
+            authorization-grant-type: client_credentials
+            scope: message.read,message.write
+            client-name: messaging-client-client-credentials
         provider:
-          # 服务提供地址
-          authorization-server:
-            # issuer-uri 可以简化下面的配置
+          spring:
             issuer-uri: http://127.0.0.1:9000
-            # 请求授权码地址
-            #            authorization-uri: http://localhost:9000/oauth2/authorize
-            # 请求令牌地址
-            #            token-uri: http://localhost:9000/oauth2/token
-            # 用户资源地址
-            #            user-info-uri: http://localhost:9000/oauth2/user
-            # 用户资源返回中的一个属性名
-#            user-name-attribute: name
-#            user-info-authentication-method: GET
+

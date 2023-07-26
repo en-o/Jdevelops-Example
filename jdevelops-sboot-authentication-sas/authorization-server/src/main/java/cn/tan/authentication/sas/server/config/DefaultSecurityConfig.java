@@ -16,6 +16,7 @@
 package cn.tan.authentication.sas.server.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -57,7 +58,8 @@ public class DefaultSecurityConfig {
 								.anyRequest().authenticated()
 				)
 				 // 设置登录表单页面
-                .formLogin(formLoginConfigurer -> formLoginConfigurer.loginPage("/login"));
+//                .formLogin(formLoginConfigurer -> formLoginConfigurer.loginPage("/login"));
+                .formLogin(Customizer.withDefaults());
 		return http.build();
 	}
 
