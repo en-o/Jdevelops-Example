@@ -3,13 +3,11 @@ package com.example.jdevelopsapiexeceptiondemo;
 import cn.jdevelops.api.exception.exception.BusinessException;
 import cn.jdevelops.api.result.response.ResultVO;
 import com.example.jdevelopsapiexeceptiondemo.result.ReplaceResultVO;
-import com.google.common.collect.ImmutableMap;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
 
 @SpringBootApplication
 @RestController

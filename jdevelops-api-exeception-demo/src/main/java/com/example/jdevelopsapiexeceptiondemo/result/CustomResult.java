@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @author tn
  * @date 2021-01-20 10:50
  */
-@Component("exceptionResult")
+//@Component("exceptionResult")
 public class CustomResult implements ExceptionResult<ReplaceResultVO> {
 
 
