@@ -49,31 +49,29 @@ public class JwtController {
 
     /**
      * 登录
-     * @param refresh true token刷新, false token重复使用 (用户存在登录时 token时更新还是依旧)
+     * @param onlyOnline 以前的是否会被挤下线
      * @return ResultVO
      */
     @ApiMapping(value = "/login", checkToken = false, method = RequestMethod.GET)
     public ResultVO<Object> login(HttpServletRequest request, String username,String password,
-                                 boolean refresh) {
+                                 boolean onlyOnline) {
 
         RedisSignEntity<TestBean> redisSignEntity = new RedisSignEntity<>(username,
-                username,username,username,false);
+                username,username,username,false,onlyOnline);
         redisSignEntity.setMap(new TestBean("jwtRedis"));
         // 此处数据最好用查出来的用,我这里没有查返回所以自己写了
         RedisAccount<String> redisAccount = new RedisAccount<>();
         redisAccount.setDisabledAccount(false);
         redisAccount.setExcessiveAttempts(false);
         redisAccount.setUserCode(username);
-        redisAccount.setSalt("");
+        redisAccount.setSalt(username);
         redisAccount.setPassword(password);
         redisAccount.setUserInfo(null);
 
-       String sign = redisLoginService.refreshLogin(request,
-               refresh,
-                redisSignEntity,
+       String sign = redisLoginService.login(redisSignEntity,
                 redisAccount);
         Map<String, String> responseData = Collections.singletonMap("token", sign);
-        return ResultVO.successForData(responseData);
+        return ResultVO.success(responseData);
     }
 
 
@@ -98,13 +96,18 @@ public class JwtController {
         try {
             String token = request.getHeader(JwtConstant.TOKEN);
             StorageUserTokenEntity loginTokenRedis = jwtRedisService.loadUserTokenInfoByToken(token);
-            return ResultVO.successForData(loginTokenRedis);
+            return ResultVO.success(loginTokenRedis);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return ResultVO.fail("");
+        return ResultVO.fail();
     }
 
+    /**
+     * 解析token
+     * @param request HttpServletRequest
+     * @return  TestBean
+     */
     @GetMapping("/parseJwt")
     public RedisSignEntity<TestBean> parseJwt(HttpServletRequest request){
         RedisSignEntity<TestBean> tokenByRedisSignEntity = RsJwtWebUtil.getTokenByRedisSignEntity(request, TestBean.class);
@@ -114,7 +117,11 @@ public class JwtController {
         return tokenByRedisSignEntity;
     }
 
-
+    /**
+     * 获取  subject
+     * @param request HttpServletRequest
+     * @return subject
+     */
     @GetMapping("/subject")
     public String subject(HttpServletRequest request){
         String token = JwtWebUtil.getToken(request);
