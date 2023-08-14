@@ -60,4 +60,13 @@ public class ReplaceResultVO<T> implements Serializable {
     }
 
 
+    public static <T> ReplaceResultVO<T> result(int code, String message, T data) {
+        ReplaceResultVO<T> resultVO = new ReplaceResultVO<>();
+        resultVO.setZhuangTaiMa(code);
+        resultVO.setXiaoXi(message);
+        resultVO.setSJu(data);
+        return resultVO;
+    }
+
+
 }

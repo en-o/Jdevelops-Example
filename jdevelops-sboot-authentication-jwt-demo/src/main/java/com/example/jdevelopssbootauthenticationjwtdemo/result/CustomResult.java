@@ -1,7 +1,7 @@
 package com.example.jdevelopssbootauthenticationjwtdemo.result;
 
 import cn.jdevelops.api.result.custom.ExceptionResult;
-import cn.jdevelops.api.result.emums.ResultCodeEnum;
+import cn.jdevelops.api.result.emums.ExceptionCode;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,18 +14,23 @@ public class CustomResult implements ExceptionResult<ReplaceResultVO> {
 
 
     @Override
-    public ReplaceResultVO result(ResultCodeEnum resultCodeEnum) {
-        return ReplaceResultVO.success(resultCodeEnum.getCode(),resultCodeEnum.getMessage());
+    public ReplaceResultVO result(ExceptionCode resultCode) {
+        return ReplaceResultVO.result(resultCode.getCode(),resultCode.getMessage(),null);
     }
 
     @Override
     public ReplaceResultVO result(int code, String message) {
-        return ReplaceResultVO.success(code,message);
+        return ReplaceResultVO.result(code,message,null);
     }
 
     @Override
     public ReplaceResultVO result(int code, String message, Object data) {
-        return ReplaceResultVO.success(code,message);
+        return ReplaceResultVO.result(code,message,data);
+    }
+
+    @Override
+    public ReplaceResultVO result(ExceptionCode resultCode, Object data) {
+        return ReplaceResultVO.result(resultCode.getCode(),resultCode.getMessage(),data);
     }
 
     @Override
@@ -34,7 +39,19 @@ public class CustomResult implements ExceptionResult<ReplaceResultVO> {
     }
 
     @Override
-    public ReplaceResultVO error() {
-        return ReplaceResultVO.fail(500,"");
+    public ReplaceResultVO success(Object data) {
+        return null;
     }
+
+    @Override
+    public ReplaceResultVO fail(String message) {
+        return ReplaceResultVO.fail(500,message);
+    }
+
+    @Override
+    public ReplaceResultVO fail() {
+        return ReplaceResultVO.fail(500,"系统错误");
+    }
+
+
 }
