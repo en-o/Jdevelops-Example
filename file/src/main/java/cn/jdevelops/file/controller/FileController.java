@@ -75,7 +75,7 @@ public class FileController {
 		}
 	}
 
-	@GetMapping("/getExpiryObjectUrl")
+	@GetMapping("/expiry/url")
 	@Operation(summary = "获取有效期访问地址")
 	public ResultVO<String> getExpiryObjectUrl(@ParameterObject @Valid ExpireDateDTO dto) {
 		try {
@@ -88,7 +88,7 @@ public class FileController {
 
 
 
-	@DeleteMapping("/removeObjects")
+	@DeleteMapping("/remove")
 	@Operation(summary = "删除")
 	public ResultVO<List<String>> removeObjects(@RequestBody @Valid RemoveFileDTO dto) {
 		try {
