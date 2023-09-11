@@ -11,5 +11,5 @@ import java.util.List;
 @Data
 public class Login {
     String username;String password;
-    boolean onlyOnline; List<String> roles;java.util.List<String> permissions;
+    boolean onlyOnline; List<String> roles;List<String> permissions;
 }
