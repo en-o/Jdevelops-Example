@@ -46,4 +46,25 @@ public class ParamsIdempotentController {
     public ResultVO<String> expireTime(){
         return ResultVO.success(" 局部：过期时间60000");
     }
+
+    /**
+     * 幂等判断是否需要接口参数记录
+     * @return  String
+     */
+    @GetMapping("paramsHeader1")
+    @ApiIdempotent(paramsHeader = false)
+    public ResultVO<String> paramsHeader1(String hi){
+        return ResultVO.success(" 幂等判断是否需要接口参数记录+不记录"+hi);
+    }
+
+    /**
+     * 幂等判断是否需要接口参数记录
+     * @return  String
+     */
+    @GetMapping("paramsHeader2")
+    @ApiIdempotent(paramsHeader = true)
+    public ResultVO<String> paramsHeader2(String hi){
+        return ResultVO.success(" 幂等判断是否需要接口参数记录+记录"+hi);
+    }
+
 }
