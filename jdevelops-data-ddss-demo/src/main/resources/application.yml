@@ -22,5 +22,6 @@ jdevelops:
       - com.example.jdevelopsdataddssdemo.controller
     title: ${spring.application.name}
     security-scheme-default: false
-
+#  dynamic:
+#    table-name: dy_datasource_copy1
 
