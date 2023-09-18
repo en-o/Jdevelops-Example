@@ -1,19 +1,19 @@
 -- 分别给 test1 2 3 都创建此表
 CREATE TABLE `sys_user` (
-                            `id` int NOT NULL AUTO_INCREMENT COMMENT '主键，自动生成',
-                            `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
-                            `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日期',
-                            `update_user_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
-                            `create_user_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
-                            `user_no` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT ' 用户编号',
-                            `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT ' 姓名',
-                            `address` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT ' 地址',
-                            `login_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT '登录名称',
-                            `login_pwd` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT '登录密码',
-                            `phone` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT ' 手机号/联系电话 ',
-                            `user_icon` varchar(60) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT ' 用户头像',
-                            PRIMARY KEY (`id`),
-                            UNIQUE KEY `user_no_index` (`user_no`)
+    `id` int NOT NULL AUTO_INCREMENT COMMENT '主键，自动生成',
+    `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+    `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日期',
+    `update_user_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '更新人',
+    `create_user_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '创建人',
+    `user_no` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT ' 用户编号',
+    `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT ' 姓名',
+    `address` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT ' 地址',
+    `login_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT '登录名称',
+    `login_pwd` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT '登录密码',
+    `phone` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT ' 手机号/联系电话 ',
+    `user_icon` varchar(60) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT ' 用户头像',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `user_no_index` (`user_no`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户表';
 
 
