@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author tan
  */
 @SpringBootApplication
-@ EnableAutoSchema
+@EnableAutoSchema
 public class JdevelopsDataAutoSchemaDemoApplication {
 
     public static void main(String[] args) {
