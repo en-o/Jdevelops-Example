@@ -73,6 +73,15 @@ public class JdbcTemplateController {
 
 
 
+    // 测试 sqlserver dynamic classloader
+
+    @Operation(summary = "测试ClassLoader-sqljdbc4-4.0.jar")
+    @GetMapping("sqlServerDynamicClassloader")
+    @DyDS
+    public ResultVO<List<Map<String, Object>>> sqlServerDynamicClassloader(@DbName String dbName) {
+        return ResultVO.success(jdbcTemplate.queryForList("SELECT name FROM sys.databases"));
+    }
+
 
 }
 
