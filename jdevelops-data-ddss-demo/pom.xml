@@ -29,11 +29,13 @@
             <artifactId>jdevelops-data-ddss</artifactId>
             <version>${jdevelops.version}</version>
         </dependency>
+        <!-- 全局异常和返回对象-->
         <dependency>
             <groupId>cn.jdevelops</groupId>
             <artifactId>jdevelops-api-exception</artifactId>
             <version>${jdevelops.version}</version>
         </dependency>
+        <!--接口文档-->
         <dependency>
             <groupId>cn.jdevelops</groupId>
             <artifactId>jdevelops-sboot-swagger</artifactId>
