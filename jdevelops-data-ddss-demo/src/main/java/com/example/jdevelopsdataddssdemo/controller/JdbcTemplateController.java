@@ -37,7 +37,7 @@ public class JdbcTemplateController {
         return ResultVO.success("hi");
     }
 
-    @Operation(summary = "测试默认库")
+    @Operation(summary = "测试默认库[dy_datasource]")
     @GetMapping("defDB")
     public ResultVO<List<Map<String, Object>>> defTemplate() {
         List<Map<String, Object>> maps = jdbcTemplate.queryForList("select * from dy_datasource");

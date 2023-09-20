@@ -32,11 +32,6 @@ public class JPAController {
     private UserDao userDao;
 
 
-    @Operation(summary = "测试默认库")
-    @GetMapping("defDB")
-    public ResultVO<List<User>> defTemplate() {
-        return ResultVO.success(userDao.findAll());
-    }
 
 
     /* ===================提交上来的代码只用不同的mysql 和 pgsql 测试，-======================================*/
