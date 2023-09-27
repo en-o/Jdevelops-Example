@@ -11,3 +11,6 @@ GET http://localhost:8080/testGlobalErrors2
 ### ReplaceResultVO 测试全局异常拦截处理
 GET http://localhost:8080/testGlobalTry2
 
+
+### 测试隐式添加包裹类
+GET http://localhost:8080/resultHandlerMethodReturnValueHandler

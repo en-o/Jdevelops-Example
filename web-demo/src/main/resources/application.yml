@@ -1,0 +1,58 @@
+spring:
+  redis:
+    database: 3
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
+  application:
+    name: JPA
+  datasource:
+    password: root
+    username: root
+    #    driver-class-name: com.mysql.cj.jdbc.Driver # com.p6spy.engine.spy.P6SpyDriver
+    #    url: jdbc:mysql://127.0.0.1:3306/hjpa?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test_jpa?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 120000 # \u8FDE\u63A5\u6700\u5927\u5B58\u6D3B\u65F6\u95F4.\u4E0D\u7B49\u4E8E0\u4E14\u5C0F\u4E8E30\u79D2\uFF0C\u4F1A\u88AB\u91CD\u7F6E\u4E3A\u9ED8\u8BA4\u503C30\u5206\u949F(1800000).\u8BBE\u7F6E\u5E94\u8BE5\u6BD4mysql\u8BBE\u7F6E\u7684\u8D85\u65F6\u65F6\u95F4\u77ED
+      maximum-pool-size: 15 # ((core_count * 2) + effective_spindle_count)
+      pool-name: ${spring.application.name}
+      minimum-idle: 15 # \u548C\u6700\u5927\u8FDE\u63A5\u6570\u4FDD\u6301\u4E00\u81F4
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+jdevelops:
+  database:
+    # 如果建库报错，可以先关了，提issues，且处理成功后在开
+#    init-enable: false
+  swagger:
+    base-package:
+      - com.example.webdemo.controller # swagger 扫描接口的包路径
+      - com.example.webdemo.api # swagger 扫描接口的包路径
+    title: web-demo-apis
+    security-scheme-default: false # 关闭默认认证
+  jwt:
+    token-secret: b4c33a6f172f13f91500b6c437a78d2cc5e5e9973e7dee431a1e8c34e68d365a
+    web:
+      interceptor:
+        exclude-path-patterns: # 放行这些其他测试接口
+          - /ex/**
+          - /version/**
+          - /jwt/login
+          - /jwt/redis/login
+          - /header/md5/**
+          - /test/**
+          - /swaggerTest/**
+          - /idempotent/**
+          - /jpa/**
+          - /jdbctemplate/**
+          - /log/annotation/post/**
+          - /validation/**
+  apisign:
+    salt: ASDF # 接口签名的密钥

@@ -3,9 +3,12 @@ package com.example.jdevelopssbootauthenticationjwtdemo.controller;
 import cn.jdevelops.api.result.response.ResultVO;
 import cn.jdevelops.sboot.authentication.jwt.annotation.ApiMapping;
 import cn.jdevelops.sboot.authentication.jwt.server.LoginService;
+import cn.jdevelops.sboot.authentication.jwt.util.JwtWebUtil;
 import cn.jdevelops.util.jwt.core.JwtService;
 import cn.jdevelops.util.jwt.entity.SignEntity;
+import com.example.jdevelopssbootauthenticationjwtdemo.bean.TestBean;
 import com.example.jdevelopssbootauthenticationjwtdemo.result.ReplaceResultVO;
+import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,14 +55,53 @@ public class JwtController {
 
     @GetMapping("/login")
     public String token(){
-        SignEntity signEntity = new SignEntity("tan","tan","tan","tan");
+        SignEntity<String> signEntity = new SignEntity<>("tan", "tan", "tan", "tan");
+        return loginService.login(signEntity);
+    }
+
+    @ApiMapping(value = "/login2",checkToken = false)
+    public String token2(){
+        SignEntity<TestBean> signEntity = new SignEntity<>("tan", "tan", "tan", "tan");
+        signEntity.setMap(new TestBean("hi"));
         return loginService.login(signEntity);
     }
 
 
+    @ApiMapping(value = "/login3",checkToken = false)
+    public String token3(){
+        SignEntity<String> signEntity = new SignEntity<>("tan", "tan", "tan", "tan");
+        signEntity.setMap("hi");
+        return loginService.login(signEntity);
+    }
+
     @GetMapping("/isLogin")
     public boolean isLogin(HttpServletRequest request){
         return loginService.isLogin(request);
+    }
+
+
+    @GetMapping("/parseJwt2")
+    public SignEntity<String> parseJwt2(HttpServletRequest request){
+        SignEntity<String> tokenBySignEntity = JwtWebUtil.getTokenBySignEntity(request, String.class);
+        if(tokenBySignEntity.getMap() != null){
+            System.out.println(tokenBySignEntity.getMap());
+        }
+        return tokenBySignEntity;
+    }
+    @GetMapping("/parseJwt")
+    public SignEntity<TestBean> parseJwt(HttpServletRequest request){
+        SignEntity<TestBean> tokenBySignEntity = JwtWebUtil.getTokenBySignEntity(request, TestBean.class);
+        if(tokenBySignEntity.getMap() != null){
+            System.out.println(tokenBySignEntity.getMap().getRemark());
+        }
+        return tokenBySignEntity;
+    }
+
+
+    @GetMapping("/subject")
+    public String subject(HttpServletRequest request){
+        String token = JwtWebUtil.getToken(request);
+        return JwtService.getSubjectExpires(token);
     }
 
 }

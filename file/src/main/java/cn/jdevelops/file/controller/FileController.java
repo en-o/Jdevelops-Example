@@ -46,7 +46,7 @@ public class FileController {
 	public ResultVO<FilePathResult> upload(@Valid UploadDTO uploadDTO) {
 		try {
 			FilePathResult filePathResult = fileOperation.uploadFile(uploadDTO);
-			return ResultVO.successForData(filePathResult);
+			return ResultVO.success(filePathResult);
 		} catch (Exception e) {
 			throw new BusinessException("文件上传失败！", e);
 		}
@@ -57,7 +57,7 @@ public class FileController {
 	@PostMapping(value = "uploads")
 	public ResultVO<List<FilePathResult>> uploads(@Valid UploadsDTO uploadDTO) {
 		try {
-			return ResultVO.successForData(fileOperation.uploadFile(uploadDTO));
+			return ResultVO.success(fileOperation.uploadFile(uploadDTO));
 		} catch (Exception e) {
 			throw new BusinessException("文件上传失败！", e);
 		}
@@ -75,12 +75,12 @@ public class FileController {
 		}
 	}
 
-	@GetMapping("/getExpiryObjectUrl")
+	@GetMapping("/expiry/url")
 	@Operation(summary = "获取有效期访问地址")
 	public ResultVO<String> getExpiryObjectUrl(@ParameterObject @Valid ExpireDateDTO dto) {
 		try {
 			String url = fileOperation.expireDateUrl(dto);
-			return ResultVO.successForData(url);
+			return ResultVO.success(url);
 		} catch (Exception e) {
 			throw new BusinessException("获取有效期访问地址失败！");
 		}
@@ -88,7 +88,7 @@ public class FileController {
 
 
 
-	@DeleteMapping("/removeObjects")
+	@DeleteMapping("/remove")
 	@Operation(summary = "删除")
 	public ResultVO<List<String>> removeObjects(@RequestBody @Valid RemoveFileDTO dto) {
 		try {

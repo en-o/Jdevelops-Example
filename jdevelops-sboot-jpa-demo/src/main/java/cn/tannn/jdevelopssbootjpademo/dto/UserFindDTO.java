@@ -5,9 +5,12 @@ import cn.jdevelops.data.jap.annotation.JpaSelectIgnoreField;
 import cn.jdevelops.data.jap.annotation.JpaSelectOperator;
 import cn.jdevelops.data.jap.enums.SQLConnect;
 import cn.jdevelops.data.jap.enums.SQLOperator;
+import cn.jdevelops.data.jap.enums.SpecBuilderDateFun;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.time.LocalDateTime;
 
 /**
  * 查询用户
@@ -22,30 +25,37 @@ public class UserFindDTO extends SerializableBean<UserFindDTO> {
 	/**
 	 * 用户编号
 	 */
-	@JpaSelectOperator(operator = SQLOperator.LIKE ,connect = SQLConnect.AND)
+	@JpaSelectOperator(operator = SQLOperator.LIKE ,connect = SQLConnect.OR)
 	private String userNo;
 	/**
 	 * 姓名
 	 */
-	@JpaSelectOperator(operator = SQLOperator.LIKE ,connect = SQLConnect.AND,fieldName = "name")
+	@JpaSelectOperator(operator = SQLOperator.LIKE ,connect = SQLConnect.OR,fieldName = "name")
 	private String name;
 	/**
 	 * 地址
 	 */
-	@JpaSelectOperator(operator = SQLOperator.LIKE ,connect = SQLConnect.AND)
+	@JpaSelectOperator(operator = SQLOperator.LIKE ,connect = SQLConnect.OR)
 	private String address;
 
 	/**
 	 * 用户头像
 	 */
-	@JpaSelectOperator(operator = SQLOperator.LIKE ,connect = SQLConnect.AND)
+	@JpaSelectOperator(operator = SQLOperator.LIKE ,connect = SQLConnect.OR)
 	private String userIcon;
 
 	/**
 	 * 手机号/联系电话
 	 */
 	@JpaSelectOperator(operator = SQLOperator.EQ ,connect = SQLConnect.AND)
-	@JpaSelectIgnoreField
 	private String phone;
 
+	@JpaSelectIgnoreField
+	private Integer id;
+
+	/**
+	 * 手机号/联系电话
+	 */
+	@JpaSelectOperator(operator = SQLOperator.EQ ,connect = SQLConnect.AND, function = SpecBuilderDateFun.DATE_FORMAT)
+	private String createTime;
 }

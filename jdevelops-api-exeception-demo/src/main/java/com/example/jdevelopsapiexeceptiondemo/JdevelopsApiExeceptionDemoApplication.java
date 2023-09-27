@@ -3,13 +3,11 @@ package com.example.jdevelopsapiexeceptiondemo;
 import cn.jdevelops.api.exception.exception.BusinessException;
 import cn.jdevelops.api.result.response.ResultVO;
 import com.example.jdevelopsapiexeceptiondemo.result.ReplaceResultVO;
-import com.google.common.collect.ImmutableMap;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
 
 @SpringBootApplication
 @RestController
@@ -55,6 +53,17 @@ public class JdevelopsApiExeceptionDemoApplication {
     @GetMapping("/testGlobalTry2")
     public ReplaceResultVO<Integer> testGlobalTry2(){
         throw  new BusinessException("测试全局异常拦截处理");
+    }
+
+
+
+    /**
+     * 测试隐式添加包裹类
+     * @return ResultVO or ReplaceResultVO
+     */
+    @GetMapping("/resultHandlerMethodReturnValueHandler")
+    public String resultHandlerMethodReturnValueHandler(){
+        return "测试隐式添加包裹类";
     }
 
 

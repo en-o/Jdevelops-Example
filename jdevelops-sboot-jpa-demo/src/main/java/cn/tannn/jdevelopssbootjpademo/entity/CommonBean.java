@@ -1,9 +1,10 @@
 package cn.tannn.jdevelopssbootjpademo.entity;
 
 
-import cn.jdevelops.data.jap.entity.JpaAuditFields;
+import cn.jdevelops.data.jap.modle.JpaAuditFields;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SelectBeforeUpdate;
@@ -26,7 +27,8 @@ public class CommonBean<B> extends JpaAuditFields<B> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition="int(11) COMMENT '主键，自动生成'")
+    @Column(columnDefinition="int(11)")
+    @Comment("主键，自动生成")
     private Integer id;
 
     @Override

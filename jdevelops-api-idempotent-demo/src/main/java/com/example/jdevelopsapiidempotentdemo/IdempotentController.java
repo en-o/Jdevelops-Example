@@ -40,15 +40,6 @@ public class IdempotentController {
     }
 
 
-    /**
-     * 自定义返回错误提示
-     * @return  String
-     */
-    @GetMapping("message")
-    @ApiIdempotent(message = "你再点封了你")
-    public ResultVO<String> message(){
-        return ResultVO.success("测试空参数");
-    }
 
     /**
      * 测试get有参数
@@ -60,34 +51,4 @@ public class IdempotentController {
         return ResultVO.success("测试get有参数");
     }
 
-    /**
-     * 测试post普通参数
-     * @return  String
-     */
-    @PostMapping("postGeneral")
-    @ApiIdempotent
-    public ResultVO<String> postGeneral(String v1){
-        return ResultVO.success("测试post普通参数");
-    }
-
-    /**
-     * 测试post json参数
-     * @return  String
-     */
-    @PostMapping("postJson")
-    @ApiIdempotent
-    public ResultVO<String> postJson(@RequestBody UserEntity user){
-        return ResultVO.success("测试post json参数"+user);
-    }
-
-
-    /**
-     * 测试post json参数参数多一点是试试
-     * @return  String
-     */
-    @PostMapping("postJsonMultiparameter")
-    @ApiIdempotent
-    public ResultVO<String> postJsonMultiparameter(@RequestBody UserEntity2 user){
-        return ResultVO.success("测试post json参数参数多一点是试试"+user);
-    }
 }

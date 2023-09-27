@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cn.jdevelops</groupId>
+        <artifactId>jdevelops</artifactId>
+        <version>2.0.7</version>
+    </parent>
+    <groupId>com.example</groupId>
+    <artifactId>web-demo</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>web-demo</name>
+    <description>
+        jdevelops-sboot-web-demo
+        - jpa
+        - mysql
+        - 全局异常处理
+        - 统一接口返回类
+    </description>
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    <dependencies>
+        <!-- web -->
+        <dependency>
+            <groupId>cn.jdevelops</groupId>
+            <artifactId>jdevelops-sboot-web</artifactId>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>cn.jdevelops</groupId>-->
+<!--            <artifactId>jdevelops-sboot-authentication-jwt</artifactId>-->
+<!--        </dependency>-->
+        <!-- 包含了 jdevelops-sboot-authentication-jwt -->
+        <dependency>
+            <groupId>cn.jdevelops</groupId>
+            <artifactId>jdevelops-sboot-authentication-jredis</artifactId>
+        </dependency>
+        <!-- 接口参数幂等 -->
+        <dependency>
+            <groupId>cn.jdevelops</groupId>
+            <artifactId>jdevelops-api-idempotent</artifactId>
+        </dependency>
+        <!-- jdbctemplate -->
+        <dependency>
+            <groupId>cn.jdevelops</groupId>
+            <artifactId>jdevelops-data-jdbctemplate</artifactId>
+        </dependency>
+        <!-- 参数遮掩和校验-->
+        <dependency>
+            <groupId>cn.jdevelops</groupId>
+            <artifactId>jdevelops-util-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.7.9</version>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -10,9 +10,9 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
 #    url: jdbc:postgresql://192.168.0.173:5432/test_auto_schema?allowMultiQueries=true
-    url: jdbc:postgresql://192.168.1.67:5433/test_auto_schema
+    url: jdbc:postgresql://192.168.1.141:8720/test_auto_schema
     username: postgres
-    password: root
+    password: pg@detabes
     hikari:
         connection-timeout: 30000
         idle-timeout: 600000

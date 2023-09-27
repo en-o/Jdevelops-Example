@@ -1,5 +1,6 @@
 package cn.tannn.jdevelopssbootjpademo.testwebjpa;
 
+import cn.jdevelops.data.jap.repository.JpaBasicsRepository;
 import cn.tannn.jdevelopssbootjpademo.dao.UserDao;
 import cn.tannn.jdevelopssbootjpademo.entity.User;
 import cn.tannn.jdevelopssbootjpademo.service.UserService;
@@ -37,6 +38,23 @@ class CommonTest {
     @Test
     void findOne(){
         System.out.println(userService.findBeanOne(User::getLoginPwd, "1234561"));
+    }
+
+
+    @Test
+    void autoDao(){
+        UserDao jpaBasicsDao = userService.getJpaBasicsDao();
+        System.out.println("dao=============> "+jpaBasicsDao.findByUserNo("admin"));
+        System.out.println("dao2=============> "+userService.getJpaBasicsDao().findById(1));
+        System.out.println("server=============> "+userService.findByUserNoCopyDao("admin"));
+        System.out.println("server2=============> "+userService.findByUserNoCopy2Dao("admin"));
+    }
+
+
+    @Test
+    void customSqlTest(){
+        UserDao jpaBasicsDao = userService.getJpaBasicsDao();
+        jpaBasicsDao.customSql().forEach(System.out::println);
     }
 
 }
