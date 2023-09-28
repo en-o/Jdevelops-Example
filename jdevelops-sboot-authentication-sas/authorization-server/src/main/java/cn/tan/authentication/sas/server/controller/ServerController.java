@@ -49,6 +49,9 @@ public class ServerController {
     }
 
 
+    /**
+     * 接口作用: 类似去微信平台平台申请 appId和appSecret一样
+     */
     @GetMapping("/api/addClient")
     public String addClient() {
         // JWT（Json Web Token）的配置项：TTL、是否复用refreshToken等等
