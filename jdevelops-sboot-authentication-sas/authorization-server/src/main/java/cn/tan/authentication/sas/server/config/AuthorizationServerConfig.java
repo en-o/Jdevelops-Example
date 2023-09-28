@@ -1,16 +1,10 @@
 package cn.tan.authentication.sas.server.config;
 
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
-import java.util.UUID;
 
 import cn.tan.authentication.sas.server.controller.ServerController;
 import cn.tan.authentication.sas.server.jose.Jwks;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
-import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 
@@ -21,9 +15,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService;
@@ -34,7 +25,6 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
@@ -75,6 +65,7 @@ public class AuthorizationServerConfig {
 	// ===========使用数据库 start ===========
 	/**
 	 * 客户端信息 [新增客户端的注册是在数据库中注册{@link ServerController#addClient()]
+	 * @see https://springdoc.cn/spring-authorization-server/core-model-components.html#registered-client-repository
 	 * 对应表：oauth2_registered_client
 	 */
 	@Bean
@@ -83,7 +74,7 @@ public class AuthorizationServerConfig {
 	}
 
 	/**
-	 * 授权信息
+	 * [授权信息](https://springdoc.cn/spring-authorization-server/core-model-components.html#oauth2-authorization-service)
 	 * 对应表：oauth2_authorization
 	 */
 	@Bean
@@ -93,8 +84,8 @@ public class AuthorizationServerConfig {
 	}
 
 	/**
-	 * 授权确认
-	 *对应表：oauth2_authorization_consent
+	 * [授权确认](https://springdoc.cn/spring-authorization-server/core-model-components.html#oauth2-authorization-consent-service)
+	 * 对应表：oauth2_authorization_consent
 	 */
 	@Bean
 	public OAuth2AuthorizationConsentService authorizationConsentService(JdbcTemplate jdbcTemplate,

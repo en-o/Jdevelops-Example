@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.time.Duration;
+import java.util.Collections;
 import java.util.UUID;
 
 /**
@@ -65,6 +66,7 @@ public class ServerController {
                 // .clientSecret("{bcrypt}" + new BCryptPasswordEncoder().encode("secret"))
                 // {noop}开头，表示“secret”以明文存储
                 .clientSecret("{noop}secret")
+                .clientName("messaging-client")
                 // 授权方法
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 // 授权模式（授权码模式）
