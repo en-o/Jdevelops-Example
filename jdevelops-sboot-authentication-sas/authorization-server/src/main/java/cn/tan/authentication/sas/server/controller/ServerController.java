@@ -1,5 +1,6 @@
 package cn.tan.authentication.sas.server.controller;
 
+import cn.tan.authentication.sas.server.controller.dto.CustomRegisteredClient;
 import cn.tan.authentication.sas.server.controller.dto.RegisterUser;
 import cn.tan.authentication.sas.server.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -52,8 +53,8 @@ public class ServerController {
     /**
      * 接口作用: 类似去微信平台平台申请 appId和appSecret一样
      */
-    @GetMapping("/api/addClient")
-    public String addClient() {
+    @PostMapping("/api/addClient")
+    public String addClient(@RequestBody @Valid CustomRegisteredClient client) {
         // JWT（Json Web Token）的配置项：TTL、是否复用refreshToken等等
         TokenSettings tokenSettings = TokenSettings.builder()
                 // 令牌存活时间：2小时
@@ -72,11 +73,11 @@ public class ServerController {
 
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 // 客户端ID和密码
-                .clientId("messaging-client")
-                .clientSecret(passwordEncoder.encode("secret"))
+                .clientId(client.getClientId())
+                .clientSecret(passwordEncoder.encode(client.getClientSecret()))
                 // {noop}开头，表示“secret”以明文存储
 //                .clientSecret("{noop}secret")
-                .clientName("messaging-client")
+                .clientName(client.getClientName())
                 // 授权方法
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 // 授权模式（授权码模式）
@@ -88,7 +89,9 @@ public class ServerController {
 //                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
 //                .redirectUri("http://127.0.0.1:8080/authorized")
                 // 将上面的redirectUri地址注释掉，改成下面的地址，是因为我们暂时还没有客户端服务，以免重定向跳转错误导致接收不到授权码
-                .redirectUri("http://www.baidu.com")
+                .redirectUris(uri -> {
+                    uri.addAll(client.getRedirectUris());
+                })
                 // 设置客户端权限范围
                 // OIDC 支持
                 .scope(OidcScopes.OPENID)
