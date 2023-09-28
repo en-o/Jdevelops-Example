@@ -9,6 +9,11 @@ logging:
     org.springframework.security.oauth2: INFO
 #    org.springframework.boot.autoconfigure: DEBUG
 
+# https://blog.51cto.com/u_15268610/6779127
+# 在ip相同的情况下，会出现cookie覆盖的情形，这会导致认证服务器重定向到客户端地址时会出现[authorization_request_not_found]异常，
+# 为解决这个问题，
+#  1. 在C:\Windows\System32\drivers\etc目录下的hosts文件添加了一行IP域名映射，即127.0.0.1 spring-oauth-client spring-oauth-server。
+#  2. 使用 192的ip
 spring:
   thymeleaf:
     cache: false
@@ -24,26 +29,27 @@ spring:
             provider: spring # 上面的provider下的节点[设置这个客户端有哪一个授权服务，上面的provider可以写很多个]
             client-id: client_1 # 要跟注册的一致
             client-secret: secret  # 要跟注册的一致
+            client-authentication-method: client_secret_basic # 要跟注册的一致
             authorization-grant-type: authorization_code  # 要存在于注册的集合里 [使用授权码模式获取令牌（token）]
-            redirect-uri: "http://127.0.0.1:8080/login/oauth2/code/client1-oidc"  # 要存在于注册的集合里
+            redirect-uri: "http://192.168.1.71:8081/login/oauth2/code/{registrationId}"  # 要存在于注册的集合里[registrationId = client1-oidc]
             scope:  # 要存在于注册的集合里
               - openid
               - profile
             client-name: 授权码oidc模式
-          client1-authorization:
-            provider: spring
-            client-id: client_1
-            client-secret: secret
-            authorization-grant-type: authorization_code
-            redirect-uri: "http://127.0.0.1:8080/authorized"
-            scope:
-              - message.read
-              - message.write
-            client-name: 授权码模式
-          client1-credentials:
-            provider: spring
-            client-id: client_1
-            client-secret: secret
-            authorization-grant-type: client_credentials
-            scope: message.read,message.write
-            client-name: 客户端模式
+#          client1-authorization:
+#            provider: spring
+#            client-id: client_1
+#            client-secret: secret
+#            authorization-grant-type: authorization_code
+#            redirect-uri: "http://192.168.1.71:8081/authorized"
+#            scope:
+#              - message.read
+#              - message.write
+#            client-name: 授权码模式
+#          client1-credentials:
+#            provider: spring
+#            client-id: client_1
+#            client-secret: secret
+#            authorization-grant-type: client_credentials
+#            scope: message.read,message.write
+#            client-name: 客户端模式
