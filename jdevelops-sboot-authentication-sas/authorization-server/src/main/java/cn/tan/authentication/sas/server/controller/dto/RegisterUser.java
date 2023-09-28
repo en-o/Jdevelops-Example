@@ -5,16 +5,11 @@ import cn.tan.authentication.sas.server.util.UUIDUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.Comment;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 /**
  * 用户注册
@@ -48,6 +43,10 @@ public class RegisterUser {
      * 个人简介
      */
     private String description;
+    /**
+     * 用户角色
+     */
+    private List<String> role;
 
 
 
@@ -58,6 +57,7 @@ public class RegisterUser {
         sysUser.setNickname(this.nickname);
         sysUser.setDescription(this.description);
         sysUser.setId(UUIDUtils.getInstance().generateShortUuidLong());
+        sysUser.setRoles(StringUtils.join(this.role,","));
         return sysUser;
     }
 }

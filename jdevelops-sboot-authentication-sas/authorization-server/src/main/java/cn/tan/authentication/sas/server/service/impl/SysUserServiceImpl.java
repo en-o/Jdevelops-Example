@@ -5,6 +5,7 @@ import cn.tan.authentication.sas.server.dao.SysUserDao;
 import cn.tan.authentication.sas.server.entity.SysUser;
 import cn.tan.authentication.sas.server.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,15 +47,12 @@ public class SysUserServiceImpl implements SysUserService, UserDetailsService {
         Optional<SysUser> byUsername = sysUserDao.findByUsername(username);
         if(byUsername.isPresent()){
             SysUser sysUser = byUsername.get();
-            // 模拟用户角色
-            List<SimpleGrantedAuthority> grantedAuthorityList = Arrays.asList("USER")
-                    .stream()
-                    .map(SimpleGrantedAuthority::new)
-                    .collect(Collectors.toList());
+            // 用户角色
+            String[] roles = StringUtils.split(sysUser.getRoles(), ",");
             return User.builder()
                     .password("{bcrypt}" +sysUser.getPassword())
                     .username(sysUser.getUsername())
-                    .authorities(grantedAuthorityList)
+                    .authorities(roles)
                     .build();
         }else {
             log.error("Username not found");

@@ -66,4 +66,12 @@ public class SysUser implements Serializable {
     @Column(columnDefinition = "int default 1")
     private Integer status;
 
+
+    /**
+     * 用户角色[逗号隔开]
+     */
+    @Comment("用户角色[逗号隔开]")
+    @Column(columnDefinition = "varchar(1000) default 'user'")
+    private String roles;
+
 }
