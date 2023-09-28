@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -53,7 +55,8 @@ public class RegisterUser {
     public SysUser ofSysUser(){
         SysUser sysUser = new SysUser();
         sysUser.setUsername(this.username);
-        sysUser.setPassword(new BCryptPasswordEncoder().encode(this.password));
+        // 记得用PasswordEncoder passwordEncoder这个加密账户噢
+        sysUser.setPassword(this.password);
         sysUser.setNickname(this.nickname);
         sysUser.setDescription(this.description);
         sysUser.setId(UUIDUtils.getInstance().generateShortUuidLong());

@@ -50,7 +50,7 @@ public class SysUserServiceImpl implements SysUserService, UserDetailsService {
             // 用户角色
             String[] roles = StringUtils.split(sysUser.getRoles(), ",");
             return User.builder()
-                    .password("{bcrypt}" +sysUser.getPassword())
+                    .password(sysUser.getPassword())
                     .username(sysUser.getUsername())
                     .authorities(roles)
                     .build();

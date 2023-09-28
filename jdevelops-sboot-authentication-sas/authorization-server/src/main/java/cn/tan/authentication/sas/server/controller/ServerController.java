@@ -3,7 +3,8 @@ package cn.tan.authentication.sas.server.controller;
 import cn.tan.authentication.sas.server.controller.dto.RegisterUser;
 import cn.tan.authentication.sas.server.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
@@ -31,15 +32,18 @@ public class ServerController {
     private final SysUserService sysUserService;
 
     private final RegisteredClientRepository registeredClientRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public ServerController(SysUserService sysUserService,
-                            RegisteredClientRepository registeredClientRepository) {
+                            RegisteredClientRepository registeredClientRepository, PasswordEncoder passwordEncoder) {
         this.sysUserService = sysUserService;
         this.registeredClientRepository = registeredClientRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/api/addUser")
     public String addUser(@RequestBody @Valid RegisterUser register) {
+        register.setPassword(passwordEncoder.encode(register.getPassword()));
         sysUserService.register(register);
         return "添加用户成功";
     }
@@ -66,9 +70,9 @@ public class ServerController {
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 // 客户端ID和密码
                 .clientId("messaging-client")
-                // .clientSecret("{bcrypt}" + new BCryptPasswordEncoder().encode("secret"))
+                .clientSecret(passwordEncoder.encode("secret"))
                 // {noop}开头，表示“secret”以明文存储
-                .clientSecret("{noop}secret")
+//                .clientSecret("{noop}secret")
                 .clientName("messaging-client")
                 // 授权方法
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
