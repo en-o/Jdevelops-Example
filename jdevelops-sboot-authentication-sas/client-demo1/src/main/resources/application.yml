@@ -15,32 +15,35 @@ spring:
   security:
     oauth2:
       client:
-        registration:
-          messaging-client-oidc:
+        provider: # 配置授权服务器 信息
+          spring:
+            issuer-uri: http://127.0.0.1:9000
+        registration: # 配置当前客户端的信息[用户认证此客户的是否登记在授权服务中]
+          client1-oidc: # 可以写多个这种节点，名字随意
             # provider.spring.issuer-uri
+            provider: spring # 上面的provider下的节点[设置这个客户端有哪一个授权服务，上面的provider可以写很多个]
+            client-id: client_1 # 要跟注册的一致
+            client-secret: secret  # 要跟注册的一致
+            authorization-grant-type: authorization_code  # 要存在于注册的集合里 [使用授权码模式获取令牌（token）]
+            redirect-uri: "http://127.0.0.1:8080/login/oauth2/code/client1-oidc"  # 要存在于注册的集合里
+            scope:  # 要存在于注册的集合里
+              - openid
+              - profile
+            client-name: 授权码oidc模式
+          client1-authorization:
             provider: spring
-            client-id: messaging-client
-            client-secret: secret
-            authorization-grant-type: authorization_code
-            redirect-uri: "http://127.0.0.1:8080/login/oauth2/code/{registrationId}"
-            scope: openid, profile
-            client-name: messaging-client-oidc
-          messaging-client-authorization-code:
-            provider: spring
-            client-id: messaging-client
+            client-id: client_1
             client-secret: secret
             authorization-grant-type: authorization_code
             redirect-uri: "http://127.0.0.1:8080/authorized"
-            scope: message.read,message.write
-            client-name: messaging-client-authorization-code
-          messaging-client-client-credentials:
+            scope:
+              - message.read
+              - message.write
+            client-name: 授权码模式
+          client1-credentials:
             provider: spring
-            client-id: messaging-client
+            client-id: client_1
             client-secret: secret
             authorization-grant-type: client_credentials
             scope: message.read,message.write
-            client-name: messaging-client-client-credentials
-        provider:
-          spring:
-            issuer-uri: http://127.0.0.1:9000
-
+            client-name: 客户端模式
