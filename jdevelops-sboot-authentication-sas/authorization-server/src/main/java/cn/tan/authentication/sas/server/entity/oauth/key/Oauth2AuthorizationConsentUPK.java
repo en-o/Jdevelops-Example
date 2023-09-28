@@ -18,6 +18,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 public class Oauth2AuthorizationConsentUPK implements Serializable,Cloneable {
 
     /**

@@ -17,13 +17,12 @@ package cn.tan.authentication.sas.server.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -46,36 +45,34 @@ public class DefaultSecurityConfig {
 	public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
 			throws Exception {
 		http
+				// 禁止csrf 要不然 post 403 {@link https://blog.csdn.net/Mr_FenKuan/article/details/121718258}
+				.csrf().disable()
 				// 设置所有请求都需要认证，未认证的请求都被重定向到login页面进行登录
 				.authorizeHttpRequests((authorize) -> authorize
 						// 放行静态资源
-						.mvcMatchers("/api/**", "/assets/**", "/webjars/**", "/login").permitAll()
+						.mvcMatchers( "/assets/**", "/webjars/**", "/login").permitAll()
+						// 放行接口
+						.antMatchers("/api/**").permitAll()
 						// 拦截其余所有
 						.anyRequest().authenticated()
 				)
+				// 开启session，并限制并发登录数为1(不允许同一用户多端登录)
+//				.sessionManagement()
 				// Form login handles the redirect to the login page from the
 				// authorization server filter chain
 				// [由Spring Security过滤链中UsernamePasswordAuthenticationFilter过滤器拦截处理“login”页面提交的登录信息。]
 				.formLogin(Customizer.withDefaults());
 
+
 		return http.build();
 	}
 
 
-
-
-	/**
-	 * 设置用户信息，校验用户名、密码 <br/>
-	 * 授权平台的登录认证操作，是脱离客户端（第三方平台）的使用的
-	 */
-	@Bean
-	public UserDetailsService userDetailsService() {
-		UserDetails userDetails = User.withDefaultPasswordEncoder()
-				.username("user")
-				.password("password")
-				.roles("USER")
-				.build();
-		//基于内存的用户数据校验
-		return new InMemoryUserDetailsManager(userDetails);
-	}
+//	/**
+//	 * 密码加密方式
+//	 */
+//	@Bean
+//	public PasswordEncoder passwordEncoder() {
+//		return new BCryptPasswordEncoder();
+//	}
 }

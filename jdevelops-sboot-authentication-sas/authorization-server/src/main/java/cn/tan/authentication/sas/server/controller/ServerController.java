@@ -1,5 +1,9 @@
 package cn.tan.authentication.sas.server.controller;
 
+import cn.tan.authentication.sas.server.controller.dto.RegisterUser;
+import cn.tan.authentication.sas.server.service.SysUserService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
@@ -7,13 +11,13 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.time.Duration;
-import java.util.Collections;
 import java.util.UUID;
 
 /**
@@ -21,23 +25,22 @@ import java.util.UUID;
  * @author tan
  */
 @RestController
+@Slf4j
 public class ServerController {
 
-//    @Resource
-//    private UserDetailsManager userDetailsManager;
+    private final SysUserService sysUserService;
 
-    @Resource
-    private RegisteredClientRepository registeredClientRepository;
+    private final RegisteredClientRepository registeredClientRepository;
 
-    @GetMapping("/api/addUser")
-    public String addUser() {
-//        UserDetails userDetails = User.builder().passwordEncoder(s -> "{bcrypt}" +
-//                        new BCryptPasswordEncoder().encode(s))
-//                .username("user")
-//                .password("password")
-//                .roles("ADMIN")
-//                .build();
-//        userDetailsManager.createUser(userDetails);
+    public ServerController(SysUserService sysUserService,
+                            RegisteredClientRepository registeredClientRepository) {
+        this.sysUserService = sysUserService;
+        this.registeredClientRepository = registeredClientRepository;
+    }
+
+    @PostMapping("/api/addUser")
+    public String addUser(@RequestBody @Valid RegisterUser register) {
+        sysUserService.register(register);
         return "添加用户成功";
     }
 
@@ -91,7 +94,14 @@ public class ServerController {
                 // 客户端配置项
                 .clientSettings(clientSettings)
                 .build();
-        registeredClientRepository.save(registeredClient);
+        try {
+            registeredClientRepository.save(registeredClient);
+        }catch (IllegalArgumentException e){
+            if(e.getMessage().contains("Registered client must be unique")){
+               log.error("客户端已存在不要重复创建");
+            }
+            throw e;
+        }
         return "添加客户端信息成功";
     }
 }
