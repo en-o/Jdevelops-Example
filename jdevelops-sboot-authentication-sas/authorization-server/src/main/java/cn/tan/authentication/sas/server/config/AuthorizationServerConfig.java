@@ -21,6 +21,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
 import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;
 import org.springframework.security.oauth2.jwt.JwsHeader;
@@ -39,8 +42,10 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 
 import javax.annotation.Resource;
 import java.time.Instant;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
+import java.util.Set;
 
 
 /**
@@ -51,6 +56,9 @@ public class AuthorizationServerConfig {
 
 	@Resource
 	private SysUserService sysUserService;
+
+	@Resource
+	UserDetailsService userDetailsService;
 
 	/**
 	 * 授权页面
@@ -196,6 +204,20 @@ public class AuthorizationServerConfig {
 			JwtClaimsSet.Builder claims = context.getClaims();
 			if (context.getTokenType().equals(OAuth2TokenType.ACCESS_TOKEN)) {
 				// Customize headers/claims for access_token
+				claims.claims(claimsConsumer->{
+					// 给 access_token 添加 用户权限的信息
+					UserDetails userDetails = userDetailsService.loadUserByUsername(context.getPrincipal().getName());
+					claimsConsumer.merge("scope",userDetails.getAuthorities(),(scope,authorities)->{
+						Set<String> scopeSet = (Set<String>)scope;
+						Collection<SimpleGrantedAuthority> simpleGrantedAuthorities = ( Collection<SimpleGrantedAuthority>)authorities;
+						simpleGrantedAuthorities.stream().forEach(simpleGrantedAuthority -> {
+							if(!scopeSet.contains(simpleGrantedAuthority.getAuthority())){
+								scopeSet.add(simpleGrantedAuthority.getAuthority());
+							}
+						});
+						return scopeSet;
+					});
+				});
 			} else if (context.getTokenType().getValue().equals(OidcParameterNames.ID_TOKEN)) {
 				// Customize headers/claims for id_token
 				claims.claim(IdTokenClaimNames.AUTH_TIME, Date.from(Instant.now()));
