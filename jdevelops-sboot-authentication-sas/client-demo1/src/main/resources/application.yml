@@ -15,6 +15,8 @@ logging:
 #  1. 在C:\Windows\System32\drivers\etc目录下的hosts文件添加了一行IP域名映射，即127.0.0.1 spring-oauth-client spring-oauth-server。
 #  2. 使用 192的ip
 spring:
+  application:
+    name: authorization-client
   thymeleaf:
     cache: false
   security:
