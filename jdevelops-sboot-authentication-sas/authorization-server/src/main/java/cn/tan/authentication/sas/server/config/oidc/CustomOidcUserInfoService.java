@@ -6,12 +6,11 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 /**
- * Example service to perform lookup of user info for customizing an {@code id_token}.
+ *  自定义 oidc的 userinfo接口的数据获取和组装
  * @author tan
  */
 @Service

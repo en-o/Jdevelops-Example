@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
+ * Oidc - 用户将表单信息转换成 Authentication
  * @author tan
  */
 public class CustomOidcUserInfoAuthenticationConverter implements AuthenticationConverter {

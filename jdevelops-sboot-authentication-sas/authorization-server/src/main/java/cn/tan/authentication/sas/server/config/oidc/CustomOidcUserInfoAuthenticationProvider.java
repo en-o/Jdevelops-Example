@@ -60,7 +60,7 @@ public class CustomOidcUserInfoAuthenticationProvider implements AuthenticationP
                     CustomOidcUserInfo myOidcUserInfo = (CustomOidcUserInfo)userInfoAuthentication.getUserInfo();
                     //从authorizedAccessToken中获取授权范围
                     Set<String> scopeSet = (HashSet<String>)authorizedAccessToken.getClaims().get("scope") ;
-                    //获取授权范围对应userInfo的字段信息
+                    //todo 获取授权范围对应userInfo的字段信息
                     Map<String, Object> claims = DefaultOidcUserInfoMapper.getClaimsRequestedByScope(myOidcUserInfo.getClaims(),scopeSet);
                     if (this.logger.isTraceEnabled()) {
                         this.logger.trace("Authenticated user info request");
@@ -101,6 +101,9 @@ public class CustomOidcUserInfoAuthenticationProvider implements AuthenticationP
             return new CustomOidcUserInfo(scopeRequestedClaims);
         }
 
+        /**
+         * 根据不同权限抽取不同数据
+         */
         private static Map<String, Object> getClaimsRequestedByScope(Map<String, Object> claims, Set<String> requestedScopes) {
             Set<String> scopeRequestedClaimNames = new HashSet<>(32);
             scopeRequestedClaimNames.add("sub");
