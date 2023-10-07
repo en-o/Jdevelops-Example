@@ -64,4 +64,9 @@ public class SysUserServiceImpl implements SysUserService, UserDetailsService {
     public void register(RegisterUser register) {
         sysUserDao.save(register.ofSysUser());
     }
+
+    @Override
+    public Optional<SysUser> findUserInfo(String username) {
+        return sysUserDao.findByUsername(username);
+    }
 }

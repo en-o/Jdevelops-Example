@@ -1,6 +1,9 @@
 package cn.tan.authentication.sas.server.service;
 
 import cn.tan.authentication.sas.server.controller.dto.RegisterUser;
+import cn.tan.authentication.sas.server.entity.SysUser;
+
+import java.util.Optional;
 
 /**
  * 用户
@@ -15,4 +18,11 @@ public interface SysUserService {
      * @param register RegisterUser
      */
     void register(RegisterUser register);
+
+    /**
+     * 查询用户详情
+     * @param username 登录名
+     * @return SysUser
+     */
+    Optional<SysUser> findUserInfo(String username);
 }

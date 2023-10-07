@@ -6,25 +6,28 @@ import cn.tan.authentication.sas.server.config.mobile.MobileGrantAuthenticationP
 import cn.tan.authentication.sas.server.config.password.PasswordGrantAuthenticationConverter;
 import cn.tan.authentication.sas.server.config.password.PasswordGrantAuthenticationProvider;
 import cn.tan.authentication.sas.server.controller.ServerController;
+import cn.tan.authentication.sas.server.entity.SysUser;
 import cn.tan.authentication.sas.server.jose.Jwks;
+import cn.tan.authentication.sas.server.service.SysUserService;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 
+import org.apache.catalina.util.StandardSessionIdGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
+import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
+import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;
+import org.springframework.security.oauth2.jwt.JwsHeader;
+import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
-import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
-import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService;
-import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
-import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
+import org.springframework.security.oauth2.server.authorization.*;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
@@ -34,12 +37,20 @@ import org.springframework.security.oauth2.server.authorization.token.*;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
+import javax.annotation.Resource;
+import java.time.Instant;
+import java.util.Date;
+import java.util.Optional;
+
 
 /**
  * @author tan
  */
-@Configuration(proxyBeanMethods = false)
+@Configuration
 public class AuthorizationServerConfig {
+
+	@Resource
+	private SysUserService sysUserService;
 
 	/**
 	 * 授权页面
@@ -85,8 +96,9 @@ public class AuthorizationServerConfig {
 								new LoginUrlAuthenticationEntryPoint("/login"))
 				)
 				// Accept access tokens for User Info and/or Client Registration[使用jwt处理接收到的access token]
-				.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
-
+//				.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+				.oauth2ResourceServer(oauth2ResourceServer ->
+						oauth2ResourceServer.jwt(Customizer.withDefaults()));
 		return http.build();
 	}
 
@@ -157,16 +169,48 @@ public class AuthorizationServerConfig {
 		return AuthorizationServerSettings.builder().build();
 	}
 
+
+
 	/**
 	 *配置token生成器
 	 */
 	@Bean
 	OAuth2TokenGenerator<?> tokenGenerator(JWKSource<SecurityContext> jwkSource) {
 		JwtGenerator jwtGenerator = new JwtGenerator(new NimbusJwtEncoder(jwkSource));
+		jwtGenerator.setJwtCustomizer(jwtCustomizer());
 		OAuth2AccessTokenGenerator accessTokenGenerator = new OAuth2AccessTokenGenerator();
 		OAuth2RefreshTokenGenerator refreshTokenGenerator = new OAuth2RefreshTokenGenerator();
 		return new DelegatingOAuth2TokenGenerator(
 				jwtGenerator, accessTokenGenerator, refreshTokenGenerator);
 	}
+
+	/**
+	 * 自定义token的内容
+	 */
+	@Bean
+	public OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer() {
+		return context -> {
+			// 根据登录名 查询用户信息
+			Optional<SysUser> userInfo = sysUserService.findUserInfo(context.getPrincipal().getName());
+			JwsHeader.Builder headers = context.getJwsHeader();
+			JwtClaimsSet.Builder claims = context.getClaims();
+			if (context.getTokenType().equals(OAuth2TokenType.ACCESS_TOKEN)) {
+				// Customize headers/claims for access_token
+			} else if (context.getTokenType().getValue().equals(OidcParameterNames.ID_TOKEN)) {
+				// Customize headers/claims for id_token
+				claims.claim(IdTokenClaimNames.AUTH_TIME, Date.from(Instant.now()));
+				StandardSessionIdGenerator standardSessionIdGenerator = new StandardSessionIdGenerator();
+				claims.claim("sid", standardSessionIdGenerator.generateSessionId());
+				// 给id_token添加附加信息 - 类似 userinfo查询的效果
+				userInfo.ifPresent(user -> {
+					claims.claim("username", user.getUsername());
+					claims.claim("name", user.getNickname());
+					claims.claim("description", user.getDescription());
+				});
+
+			}
+		};
+	}
+
 }
 
