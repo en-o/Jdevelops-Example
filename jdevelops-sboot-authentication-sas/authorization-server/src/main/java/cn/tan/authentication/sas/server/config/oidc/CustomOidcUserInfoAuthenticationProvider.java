@@ -34,6 +34,7 @@ public class CustomOidcUserInfoAuthenticationProvider implements AuthenticationP
         this.authorizationService = authorizationService;
     }
 
+    @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         OidcUserInfoAuthenticationToken userInfoAuthentication = (OidcUserInfoAuthenticationToken)authentication;
         AbstractOAuth2TokenAuthenticationToken<?> accessTokenAuthentication = null;
