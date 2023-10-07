@@ -10,7 +10,11 @@
     </parent>
 
     <artifactId>client-demo1</artifactId>
-
+    <description>
+        源服务器往往和客户端一起配合使用，客户端侧重于身份认证，资源服务器侧重于权限校验
+        如果在微服务架构中，可以将客户端框架 client 集成到网关服务上，
+        将资源服务器框架resource 集成到用户服务、商品服务、订单服务等微服务上。
+    </description>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
