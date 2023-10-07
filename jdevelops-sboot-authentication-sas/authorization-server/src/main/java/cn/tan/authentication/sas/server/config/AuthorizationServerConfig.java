@@ -1,6 +1,8 @@
 package cn.tan.authentication.sas.server.config;
 
 
+import cn.tan.authentication.sas.server.config.mobile.MobileGrantAuthenticationConverter;
+import cn.tan.authentication.sas.server.config.mobile.MobileGrantAuthenticationProvider;
 import cn.tan.authentication.sas.server.config.password.PasswordGrantAuthenticationConverter;
 import cn.tan.authentication.sas.server.config.password.PasswordGrantAuthenticationProvider;
 import cn.tan.authentication.sas.server.controller.ServerController;
@@ -66,6 +68,14 @@ public class AuthorizationServerConfig {
 								.authenticationProvider(
 										new PasswordGrantAuthenticationProvider(authorizationService,tokenGenerator)
 								))
+				//设置自定义手机验证码模式
+				.tokenEndpoint(tokenEndpoint ->
+						tokenEndpoint
+								.accessTokenRequestConverter(
+										new MobileGrantAuthenticationConverter())
+								.authenticationProvider(
+										new MobileGrantAuthenticationProvider(
+												authorizationService, tokenGenerator)))
 				.oidc(Customizer.withDefaults());	// Enable OpenID Connect 1.0[开启OpenID Connect 1.0]
 		http
 				// Redirect to the login page when not authenticated from the[将需要认证的请求，重定向到login页面行登录认证。]
