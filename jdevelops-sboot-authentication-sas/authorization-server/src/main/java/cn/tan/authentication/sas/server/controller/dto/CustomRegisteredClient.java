@@ -3,6 +3,8 @@ package cn.tan.authentication.sas.server.controller.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -42,4 +44,23 @@ public class CustomRegisteredClient {
     @NotEmpty
     private Set<String> redirectUris;
 
+    /**
+     * 默认 CLIENT_SECRET_BASIC
+     */
+    private  ClientAuthenticationMethod clientAuthenticationMethod;
+
+
+    /**
+     * 授权模式 {@link AuthorizationGrantType}
+     */
+    @NotEmpty
+    private  Set<AuthorizationGrantType> authorizationGrantTypes;
+
+
+    public ClientAuthenticationMethod getClientAuthenticationMethod() {
+        if(clientAuthenticationMethod == null){
+            return ClientAuthenticationMethod.CLIENT_SECRET_BASIC;
+        }
+        return clientAuthenticationMethod;
+    }
 }

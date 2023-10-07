@@ -1,6 +1,8 @@
 package cn.tan.authentication.sas.server.config;
 
 
+import cn.tan.authentication.sas.server.config.password.PasswordGrantAuthenticationConverter;
+import cn.tan.authentication.sas.server.config.password.PasswordGrantAuthenticationProvider;
 import cn.tan.authentication.sas.server.controller.ServerController;
 import cn.tan.authentication.sas.server.jose.Jwks;
 import com.nimbusds.jose.jwk.JWKSet;
@@ -16,6 +18,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
@@ -25,6 +28,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
+import org.springframework.security.oauth2.server.authorization.token.*;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
@@ -35,6 +39,10 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 @Configuration(proxyBeanMethods = false)
 public class AuthorizationServerConfig {
 
+	/**
+	 * 授权页面
+	 */
+	private static final String CUSTOM_CONSENT_PAGE_URI = "/oauth2/consent";
 
 	/**
 	 * Spring Authorization Server 相关配置  <br/>
@@ -42,10 +50,22 @@ public class AuthorizationServerConfig {
 	 */
 	@Bean
 	@Order(1)
-	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
+	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http,
+																	  OAuth2AuthorizationService authorizationService,
+																	  OAuth2TokenGenerator<?> tokenGenerator)
 			throws Exception {
+
 		OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 		http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
+				.authorizationEndpoint(authorizationEndpoint ->
+						authorizationEndpoint.consentPage(CUSTOM_CONSENT_PAGE_URI))
+				// 设置自定义密码模式
+				.tokenEndpoint(tokenEndpoint ->
+						tokenEndpoint
+								.accessTokenRequestConverter(new PasswordGrantAuthenticationConverter())
+								.authenticationProvider(
+										new PasswordGrantAuthenticationProvider(authorizationService,tokenGenerator)
+								))
 				.oidc(Customizer.withDefaults());	// Enable OpenID Connect 1.0[开启OpenID Connect 1.0]
 		http
 				// Redirect to the login page when not authenticated from the[将需要认证的请求，重定向到login页面行登录认证。]
@@ -125,6 +145,18 @@ public class AuthorizationServerConfig {
 	@Bean
 	public AuthorizationServerSettings authorizationServerSettings() {
 		return AuthorizationServerSettings.builder().build();
+	}
+
+	/**
+	 *配置token生成器
+	 */
+	@Bean
+	OAuth2TokenGenerator<?> tokenGenerator(JWKSource<SecurityContext> jwkSource) {
+		JwtGenerator jwtGenerator = new JwtGenerator(new NimbusJwtEncoder(jwkSource));
+		OAuth2AccessTokenGenerator accessTokenGenerator = new OAuth2AccessTokenGenerator();
+		OAuth2RefreshTokenGenerator refreshTokenGenerator = new OAuth2RefreshTokenGenerator();
+		return new DelegatingOAuth2TokenGenerator(
+				jwtGenerator, accessTokenGenerator, refreshTokenGenerator);
 	}
 }
 

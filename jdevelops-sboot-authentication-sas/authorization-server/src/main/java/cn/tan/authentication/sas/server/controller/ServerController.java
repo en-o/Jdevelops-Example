@@ -79,12 +79,15 @@ public class ServerController {
 //                .clientSecret("{noop}secret")
                 .clientName(client.getClientName())
                 // 授权方法
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                // 授权模式（授权码模式）
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                // 刷新令牌（授权码模式）
-                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .clientAuthenticationMethod(client.getClientAuthenticationMethod())
+                .authorizationGrantTypes(grantTypes -> {
+                    grantTypes.addAll(client.getAuthorizationGrantTypes());
+                })
+//                // 授权模式（授权码模式）
+//                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+//                // 刷新令牌（授权码模式）
+//                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+//                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 // 回调地址：授权服务器向当前客户端响应时调用下面地址, 不在此列的地址将被拒绝, 只能使用IP或域名，不能使用 localhost
 //                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
 //                .redirectUri("http://127.0.0.1:8080/authorized")

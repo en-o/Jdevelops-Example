@@ -25,7 +25,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
-
 /**
  * @author Joe Grandja
  */
@@ -33,48 +32,50 @@ import org.springframework.security.web.SecurityFilterChain;
 public class DefaultSecurityConfig {
 
 
-
-
-	/**
-	 * 配置Spring Security相关的东西  <br/>
-	 *  Spring Security 过滤链配置（此处是纯Spring Security相关配置）
-	 */
-	@Bean
-	@Order(2)
-	public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
-			throws Exception {
-		http
-				// 禁止csrf 要不然 post 403 {@link https://blog.csdn.net/Mr_FenKuan/article/details/121718258}
-				.csrf().disable()
-				// 设置所有请求都需要认证，未认证的请求都被重定向到login页面进行登录
-				.authorizeHttpRequests((authorize) -> authorize
-						// 放行静态资源
-						.mvcMatchers( "/assets/**", "/webjars/**", "/login").permitAll()
-						// 放行接口
-						.antMatchers("/api/**").permitAll()
-						// 拦截其余所有
-						.anyRequest().authenticated()
-				)
-				// 开启session，并限制并发登录数为1(不允许同一用户多端登录)
+    /**
+     * 配置Spring Security相关的东西  <br/>
+     * Spring Security 过滤链配置（此处是纯Spring Security相关配置）
+     */
+    @Bean
+    @Order(2)
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
+            throws Exception {
+        http
+                // 禁止csrf 要不然 post 403 {@link https://blog.csdn.net/Mr_FenKuan/article/details/121718258}
+                .csrf().disable()
+                // 设置所有请求都需要认证，未认证的请求都被重定向到login页面进行登录
+                .authorizeHttpRequests((authorize) -> authorize
+                        // 放行静态资源
+                        .mvcMatchers("/assets/**", "/webjars/**", "/login").permitAll()
+                        // 放行接口
+                        .antMatchers("/api/**").permitAll()
+                        // 拦截其余所有
+                        .anyRequest().authenticated()
+                )
+                // 开启session，并限制并发登录数为1(不允许同一用户多端登录)
 //				.sessionManagement()
-				// Form login handles the redirect to the login page from the
-				// authorization server filter chain
-				// [由Spring Security过滤链中UsernamePasswordAuthenticationFilter过滤器拦截处理“login”页面提交的登录信息。]
-				.formLogin(Customizer.withDefaults());
+                // Form login handles the redirect to the login page from the
+                // authorization server filter chain
+                // [由Spring Security过滤链中UsernamePasswordAuthenticationFilter过滤器拦截处理“login”页面提交的登录信息。]
+//				.formLogin(Customizer.withDefaults());
+                // 自定义登录界面
+                .formLogin(formLogin ->
+                        formLogin
+                                .loginPage("/login")
+                );
+
+        return http.build();
+    }
 
 
-		return http.build();
-	}
-
-
-	/**
-	 * 配置密码解析器，使用BCrypt的方式对密码进行加密和验证
-	 *
-	 * @return BCryptPasswordEncoder
-	 */
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    /**
+     * 配置密码解析器，使用BCrypt的方式对密码进行加密和验证
+     *
+     * @return BCryptPasswordEncoder
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 }
