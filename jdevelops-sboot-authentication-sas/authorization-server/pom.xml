@@ -13,6 +13,7 @@
         授权服务器
         参考： https://blog.51cto.com/u_15268610/category2
         auth2.1: https://oauth.net/2.1/
+        常见问题: https://blog.csdn.net/weixin_43356507/article/details/132948152
     </name>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
