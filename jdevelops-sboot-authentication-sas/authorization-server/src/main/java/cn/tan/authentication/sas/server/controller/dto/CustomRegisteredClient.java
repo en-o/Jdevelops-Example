@@ -5,11 +5,15 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
+import org.springframework.security.oauth2.core.oidc.OidcScopes;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * 客户端注册
@@ -56,11 +60,29 @@ public class CustomRegisteredClient {
     @NotEmpty
     private  Set<AuthorizationGrantType> authorizationGrantTypes;
 
+    /**
+     * 授权范围  scopes 有默认值
+     */
+    private Set<String> scopesConsumer;
+
 
     public ClientAuthenticationMethod getClientAuthenticationMethod() {
         if(clientAuthenticationMethod == null){
             return ClientAuthenticationMethod.CLIENT_SECRET_BASIC;
         }
         return clientAuthenticationMethod;
+    }
+
+    public Set<String> getScopesConsumer() {
+        if(scopesConsumer == null || scopesConsumer.isEmpty()){
+            // OIDC 支持
+            Set<String> scopes = new HashSet<>();
+            scopes.add(OidcScopes.OPENID);
+            scopes.add(OidcScopes.PROFILE);
+            scopes.add("message.read");
+            scopes.add("message.write");
+            return scopes;
+        }
+        return scopesConsumer;
     }
 }

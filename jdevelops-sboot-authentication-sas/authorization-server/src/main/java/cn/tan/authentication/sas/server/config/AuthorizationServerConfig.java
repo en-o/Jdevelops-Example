@@ -3,6 +3,9 @@ package cn.tan.authentication.sas.server.config;
 
 import cn.tan.authentication.sas.server.config.mobile.MobileGrantAuthenticationConverter;
 import cn.tan.authentication.sas.server.config.mobile.MobileGrantAuthenticationProvider;
+import cn.tan.authentication.sas.server.config.oidc.CustomOidcUserInfoAuthenticationConverter;
+import cn.tan.authentication.sas.server.config.oidc.CustomOidcUserInfoAuthenticationProvider;
+import cn.tan.authentication.sas.server.config.oidc.CustomOidcUserInfoService;
 import cn.tan.authentication.sas.server.config.password.PasswordGrantAuthenticationConverter;
 import cn.tan.authentication.sas.server.config.password.PasswordGrantAuthenticationProvider;
 import cn.tan.authentication.sas.server.controller.ServerController;
@@ -60,6 +63,9 @@ public class AuthorizationServerConfig {
 	@Resource
 	UserDetailsService userDetailsService;
 
+	@Resource
+	private CustomOidcUserInfoService customOidcUserInfoService;
+
 	/**
 	 * 授权页面
 	 */
@@ -95,7 +101,13 @@ public class AuthorizationServerConfig {
 								.authenticationProvider(
 										new MobileGrantAuthenticationProvider(
 												authorizationService, tokenGenerator)))
-				.oidc(Customizer.withDefaults());	// Enable OpenID Connect 1.0[开启OpenID Connect 1.0]
+				// Enable OpenID Connect 1.0[开启OpenID Connect 1.0] 自定义
+				.oidc(oidcCustomizer->{
+					oidcCustomizer.userInfoEndpoint(userInfoEndpointCustomizer->{
+						userInfoEndpointCustomizer.userInfoRequestConverter(new CustomOidcUserInfoAuthenticationConverter(customOidcUserInfoService));
+						userInfoEndpointCustomizer.authenticationProvider(new CustomOidcUserInfoAuthenticationProvider(authorizationService));
+					});
+				});
 		http
 				// Redirect to the login page when not authenticated from the[将需要认证的请求，重定向到login页面行登录认证。]
 				// authorization endpoint

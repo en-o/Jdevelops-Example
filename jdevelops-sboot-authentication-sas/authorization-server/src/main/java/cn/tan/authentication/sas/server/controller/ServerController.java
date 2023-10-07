@@ -97,11 +97,10 @@ public class ServerController {
                 })
                 // 设置客户端权限范围
                 // OIDC 支持
-                .scope(OidcScopes.OPENID)
-                .scope(OidcScopes.PROFILE)
-                // 授权范围（当前客户端的授权范围）
-                .scope("message.read")
-                .scope("message.write")
+                .scopes( scope -> {
+//                    授权范围（当前客户端的授权范围）
+                    scope.addAll(client.getScopesConsumer());
+                })
                 // JWT（Json Web Token）配置项
                 .tokenSettings(tokenSettings)
                 // 客户端配置项
