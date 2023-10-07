@@ -22,11 +22,18 @@
     </description>
 
     <modules>
-        <!---->
+        <!--授权服务器-->
         <module>authorization-server</module>
-        <!--资源服务器 其实也是个客户端 (客户端=资源)-->
+        <!-- 设备授权码认证服务器 jdk17 springboot3.1.4-->
+<!--        <module>authorization-device-server</module>-->
+
+        <!--
+            如果在微服务架构中，可以将客户端框架 client 集成到网关服务上，
+            将资源服务器框架resource 集成到用户服务、商品服务、订单服务等微服务上。
+        -->
+        <!--资源服务器侧重于权限校验-->
         <module>resource-server</module>
-        <!--客户端,调用资源服务器的接口测试下 authentication server-->
+        <!-- 客户端侧重于身份认证-->
         <module>client-demo1</module>
     </modules>
 
