@@ -29,6 +29,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class AuthorizationController {
 
+
+	/**
+	 * 注意不能使用127 会出现[authorization_request_not_found] <br/>
+	 * {@link http://192.168.1.71:8081/token} 未登录跳转到 授权服务器的登录 <br/>
+	 * 登录之后会返回授权服务token中的信息json
+	 */
 	@GetMapping("/token")
 	@ResponseBody
 	public OAuth2AuthorizedClient token(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient oAuth2AuthorizedClient) {
