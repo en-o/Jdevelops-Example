@@ -18,6 +18,8 @@ import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 
 import org.apache.catalina.util.StandardSessionIdGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -56,6 +58,8 @@ import java.util.Set;
  */
 @Configuration
 public class AuthorizationServerConfig {
+
+	private static final Logger log = LoggerFactory.getLogger(AuthorizationServerConfig.class);
 
 	@Resource
 	private SysUserService sysUserService;
@@ -222,11 +226,19 @@ public class AuthorizationServerConfig {
 					claimsConsumer.merge("scope",userDetails.getAuthorities(),(scope,authorities)->{
 						Set<String> scopeSet = (Set<String>)scope;
 						Collection<SimpleGrantedAuthority> simpleGrantedAuthorities = ( Collection<SimpleGrantedAuthority>)authorities;
-						simpleGrantedAuthorities.stream().forEach(simpleGrantedAuthority -> {
-							if(!scopeSet.contains(simpleGrantedAuthority.getAuthority())){
-								scopeSet.add(simpleGrantedAuthority.getAuthority());
+						try {
+							if(!simpleGrantedAuthorities.isEmpty()){
+								simpleGrantedAuthorities
+										.stream().filter(sga -> sga != null && sga.getAuthority() != null)
+										.forEach(simpleGrantedAuthority -> {
+											if(!scopeSet.contains(simpleGrantedAuthority.getAuthority())){
+												scopeSet.add(simpleGrantedAuthority.getAuthority());
+											}
+										});
 							}
-						});
+						}catch (UnsupportedOperationException unsupportedOperationException){
+							log.error("ACCESS_TOKEN scopeSet add 失败",unsupportedOperationException);
+						}
 						return scopeSet;
 					});
 				});

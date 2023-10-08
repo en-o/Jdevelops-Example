@@ -14,9 +14,10 @@ class PKCEUtilsTest {
         System.out.println(PKCEUtils.codeVerifierGenerator());
     }
 
+
     @Test
     void codeChallengeGenerator() throws NoSuchAlgorithmException {
-
+        // 好像只能使用一次
         //生成code_verifier
         String codeVerifier = PKCEUtils.codeVerifierGenerator();
         assertNotNull(codeVerifier);
