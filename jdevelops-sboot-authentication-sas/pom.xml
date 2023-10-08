@@ -35,6 +35,8 @@
         <module>resource-server</module>
         <!-- 客户端侧重于身份认证-->
         <module>client-demo1</module>
+        <!-- 异常处理 -->
+        <module>authorization-error</module>
     </modules>
 
     <properties>

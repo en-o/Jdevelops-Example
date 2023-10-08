@@ -1,6 +1,10 @@
 package cn.tan.authentication.sas.server.config;
 
 
+import cn.tan.authentication.sas.error.CustomAuthenticationFailureHandler;
+import cn.tan.authentication.sas.error.CustomExceptionTranslationFilter;
+import cn.tan.authentication.sas.error.UnAccessDeniedHandler;
+import cn.tan.authentication.sas.error.UnAuthenticationEntryPoint;
 import cn.tan.authentication.sas.server.config.mobile.MobileGrantAuthenticationConverter;
 import cn.tan.authentication.sas.server.config.mobile.MobileGrantAuthenticationProvider;
 import cn.tan.authentication.sas.server.config.oidc.CustomOidcUserInfoAuthenticationConverter;
@@ -43,6 +47,7 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.token.*;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 import javax.annotation.Resource;
@@ -105,6 +110,12 @@ public class AuthorizationServerConfig {
 								.authenticationProvider(
 										new MobileGrantAuthenticationProvider(
 												authorizationService, tokenGenerator)))
+				// 拦截异常 处理
+				.tokenEndpoint(tokenEndpoint -> tokenEndpoint.errorResponseHandler(new CustomAuthenticationFailureHandler()))
+				// 客户端异常处理
+				.clientAuthentication(clientAuthentication->{
+					clientAuthentication.errorResponseHandler(new CustomAuthenticationFailureHandler());
+				})
 				// Enable OpenID Connect 1.0[开启OpenID Connect 1.0] 自定义
 				.oidc(oidcCustomizer->{
 					oidcCustomizer.userInfoEndpoint(userInfoEndpointCustomizer->{
@@ -113,14 +124,17 @@ public class AuthorizationServerConfig {
 					});
 				});
 		http
+				.addFilterBefore(new CustomExceptionTranslationFilter(), ExceptionTranslationFilter.class)
 				// Redirect to the login page when not authenticated from the[将需要认证的请求，重定向到login页面行登录认证。]
 				// authorization endpoint
 				.exceptionHandling((exceptions) -> exceptions
 						.authenticationEntryPoint(
-								new LoginUrlAuthenticationEntryPoint("/login"))
+								new LoginUrlAuthenticationEntryPoint("/login")
+						)
+						.authenticationEntryPoint(new UnAuthenticationEntryPoint("/login"))
+						.accessDeniedHandler(new UnAccessDeniedHandler())
 				)
 				// Accept access tokens for User Info and/or Client Registration[使用jwt处理接收到的access token]
-//				.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 				.oauth2ResourceServer(oauth2ResourceServer ->
 						oauth2ResourceServer.jwt(Customizer.withDefaults()));
 		return http.build();

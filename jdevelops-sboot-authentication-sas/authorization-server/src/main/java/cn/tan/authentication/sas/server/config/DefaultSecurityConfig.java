@@ -15,9 +15,12 @@
  */
 package cn.tan.authentication.sas.server.config;
 
+import cn.tan.authentication.sas.error.UnAccessDeniedHandler;
+import cn.tan.authentication.sas.error.UnAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,6 +32,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * @author Joe Grandja
  */
 @EnableWebSecurity
+@EnableMethodSecurity(jsr250Enabled = true, securedEnabled = true)
 public class DefaultSecurityConfig {
 
 
@@ -40,6 +44,7 @@ public class DefaultSecurityConfig {
     @Order(2)
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
             throws Exception {
+
         http
                 // 禁止csrf 要不然 post 403 {@link https://blog.csdn.net/Mr_FenKuan/article/details/121718258}
                 .csrf().disable()
@@ -51,18 +56,20 @@ public class DefaultSecurityConfig {
                         .antMatchers("/api/**").permitAll()
                         // 拦截其余所有
                         .anyRequest().authenticated()
-                )
-                // 开启session，并限制并发登录数为1(不允许同一用户多端登录)
-//				.sessionManagement()
-                // Form login handles the redirect to the login page from the
-                // authorization server filter chain
-                // [由Spring Security过滤链中UsernamePasswordAuthenticationFilter过滤器拦截处理“login”页面提交的登录信息。]
-//				.formLogin(Customizer.withDefaults());
-                // 自定义登录界面
+                ) // 自定义登录界面
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/login")
+
                 );
+
+        // 异常处理器
+        http.oauth2ResourceServer(resourceServer -> resourceServer
+                        .jwt(Customizer.withDefaults())
+                        .authenticationEntryPoint(new UnAuthenticationEntryPoint("/login"))
+                        .accessDeniedHandler(new UnAccessDeniedHandler())
+        );
+
 
         return http.build();
     }

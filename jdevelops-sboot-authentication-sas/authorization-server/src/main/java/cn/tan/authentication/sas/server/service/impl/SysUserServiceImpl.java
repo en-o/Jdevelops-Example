@@ -1,5 +1,6 @@
 package cn.tan.authentication.sas.server.service.impl;
 
+import cn.tan.authentication.sas.error.CustomAuthenticationException;
 import cn.tan.authentication.sas.server.controller.dto.RegisterUser;
 import cn.tan.authentication.sas.server.dao.SysUserDao;
 import cn.tan.authentication.sas.server.entity.SysUser;
@@ -55,8 +56,8 @@ public class SysUserServiceImpl implements SysUserService, UserDetailsService {
                     .authorities(roles)
                     .build();
         }else {
-            log.error("Username not found");
-            throw new UsernameNotFoundException("Username not found");
+            log.warn("Username not found !");
+            throw new CustomAuthenticationException("账户密码错误，请重试！");
         }
     }
 

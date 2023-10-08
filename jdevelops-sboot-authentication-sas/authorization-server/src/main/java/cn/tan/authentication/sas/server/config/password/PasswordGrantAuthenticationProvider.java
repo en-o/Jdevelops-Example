@@ -1,5 +1,7 @@
 package cn.tan.authentication.sas.server.config.password;
 
+import cn.jdevelops.api.result.emums.UserException;
+import cn.tan.authentication.sas.error.CustomAuthenticationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -8,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.*;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
@@ -101,7 +104,9 @@ public class PasswordGrantAuthenticationProvider implements AuthenticationProvid
         //校验用户名信息
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (!passwordEncoder.matches(password, userDetails.getPassword())) {
-            throw new OAuth2AuthenticationException("密码不正确！");
+            logger.warn("password not equals !");
+            throw new OAuth2AuthenticationException(new OAuth2Error("账户密码错误，请重试！","账户密码错误，请重试！",""),
+                    "账户密码错误，请重试！");
         }
 
         //由于在上面已验证过用户名、密码，现在构建一个已认证的对象UsernamePasswordAuthenticationToken
