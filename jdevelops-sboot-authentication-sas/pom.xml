@@ -35,6 +35,10 @@
         <module>resource-server</module>
         <!-- 客户端侧重于身份认证-->
         <module>client-demo1</module>
+        <!-- 单点登录 订单服务-->
+        <module>sso-client-order</module>
+        <!-- 单点登录 商品服务-->
+        <module>sso-client-product</module>
         <!-- 异常处理 -->
         <module>authorization-error</module>
     </modules>

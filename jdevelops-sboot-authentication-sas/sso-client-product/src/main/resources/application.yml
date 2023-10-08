@@ -1,0 +1,31 @@
+server:
+  ip: sso-client-order
+  port: 8083
+
+logging:
+  level:
+    org.springframework.security: trace
+
+spring:
+  application:
+    name: spring-oauth-client-product
+  security:
+    oauth2:
+      client:
+        provider:
+          oauth-server:
+            issuer-uri: http://127.0.0.1:9000
+            authorizationUri: ${spring.security.oauth2.client.provider.oauth-server.issuer-uri}/oauth2/authorize
+            tokenUri: ${spring.security.oauth2.client.provider.oauth-server.issuer-uri}/oauth2/token
+        registration:
+          messaging-client-oidc:
+            provider: oauth-server
+            client-name: web平台-SSO客户端-商品服务
+            client-id: web-client-id-product
+            client-secret: secret
+            client-authentication-method: client_secret_basic
+            authorization-grant-type: authorization_code
+            redirect-uri: http://192.168.1.71:8083/login/oauth2/code/messaging-client-oidc
+            scope:
+              - profile
+              - openid
