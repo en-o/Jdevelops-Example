@@ -33,6 +33,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
 import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;
 import org.springframework.security.oauth2.jwt.JwsHeader;
@@ -52,10 +53,8 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 
 import javax.annotation.Resource;
 import java.time.Instant;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -120,7 +119,7 @@ public class AuthorizationServerConfig {
 				.oidc(oidcCustomizer->{
 					oidcCustomizer.userInfoEndpoint(userInfoEndpointCustomizer->{
 						userInfoEndpointCustomizer.userInfoRequestConverter(new CustomOidcUserInfoAuthenticationConverter(customOidcUserInfoService));
-						userInfoEndpointCustomizer.authenticationProvider(new CustomOidcUserInfoAuthenticationProvider(authorizationService));
+						userInfoEndpointCustomizer.authenticationProvider(new CustomOidcUserInfoAuthenticationProvider(authorizationService,customOidcUserInfoService));
 					});
 				});
 		http
@@ -233,29 +232,23 @@ public class AuthorizationServerConfig {
 			JwsHeader.Builder headers = context.getJwsHeader();
 			JwtClaimsSet.Builder claims = context.getClaims();
 			if (context.getTokenType().equals(OAuth2TokenType.ACCESS_TOKEN)) {
-				// Customize headers/claims for access_token
-				claims.claims(claimsConsumer->{
-					// 给 access_token 添加 用户权限的信息
-					UserDetails userDetails = userDetailsService.loadUserByUsername(context.getPrincipal().getName());
-					claimsConsumer.merge("scope",userDetails.getAuthorities(),(scope,authorities)->{
-						Set<String> scopeSet = (Set<String>)scope;
-						Collection<SimpleGrantedAuthority> simpleGrantedAuthorities = ( Collection<SimpleGrantedAuthority>)authorities;
-						try {
-							if(!simpleGrantedAuthorities.isEmpty()){
-								simpleGrantedAuthorities
-										.stream().filter(sga -> sga != null && sga.getAuthority() != null)
-										.forEach(simpleGrantedAuthority -> {
-											if(!scopeSet.contains(simpleGrantedAuthority.getAuthority())){
-												scopeSet.add(simpleGrantedAuthority.getAuthority());
-											}
-										});
-							}
-						}catch (UnsupportedOperationException unsupportedOperationException){
-							log.error("ACCESS_TOKEN scopeSet add 失败",unsupportedOperationException);
-						}
-						return scopeSet;
+				//客户端模式不参与用户权限信息处理
+				if(!AuthorizationGrantType.CLIENT_CREDENTIALS.equals(context.getAuthorizationGrantType())){
+					claims.claims(claimsConsumer->{
+						UserDetails userDetails = userDetailsService.loadUserByUsername(context.getPrincipal().getName());
+						claimsConsumer.merge("scope",userDetails.getAuthorities(),(scope,authorities)->{
+							Set<String> scopeSet = (Set<String>)scope;
+							Set<String> cloneSet = scopeSet.stream().map(String::new).collect(Collectors.toSet());
+							Collection<SimpleGrantedAuthority> simpleGrantedAuthorities = ( Collection<SimpleGrantedAuthority>)authorities;
+							simpleGrantedAuthorities.stream().forEach(simpleGrantedAuthority -> {
+								if(!cloneSet.contains(simpleGrantedAuthority.getAuthority())){
+									cloneSet.add(simpleGrantedAuthority.getAuthority());
+								}
+							});
+							return cloneSet;
+						});
 					});
-				});
+				}
 			} else if (context.getTokenType().getValue().equals(OidcParameterNames.ID_TOKEN)) {
 				// Customize headers/claims for id_token
 				claims.claim(IdTokenClaimNames.AUTH_TIME, Date.from(Instant.now()));

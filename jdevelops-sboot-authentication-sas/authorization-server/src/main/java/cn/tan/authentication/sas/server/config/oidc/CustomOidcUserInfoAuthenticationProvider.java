@@ -26,12 +26,15 @@ import java.util.function.Function;
 public class CustomOidcUserInfoAuthenticationProvider implements AuthenticationProvider {
     private final Log logger = LogFactory.getLog(this.getClass());
     private final OAuth2AuthorizationService authorizationService;
-    private Function<OidcUserInfoAuthenticationContext, CustomOidcUserInfo> userInfoMapper =
-            new CustomOidcUserInfoAuthenticationProvider.DefaultOidcUserInfoMapper();
+    private final CustomOidcUserInfoService customOidcUserInfoService;
+    private Function<OidcUserInfoAuthenticationContext, CustomOidcUserInfo> userInfoMapper;
 
-    public CustomOidcUserInfoAuthenticationProvider(OAuth2AuthorizationService authorizationService) {
+    public CustomOidcUserInfoAuthenticationProvider(OAuth2AuthorizationService authorizationService,
+                                                    CustomOidcUserInfoService customOidcUserInfoService) {
         Assert.notNull(authorizationService, "authorizationService cannot be null");
         this.authorizationService = authorizationService;
+        this.customOidcUserInfoService = customOidcUserInfoService;
+        userInfoMapper = new CustomOidcUserInfoAuthenticationProvider.DefaultOidcUserInfoMapper(customOidcUserInfoService);
     }
 
     @Override
@@ -48,8 +51,8 @@ public class CustomOidcUserInfoAuthenticationProvider implements AuthenticationP
             if (authorization == null) {
                 throw new OAuth2AuthenticationException("invalid_token");
             } else {
-                if (this.logger.isTraceEnabled()) {
-                    this.logger.trace("Retrieved authorization with access token");
+                if (logger.isTraceEnabled()) {
+                    logger.trace("Retrieved authorization with access token");
                 }
 
                 OAuth2Authorization.Token<OAuth2AccessToken> authorizedAccessToken = authorization.getAccessToken();
@@ -57,16 +60,30 @@ public class CustomOidcUserInfoAuthenticationProvider implements AuthenticationP
                     throw new OAuth2AuthenticationException("invalid_token");
                 } else {
                     //从认证结果中获取userInfo
-                    CustomOidcUserInfo myOidcUserInfo = (CustomOidcUserInfo)userInfoAuthentication.getUserInfo();
+                    CustomOidcUserInfo customOidcUserInfo = (CustomOidcUserInfo)userInfoAuthentication.getUserInfo();
                     //从authorizedAccessToken中获取授权范围
                     Set<String> scopeSet = (HashSet<String>)authorizedAccessToken.getClaims().get("scope") ;
-                    //todo 获取授权范围对应userInfo的字段信息
-                    Map<String, Object> claims = DefaultOidcUserInfoMapper.getClaimsRequestedByScope(myOidcUserInfo.getClaims(),scopeSet);
-                    if (this.logger.isTraceEnabled()) {
-                        this.logger.trace("Authenticated user info request");
+                    //获取授权范围对应userInfo的字段信息
+                    Map<String, Object> claims = DefaultOidcUserInfoMapper.getClaimsRequestedByScope(customOidcUserInfo.getClaims(),scopeSet);
+                    if (logger.isTraceEnabled()) {
+                        logger.trace("Authenticated user info request");
                     }
                     //构造新的OidcUserInfoAuthenticationToken
-                    return new OidcUserInfoAuthenticationToken(accessTokenAuthentication, new CustomOidcUserInfo(claims));
+                    CustomOidcUserInfoAuthenticationToken customOidcUserInfoAuthenticationToken = new CustomOidcUserInfoAuthenticationToken(accessTokenAuthentication, new CustomOidcUserInfo(claims));
+
+                    if (logger.isTraceEnabled()) {
+                        logger.trace("Validated user info request");
+                    }
+                    //使用OidcUserInfoAuthenticationToken重新構造OidcUserInfoAuthenticationContext
+                    OidcUserInfoAuthenticationContext authenticationContext = OidcUserInfoAuthenticationContext.with(customOidcUserInfoAuthenticationToken).accessToken(authorizedAccessToken.getToken()).authorization(authorization).build();
+                    CustomOidcUserInfo userInfo = userInfoMapper.apply(authenticationContext);
+                    if (logger.isTraceEnabled()) {
+                        logger.trace("Authenticated user info request");
+                    }
+                    return new CustomOidcUserInfoAuthenticationToken(accessTokenAuthentication, userInfo);
+
+
+
                 }
             }
         } else {
@@ -89,15 +106,29 @@ public class CustomOidcUserInfoAuthenticationProvider implements AuthenticationP
         private static final List<String> PHONE_CLAIMS = Arrays.asList("phone_number", "phone_number_verified");
         private static final List<String> PROFILE_CLAIMS = Arrays.asList("name", "username", "description", "status", "profile");
 
-        private DefaultOidcUserInfoMapper() {
+        private final CustomOidcUserInfoService customOidcUserInfoService;
+        private DefaultOidcUserInfoMapper(CustomOidcUserInfoService customOidcUserInfoService) {
+            this.customOidcUserInfoService = customOidcUserInfoService;
         }
 
         @Override
         public CustomOidcUserInfo apply(OidcUserInfoAuthenticationContext authenticationContext) {
             OAuth2Authorization authorization = authenticationContext.getAuthorization();
-            OidcIdToken idToken = authorization.getToken(OidcIdToken.class).getToken();
+            OAuth2Authorization.Token oAuth2Token = authorization.getToken(OidcIdToken.class);
+            Map<String, Object> claims;
+            if(Objects.nonNull(oAuth2Token)){
+                OidcIdToken idToken = (OidcIdToken)oAuth2Token.getToken();
+                claims = idToken.getClaims();
+            }else{
+                java.security.Principal principal = authorization.getAttribute("java.security.Principal");
+                //查询用户信息
+                CustomOidcUserInfo customOidcUserInfo = this.customOidcUserInfoService.loadUser(principal.getName());
+                claims = customOidcUserInfo.getClaims();
+            }
+
             OAuth2AccessToken accessToken = authenticationContext.getAccessToken();
-            Map<String, Object> scopeRequestedClaims = getClaimsRequestedByScope(idToken.getClaims(), accessToken.getScopes());
+            //todo 获取授权范围对应userInfo的字段信息
+            Map<String, Object> scopeRequestedClaims = getClaimsRequestedByScope(claims, accessToken.getScopes());
             return new CustomOidcUserInfo(scopeRequestedClaims);
         }
 
