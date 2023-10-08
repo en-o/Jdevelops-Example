@@ -4,16 +4,11 @@ import cn.tan.authentication.sas.server.controller.dto.CustomRegisteredClient;
 import cn.tan.authentication.sas.server.controller.dto.RegisterUser;
 import cn.tan.authentication.sas.server.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -79,7 +74,9 @@ public class ServerController {
 //                .clientSecret("{noop}secret")
                 .clientName(client.getClientName())
                 // 授权方法
-                .clientAuthenticationMethod(client.getClientAuthenticationMethod())
+                .clientAuthenticationMethods(clientAuthenticationMethods -> {
+                    clientAuthenticationMethods.addAll(client.getClientAuthenticationMethods());
+                })
                 .authorizationGrantTypes(grantTypes -> {
                     grantTypes.addAll(client.getAuthorizationGrantTypes());
                 })
@@ -99,7 +96,7 @@ public class ServerController {
                 // OIDC 支持
                 .scopes( scope -> {
 //                    授权范围（当前客户端的授权范围）
-                    scope.addAll(client.getScopesConsumer());
+                    scope.addAll(client.getScopes());
                 })
                 // JWT（Json Web Token）配置项
                 .tokenSettings(tokenSettings)

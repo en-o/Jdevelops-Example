@@ -9,14 +9,12 @@ import org.springframework.security.oauth2.core.oidc.OidcScopes;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import java.time.Instant;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Consumer;
 
 /**
  * 客户端注册
+ *
  * @author <a href="https://tannn.cn/">tan</a>
  * @date 2023/9/28 14:31
  */
@@ -51,30 +49,33 @@ public class CustomRegisteredClient {
     /**
      * 默认 CLIENT_SECRET_BASIC
      */
-    private  ClientAuthenticationMethod clientAuthenticationMethod;
+    private Set<ClientAuthenticationMethod> clientAuthenticationMethods;
 
 
     /**
      * 授权模式 {@link AuthorizationGrantType}
      */
     @NotEmpty
-    private  Set<AuthorizationGrantType> authorizationGrantTypes;
+    private Set<AuthorizationGrantType> authorizationGrantTypes;
 
     /**
      * 授权范围  scopes 有默认值
      */
-    private Set<String> scopesConsumer;
+    private Set<String> scopes;
 
 
-    public ClientAuthenticationMethod getClientAuthenticationMethod() {
-        if(clientAuthenticationMethod == null){
-            return ClientAuthenticationMethod.CLIENT_SECRET_BASIC;
+    public Set<ClientAuthenticationMethod> getClientAuthenticationMethods() {
+        if (clientAuthenticationMethods == null || clientAuthenticationMethods.isEmpty()) {
+            Set<ClientAuthenticationMethod> authenticationMethods = new HashSet<>();
+            authenticationMethods.add(ClientAuthenticationMethod.CLIENT_SECRET_BASIC);
+            return authenticationMethods;
         }
-        return clientAuthenticationMethod;
+        return clientAuthenticationMethods;
     }
 
-    public Set<String> getScopesConsumer() {
-        if(scopesConsumer == null || scopesConsumer.isEmpty()){
+
+    public Set<String> getScopes() {
+        if (scopes == null || scopes.isEmpty()) {
             // OIDC 支持
             Set<String> scopes = new HashSet<>();
             scopes.add(OidcScopes.OPENID);
@@ -83,6 +84,6 @@ public class CustomRegisteredClient {
             scopes.add("message.write");
             return scopes;
         }
-        return scopesConsumer;
+        return scopes;
     }
 }

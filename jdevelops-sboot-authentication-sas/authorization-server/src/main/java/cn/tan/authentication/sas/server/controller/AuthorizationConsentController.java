@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
+ * 自定义授权
  * @author Daniel Garnier-Moiroux
  */
 @Controller
