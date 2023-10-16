@@ -1,7 +1,7 @@
 package com.example.jdevelopsdataddssdemo.controller.dto;
 
 
-import cn.jdevelops.data.ddss.annotation.DbName;
+import cn.jdevelops.annotation.ddss.DbName;
 
 /**
  * 测试
