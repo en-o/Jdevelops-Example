@@ -1,8 +1,8 @@
 spring:
   elasticsearch:
-    uris: 192.168.1.141:141
+    uris: 192.168.1.141:8711
     username: elastic
-    password: elastic
+    password: es2peter
     socket-timeout: 600000
     connection-timeout: 500000
 jdevelops:

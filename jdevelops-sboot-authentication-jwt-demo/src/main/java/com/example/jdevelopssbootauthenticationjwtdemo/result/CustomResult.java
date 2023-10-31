@@ -40,7 +40,7 @@ public class CustomResult implements ExceptionResult<ReplaceResultVO> {
 
     @Override
     public ReplaceResultVO success(Object data) {
-        return null;
+        return ReplaceResultVO.result(200,"",data);
     }
 
     @Override

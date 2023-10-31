@@ -8,4 +8,6 @@ jdevelops:
         exclude-path-patterns: [/letGo,/letGo2,/login]
     cookie:
       cookie: true
-
+  api:
+    result:
+      enabled: true
