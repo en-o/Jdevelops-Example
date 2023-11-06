@@ -1,19 +1,19 @@
 package com.example.jdevelopsdataesdemo.entity;
 
-
-import cn.jdevelops.data.es.annotation.EsField;
-import cn.jdevelops.data.es.annotation.EsIndex;
-import cn.jdevelops.data.es.annotation.basic.EsFieldBasic;
-import cn.jdevelops.data.es.annotation.basic.EsFieldMultiType;
-import cn.jdevelops.data.es.annotation.constant.EsDdlAuto;
-import cn.jdevelops.data.es.annotation.constant.EsType;
+import cn.jdevelops.annotation.es.EsField;
+import cn.jdevelops.annotation.es.EsIndex;
+import cn.jdevelops.annotation.es.basic.EsFieldBasic;
+import cn.jdevelops.annotation.es.basic.EsFieldMultiType;
+import cn.jdevelops.annotation.es.constant.EsDdlAuto;
+import cn.jdevelops.annotation.es.constant.EsType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import static cn.jdevelops.annotation.es.constant.EsTypeDataFormat.*;
+
 
 import java.time.LocalDateTime;
 
-import static cn.jdevelops.data.es.annotation.constant.EsTypeDataFormat.*;
 
 
 /**
