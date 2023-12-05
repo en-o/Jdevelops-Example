@@ -1,22 +1,13 @@
 package com.example.jdevelopssbootauthenticationjredisdemo.controller;
 
 import cn.jdevelops.api.result.response.ResultVO;
-import cn.jdevelops.sboot.authentication.jredis.entity.RedisAccount;
-import cn.jdevelops.sboot.authentication.jredis.entity.sign.RedisSignEntity;
 import cn.jdevelops.sboot.authentication.jredis.service.RedisLoginService;
-import cn.jdevelops.sboot.authentication.jwt.annotation.ApiMapping;
 import cn.jdevelops.sboot.authentication.jwt.annotation.ApiPermission;
-import com.example.jdevelopssbootauthenticationjredisdemo.bean.TestBean;
-import com.example.jdevelopssbootauthenticationjredisdemo.bean.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collections;
-import java.util.Map;
 
 /**
  * 权限测试

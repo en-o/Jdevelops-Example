@@ -18,15 +18,18 @@ import java.util.List;
 @RestController
 public class JwtServiceController {
 
+    // ================== getTokenByBean 自己看单元测试吧 ==================
 
 
     /**
      * loginJwtExtendInfo
+     * 登录时要用了 LoginJwtExtendInfo 才行噢
      */
     @PostMapping("/loginJwtExtendInfo")
     public ResultVO<LoginJwtExtendInfo> userName(HttpServletRequest request) {
         return ResultVO.success(JwtService.getLoginJwtExtendInfoExpires(JwtWebUtil.getToken(request)));
     }
+
 
     /**
      * subject
