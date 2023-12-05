@@ -2,11 +2,14 @@ package com.example.jdevelopssbootauthenticationjredisdemo.controller;
 
 import cn.jdevelops.api.result.response.ResultVO;
 import cn.jdevelops.sboot.authentication.jwt.util.JwtWebUtil;
+import cn.jdevelops.util.jwt.constant.PlatformConstant;
 import cn.jdevelops.util.jwt.core.JwtService;
+import cn.jdevelops.util.jwt.entity.LoginJwtExtendInfo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author <a href="https://tannn.cn/">tan</a>
@@ -15,20 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class JwtServiceController {
 
-    /**
-     * loginName
-     */
-    @PostMapping("/loginName")
-    public ResultVO<String> loginName(HttpServletRequest request) {
-        return ResultVO.success(JwtService.getLoginNameExpires(JwtWebUtil.getToken(request)));
-    }
+
 
     /**
-     * userName
+     * loginJwtExtendInfo
      */
-    @PostMapping("/userName")
-    public ResultVO<String> userName(HttpServletRequest request) {
-        return ResultVO.success(JwtService.getUserNameExpires(JwtWebUtil.getToken(request)));
+    @PostMapping("/loginJwtExtendInfo")
+    public ResultVO<LoginJwtExtendInfo> userName(HttpServletRequest request) {
+        return ResultVO.success(JwtService.getLoginJwtExtendInfoExpires(JwtWebUtil.getToken(request)));
     }
 
     /**
@@ -40,11 +37,11 @@ public class JwtServiceController {
     }
 
     /**
-     * userId
+     * platformConstant
      */
-    @PostMapping("/userId")
-    public ResultVO<String> userId(HttpServletRequest request) {
-        return ResultVO.success(JwtService.getUserIdExpires(JwtWebUtil.getToken(request)));
+    @PostMapping("/platformConstant")
+    public ResultVO<List<PlatformConstant>> userId(HttpServletRequest request) {
+        return ResultVO.success(JwtService.getPlatformConstantExpires(JwtWebUtil.getToken(request)));
     }
 
 }
