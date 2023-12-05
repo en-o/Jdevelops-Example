@@ -1,2 +1,2 @@
 # 注释
-defaultInterceptor=com.example.jdevelopssbootauthenticationjwtdemo.interceptor.ReTokenInterceptor
+#defaultInterceptor=com.example.jdevelopssbootauthenticationjwtdemo.interceptor.ReTokenInterceptor

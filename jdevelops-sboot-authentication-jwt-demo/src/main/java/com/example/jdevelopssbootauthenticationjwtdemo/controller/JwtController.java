@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author tn
@@ -55,22 +57,23 @@ public class JwtController {
 
     @GetMapping("/login")
     public String token(){
-        SignEntity<String> signEntity = new SignEntity<>("tan", "tan", "tan", "tan");
+        SignEntity<String> signEntity = new SignEntity<>("tan");
+        signEntity.setMap("hi");
         return loginService.login(signEntity);
     }
 
     @ApiMapping(value = "/login2",checkToken = false)
     public String token2(){
-        SignEntity<TestBean> signEntity = new SignEntity<>("tan", "tan", "tan", "tan");
-        signEntity.setMap(new TestBean("hi"));
+        SignEntity<TestBean> signEntity = new SignEntity<>("tan",new TestBean("hi"));
         return loginService.login(signEntity);
     }
 
 
     @ApiMapping(value = "/login3",checkToken = false)
     public String token3(){
-        SignEntity<String> signEntity = new SignEntity<>("tan", "tan", "tan", "tan");
-        signEntity.setMap("hi");
+        Map<String, String> info = new HashMap<>();
+        info.put("nickname","ning");
+        SignEntity<Map<String, String>> signEntity = new SignEntity<>("tan",info);
         return loginService.login(signEntity);
     }
 
@@ -79,22 +82,15 @@ public class JwtController {
         return loginService.isLogin(request);
     }
 
-
-    @GetMapping("/parseJwt2")
-    public SignEntity<String> parseJwt2(HttpServletRequest request){
-        SignEntity<String> tokenBySignEntity = JwtWebUtil.getTokenBySignEntity(request, String.class);
-        if(tokenBySignEntity.getMap() != null){
-            System.out.println(tokenBySignEntity.getMap());
-        }
-        return tokenBySignEntity;
-    }
     @GetMapping("/parseJwt")
-    public SignEntity<TestBean> parseJwt(HttpServletRequest request){
-        SignEntity<TestBean> tokenBySignEntity = JwtWebUtil.getTokenBySignEntity(request, TestBean.class);
-        if(tokenBySignEntity.getMap() != null){
-            System.out.println(tokenBySignEntity.getMap().getRemark());
+    public SignEntity<Object> parseJwt(HttpServletRequest request, int type){
+        if(type == 1){
+            return JwtWebUtil.getTokenBySignEntity(request, TestBean.class);
+        }else if(type == 2){
+            return JwtWebUtil.getTokenBySignEntity(request, Map.class);
+        }else {
+            return JwtWebUtil.getTokenBySignEntity(request, String.class);
         }
-        return tokenBySignEntity;
     }
 
 
