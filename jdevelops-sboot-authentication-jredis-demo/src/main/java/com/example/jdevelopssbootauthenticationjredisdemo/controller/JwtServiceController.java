@@ -5,6 +5,7 @@ import cn.jdevelops.sboot.authentication.jwt.util.JwtWebUtil;
 import cn.jdevelops.util.jwt.constant.PlatformConstant;
 import cn.jdevelops.util.jwt.core.JwtService;
 import cn.jdevelops.util.jwt.entity.LoginJwtExtendInfo;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,7 @@ public class JwtServiceController {
      * loginJwtExtendInfo
      * 登录时要用了 LoginJwtExtendInfo 才行噢
      */
-    @PostMapping("/loginJwtExtendInfo")
+    @GetMapping("/loginJwtExtendInfo")
     public ResultVO<LoginJwtExtendInfo> userName(HttpServletRequest request) {
         return ResultVO.success(JwtService.getLoginJwtExtendInfoExpires(JwtWebUtil.getToken(request)));
     }
@@ -34,7 +35,7 @@ public class JwtServiceController {
     /**
      * subject
      */
-    @PostMapping("/subject")
+    @GetMapping("/subject")
     public ResultVO<String> subject(HttpServletRequest request) {
         return ResultVO.success(JwtService.getSubjectExpires(JwtWebUtil.getToken(request)));
     }
@@ -42,7 +43,7 @@ public class JwtServiceController {
     /**
      * platformConstant
      */
-    @PostMapping("/platformConstant")
+    @GetMapping("/platformConstant")
     public ResultVO<List<PlatformConstant>> userId(HttpServletRequest request) {
         return ResultVO.success(JwtService.getPlatformConstantExpires(JwtWebUtil.getToken(request)));
     }

@@ -70,11 +70,8 @@ public class TokenController {
      * @return  TestBean
      */
     @GetMapping("/parseJwt")
-    public RedisSignEntity<TestBean> parseJwt(HttpServletRequest request){
-        RedisSignEntity<TestBean> tokenByRedisSignEntity = RsJwtWebUtil.getTokenByRedisSignEntity(request, TestBean.class);
-        if(tokenByRedisSignEntity.getMap() != null){
-            System.out.println(tokenByRedisSignEntity.getMap().getRemark());
-        }
+    public RedisSignEntity<String> parseJwt(HttpServletRequest request){
+        RedisSignEntity<String> tokenByRedisSignEntity = RsJwtWebUtil.getTokenByRedisSignEntity(request, String.class);
         return tokenByRedisSignEntity;
     }
 
