@@ -33,7 +33,19 @@ public class Login {
     boolean onlyOnline;
 
 
+    /**
+     * 用户角色
+     */
     List<String> roles;
 
+    /**
+     * 用户权限[用户能当问的接口组(url组) e.g /edit/password  ] 为空则默认不验证
+     * <p>
+     *      （2）* 匹配0个或多个字符
+     *      （3）**匹配0个或多个目录
+     *      参考： @see  UserRoleUtilTest
+     * </p>
+     *
+     */
     List<String> permissions;
 }

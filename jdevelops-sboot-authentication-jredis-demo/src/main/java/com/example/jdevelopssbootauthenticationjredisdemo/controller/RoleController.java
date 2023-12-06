@@ -23,7 +23,7 @@ public class RoleController {
     private RedisLoginService redisLoginService;
 
     /**
-     * 退出
+     * "admin"
      */
     @GetMapping("/roles1")
     @ApiPermission(roles = {"admin"})
@@ -32,7 +32,7 @@ public class RoleController {
     }
 
     /**
-     * 退出
+     * "tan"
      */
     @GetMapping("/roles2")
     @ApiPermission(roles = {"tan"})
@@ -41,7 +41,7 @@ public class RoleController {
     }
 
     /**
-     * 退出
+     * "admin","tan"
      */
     @GetMapping("/roles3")
     @ApiPermission(roles = {"admin","tan"})
@@ -51,12 +51,22 @@ public class RoleController {
 
 
     /**
-     * 登录
+     * permissions1
      */
     @GetMapping("/permissions1")
-    @ApiPermission(permissions = {"/permissions1"})
+    @ApiPermission(permissions = "/permissions1")
     public ResultVO<Object> permissions1(HttpServletRequest request) {
         return ResultVO.success("permissions1");
+    }
+
+
+    /**
+     * permissions2
+     */
+    @GetMapping("/permissions2")
+    @ApiPermission(permissions = "/permissions2")
+    public ResultVO<Object> permissions2(HttpServletRequest request) {
+        return ResultVO.success("permissions2");
     }
 
 }
