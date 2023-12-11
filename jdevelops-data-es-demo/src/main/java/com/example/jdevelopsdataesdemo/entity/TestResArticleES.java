@@ -9,11 +9,11 @@ import cn.jdevelops.annotation.es.constant.EsType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
 import static cn.jdevelops.annotation.es.constant.EsTypeDataFormat.*;
 
 
 import java.time.LocalDateTime;
-
 
 
 /**
@@ -29,13 +29,13 @@ import java.time.LocalDateTime;
 public class TestResArticleES {
 
 
-    @EsField(basic = @EsFieldBasic(type = EsType.integer, index = false))
+    @EsField(basic = @EsFieldBasic(type = EsType.LONG, index = false))
     private Long id;
 
     /**
      * 唯一标识ID
      */
-        String uid;
+    String uid;
 
     /**
      * DOI

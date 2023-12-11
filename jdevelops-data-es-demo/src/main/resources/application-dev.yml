@@ -8,3 +8,4 @@ spring:
 jdevelops:
   elasticsearch:
     base-package: com.example.jdevelopsdataesdemo.entity
+    socket-timeout: 60001
