@@ -1,12 +1,11 @@
 package cn.tannn.springbootparentswagger.config;
 
-import cn.jdevelops.sboot.swagger.config.SwaggerProperties;
 import cn.jdevelops.sboot.swagger.core.entity.BuildSecuritySchemes;
+import cn.jdevelops.sboot.swagger.domain.SwaggerProperties;
 import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import static cn.jdevelops.sboot.swagger.core.util.SwaggerUtil.basePackages;
 import static cn.jdevelops.sboot.swagger.core.util.SwaggerUtil.buildSecuritySchemes;
 
 /**
@@ -21,7 +20,7 @@ public class GroupedOpenApis {
     @Bean
     public GroupedOpenApi api2(SwaggerProperties swaggerProperties){
         // 加入  Authorize
-        BuildSecuritySchemes buildSecuritySchemes = buildSecuritySchemes(swaggerProperties);
+        BuildSecuritySchemes buildSecuritySchemes = buildSecuritySchemes(swaggerProperties.getSwaggerSecuritySchemes());
         //  /** 表示 packagesToScan下的所有接口
         String[] pathsToMatch = { "/**" };
         // 需要扫描的包路径
@@ -35,7 +34,7 @@ public class GroupedOpenApis {
 
     @Bean
     public GroupedOpenApi api3(SwaggerProperties swaggerProperties){
-        BuildSecuritySchemes buildSecuritySchemes = buildSecuritySchemes(swaggerProperties);
+        BuildSecuritySchemes buildSecuritySchemes = buildSecuritySchemes(swaggerProperties.getSwaggerSecuritySchemes());
         String[] pathsToMatch = { "/**" };
         String[] packagesToScan = {"cn.tannn.springbootparentswagger.groups.groupapi2"};
         return GroupedOpenApi.builder().group("api3")
