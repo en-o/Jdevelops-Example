@@ -29,7 +29,6 @@ import java.util.Objects;
 @org.hibernate.annotations.Table(appliesTo = "sys_user", comment = "用户表")
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @DynamicUpdate
 @DynamicInsert
