@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * 更新
  *
@@ -28,7 +31,11 @@ public class UpdateTest {
     void updateByBean() throws Exception {
         User user = new User();
         user.setUserNo("1466649744075108352");
-        user.setName("测试更qq 新");
+        user.setName("测试更qq 新2");
+
+        // 测试传入无用，内部过滤了 User 中继承的四个审计字段，更新时间会自动更新
+        user.setCreateTime(LocalDateTime.now());
+        user.setUpdateTime(LocalDateTime.parse("2024-01-18 17:08:53", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         userService.updateByBean(user,User::getUserNo);
     }
     @Test
