@@ -21,6 +21,9 @@ public class UpdateTest {
     @Autowired
     private UserService userService;
 
+
+    // 如果没有数据，执行resources/init/init.sql
+
     @Test
     void updateByBean() throws Exception {
         User user = new User();
