@@ -9,13 +9,13 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>authorization-server</artifactId>
-    <name>
+    <description>
         授权服务器
         参考： https://blog.51cto.com/u_15268610/category2
         中文官方文档: https://springdoc.cn/spring-authorization-server/
         auth2.1: https://oauth.net/2.1/
         常见问题: https://blog.csdn.net/weixin_43356507/article/details/132948152
-    </name>
+    </description>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
