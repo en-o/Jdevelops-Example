@@ -1,13 +1,14 @@
 package com.example.jdevelopssbootauthenticationjredisdemo.controller;
 
 import cn.jdevelops.api.result.response.ResultVO;
-import cn.jdevelops.sboot.authentication.jredis.entity.RedisAccount;
+import cn.jdevelops.sboot.authentication.jredis.entity.StorageUserRole;
+import cn.jdevelops.sboot.authentication.jredis.entity.StorageUserState;
 import cn.jdevelops.sboot.authentication.jredis.entity.sign.RedisSignEntity;
 import cn.jdevelops.sboot.authentication.jredis.service.RedisLoginService;
 import cn.jdevelops.sboot.authentication.jwt.annotation.ApiMapping;
+import cn.jdevelops.util.jwt.constant.PlatformConstant;
 import com.example.jdevelopssbootauthenticationjredisdemo.bean.Login;
 import com.example.jdevelopssbootauthenticationjredisdemo.bean.TestBean;
-import com.example.jdevelopssbootauthenticationjredisdemo.bean.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,26 +53,20 @@ public class LoginController {
 
         RedisSignEntity<TestBean> redisSignEntity = new RedisSignEntity<>(
                 login.getUsername(),
-                login.getUsername(),
-                login.getUsername(),
-                login.getUsername(),
+                Collections.singletonList(PlatformConstant.COMMON),
                 false,
-                login.isOnlyOnline()
+                login.isOnlyOnline(),
+                new StorageUserRole(
+                        login.getUsername(),
+                        login.getRoles(),
+                        login.getPermissions()),
+                new StorageUserState(
+                        login.getUsername(),
+                        login.isDisabledAccount(),
+                        login.isExcessiveAttempts())
         );
-        redisSignEntity.setMap(new TestBean("jwtRedis"));
-        // 此处数据最好用查出来的用,我这里没有查返回所以自己写了
-        RedisAccount<UserInfo> redisAccount = new RedisAccount<>();
-        redisAccount.setDisabledAccount(false);
-        redisAccount.setExcessiveAttempts(false);
-        redisAccount.setUserCode(login.getUsername());
-        redisAccount.setSalt(login.getUsername());
-        redisAccount.setPassword(login.getPassword());
-        redisAccount.setRoles(login.getRoles());
-        redisAccount.setPermissions(login.getPermissions());
-        UserInfo userInfo = new UserInfo("tan",10);
-        redisAccount.setUserInfo(userInfo);
-        String sign = redisLoginService.login(redisSignEntity,
-                redisAccount);
+
+        String sign = redisLoginService.login(redisSignEntity);
         Map<String, String> responseData = Collections.singletonMap("token", sign);
         return ResultVO.success(responseData);
     }

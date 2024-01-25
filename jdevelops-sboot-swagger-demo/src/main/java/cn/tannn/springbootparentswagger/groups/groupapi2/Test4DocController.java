@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1
  * @date 2021-12-10 23:06
  */
-@Tag(name="测试接口分组_组二",description = "测试接口分组")
+@Tag(name="测试GroupedOpenApis配置接口分组二",description = "测试接口分组")
 @RestController
 public class Test4DocController {
 

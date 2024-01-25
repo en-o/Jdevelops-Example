@@ -29,7 +29,7 @@ import static cn.jdevelops.annotation.es.constant.EsTypeDataFormat.*;
 public class IgnoreResArticleES {
 
 
-    @EsField(basic = @EsFieldBasic(type = EsType.integer, index = false))
+    @EsField(basic = @EsFieldBasic(type = EsType.LONG, index = false))
     private Long id;
 
     /**

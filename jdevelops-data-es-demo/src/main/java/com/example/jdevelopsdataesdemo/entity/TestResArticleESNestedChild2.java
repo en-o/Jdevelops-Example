@@ -1,7 +1,6 @@
 package com.example.jdevelopsdataesdemo.entity;
 
 
-;
 import cn.jdevelops.annotation.es.EsField;
 import cn.jdevelops.annotation.es.basic.EsFieldBasic;
 import cn.jdevelops.annotation.es.constant.EsType;

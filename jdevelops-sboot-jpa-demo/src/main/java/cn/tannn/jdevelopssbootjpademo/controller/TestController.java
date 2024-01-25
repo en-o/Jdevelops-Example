@@ -32,7 +32,7 @@ public class TestController {
     @PostMapping("dyFind")
     public ResultVO<List<UserVO>> dyFind(@RequestBody UserFindDTO user){
         List<User> complex = userService.findComplex(user);
-        return ResultVO.successForData(ListTo.to(UserVO.class, complex));
+        return ResultVO.success(ListTo.to(UserVO.class, complex));
     }
 
 }

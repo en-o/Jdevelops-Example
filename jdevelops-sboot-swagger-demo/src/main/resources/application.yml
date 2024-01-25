@@ -12,10 +12,10 @@ jdevelops:
     base-package:
       - cn.tannn.springbootparentswagger.controller
       - cn.tannn.springbootparentswagger.api
-#    security-scheme-default: false
+    security-scheme-default: true
     swagger-security-schemes:
       - {
-          security: true,
+          security: false,
           scheme:
             {
               in: HEADER,

@@ -1,17 +1,18 @@
 package com.example.jdevelopssbootauthenticationjredisdemo.controller;
 
 import cn.jdevelops.api.result.response.ResultVO;
-import cn.jdevelops.sboot.authentication.jredis.entity.RedisAccount;
-import cn.jdevelops.sboot.authentication.jredis.entity.only.StorageUserTokenEntity;
-import cn.jdevelops.sboot.authentication.jredis.entity.sign.RedisSignEntity;
-import cn.jdevelops.sboot.authentication.jredis.service.JwtRedisService;
+import cn.jdevelops.sboot.authentication.jredis.entity.StorageUserRole;
+import cn.jdevelops.sboot.authentication.jredis.entity.StorageUserState;
+import cn.jdevelops.sboot.authentication.jredis.entity.only.StorageToken;
+import cn.jdevelops.sboot.authentication.jredis.service.RedisToken;
+import cn.jdevelops.sboot.authentication.jredis.service.RedisUserRole;
+import cn.jdevelops.sboot.authentication.jredis.service.RedisUserState;
 import cn.jdevelops.sboot.authentication.jredis.util.RsJwtWebUtil;
 import cn.jdevelops.sboot.authentication.jwt.annotation.NotRefreshToken;
 import cn.jdevelops.sboot.authentication.jwt.util.JwtWebUtil;
 import cn.jdevelops.util.jwt.constant.JwtConstant;
 import cn.jdevelops.util.jwt.core.JwtService;
-import com.example.jdevelopssbootauthenticationjredisdemo.bean.TestBean;
-import com.example.jdevelopssbootauthenticationjredisdemo.bean.UserInfo;
+import cn.jdevelops.util.jwt.entity.SignEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,8 +28,16 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 public class TokenController {
+
     @Autowired
-    private JwtRedisService jwtRedisService;
+    private RedisToken redisToken;
+
+    @Autowired
+    private RedisUserState redisUserState;
+
+    @Autowired
+    private RedisUserRole redisUserRole;
+
 
 
     /**
@@ -47,12 +56,12 @@ public class TokenController {
      * @param request
      * @return
      */
-    @PostMapping("/tokenRedis")
-    public ResultVO<StorageUserTokenEntity> tokenRedis(HttpServletRequest request) {
+    @GetMapping("/tokenRedis")
+    public ResultVO<StorageToken> tokenRedis(HttpServletRequest request) {
         try {
             String token = request.getHeader(JwtConstant.TOKEN);
-            StorageUserTokenEntity loginTokenRedis = jwtRedisService.loadUserTokenInfoByToken(token);
-            return ResultVO.success(loginTokenRedis);
+            StorageToken storageToken = redisToken.loadByToken(token);
+            return ResultVO.success(storageToken);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -65,22 +74,30 @@ public class TokenController {
      * @return  TestBean
      */
     @GetMapping("/parseJwt")
-    public RedisSignEntity<TestBean> parseJwt(HttpServletRequest request){
-        RedisSignEntity<TestBean> tokenByRedisSignEntity = RsJwtWebUtil.getTokenByRedisSignEntity(request, TestBean.class);
-        if(tokenByRedisSignEntity.getMap() != null){
-            System.out.println(tokenByRedisSignEntity.getMap().getRemark());
-        }
+    public SignEntity<String> parseJwt(HttpServletRequest request){
+        SignEntity<String> tokenByRedisSignEntity = RsJwtWebUtil.getTokenBySignEntity(request, String.class);
         return tokenByRedisSignEntity;
     }
 
 
     /**
-     * 获取  subject
+     * 获取  loadUserStatus
      * @param request HttpServletRequest
      * @return subject
      */
     @GetMapping("/loadUserStatus")
-    public RedisAccount<?> loadUserStatus(HttpServletRequest request){
-        return  jwtRedisService.loadUserStatus(JwtService.getSubjectExpires(JwtWebUtil.getToken(request)), RedisAccount.class);
+    public StorageUserState loadUserStatus(HttpServletRequest request){
+        return  redisUserState.load(JwtService.getSubjectExpires(JwtWebUtil.getToken(request)));
     }
+
+    /**
+     * 获取  loadUserRole
+     * @param request HttpServletRequest
+     * @return subject
+     */
+    @GetMapping("/loadUserRole")
+    public StorageUserRole loadUserRole(HttpServletRequest request){
+        return  redisUserRole.load(JwtService.getSubjectExpires(JwtWebUtil.getToken(request)));
+    }
+
 }

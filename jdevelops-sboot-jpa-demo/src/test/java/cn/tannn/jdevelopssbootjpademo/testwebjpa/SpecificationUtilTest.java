@@ -32,18 +32,18 @@ public class SpecificationUtilTest {
     @Test
     void testSpecificationUtil() {
         SpecificationUtil<User> instance = SpecificationUtil.getInstance();
-        Specification<User> and = instance.like(User::getAddress, "重庆", true)
-                .and(instance.eq(User::getName, "用户", true)
-                        .or(instance.eq(User::getLoginPwd, "123", true)
-                                .and(instance.eq(User::getPhone, "123", true))
-                                .or(instance.eq(User::getUserNo,"123", true))
+        Specification<User> and = instance.like(User::getAddress, "重庆", true,true)
+                .and(instance.eq(User::getName, "用户", true,true)
+                        .or(instance.eq(User::getLoginPwd, "123", true,true)
+                                .and(instance.eq(User::getPhone, "123", true,true))
+                                .or(instance.eq(User::getUserNo,"123", true,true))
                         )
                         .and(
-                                instance.eq(User::getPhone, "123", true)
-                                        .or(instance.eq(User::getUserNo, "123", true))
+                                instance.eq(User::getPhone, "123", true,true)
+                                        .or(instance.eq(User::getUserNo, "123", true,true))
                         )
-                        .or(instance.eq(User::getPhone, "123", true))
-                        .or(instance.eq(User::getUserNo, "123", true))
+                        .or(instance.eq(User::getPhone, "123", true,true))
+                        .or(instance.eq(User::getUserNo, "123", true,true))
                 );
         userService.getJpaBasicsDao().findAll(and).forEach(System.out::println);
     }
@@ -53,18 +53,18 @@ public class SpecificationUtilTest {
     @Test
     void testSpecificationUtil2() {
         SpecificationUtil<User> instance = SpecificationUtil.getInstance();
-        Specification<User> and = instance.like(User::getAddress, "重庆", true)
-                .and(instance.eq(User::getName, "用户", true)
-                        .or(instance.eq(User::getLoginPwd, "123", true)
-                                .and(instance.eq(User::getPhone, "123", true))
-                                .or(instance.eq(User::getUserNo,"123", true))
+        Specification<User> and = instance.like(User::getAddress, "重庆", true,true)
+                .and(instance.eq(User::getName, "用户", true,true)
+                        .or(instance.eq(User::getLoginPwd, "123", true,true)
+                                .and(instance.eq(User::getPhone, "123", true,true))
+                                .or(instance.eq(User::getUserNo,"123", true,true))
                         )
                         .and(
-                                instance.eq(User::getPhone, "123", true)
-                                        .or(instance.eq(User::getUserNo, "123", true))
+                                instance.eq(User::getPhone, "123", true,true)
+                                        .or(instance.eq(User::getUserNo, "123", true,true))
                         )
-                        .or(instance.eq(User::getPhone, "123", true))
-                        .or(instance.eq(User::getUserNo, "123", true))
+                        .or(instance.eq(User::getPhone, "123", true,true))
+                        .or(instance.eq(User::getUserNo, "123", true,true))
                 );
         userService.getJpaBasicsDao().findAll(and).forEach(System.out::println);
     }
@@ -75,7 +75,7 @@ public class SpecificationUtilTest {
         // from sys_user user0_ where user0_.name not in  (? , ?)from sys_user user0_ where user0_.name not in  (? , ?)
         SpecificationUtil<User> instance = SpecificationUtil.getInstance();
         List<String> list = java.util.Arrays.asList("超级管理员", "111");
-        Specification<User> not = instance.not("name", list , true);
+        Specification<User> not = instance.not("name", list , true,true);
         userService.getJpaBasicsDao().findAll(not).forEach(System.out::println);
     }
 
@@ -83,7 +83,7 @@ public class SpecificationUtilTest {
     void testSpecBetween() {
         // from sys_user user0_ where user0_.login_pwd between ? and ?
         SpecificationUtil<User> instance = SpecificationUtil.getInstance();
-        Specification<User> between = instance.between("loginPwd", "1","1231" , true);
+        Specification<User> between = instance.between("loginPwd", "1","1231" ,true, true);
         userService.getJpaBasicsDao().findAll(between).forEach(System.out::println);
     }
 

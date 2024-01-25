@@ -35,10 +35,10 @@ public class JPAUtilExpandCriteriaTest {
     void testJPAUtilExpandCriteria() {
         // from sys_user user0_ where user0_.address=? and user0_.user_no=? and (user0_.user_no like ? or user0_.login_name like ?)
         JPAUtilExpandCriteria<User> jpaSelect = new JPAUtilExpandCriteria<>();
-        jpaSelect.or(Restrictions.like("userNo", "admin", true));
-        jpaSelect.or(Restrictions.like("loginName", "user", true));
-        jpaSelect.add(Restrictions.eq("address", "重庆", true));
-        jpaSelect.add(Restrictions.eq("userNo", "admin", true));
+        jpaSelect.or(Restrictions.like("userNo", "admin", true,true));
+        jpaSelect.or(Restrictions.like("loginName", "user", true,true));
+        jpaSelect.add(Restrictions.eq("address", "重庆", true,true));
+        jpaSelect.add(Restrictions.eq("userNo", "admin", true,true));
         userService.getJpaBasicsDao().findAll(jpaSelect).forEach(System.out::println);
     }
 
@@ -48,12 +48,12 @@ public class JPAUtilExpandCriteriaTest {
 
         // from sys_user user0_ where date_format(user0_.create_time, "%Y-%m-%d %T")=?
         JPAUtilExpandCriteria<User> jpaSelect = new JPAUtilExpandCriteria<>();
-        jpaSelect.add(Restrictions.eq("createTime", "2021-11-17 11:08:38", true, SpecBuilderDateFun.DATE_FORMAT));
+        jpaSelect.add(Restrictions.eq("createTime", "2021-11-17 11:08:38", true,true, SpecBuilderDateFun.DATE_FORMAT));
         userService.getJpaBasicsDao().findAll(jpaSelect).forEach(System.out::println);
 
         // from sys_user user0_ where date_format(user0_.create_time, "%Y")=?
         jpaSelect = new JPAUtilExpandCriteria<>();
-        jpaSelect.add(Restrictions.eq("createTime", "2021", true, SpecBuilderDateFun.DATE_FORMAT_YEAR));
+        jpaSelect.add(Restrictions.eq("createTime", "2021", true,true, SpecBuilderDateFun.DATE_FORMAT_YEAR));
         userService.getJpaBasicsDao().findAll(jpaSelect).forEach(System.out::println);
 
 
@@ -117,7 +117,7 @@ public class JPAUtilExpandCriteriaTest {
         // from sys_user user0_ where user0_.name=? or user0_.name=?
         JPAUtilExpandCriteria<User> selectRegionBean = new JPAUtilExpandCriteria<>();
         List<String> list = java.util.Arrays.asList("超级管理员", "111");
-        selectRegionBean.add(Restrictions.in("name", list , true));
+        selectRegionBean.add(Restrictions.in("name", list , true,true));
         userService.getJpaBasicsDao().findAll(selectRegionBean).forEach(System.out::println);
 
     }

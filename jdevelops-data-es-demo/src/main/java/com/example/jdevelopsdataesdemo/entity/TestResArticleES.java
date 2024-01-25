@@ -1,7 +1,5 @@
 package com.example.jdevelopsdataesdemo.entity;
 
-
-
 import cn.jdevelops.annotation.es.EsField;
 import cn.jdevelops.annotation.es.EsIndex;
 import cn.jdevelops.annotation.es.basic.EsFieldBasic;
@@ -12,9 +10,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 import static cn.jdevelops.annotation.es.constant.EsTypeDataFormat.*;
+
+
+import java.time.LocalDateTime;
 
 
 /**
@@ -30,13 +29,13 @@ import static cn.jdevelops.annotation.es.constant.EsTypeDataFormat.*;
 public class TestResArticleES {
 
 
-    @EsField(basic = @EsFieldBasic(type = EsType.integer, index = false))
+    @EsField(basic = @EsFieldBasic(type = EsType.LONG, index = false))
     private Long id;
 
     /**
      * 唯一标识ID
      */
-        String uid;
+    String uid;
 
     /**
      * DOI

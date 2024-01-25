@@ -1,9 +1,9 @@
 package com.example.jdevelopsdataddssdemo.controller;
 
+import cn.jdevelops.annotation.ddss.DbName;
+import cn.jdevelops.annotation.ddss.DbNamed;
+import cn.jdevelops.annotation.ddss.DyDS;
 import cn.jdevelops.api.result.response.ResultVO;
-import cn.jdevelops.data.ddss.annotation.DbName;
-import cn.jdevelops.data.ddss.annotation.DbNamed;
-import cn.jdevelops.data.ddss.annotation.DyDS;
 import com.example.jdevelopsdataddssdemo.controller.dto.TestVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
