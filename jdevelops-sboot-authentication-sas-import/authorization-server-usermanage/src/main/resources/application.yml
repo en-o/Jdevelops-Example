@@ -23,4 +23,4 @@ spring:
 jdevelops:
   sas:
     token:
-      reuse-refresh-tokens: false
+      reuse-refresh-tokens: true
