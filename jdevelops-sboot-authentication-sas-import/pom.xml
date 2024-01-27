@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>authorization-server-usermanage</module>
+        <module>authorization-resource</module>
     </modules>
 
     <properties>
