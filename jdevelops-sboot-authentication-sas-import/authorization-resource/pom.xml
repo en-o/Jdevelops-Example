@@ -30,11 +30,6 @@
         </dependency>
         <dependency>
             <groupId>cn.jdevelops</groupId>
-            <artifactId>jdevelops-util-authorization-error</artifactId>
-            <version>${j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.jdevelops</groupId>
             <artifactId>jdevelops-api-exception</artifactId>
             <version>${j.version}</version>
         </dependency>
