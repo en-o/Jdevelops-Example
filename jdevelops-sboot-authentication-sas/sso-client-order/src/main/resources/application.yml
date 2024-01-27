@@ -35,7 +35,7 @@ spring:
             #????????????token?
             authorization-grant-type: authorization_code
             #??????????????code?????????????http://www.baidu.com??
-            redirect-uri: http://192.168.1.71:8082/login/oauth2/code/messaging-client-oidc
+            redirect-uri: http://192.168.0.65:8082/login/oauth2/code/messaging-client-oidc
             scope:
               - profile
               - openid
