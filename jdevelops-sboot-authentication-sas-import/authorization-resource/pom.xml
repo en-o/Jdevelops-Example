@@ -22,11 +22,21 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <!--  authentication resource -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <groupId>cn.jdevelops</groupId>
+            <artifactId>jdevelops-authentication-sas-resource</artifactId>
+            <version>${j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.jdevelops</groupId>
+            <artifactId>jdevelops-util-authorization-error</artifactId>
+            <version>${j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.jdevelops</groupId>
+            <artifactId>jdevelops-api-exception</artifactId>
+            <version>${j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
