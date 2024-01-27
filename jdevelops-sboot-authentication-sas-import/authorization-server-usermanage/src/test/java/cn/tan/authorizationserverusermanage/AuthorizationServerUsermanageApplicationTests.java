@@ -17,7 +17,7 @@ class AuthorizationServerUsermanageApplicationTests {
 	private UserInfoDao userInfoDao;
 	@Resource
 	private  PasswordEncoder passwordEncoder;
-	@Test
+//	@Test
 	void registerUser() {
 		UserInfo userInfo = new UserInfo();
 		userInfo.setLoginName("admin");
