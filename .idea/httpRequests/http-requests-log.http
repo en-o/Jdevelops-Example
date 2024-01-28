@@ -1,3 +1,21 @@
+GET http://localhost:8080/websocket/getToken
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.9)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-12-31T154453.200.txt
+
+###
+
+GET http://localhost:8080/websocket/getToken
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.9)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-12-31T141224.200.txt
+
+###
+
 GET http://localhost:8080/stop
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
