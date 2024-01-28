@@ -34,7 +34,7 @@
         <!-- 包含了 jdevelops-sboot-authentication-jwt -->
         <dependency>
             <groupId>cn.jdevelops</groupId>
-            <artifactId>jdevelops-sboot-authentication-jredis</artifactId>
+            <artifactId>jdevelops-authentication-jredis</artifactId>
         </dependency>
         <!-- 接口参数幂等 -->
         <dependency>
