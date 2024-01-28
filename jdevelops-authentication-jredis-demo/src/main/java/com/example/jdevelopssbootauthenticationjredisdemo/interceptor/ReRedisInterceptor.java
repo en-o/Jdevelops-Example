@@ -1,10 +1,10 @@
 package com.example.jdevelopssbootauthenticationjredisdemo.interceptor;
 
-import cn.jdevelops.sboot.authentication.jredis.entity.only.StorageToken;
-import cn.jdevelops.sboot.authentication.jredis.service.RedisToken;
-import cn.jdevelops.sboot.authentication.jredis.service.RedisUserState;
-import cn.jdevelops.sboot.authentication.jwt.exception.ExpiredRedisException;
-import cn.jdevelops.sboot.authentication.jwt.server.CheckTokenInterceptor;
+import cn.jdevelops.authentication.jredis.entity.only.StorageToken;
+import cn.jdevelops.authentication.jredis.service.RedisToken;
+import cn.jdevelops.authentication.jredis.service.RedisUserState;
+import cn.jdevelops.authentication.jwt.exception.ExpiredRedisException;
+import cn.jdevelops.authentication.jwt.server.CheckTokenInterceptor;
 import cn.jdevelops.spi.JoinSPI;
 import cn.jdevelops.util.jwt.util.JwtContextUtil;
 import org.slf4j.Logger;

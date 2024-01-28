@@ -1,6 +1,6 @@
 package com.example.jdevelopssbootauthenticationjwtdemo.interceptor;
 
-import cn.jdevelops.sboot.authentication.jwt.server.CheckTokenInterceptor;
+import cn.jdevelops.authentication.jwt.server.CheckTokenInterceptor;
 import cn.jdevelops.spi.JoinSPI;
 import cn.jdevelops.util.jwt.util.JwtContextUtil;
 import com.example.jdevelopssbootauthenticationjwtdemo.service.TokenVerify;

@@ -1,8 +1,8 @@
 package com.example.jdevelopssbootauthenticationjwtdemo.controller;
 
-import cn.jdevelops.sboot.authentication.jwt.annotation.ApiMapping;
-import cn.jdevelops.sboot.authentication.jwt.annotation.ApiPlatform;
-import cn.jdevelops.sboot.authentication.jwt.server.LoginService;
+import cn.jdevelops.authentication.jwt.annotation.ApiMapping;
+import cn.jdevelops.authentication.jwt.annotation.ApiPlatform;
+import cn.jdevelops.authentication.jwt.server.LoginService;
 import cn.jdevelops.util.jwt.constant.PlatformConstant;
 import cn.jdevelops.util.jwt.entity.SignEntity;
 import org.springframework.beans.factory.annotation.Autowired;

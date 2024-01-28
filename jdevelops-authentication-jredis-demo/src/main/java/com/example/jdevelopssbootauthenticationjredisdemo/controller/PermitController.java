@@ -1,7 +1,7 @@
 package com.example.jdevelopssbootauthenticationjredisdemo.controller;
 
 import cn.jdevelops.api.result.response.ResultVO;
-import cn.jdevelops.sboot.authentication.jwt.annotation.ApiMapping;
+import cn.jdevelops.authentication.jwt.annotation.ApiMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

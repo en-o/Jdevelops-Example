@@ -1,7 +1,7 @@
 package com.example.jdevelopssbootauthenticationjredisdemo.controller;
 
 import cn.jdevelops.api.result.response.ResultVO;
-import cn.jdevelops.sboot.authentication.jwt.util.JwtWebUtil;
+import cn.jdevelops.authentication.jwt.util.JwtWebUtil;
 import cn.jdevelops.util.jwt.constant.PlatformConstant;
 import cn.jdevelops.util.jwt.core.JwtService;
 import cn.jdevelops.util.jwt.entity.LoginJwtExtendInfo;

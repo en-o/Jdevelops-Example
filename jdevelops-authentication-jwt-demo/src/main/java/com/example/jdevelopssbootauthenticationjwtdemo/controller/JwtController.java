@@ -1,15 +1,14 @@
 package com.example.jdevelopssbootauthenticationjwtdemo.controller;
 
 import cn.jdevelops.api.result.response.ResultVO;
-import cn.jdevelops.sboot.authentication.jwt.annotation.ApiMapping;
-import cn.jdevelops.sboot.authentication.jwt.server.LoginService;
-import cn.jdevelops.sboot.authentication.jwt.util.JwtWebUtil;
+import cn.jdevelops.authentication.jwt.annotation.ApiMapping;
+import cn.jdevelops.authentication.jwt.server.LoginService;
+import cn.jdevelops.authentication.jwt.util.JwtWebUtil;
 import cn.jdevelops.util.jwt.core.JwtService;
 import cn.jdevelops.util.jwt.entity.LoginJwtExtendInfo;
 import cn.jdevelops.util.jwt.entity.SignEntity;
 import com.example.jdevelopssbootauthenticationjwtdemo.bean.TestBean;
 import com.example.jdevelopssbootauthenticationjwtdemo.result.ReplaceResultVO;
-import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

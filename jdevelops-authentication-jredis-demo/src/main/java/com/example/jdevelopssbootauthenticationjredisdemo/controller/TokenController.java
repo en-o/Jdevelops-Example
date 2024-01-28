@@ -1,15 +1,15 @@
 package com.example.jdevelopssbootauthenticationjredisdemo.controller;
 
 import cn.jdevelops.api.result.response.ResultVO;
-import cn.jdevelops.sboot.authentication.jredis.entity.StorageUserRole;
-import cn.jdevelops.sboot.authentication.jredis.entity.StorageUserState;
-import cn.jdevelops.sboot.authentication.jredis.entity.only.StorageToken;
-import cn.jdevelops.sboot.authentication.jredis.service.RedisToken;
-import cn.jdevelops.sboot.authentication.jredis.service.RedisUserRole;
-import cn.jdevelops.sboot.authentication.jredis.service.RedisUserState;
-import cn.jdevelops.sboot.authentication.jredis.util.RsJwtWebUtil;
-import cn.jdevelops.sboot.authentication.jwt.annotation.NotRefreshToken;
-import cn.jdevelops.sboot.authentication.jwt.util.JwtWebUtil;
+import cn.jdevelops.authentication.jredis.entity.StorageUserRole;
+import cn.jdevelops.authentication.jredis.entity.StorageUserState;
+import cn.jdevelops.authentication.jredis.entity.only.StorageToken;
+import cn.jdevelops.authentication.jredis.service.RedisToken;
+import cn.jdevelops.authentication.jredis.service.RedisUserRole;
+import cn.jdevelops.authentication.jredis.service.RedisUserState;
+import cn.jdevelops.authentication.jredis.util.RsJwtWebUtil;
+import cn.jdevelops.authentication.jwt.annotation.NotRefreshToken;
+import cn.jdevelops.authentication.jwt.util.JwtWebUtil;
 import cn.jdevelops.util.jwt.constant.JwtConstant;
 import cn.jdevelops.util.jwt.core.JwtService;
 import cn.jdevelops.util.jwt.entity.SignEntity;

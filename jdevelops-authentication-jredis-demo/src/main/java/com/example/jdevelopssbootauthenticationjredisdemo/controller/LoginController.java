@@ -1,11 +1,11 @@
 package com.example.jdevelopssbootauthenticationjredisdemo.controller;
 
 import cn.jdevelops.api.result.response.ResultVO;
-import cn.jdevelops.sboot.authentication.jredis.entity.StorageUserRole;
-import cn.jdevelops.sboot.authentication.jredis.entity.StorageUserState;
-import cn.jdevelops.sboot.authentication.jredis.entity.sign.RedisSignEntity;
-import cn.jdevelops.sboot.authentication.jredis.service.RedisLoginService;
-import cn.jdevelops.sboot.authentication.jwt.annotation.ApiMapping;
+import cn.jdevelops.authentication.jredis.entity.StorageUserRole;
+import cn.jdevelops.authentication.jredis.entity.StorageUserState;
+import cn.jdevelops.authentication.jredis.entity.sign.RedisSignEntity;
+import cn.jdevelops.authentication.jredis.service.RedisLoginService;
+import cn.jdevelops.authentication.jwt.annotation.ApiMapping;
 import cn.jdevelops.util.jwt.constant.PlatformConstant;
 import com.example.jdevelopssbootauthenticationjredisdemo.bean.Login;
 import com.example.jdevelopssbootauthenticationjredisdemo.bean.TestBean;

@@ -2,7 +2,6 @@ package com.example.jdevelopssbootauthenticationjwtdemo.result;
 
 import cn.jdevelops.api.result.custom.ExceptionResult;
 import cn.jdevelops.api.result.emums.ExceptionCode;
-import org.springframework.stereotype.Component;
 
 /**
  * 自定义返回包装类

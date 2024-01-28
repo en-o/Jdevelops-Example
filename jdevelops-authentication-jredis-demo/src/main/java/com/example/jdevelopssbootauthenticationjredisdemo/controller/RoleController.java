@@ -1,8 +1,8 @@
 package com.example.jdevelopssbootauthenticationjredisdemo.controller;
 
 import cn.jdevelops.api.result.response.ResultVO;
-import cn.jdevelops.sboot.authentication.jredis.service.RedisLoginService;
-import cn.jdevelops.sboot.authentication.jwt.annotation.ApiPermission;
+import cn.jdevelops.authentication.jredis.service.RedisLoginService;
+import cn.jdevelops.authentication.jwt.annotation.ApiPermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
