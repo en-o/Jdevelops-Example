@@ -1,5 +1,7 @@
 package cn.tannn.jdevelopssbootjpademo.testwebjpa;
 
+import cn.jdevelops.api.result.request.PageDTO;
+import cn.jdevelops.api.result.request.SortPageDTO;
 import cn.tannn.jdevelopssbootjpademo.dao.AddressDao;
 import cn.tannn.jdevelopssbootjpademo.dto.CompanyFind;
 import cn.tannn.jdevelopssbootjpademo.entity.Address;
@@ -84,6 +86,26 @@ public class RelationSelectTest {
         // WHERE company0_1_.address_id = address1_.id
         // AND ( address1_.CODE =? OR address1_.path LIKE ?)
         companyService.findComplex(companyFind2).forEach(System.out::println);
+    }
+
+
+
+    /**
+     *  查询通过地址查询PAGE
+     */
+    @Test
+    void testRelationSelect_address_page(){
+        CompanyFind companyFind2 = new CompanyFind();
+        companyFind2.setAddressCode("101");
+        companyFind2.setAddressPath("重");
+        // from sys_company company0_
+        // left outer join relation_company_address company0_1_
+        // on company0_.id=company0_1_.id
+        // cross join sys_address address1_
+        // where company0_1_.address_id=address1_.id
+        // and (address1_.code=? or address1_.path like ?)
+        // limit ?
+        companyService.findByBean(companyFind2, new PageDTO()).getRows().forEach(System.out::println);
     }
 
     /**

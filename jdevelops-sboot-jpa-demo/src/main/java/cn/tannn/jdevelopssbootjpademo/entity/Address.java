@@ -8,7 +8,6 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
-import javax.persistence.Index;
 import javax.persistence.Table;
 
 /**
