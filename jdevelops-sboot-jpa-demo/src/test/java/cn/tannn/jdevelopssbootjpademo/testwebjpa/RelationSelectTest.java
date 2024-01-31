@@ -2,6 +2,9 @@ package cn.tannn.jdevelopssbootjpademo.testwebjpa;
 
 import cn.jdevelops.api.result.request.PageDTO;
 import cn.jdevelops.api.result.request.SortPageDTO;
+import cn.jdevelops.api.result.util.bean.ColumnUtil;
+import cn.jdevelops.data.jap.core.Specifications;
+import cn.jdevelops.data.jap.util.IObjects;
 import cn.tannn.jdevelopssbootjpademo.dao.AddressDao;
 import cn.tannn.jdevelopssbootjpademo.dto.CompanyFind;
 import cn.tannn.jdevelopssbootjpademo.entity.Address;
@@ -10,6 +13,7 @@ import cn.tannn.jdevelopssbootjpademo.service.CompanyService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.Arrays;
 import java.util.List;
@@ -65,7 +69,7 @@ public class RelationSelectTest {
     }
 
     /**
-     *  查询通过地址查询
+     *  查询通过地址查询 - JpaSelectOperator.fileName
      */
     @Test
     void testRelationSelect_address(){
@@ -91,7 +95,7 @@ public class RelationSelectTest {
 
 
     /**
-     *  查询通过地址查询PAGE
+     *  查询通过地址查询PAGE  - JpaSelectOperator.fileName
      */
     @Test
     void testRelationSelect_address_page(){
@@ -109,12 +113,40 @@ public class RelationSelectTest {
     }
 
     /**
-     *  查询通过地址查询
+     *  查询通过地址查询 - Specifications.where Bean
      */
     @Test
     void testRelationSelect_address2(){
+        // 通过真实实体查询
+        // from sys_address address0_ where address0_.code=?
         Address byCode = addressDao.findByCode("100");
         companyService.findBeanList(Company::getAddress,byCode).forEach(System.out::println);
+    }
+
+    /**
+     *  查询通过地址查询 - Specifications.where attribute
+     */
+    @Test
+    void testRelationSelect_address3(){
+        Address byCode = new Address();
+        // 只能通过id查询，其他的不行,如果能值得得到id就不用像上面那种先查询一次了
+        byCode.setId(2);
+        // from sys_company company0_
+        // left outer join relation_company_address company0_1_
+        // on company0_.id=company0_1_.id where company0_1_.address_id=?
+        companyService.findBeanList(Company::getAddress,byCode).forEach(System.out::println);
+
+        // 自定义模拟 findBeanList
+        // from sys_company company0_
+        // left outer join relation_company_address company0_1_
+        // on company0_.id=company0_1_.id
+        // left outer join sys_address address1_
+        // on company0_1_.address_id=address1_.id
+        // where address1_.path=?
+        Specification<Company> where = Specifications.where(e -> e.eq(true,
+                "address.path",
+                "重庆"));
+        companyService.getJpaBasicsDao().findAll(where).forEach(System.out::println);
     }
 
 }
