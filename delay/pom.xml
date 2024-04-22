@@ -18,6 +18,7 @@
     <modules>
         <module>delay-jdk</module>
         <module>delay-redis</module>
+        <module>delay-redis-custom-dq-message</module>
     </modules>
 
 </project>
