@@ -35,6 +35,7 @@ public class DelayController {
         return "开始消费延时队列数据...";
     }
 
+    String   body5Str = "";
 
     @Operation(summary = "生产延时队列数据")
     @GetMapping("produce")
@@ -44,7 +45,7 @@ public class DelayController {
         //  填充延时队列数据
         DelayQueueMessage body5 = new DelayQueueMessage("body5", RedisDelayMessageChannel.ACTIVITY,
                 paramTime + (50 * 1000), new Date(paramTime + (50 * 1000)).toString(), "");
-        System.out.printf("body5:"+JSON.toJSONString(body5));
+        body5Str = JSON.toJSONString(body5);
         List<DelayQueueMessage> delayTasks = Arrays.asList(
                 new DelayQueueMessage("body1", RedisDelayMessageChannel.ACTIVITY,
                         paramTime + (10 * 1000), new Date(paramTime + (10 * 1000)).toString(), ""),
@@ -63,8 +64,8 @@ public class DelayController {
 
     @Operation(summary = "取消队列")
     @GetMapping("cancel")
-    public String cancel(String delayQueueMessage) {
-        delayService.cancel(delayQueueMessage);
+    public String cancel() {
+        delayService.cancel(body5Str);
         return "取消队列...";
     }
 
