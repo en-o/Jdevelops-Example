@@ -42,21 +42,19 @@ public class DelayController {
     public String produce(Long timeMillis) {
         Long paramTime = timeMillis == null ? System.currentTimeMillis() : timeMillis;
         //  填充延时队列数据
-        DelayQueueMessage body1 = new DelayQueueMessage("body1", RedisDelayMessageChannel.ACTIVITY,
-                paramTime + (10 * 1000), new Date(paramTime + (10 * 1000)).toString(), "");
-        System.out.printf("body1:"+JSON.toJSONString(body1));
-        DelayQueueMessage body2 = new DelayQueueMessage("body2", RedisDelayMessageChannel.ACTIVITY,
-                paramTime + (20 * 1000), new Date(paramTime + (20 * 1000)).toString(), "");
-        System.out.printf("body2:"+JSON.toJSONString(body2));
+        DelayQueueMessage body5 = new DelayQueueMessage("body5", RedisDelayMessageChannel.ACTIVITY,
+                paramTime + (50 * 1000), new Date(paramTime + (50 * 1000)).toString(), "");
+        System.out.printf("body5:"+JSON.toJSONString(body5));
         List<DelayQueueMessage> delayTasks = Arrays.asList(
-                body1,
-                body2,
+                new DelayQueueMessage("body1", RedisDelayMessageChannel.ACTIVITY,
+                        paramTime + (10 * 1000), new Date(paramTime + (10 * 1000)).toString(), ""),
+                new DelayQueueMessage("body2", RedisDelayMessageChannel.ACTIVITY,
+                        paramTime + (20 * 1000), new Date(paramTime + (20 * 1000)).toString(), ""),
                 new DelayQueueMessage("body3", RedisDelayMessageChannel.PAY,
                         paramTime + (30 * 1000), new Date(paramTime + (30 * 1000)).toString(), ""),
                 new DelayQueueMessage("body4", RedisDelayMessageChannel.PAY,
                         paramTime + (40 * 1000), new Date(paramTime + (40 * 1000)).toString(), ""),
-                new DelayQueueMessage("body5", RedisDelayMessageChannel.ACTIVITY,
-                        paramTime + (50 * 1000), new Date(paramTime + (50 * 1000)).toString(), "")
+                body5
                 );
         delayService.produce(delayTasks);
         return "生产延时队列数据... => "+paramTime;
