@@ -3,6 +3,7 @@ package cn.tannn.delayredis.controller;
 import cn.jdevelops.delay.core.entity.DelayQueueMessage;
 import cn.jdevelops.delay.core.service.DelayService;
 import cn.tannn.delayredis.constant.RedisDelayMessageChannel;
+import com.alibaba.fastjson2.JSON;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -41,11 +42,15 @@ public class DelayController {
     public String produce(Long timeMillis) {
         Long paramTime = timeMillis == null ? System.currentTimeMillis() : timeMillis;
         //  填充延时队列数据
+        DelayQueueMessage body1 = new DelayQueueMessage("body1", RedisDelayMessageChannel.ACTIVITY,
+                paramTime + (10 * 1000), new Date(paramTime + (10 * 1000)).toString(), "");
+        System.out.printf("body1:"+JSON.toJSONString(body1));
+        DelayQueueMessage body2 = new DelayQueueMessage("body2", RedisDelayMessageChannel.ACTIVITY,
+                paramTime + (20 * 1000), new Date(paramTime + (20 * 1000)).toString(), "");
+        System.out.printf("body2:"+JSON.toJSONString(body2));
         List<DelayQueueMessage> delayTasks = Arrays.asList(
-                new DelayQueueMessage("body1", RedisDelayMessageChannel.ACTIVITY,
-                        paramTime + (10 * 1000), new Date(paramTime + (10 * 1000)).toString(), ""),
-                new DelayQueueMessage("body2", RedisDelayMessageChannel.ACTIVITY,
-                        paramTime + (20 * 1000), new Date(paramTime + (20 * 1000)).toString(), ""),
+                body1,
+                body2,
                 new DelayQueueMessage("body3", RedisDelayMessageChannel.PAY,
                         paramTime + (30 * 1000), new Date(paramTime + (30 * 1000)).toString(), ""),
                 new DelayQueueMessage("body4", RedisDelayMessageChannel.PAY,
@@ -56,4 +61,13 @@ public class DelayController {
         delayService.produce(delayTasks);
         return "生产延时队列数据... => "+paramTime;
     }
+
+
+    @Operation(summary = "取消队列")
+    @GetMapping("cancel")
+    public String cancel(String delayQueueMessage) {
+        delayService.cancel(delayQueueMessage);
+        return "取消队列...";
+    }
+
 }
