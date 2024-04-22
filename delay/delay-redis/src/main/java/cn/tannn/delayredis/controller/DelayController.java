@@ -37,7 +37,7 @@ public class DelayController {
 
     @Operation(summary = "生产延时队列数据")
     @GetMapping("produce")
-    @Parameter(name = "timeMillis",description = "延时消费的时间(时间戳<毫秒>)(默认当前)")
+    @Parameter(name = "timeMillis",description = "延时消费的时间(时间戳<毫秒>)(默认当前+n/s)")
     public String produce(Long timeMillis) {
         Long paramTime = timeMillis == null ? System.currentTimeMillis() : timeMillis;
         //  填充延时队列数据
