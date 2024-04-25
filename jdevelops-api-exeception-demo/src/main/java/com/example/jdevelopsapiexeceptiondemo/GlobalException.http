@@ -14,3 +14,8 @@ GET http://localhost:8080/testGlobalTry2
 
 ### 测试隐式添加包裹类
 GET http://localhost:8080/resultHandlerMethodReturnValueHandler
+
+
+
+### 测试覆盖全局的  httpServletResponseStatus
+GET http://localhost:8080/testGlobalTry3

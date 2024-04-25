@@ -1,12 +1,15 @@
 package com.example.jdevelopsapiexeceptiondemo;
 
 import cn.jdevelops.api.exception.exception.BusinessException;
+import cn.jdevelops.api.exception.exception.LoginLimitException;
 import cn.jdevelops.api.result.response.ResultVO;
 import com.example.jdevelopsapiexeceptiondemo.result.ReplaceResultVO;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import static cn.jdevelops.api.result.emums.UserException.LOGIN_LIMIT;
 
 
 @SpringBootApplication
@@ -64,6 +67,17 @@ public class JdevelopsApiExeceptionDemoApplication {
     @GetMapping("/resultHandlerMethodReturnValueHandler")
     public String resultHandlerMethodReturnValueHandler(){
         return "测试隐式添加包裹类";
+    }
+
+
+    /**
+     * 测试覆盖全局的  httpServletResponseStatus
+     * @return ResultVO
+     */
+    @GetMapping("/testGlobalTry3")
+    public ReplaceResultVO<Integer> testGlobalTry3(){
+//        throw new BusinessException(LOGIN_LIMIT).setHttpServletResponseStatus(true);
+        throw new LoginLimitException(LOGIN_LIMIT).setHttpServletResponseStatus(false);
     }
 
 
