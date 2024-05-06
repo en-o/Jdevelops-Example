@@ -15,18 +15,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends J2ServiceImpl<UserDao, User, Integer> implements UserService {
 
-
     private  final UserDao userDao;
 
     public UserServiceImpl(UserDao userDao) {
         super(User.class);
         this.userDao = userDao;
-    }
-
-
-    @Override
-    public User findByUserNoCopyDao(String userNo) {
-        return userDao.findByUserNo(userNo);
     }
 
 

@@ -14,10 +14,5 @@ import java.util.List;
  */
 public interface UserDao extends JpaBasicsRepository<User, Integer> {
 
-    /**
-     * 查询
-     * @param userNo userNo
-     * @return User
-     */
-    User findByUserNo(String userNo);
+
 }

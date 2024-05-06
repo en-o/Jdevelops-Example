@@ -11,11 +11,5 @@ import cn.jdevelops.data.jap.service.J2Service;
  */
 public interface UserService extends J2Service<User> {
 
-    /**
-     * 查询
-     * @param userNo userNo
-     * @return User
-     */
-    User findByUserNoCopyDao(String userNo);
 
 }
