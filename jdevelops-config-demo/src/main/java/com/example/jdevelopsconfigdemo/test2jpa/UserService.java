@@ -1,4 +1,4 @@
-package com.example.jdevelopsconfigdemo.test;
+package com.example.jdevelopsconfigdemo.test2jpa;
 
 
 import cn.jdevelops.data.jap.service.J2Service;

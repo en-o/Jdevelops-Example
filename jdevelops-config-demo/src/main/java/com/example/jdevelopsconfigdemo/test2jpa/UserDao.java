@@ -1,10 +1,7 @@
-package com.example.jdevelopsconfigdemo.test;
+package com.example.jdevelopsconfigdemo.test2jpa;
 
 
 import cn.jdevelops.data.jap.repository.JpaBasicsRepository;
-import org.springframework.data.jpa.repository.Query;
-
-import java.util.List;
 
 /**
  * 用户表

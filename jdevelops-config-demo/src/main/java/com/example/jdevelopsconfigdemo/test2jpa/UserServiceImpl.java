@@ -1,4 +1,4 @@
-package com.example.jdevelopsconfigdemo.test;
+package com.example.jdevelopsconfigdemo.test2jpa;
 
 import cn.jdevelops.data.jap.service.impl.J2ServiceImpl;
 import lombok.extern.slf4j.Slf4j;

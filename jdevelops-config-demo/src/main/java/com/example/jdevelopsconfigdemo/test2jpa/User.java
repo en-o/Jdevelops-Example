@@ -1,18 +1,15 @@
-package com.example.jdevelopsconfigdemo.test;
+package com.example.jdevelopsconfigdemo.test2jpa;
 
 import cn.jdevelops.data.jap.annotation.JpaSelectOperator;
-import cn.jdevelops.data.jap.annotation.JpaUpdate;
 import cn.jdevelops.data.jap.enums.SQLConnect;
 import cn.jdevelops.data.jap.enums.SQLOperator;
 import cn.jdevelops.data.jap.modle.JpaAuditFields;
 import lombok.*;
-import org.hibernate.Hibernate;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 /**
  * 用户表
