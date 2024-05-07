@@ -1,3 +1,5 @@
+
+
 spring:
   application:
     name: jdevelops-config-demo
@@ -24,3 +26,16 @@ spring:
     properties:
       hibernate:
         format_sql: true
+jdevelops:
+  config:
+    app: app1
+    env: dev
+    ns: public
+
+
+logging:
+  level:
+#    root: error
+    cn.jdevelops.config: debug
+
+
