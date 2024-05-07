@@ -6,6 +6,7 @@ import cn.jdevelops.authentication.jredis.entity.StorageUserState;
 import cn.jdevelops.authentication.jredis.entity.sign.RedisSignEntity;
 import cn.jdevelops.authentication.jredis.service.RedisLoginService;
 import cn.jdevelops.authentication.jwt.annotation.ApiMapping;
+import cn.jdevelops.authentication.jwt.vo.TokenSign;
 import cn.jdevelops.util.jwt.constant.PlatformConstant;
 import com.example.jdevelopssbootauthenticationjredisdemo.bean.Login;
 import com.example.jdevelopssbootauthenticationjredisdemo.bean.TestBean;
@@ -65,9 +66,8 @@ public class LoginController {
                         login.isDisabledAccount(),
                         login.isExcessiveAttempts())
         );
-
-        String sign = redisLoginService.login(redisSignEntity);
-        Map<String, String> responseData = Collections.singletonMap("token", sign);
+        TokenSign sign = redisLoginService.login(redisSignEntity);
+        Map<String, String> responseData = Collections.singletonMap("token", sign.getSign());
         return ResultVO.success(responseData);
     }
 
