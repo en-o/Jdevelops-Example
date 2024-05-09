@@ -1,9 +1,8 @@
-package com.example.jdevelopsapiexeceptiondemo.result;
+package cn.tannn.jdevelops.demo.apisexception.reset;
 
-import cn.jdevelops.api.result.custom.ExceptionResult;
-import cn.jdevelops.api.result.emums.ExceptionCode;
-import org.springframework.stereotype.Component;
 
+import cn.tannn.jdevelops.result.exception.ExceptionCode;
+import cn.tannn.jdevelops.result.exception.ExceptionResult;
 
 /**
  * 自定义返回包装类

@@ -1,10 +1,10 @@
-package com.example.jdevelopsapiexeceptiondemo;
+package cn.tannn.jdevelops.demo.apisexception;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JdevelopsApiExeceptionDemoApplicationTests {
+class ApisExceptionApplicationTests {
 
     @Test
     void contextLoads() {

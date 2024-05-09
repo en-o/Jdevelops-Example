@@ -1,23 +1,19 @@
-package com.example.jdevelopsapiexeceptiondemo;
+package cn.tannn.jdevelops.demo.apisexception;
 
-import cn.jdevelops.api.exception.exception.BusinessException;
-import cn.jdevelops.api.exception.exception.LoginLimitException;
-import cn.jdevelops.api.result.response.ResultVO;
-import com.example.jdevelopsapiexeceptiondemo.result.ReplaceResultVO;
+import cn.tannn.jdevelops.demo.apisexception.reset.ReplaceResultVO;
+import cn.tannn.jdevelops.exception.built.BusinessException;
+import cn.tannn.jdevelops.exception.built.LoginLimitException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static cn.jdevelops.api.result.emums.UserException.LOGIN_LIMIT;
-
-
 @SpringBootApplication
 @RestController
-public class JdevelopsApiExeceptionDemoApplication {
+public class ApisExceptionApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(JdevelopsApiExeceptionDemoApplication.class, args);
+        SpringApplication.run(ApisExceptionApplication.class, args);
     }
     /**
      * 测试全局异常拦截处理
@@ -61,16 +57,6 @@ public class JdevelopsApiExeceptionDemoApplication {
 
 
     /**
-     * 测试隐式添加包裹类
-     * @return ResultVO or ReplaceResultVO
-     */
-    @GetMapping("/resultHandlerMethodReturnValueHandler")
-    public String resultHandlerMethodReturnValueHandler(){
-        return "测试隐式添加包裹类";
-    }
-
-
-    /**
      * 测试覆盖全局的  httpServletResponseStatus
      * @return ResultVO
      */
@@ -79,7 +65,4 @@ public class JdevelopsApiExeceptionDemoApplication {
 //        throw new BusinessException(LOGIN_LIMIT).setHttpServletResponseStatus(true);
         throw new LoginLimitException(LOGIN_LIMIT).setHttpServletResponseStatus(false);
     }
-
-
-
 }

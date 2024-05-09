@@ -1,7 +1,7 @@
-package com.example.jdevelopsapiexeceptiondemo.result;
+package cn.tannn.jdevelops.demo.apisexception.reset;
 
 
-import cn.jdevelops.api.result.emums.ExceptionCode;
+import cn.tannn.jdevelops.result.exception.ExceptionCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -82,7 +82,7 @@ public class ReplaceResultVO<T> implements Serializable {
         return resultVO;
     }
 
-    public static <T> ReplaceResultVO result(ExceptionCode result,T data) {
+    public static <T> ReplaceResultVO result(ExceptionCode result, T data) {
         ReplaceResultVO<T> resultVO = new ReplaceResultVO<>();
         resultVO.setZhuangTaiMa(result.getCode());
         resultVO.setXiaoXi(result.getMessage());
