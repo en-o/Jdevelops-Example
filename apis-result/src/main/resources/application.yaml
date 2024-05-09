@@ -1,7 +1,10 @@
 spring:
   profiles:
     active: prod
-
+#logging:
+#  level:
+#    root: error
+#  org.springframework.boot: debug
 
 ---
 spring:
