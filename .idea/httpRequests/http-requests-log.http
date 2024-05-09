@@ -1,3 +1,53 @@
+GET http://localhost:8080/result/rvo
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T124536.200.json
+
+###
+
+GET http://localhost:8080/result/rpvo
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T112817.200.json
+
+###
+
+GET http://localhost:8080/result/rpvo
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T112709.200.json
+
+###
+
+GET http://localhost:8080/result/rpvo
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T112012.200.json
+
+###
+
+GET http://localhost:8080/result/rvo
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T111937.200.json
+
+###
+
 GET http://localhost:8080/implicit/string
 User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
 Accept-Encoding: br, deflate, gzip, x-gzip

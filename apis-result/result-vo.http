@@ -1,0 +1,7 @@
+### 常规返回
+GET http://localhost:8080/result/rvo
+
+### 分页返回
+GET http://localhost:8080/result/rpvo
+
+
