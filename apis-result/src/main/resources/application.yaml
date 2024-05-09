@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: prod
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+jdevelops:
+  api:
+    result:
+      enabled: false # \u9ED8\u8BA4fase
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+jdevelops:
+  api:
+    result:
+      enabled: true
+

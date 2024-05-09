@@ -1,3 +1,169 @@
+GET http://localhost:8080/implicit/string
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T102445.200.json
+
+###
+
+GET http://localhost:8080/implicit/list
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T100405.200.json
+
+###
+
+GET http://localhost:8080/implicit/bean
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 255
+
+HTTP/1.1 200
+version: 1.0
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Thu, 09 May 2024 01:58:17 GMT
+
+{
+  "code": 200,
+  "message": "成功",
+  "ts": 1715219897320,
+  "data": [
+    "测试隐式添加包裹类"
+  ],
+  "success": true
+}
+
+<> 2024-05-09T100342.200.json
+
+###
+
+GET http://localhost:8080/implicit/map
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T100210.200.json
+
+###
+
+GET http://localhost:8080/implicit/map
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T095944.200.json
+
+###
+
+GET http://localhost:8080/implicit/map
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T095841.200.json
+
+###
+
+GET http://localhost:8080/implicit/bean
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T095833.200.json
+
+###
+
+GET http://localhost:8080/implicit/map
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T095822.200.json
+
+###
+
+GET http://localhost:8080/implicit/list
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T095817.200.json
+
+###
+
+GET http://localhost:8080/implicit/string
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T095814.200.json
+
+###
+
+GET http://localhost:8080/implicit/map
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T095744.200.json
+
+###
+
+GET http://localhost:8080/implicit/bean
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T095741.200.json
+
+###
+
+GET http://localhost:8080/implicit/map
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T095740.200.json
+
+###
+
+GET http://localhost:8080/implicit/list
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T095739.200.json
+
+###
+
+GET http://localhost:8080/implicit/string
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T095737.200.txt
+
+###
+
 GET http://localhost:8080/websocket/getToken
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.9)

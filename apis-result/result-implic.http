@@ -1,0 +1,11 @@
+### string
+GET http://localhost:8080/implicit/string
+
+### list
+GET http://localhost:8080/implicit/list
+
+### map
+GET http://localhost:8080/implicit/map
+
+### bean
+GET http://localhost:8080/implicit/bean
