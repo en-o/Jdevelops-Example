@@ -1,1 +1,24 @@
-spring.application.name=apis-exception
+spring:
+  profiles:
+    active: prod
+#logging:
+#  level:
+#    root: error
+#  org.springframework.boot: debug
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+
