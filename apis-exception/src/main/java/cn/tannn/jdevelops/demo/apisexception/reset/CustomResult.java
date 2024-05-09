@@ -3,6 +3,7 @@ package cn.tannn.jdevelops.demo.apisexception.reset;
 
 import cn.tannn.jdevelops.result.exception.ExceptionCode;
 import cn.tannn.jdevelops.result.exception.ExceptionResult;
+import org.springframework.stereotype.Component;
 
 /**
  * 自定义返回包装类

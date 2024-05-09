@@ -1,3 +1,43 @@
+GET http://localhost:8080/testGlobalErrors2
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T165940.501.json
+
+###
+
+GET http://localhost:8080/testGlobalErrors
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T165156.200.json
+
+###
+
+GET http://localhost:8080/testGlobalErrors
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T165112.200.json
+
+###
+
+GET http://localhost:8080/testGlobalErrors
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-09T165047.200.json
+
+###
+
 GET http://localhost:8080/testGlobalTry2
 User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
 Accept-Encoding: br, deflate, gzip, x-gzip

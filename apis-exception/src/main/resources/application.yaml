@@ -1,19 +1,22 @@
 spring:
   profiles:
-    active: prod
+    active: dev
 #logging:
 #  level:
 #    root: error
 #  org.springframework.boot: debug
+
+
 
 ---
 spring:
   config:
     activate:
       on-profile: dev
-
-
-
+jdevelops:
+  exception:
+    log-input: false
+    http-servlet-response-status: true
 
 ---
 spring:
