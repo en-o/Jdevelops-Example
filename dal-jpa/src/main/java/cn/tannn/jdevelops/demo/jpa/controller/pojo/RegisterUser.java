@@ -1,10 +1,7 @@
 package cn.tannn.jdevelops.demo.jpa.controller.pojo;
 
-import cn.hutool.core.date.DateTime;
-import cn.tannn.jdevelops.annotations.jpa.JpaUpdate;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 
 
 /**
