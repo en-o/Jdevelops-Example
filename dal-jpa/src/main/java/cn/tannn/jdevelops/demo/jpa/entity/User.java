@@ -3,7 +3,8 @@ package cn.tannn.jdevelops.demo.jpa.entity;
 import cn.tannn.jdevelops.annotations.jpa.JpaSelectOperator;
 import cn.tannn.jdevelops.annotations.jpa.JpaUpdate;
 import cn.tannn.jdevelops.annotations.jpa.enums.SQLConnect;
-import cn.tannn.jdevelops.annotations.jpa.enums.SQLOperator;
+import cn.tannn.jdevelops.annotations.jpa.enums.SQLOperatorWrapper;
+import cn.tannn.jdevelops.jpa.constant.SQLOperator;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -41,7 +42,7 @@ public class User extends CommonBean<User> {
 	 */
 	@Column(columnDefinition = " varchar(50)  not null ")
 	@Comment("用户编号")
-	@JpaSelectOperator(operator = SQLOperator.LIKE, connect = SQLConnect.OR)
+	@JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.LIKE, connect = SQLConnect.OR)
 	private String userNo;
 
 	/**
@@ -49,7 +50,7 @@ public class User extends CommonBean<User> {
 	 */
 	@Column(columnDefinition = " varchar(100)  not null ")
 	@Comment("姓名")
-	@JpaSelectOperator(operator = SQLOperator.LIKE, connect = SQLConnect.OR)
+	@JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.LIKE, connect = SQLConnect.OR)
 	private String name;
 
 	/**
@@ -64,7 +65,7 @@ public class User extends CommonBean<User> {
 	 */
 	@Column(columnDefinition = " varchar(100)  not null ")
 	@Comment("登录名称")
-	@JpaSelectOperator(operator = SQLOperator.EQ, connect = SQLConnect.AND)
+	@JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.EQ, connect = SQLConnect.AND)
 	private String loginName;
 
 	/**

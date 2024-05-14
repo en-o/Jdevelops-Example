@@ -1,7 +1,7 @@
 package cn.tannn.jdevelops.demo.jpa.entity;
 
 
-import cn.tannn.jdevelops.jpa.modle.JpaAuditFields;
+import cn.tannn.jdevelops.jpa.modle.fn.JpaAuditFnFields;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.*;
@@ -21,11 +21,11 @@ import javax.persistence.AccessType;
 @Access(AccessType.FIELD)
 @Getter
 @Setter
-public class CommonBean<B> extends JpaAuditFields<B> {
+public class CommonBean<B> extends JpaAuditFnFields<B> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuidCustomGenerator")
-    @GenericGenerator(name = "uuidCustomGenerator", strategy = "cn.jdevelops.data.jap.generator.UuidCustomGenerator")
+    @GenericGenerator(name = "uuidCustomGenerator", strategy = "cn.tannn.jdevelops.jpa.generator.UuidCustomGenerator")
     @Column(columnDefinition="bigint")
     @Comment("主键，自动生成")
     private Long id;
