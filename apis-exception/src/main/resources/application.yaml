@@ -23,5 +23,7 @@ spring:
   config:
     activate:
       on-profile: prod
-
+jdevelops:
+  exception:
+    enabled: false
 
