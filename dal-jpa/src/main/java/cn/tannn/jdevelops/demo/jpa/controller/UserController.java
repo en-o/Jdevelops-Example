@@ -44,7 +44,7 @@ public class UserController {
      * @return User
      */
     @PostMapping("saves")
-    public ResultVO<List<User>> saves(List<User> user) {
+    public ResultVO<List<User>> saves(@RequestBody List<User> user) {
         return ResultVO.success(userService.saves(user));
     }
 
