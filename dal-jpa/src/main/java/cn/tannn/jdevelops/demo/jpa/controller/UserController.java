@@ -43,7 +43,7 @@ public class UserController {
      * @param user User
      * @return User
      */
-    @GetMapping("saves")
+    @PostMapping("saves")
     public ResultVO<List<User>> saves(List<User> user) {
         return ResultVO.success(userService.saves(user));
     }
