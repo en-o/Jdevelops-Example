@@ -40,6 +40,8 @@ class OrmTest {
 
     /**
      * 在 service 层 获取 EntityManager
+     * <p> 删改增都要加事务
+     * @see EntityManagerTest
      */
     @Test
     void genServiceEntityManager() {
