@@ -42,6 +42,10 @@ public class UserFindDTO extends SerializableBean<UserFindDTO> {
      * 用户头像
      */
     @JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.LIKE, connect = SQLConnect.OR)
+    // 需要查询为空的数据 null - 优先级比在JpaSelectOperator使用要大
+//    @JpaSelectNullField(ignoreNull = false)
+    // 测试查询""," " 【常用】
+    @JpaSelectNullField(ignoreNullEnhance = false)
     private String userIcon;
 
     /**
