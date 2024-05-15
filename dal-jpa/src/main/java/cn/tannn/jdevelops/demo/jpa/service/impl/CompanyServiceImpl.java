@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class CompanyServiceImpl  extends J2ServiceImpl<CompanyDao, Company,Integer> implements CompanyService {
+public class CompanyServiceImpl  extends J2ServiceImpl<CompanyDao, Company,Long> implements CompanyService {
     public CompanyServiceImpl() {
         super(Company.class);
     }

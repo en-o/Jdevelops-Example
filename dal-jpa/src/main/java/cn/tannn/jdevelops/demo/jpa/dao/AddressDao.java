@@ -8,7 +8,7 @@ import cn.tannn.jdevelops.jpa.repository.JpaBasicsRepository;
  * @author <a href="https://tannn.cn/">tan</a>
  * @date 2024/1/30 14:20
  */
-public interface AddressDao extends JpaBasicsRepository<Address, Integer> {
+public interface AddressDao extends JpaBasicsRepository<Address, Long> {
 
     Address findByCode(String code);
 }

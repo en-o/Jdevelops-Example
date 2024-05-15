@@ -9,5 +9,5 @@ import cn.tannn.jdevelops.jpa.repository.JpaBasicsRepository;
  * @author <a href="https://tannn.cn/">tan</a>
  * @date 2024/1/30 13:46
  */
-public interface CompanyDao extends JpaBasicsRepository<Company, Integer> {
+public interface CompanyDao extends JpaBasicsRepository<Company, Long> {
 }

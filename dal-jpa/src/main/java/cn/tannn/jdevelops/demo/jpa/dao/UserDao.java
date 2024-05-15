@@ -14,7 +14,7 @@ import java.util.List;
  * @author tan
  * @date 2021-09-10 1StudentDao1:08
  */
-public interface UserDao extends JpaBasicsRepository<User, Integer> {
+public interface UserDao extends JpaBasicsRepository<User, Long> {
 
     /**
      * 查询

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class UserServiceImpl extends J2ServiceImpl<UserDao, User, Integer> implements UserService {
+public class UserServiceImpl extends J2ServiceImpl<UserDao, User, Long> implements UserService {
 
     public UserServiceImpl() {
         super(User.class);
