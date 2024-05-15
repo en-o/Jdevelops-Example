@@ -1,11 +1,11 @@
-package cn.tannn.jdevelops.demo.jpa.dto;
+package cn.tannn.jdevelops.demo.jpa.controller.pojo;
 
 import cn.tannn.jdevelops.annotations.jpa.JpaSelectIgnoreField;
 import cn.tannn.jdevelops.annotations.jpa.JpaSelectOperator;
 import cn.tannn.jdevelops.annotations.jpa.enums.SQLConnect;
 import cn.tannn.jdevelops.annotations.jpa.enums.SQLOperatorWrapper;
 import cn.tannn.jdevelops.annotations.jpa.enums.SpecBuilderDateFun;
-import cn.tannn.jdevelops.jpa.constant.SQLOperator;
+import cn.tannn.jdevelops.jpa.request.Sorteds;
 import cn.tannn.jdevelops.result.bean.SerializableBean;
 import lombok.Getter;
 import lombok.Setter;
@@ -57,4 +57,11 @@ public class UserFindDTO extends SerializableBean<UserFindDTO> {
 	 */
 	@JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.EQ ,connect = SQLConnect.AND, function = SpecBuilderDateFun.DATE_FORMAT)
 	private String createTime;
+
+	@JpaSelectIgnoreField
+	Sorteds sort;
+
+	public Sorteds getSort() {
+		return sort==null?new Sorteds():sort;
+	}
 }

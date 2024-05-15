@@ -1,11 +1,6 @@
 package cn.tannn.jdevelops.demo.jpa.controller;
 
-import cn.tannn.jdevelops.demo.jpa.controller.pojo.DeleteUser;
-import cn.tannn.jdevelops.demo.jpa.controller.pojo.PageUser;
-import cn.tannn.jdevelops.demo.jpa.controller.pojo.RegisterUser;
-import cn.tannn.jdevelops.demo.jpa.controller.pojo.UpdateUser;
-import cn.tannn.jdevelops.demo.jpa.dto.FindOnly3;
-import cn.tannn.jdevelops.demo.jpa.dto.UserFindDTO;
+import cn.tannn.jdevelops.demo.jpa.controller.pojo.*;
 import cn.tannn.jdevelops.demo.jpa.entity.User;
 import cn.tannn.jdevelops.demo.jpa.service.UserService;
 import cn.tannn.jdevelops.jpa.constant.SQLOperator;
@@ -41,6 +36,7 @@ public class UserController {
 
     /**
      * 批量save
+     *
      * @param user User
      * @return User
      */
@@ -52,6 +48,7 @@ public class UserController {
 
     /**
      * 单个save
+     *
      * @param user User
      * @return User
      */
@@ -62,6 +59,7 @@ public class UserController {
 
     /**
      * 利用异体DTO保存
+     *
      * @param user RegisterUser
      * @return User
      */
@@ -72,6 +70,7 @@ public class UserController {
 
     /**
      * 利用异体DTO删除
+     *
      * @param user DeleteUser
      * @return String
      */
@@ -84,8 +83,9 @@ public class UserController {
 
     /**
      * 指定 key=value删除
+     *
      * @param fieldName 字段
-     * @param value 值
+     * @param value     值
      * @return String
      */
     @DeleteMapping("delete2")
@@ -98,9 +98,10 @@ public class UserController {
 
     /**
      * 指定 key operator value删除
+     *
      * @param fieldName 字段
-     * @param operator 运算符
-     * @param value 值
+     * @param operator  运算符
+     * @param value     值
      * @return String
      */
     @DeleteMapping("delete3")
@@ -114,6 +115,7 @@ public class UserController {
 
     /**
      * 利用异体DTO删除
+     *
      * @param user DeleteUser
      * @return String
      */
@@ -126,7 +128,8 @@ public class UserController {
 
     /**
      * 更新
-     * @param user UpdateUser
+     *
+     * @param user      UpdateUser
      * @param fieldName 指定主键名（实体字段名
      * @return String
      */
@@ -138,8 +141,9 @@ public class UserController {
 
     /**
      * 根据唯一值查询
+     *
      * @param fieldName 字段
-     * @param value 值
+     * @param value     值
      * @return User
      */
     @GetMapping("findOnly")
@@ -151,10 +155,11 @@ public class UserController {
 
     /**
      * 组合唯一值查询
-     * @param fieldName 字段
-     * @param value 字段
+     *
+     * @param fieldName  字段
+     * @param value      字段
      * @param fieldName2 值
-     * @param value2 值
+     * @param value2     值
      * @return User
      */
     @GetMapping("findOnly2")
@@ -167,6 +172,7 @@ public class UserController {
 
     /**
      * 复杂唯一值查询
+     *
      * @param user 异体DTO查询
      * @return User
      */
@@ -178,6 +184,7 @@ public class UserController {
 
     /**
      * 查询所有
+     *
      * @return User
      */
     @GetMapping("finds")
@@ -187,9 +194,10 @@ public class UserController {
 
     /**
      * 根据条件查询所有
+     *
      * @param fieldName 字段
-     * @param operator 运算符
-     * @param value 值
+     * @param operator  运算符
+     * @param value     值
      * @return User
      */
     @GetMapping("finds2")
@@ -202,10 +210,11 @@ public class UserController {
 
     /**
      * 根据条件查询所有并排序
+     *
      * @param fieldName 字段
-     * @param operator 运算符
-     * @param sort 排序
-     * @param value 值
+     * @param operator  运算符
+     * @param sort      排序
+     * @param value     值
      * @return User
      */
     @PostMapping("finds3")
@@ -218,19 +227,20 @@ public class UserController {
 
 
     /**
-     * 异体条件查询所有并排序
+     * 异体条件查询所有并排序 {@link UserService#finds(Specification, Sorteds)}
+     *
      * @param user UserFindDTO
-     * @param sort 值排序
      * @return User
      */
     @PostMapping("finds4")
-    public ResultVO<List<User>> finds4(@RequestBody UserFindDTO user, @RequestBody Sorteds sort) {
+    public ResultVO<List<User>> finds4(@RequestBody UserFindDTO user) {
         Specification<User> spec = EnhanceSpecification.beanWhere(user);
-        return ResultVO.success(userService.finds(spec, sort));
+        return ResultVO.success(userService.finds(spec, user.getSort()));
     }
 
     /**
-     * 异体条件查询所有
+     * 异体条件查询所有 {@link UserService#finds(Object)}
+     *
      * @param user UserFindDTO
      * @return User
      */
@@ -240,30 +250,32 @@ public class UserController {
     }
 
     /**
-     * 异体条件查询所有并排序2
+     * 异体条件查询所有并排序 {@link UserService#finds(Object, Sorteds)}
+     *
      * @param user UserFindDTO
-     * @param sort 值排序
      * @return User
      */
     @PostMapping("finds6")
-    public ResultVO<List<User>> finds6(@RequestBody UserFindDTO user, @RequestBody Sorteds sort) {
-        List<User> complex = userService.finds(user);
-        return ResultVO.success(userService.finds(user, sort));
+    public ResultVO<List<User>> finds6(@RequestBody UserFindDTO user) {
+        return ResultVO.success(userService.finds(user, user.getSort()));
     }
 
     /**
      * 分页查询
-     * @param page  Pagings
-     * @return  User
+     *
+     * @param page Pagings
+     * @return User
      */
     @PostMapping("findPage")
     public ResultPageVO<User, JpaPageResult<User>> findPage(@RequestBody Pagings page) {
         return ResultPageVO.success(JpaPageResult.toPage(userService.findPage(page)));
     }
+
     /**
      * 分页排序查询
-     * @param page  PagingSorteds
-     * @return  User
+     *
+     * @param page PagingSorteds
+     * @return User
      */
     @PostMapping("findPage2")
     public ResultPageVO<User, JpaPageResult<User>> findPage2(@RequestBody PagingSorteds page) {
@@ -271,26 +283,26 @@ public class UserController {
     }
 
     /**
-     * 异体条件分页查询
-     * @param find  PageUser
-     * @param page  Pagings
-     * @return  User
+     * 异体条件分页查询 {@link UserService#findPage(Pagings)}
+     *
+     * @param find PageUser
+     * @return User
      */
     @PostMapping("findPage3")
-    public ResultPageVO<User, JpaPageResult<User>> findPage3(@RequestBody PageUser find, @RequestBody Pagings page) {
-        return ResultPageVO.success(JpaPageResult.toPage(userService.findPage(find,page)));
+    public ResultPageVO<User, JpaPageResult<User>> findPage3(@RequestBody Page2User find) {
+        return ResultPageVO.success(JpaPageResult.toPage(userService.findPage(find, find.getPage())));
     }
 
     /**
-     * 异体条件分页排序查询
-     * @param find  PageUser
-     * @param page  PagingSorteds
-     * @return  User
+     * 异体条件分页排序查询 {@link UserService#findPage(PagingSorteds)}
+     *
+     * @param find PageUser
+     * @return User
      */
 
     @PostMapping("findPage4")
-    public ResultPageVO<User, JpaPageResult<User>> findPage4(@RequestBody PageUser find, @RequestBody PagingSorteds page) {
-        return ResultPageVO.success(JpaPageResult.toPage(userService.findPage(find,page)));
+    public ResultPageVO<User, JpaPageResult<User>> findPage4(@RequestBody PageUser find) {
+        return ResultPageVO.success(JpaPageResult.toPage(userService.findPage(find, find.getPage())));
     }
 
 

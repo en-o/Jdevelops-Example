@@ -2,6 +2,7 @@ package cn.tannn.jdevelops.demo.jpa.controller.pojo;
 
 import cn.tannn.jdevelops.annotations.jpa.JpaSelectIgnoreField;
 import cn.tannn.jdevelops.jpa.request.PagingSorteds;
+import cn.tannn.jdevelops.jpa.request.Pagings;
 import lombok.Data;
 
 
@@ -9,7 +10,7 @@ import lombok.Data;
  * @author tan
  */
 @Data
-public class PageUser {
+public class Page2User {
 
     /**
      * 用户编号
@@ -50,9 +51,9 @@ public class PageUser {
 
 
     @JpaSelectIgnoreField
-    PagingSorteds page;
+    Pagings page;
 
-    public PagingSorteds getPage() {
-        return page==null?new PagingSorteds():page;
+    public Pagings getPage() {
+        return page==null?new Pagings():page;
     }
 }
