@@ -6,9 +6,10 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 /**
+ * 默认是拿请求头里的IP
  * @author tan
  */
-@Component
+//@Component
 public class TokenAuditorNameServiceImpl implements AuditorNameService {
     @Override
     public Optional<String> settingAuditorName() {
