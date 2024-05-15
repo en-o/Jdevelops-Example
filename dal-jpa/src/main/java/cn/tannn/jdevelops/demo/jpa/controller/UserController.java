@@ -105,7 +105,7 @@ public class UserController {
     @DeleteMapping("delete3")
     public ResultVO<String> delete3(@RequestParam("fieldName") String fieldName
             , @RequestParam("operator") SQLOperator operator
-            , @RequestParam(value = "value", required = false) String value) {
+            , @RequestParam(value = "value", required = false) String[] value) {
         userService.delete(fieldName, operator, value);
         return ResultVO.success();
     }
@@ -233,9 +233,9 @@ public class UserController {
      * @param user UserFindDTO
      * @return User
      */
-    @PostMapping("findComplex")
-    public ResultVO<List<User>> findComplex(@RequestBody UserFindDTO user) {
-        return ResultVO.success(userService.findComplex(user));
+    @PostMapping("finds5")
+    public ResultVO<List<User>> finds5(@RequestBody UserFindDTO user) {
+        return ResultVO.success(userService.finds(user));
     }
 
     /**
@@ -244,10 +244,10 @@ public class UserController {
      * @param sort 值排序
      * @return User
      */
-    @PostMapping("findComplex2")
-    public ResultVO<List<User>> findComplex(@RequestBody UserFindDTO user, @RequestBody Sorteds sort) {
-        List<User> complex = userService.findComplex(user);
-        return ResultVO.success(userService.findComplex(user, sort));
+    @PostMapping("finds6")
+    public ResultVO<List<User>> finds6(@RequestBody UserFindDTO user, @RequestBody Sorteds sort) {
+        List<User> complex = userService.finds(user);
+        return ResultVO.success(userService.finds(user, sort));
     }
 
     /**
