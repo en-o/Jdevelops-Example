@@ -1,6 +1,7 @@
 package cn.tannn.jdevelops.demo.jpa.controller.pojo;
 
 import cn.tannn.jdevelops.annotations.jpa.JpaSelectIgnoreField;
+import cn.tannn.jdevelops.annotations.jpa.JpaSelectNullField;
 import cn.tannn.jdevelops.annotations.jpa.JpaSelectOperator;
 import cn.tannn.jdevelops.annotations.jpa.enums.SQLConnect;
 import cn.tannn.jdevelops.annotations.jpa.enums.SQLOperatorWrapper;
@@ -21,47 +22,55 @@ import lombok.ToString;
 @Getter
 @Setter
 public class UserFindDTO extends SerializableBean<UserFindDTO> {
-	/**
-	 * 用户编号
-	 */
-	@JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.LIKE ,connect = SQLConnect.OR)
-	private String userNo;
-	/**
-	 * 姓名
-	 */
-	@JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.LIKE ,connect = SQLConnect.OR,fieldName = "name")
-	private String name;
-	/**
-	 * 地址
-	 */
-	@JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.LIKE ,connect = SQLConnect.OR)
-	private String address;
+    /**
+     * 用户编号
+     */
+    @JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.LIKE, connect = SQLConnect.OR)
+    private String userNo;
+    /**
+     * 姓名
+     */
+    @JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.LIKE, connect = SQLConnect.OR, fieldName = "name")
+    private String name;
+    /**
+     * 地址
+     */
+    @JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.LIKE, connect = SQLConnect.OR)
+    private String address;
 
-	/**
-	 * 用户头像
-	 */
-	@JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.LIKE ,connect = SQLConnect.OR)
-	private String userIcon;
+    /**
+     * 用户头像
+     */
+    @JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.LIKE, connect = SQLConnect.OR)
+    private String userIcon;
 
-	/**
-	 * 手机号/联系电话
-	 */
+    /**
+     * 手机号/联系电话
+     */
+//    @JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.EQ
+//            // 测试查询""," " 【常用】
+//            , nullField = @JpaSelectNullField(ignoreNullEnhance = false)
+//            , connect = SQLConnect.AND)
+//    @JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.EQ
+//            // 需要查询为空的数据 null
+//            , nullField = @JpaSelectNullField(ignoreNull = false)
+//            , connect = SQLConnect.AND)
 	@JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.EQ ,connect = SQLConnect.AND)
-	private String phone;
+    private String phone;
 
-	@JpaSelectIgnoreField
-	private Integer id;
+    @JpaSelectIgnoreField
+    private Integer id;
 
-	/**
-	 * 手机号/联系电话
-	 */
-	@JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.EQ ,connect = SQLConnect.AND, function = SpecBuilderDateFun.DATE_FORMAT)
-	private String createTime;
+    /**
+     * 手机号/联系电话
+     */
+    @JpaSelectOperator(operatorWrapper = SQLOperatorWrapper.EQ, connect = SQLConnect.AND, function = SpecBuilderDateFun.DATE_FORMAT)
+    private String createTime;
 
-	@JpaSelectIgnoreField
-	Sorteds sort;
+    @JpaSelectIgnoreField
+    Sorteds sort;
 
-	public Sorteds getSort() {
-		return sort==null?new Sorteds():sort;
-	}
+    public Sorteds getSort() {
+        return sort == null ? new Sorteds() : sort;
+    }
 }

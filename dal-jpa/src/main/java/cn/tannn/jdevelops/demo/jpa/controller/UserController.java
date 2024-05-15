@@ -1,5 +1,6 @@
 package cn.tannn.jdevelops.demo.jpa.controller;
 
+import cn.tannn.jdevelops.annotations.jpa.JpaSelectOperator;
 import cn.tannn.jdevelops.demo.jpa.controller.pojo.*;
 import cn.tannn.jdevelops.demo.jpa.entity.User;
 import cn.tannn.jdevelops.demo.jpa.service.UserService;
@@ -305,5 +306,18 @@ public class UserController {
         return ResultPageVO.success(JpaPageResult.toPage(userService.findPage(find, find.getPage())));
     }
 
+
+
+
+    /**
+     * 测试 {@link JpaSelectOperator 组合}
+     *
+     * @param user UserFindDTO
+     * @return User
+     */
+    @PostMapping("jpaSelectOperator")
+    public ResultVO<List<User>> jpaSelectOperator(@RequestBody UserFindDTO user) {
+        return ResultVO.success(userService.finds(user));
+    }
 
 }
