@@ -1,4 +1,4 @@
-package cn.tannn.jdevelops.demo.jpa;
+package cn.tannn.jdevelops.demo.jpa.entityManager;
 
 import cn.tannn.jdevelops.demo.jpa.entity.User;
 import cn.tannn.jdevelops.demo.jpa.service.UserService;
@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
  * @date 2024/5/15 下午8:24
  */
 @SpringBootTest
-public class EntityManagerTest {
+public class EntityManagerBasicTest {
 
     @Autowired
     private UserService userService;

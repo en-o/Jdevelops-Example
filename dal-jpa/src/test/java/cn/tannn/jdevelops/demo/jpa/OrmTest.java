@@ -2,6 +2,7 @@ package cn.tannn.jdevelops.demo.jpa;
 
 import cn.tannn.jdevelops.demo.jpa.dao.UserDao;
 import cn.tannn.jdevelops.demo.jpa.entity.User;
+import cn.tannn.jdevelops.demo.jpa.entityManager.EntityManagerBasicTest;
 import cn.tannn.jdevelops.demo.jpa.service.UserService;
 import cn.tannn.jdevelops.jpa.service.J2Service;
 import org.junit.jupiter.api.Test;
@@ -9,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.util.List;
 
 
 /**
@@ -41,7 +40,7 @@ class OrmTest {
     /**
      * 在 service 层 获取 EntityManager
      * <p> 删改增都要加事务
-     * @see EntityManagerTest
+     * @see EntityManagerBasicTest
      */
     @Test
     void genServiceEntityManager() {
