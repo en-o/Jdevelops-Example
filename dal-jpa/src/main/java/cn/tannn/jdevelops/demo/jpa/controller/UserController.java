@@ -4,6 +4,7 @@ import cn.tannn.jdevelops.demo.jpa.controller.pojo.DeleteUser;
 import cn.tannn.jdevelops.demo.jpa.controller.pojo.PageUser;
 import cn.tannn.jdevelops.demo.jpa.controller.pojo.RegisterUser;
 import cn.tannn.jdevelops.demo.jpa.controller.pojo.UpdateUser;
+import cn.tannn.jdevelops.demo.jpa.dto.FindOnly3;
 import cn.tannn.jdevelops.demo.jpa.dto.UserFindDTO;
 import cn.tannn.jdevelops.demo.jpa.entity.User;
 import cn.tannn.jdevelops.demo.jpa.service.UserService;
@@ -170,7 +171,7 @@ public class UserController {
      * @return User
      */
     @GetMapping("findOnly3")
-    public ResultVO<User> findOnly3(@RequestBody UserFindDTO user) {
+    public ResultVO<User> findOnly3(@RequestBody FindOnly3 user) {
         Specification<User> spec = EnhanceSpecification.beanWhere(user);
         return ResultVO.success(userService.findOnly(spec).get());
     }
@@ -194,7 +195,7 @@ public class UserController {
     @GetMapping("finds2")
     public ResultVO<List<User>> finds2(@RequestParam("fieldName") String fieldName
             , @RequestParam("operator") SQLOperator operator
-            , @RequestParam(value = "value", required = false) String value) {
+            , @RequestParam(value = "value", required = false) String... value) {
         return ResultVO.success(userService.finds(fieldName, operator, value));
     }
 
@@ -211,7 +212,7 @@ public class UserController {
     public ResultVO<List<User>> finds3(@RequestParam("fieldName") String fieldName
             , @RequestParam("operator") SQLOperator operator
             , @RequestBody Sorteds sort
-            , @RequestParam(value = "value", required = false) String value) {
+            , @RequestParam(value = "value", required = false) String... value) {
         return ResultVO.success(userService.finds(fieldName, operator, sort, value));
     }
 
