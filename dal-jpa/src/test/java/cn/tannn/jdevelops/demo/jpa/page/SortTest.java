@@ -32,7 +32,23 @@ public class SortTest {
                 .forEach( d -> System.out.println("phone:asc: "+d));
 
         userService.finds("address", SQLOperator.EQ, new Sorteds( 1, "phone"), "重庆")
-                .forEach( d -> System.out.println("phone:desc: "+d));;
+                .forEach( d -> System.out.println("phone:desc: "+d));
+
+        // 测试 Sorteds.fix order by user0_.phone asc
+        userService.finds("address", SQLOperator.EQ
+                        , new Sorteds( 0, "phone").fixSort("id")
+                        , "重庆")
+                .forEach( d -> System.out.println("fixSort:phone:asc: "+d));
+        // 测试 Sorteds.fix order by user0_.id asc
+        userService.finds("address", SQLOperator.EQ
+                        , new Sorteds()
+                        , "重庆")
+                .forEach( d -> System.out.println("fixSort:id:asc: "+d));
+        // 测试 Sorteds.fix order by user0_.phone asc
+        userService.finds("address", SQLOperator.EQ
+                        , new Sorteds( ).fixSort("phone")
+                        , "重庆")
+                .forEach( d -> System.out.println("fixSort:phone:asc: "+d));
     }
 
     /**
@@ -44,6 +60,10 @@ public class SortTest {
         userService.finds(spec.eq("address", "重庆", true, false)
                         , new Sorteds( 0, "phone"))
                 .forEach( d -> System.out.println("phone:asc: "+d));
+
+        userService.finds(spec.eq("address", "重庆", true, false)
+                        , new Sorteds( 1, "phone"))
+                .forEach( d -> System.out.println("phone:desc: "+d));
 
         userService.finds(spec.eq("address", "重庆", true, false)
                         , new Sorteds( 1, "phone"))
