@@ -140,7 +140,7 @@ public class RelationSelectTest {
 
 
 
-        // 使用  EnhanceSpecification 通过级联字段查询
+        // 使用  EnhanceSpecification 通过级联字段查询  selectKey: 要注意 = Company里的属性名.本身字段的属性名
         // from sys_company company0_
         // left outer join relation_company_address company0_1_
         // on company0_.id=company0_1_.id
