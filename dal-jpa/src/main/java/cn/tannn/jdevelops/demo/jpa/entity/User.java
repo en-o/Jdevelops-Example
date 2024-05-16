@@ -4,6 +4,7 @@ import cn.tannn.jdevelops.annotations.jpa.JpaSelectOperator;
 import cn.tannn.jdevelops.annotations.jpa.JpaUpdate;
 import cn.tannn.jdevelops.annotations.jpa.enums.SQLConnect;
 import cn.tannn.jdevelops.annotations.jpa.enums.SQLOperatorWrapper;
+import cn.tannn.jdevelops.result.utils.UUIDUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -120,5 +121,17 @@ public class User extends CommonBean<User> {
 	@Override
 	public int hashCode() {
 		return getClass().hashCode();
+	}
+
+	public static User create(String name,String address, String loginName, String phone){
+		User user = new User();
+		user.setUserNo(UUIDUtils.getInstance().generateShortUuid());
+		user.setName(name);
+		user.setAddress(address);
+		user.setLoginName(loginName);
+		user.setLoginPwd("123");
+		user.setPhone(phone);
+		user.setUserIcon("http://21231");
+		return user;
 	}
 }

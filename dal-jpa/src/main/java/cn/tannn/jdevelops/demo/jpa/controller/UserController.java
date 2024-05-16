@@ -92,7 +92,7 @@ public class UserController {
     @DeleteMapping("delete2")
     public ResultVO<String> delete2(@RequestParam("fieldName") String fieldName
             , @RequestParam(value = "value") String value) {
-        userService.delete(fieldName, value);
+        userService.deleteEq(fieldName, value);
         return ResultVO.success();
     }
 
