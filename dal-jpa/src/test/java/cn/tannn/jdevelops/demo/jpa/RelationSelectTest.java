@@ -114,29 +114,32 @@ public class RelationSelectTest {
         companyService.findPage(companyFind2, new Pagings()).forEach(System.out::println);
     }
 
-//    /**
-//     * 通过级联的实体查询 - Specifications.where Bean
-//     */
-//    @Test
-//    void testRelationSelect_address2() {
-//        // 通过级联的实体查询
-//        // from sys_address address0_ where address0_.code=?
-//        Address byCode = addressDao.findByCode("100");
-//        companyService.finds(ColumnUtil.getFieldName(Address::getCode), SQLOperator.EQ, byCode).forEach(System.out::println);
-//    }
+    /**
+     * 通过级联的实体查询 - Specifications.where Bean
+     */
+    @Test
+    void testRelationSelect_address2() {
+        // 通过级联的实体查询
+        // from sys_address address0_ where address0_.code=?
+        Address byCode = addressDao.findByCode("100");
+        companyService.finds(ColumnUtil.getFieldName(Company::getAddress), SQLOperator.EQ, byCode).forEach(System.out::println);
+
+        companyService.finds("address", SQLOperator.EQ, byCode).forEach(System.out::println);
+    }
 
     /**
      *  查询通过地址查询 - Specifications.where attribute
      */
     @Test
     void testRelationSelect_address3(){
-//        Address byCode = new Address();
-//        // 只能通过id查询，其他的不行,如果能值得得到id就不用像上面那种先查询一次了
-//        byCode.setId(2L);
-//        // from sys_company company0_
-//        // left outer join relation_company_address company0_1_
-//        // on company0_.id=company0_1_.id where company0_1_.address_id=?
-//        companyService.finds("Company::getAddress",byCode).forEach(System.out::println);
+        Address byCode = new Address();
+        // 只能通过id查询，其他的不行,如果能值得得到id就不用像上面那种先查询一次了
+        byCode.setId(1791026544826945536L);
+
+        // from sys_company company0_
+        // left outer join relation_company_address company0_1_
+        // on company0_.id=company0_1_.id where company0_1_.address_id=?
+        companyService.finds(ColumnUtil.getFieldName(Company::getAddress),SQLOperator.EQ, byCode).forEach(System.out::println);
 
 
 
