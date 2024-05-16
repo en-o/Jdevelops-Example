@@ -33,7 +33,9 @@ public class SortTest {
 
         userService.finds("address", SQLOperator.EQ, new Sorteds( 1, "phone"), "重庆")
                 .forEach( d -> System.out.println("phone:desc: "+d));
+    }
 
+    @Test void fixSort(){
         // 测试 Sorteds.fix order by user0_.phone asc
         userService.finds("address", SQLOperator.EQ
                         , new Sorteds( 0, "phone").fixSort("id")
