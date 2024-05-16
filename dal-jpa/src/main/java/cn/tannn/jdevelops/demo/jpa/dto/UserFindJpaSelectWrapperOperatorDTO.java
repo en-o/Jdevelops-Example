@@ -1,7 +1,6 @@
 package cn.tannn.jdevelops.demo.jpa.dto;
 
 import cn.tannn.jdevelops.annotations.jpa.JpaSelectIgnoreField;
-import cn.tannn.jdevelops.annotations.jpa.JpaSelectNullField;
 import cn.tannn.jdevelops.annotations.jpa.JpaSelectOperator;
 import cn.tannn.jdevelops.annotations.jpa.enums.SQLOperatorWrapper;
 import cn.tannn.jdevelops.annotations.jpa.enums.SpecBuilderDateFun;

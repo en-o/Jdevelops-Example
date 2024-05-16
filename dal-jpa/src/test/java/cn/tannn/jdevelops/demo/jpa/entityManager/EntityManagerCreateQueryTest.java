@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 /**
- * 简单示例
+ * 测试 j2service entity manageer createQuery 简单示例
  *
  * <p> https://developer.aliyun.com/article/885236
  *

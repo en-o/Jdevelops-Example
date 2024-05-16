@@ -4,8 +4,6 @@ import cn.tannn.jdevelops.demo.jpa.entity.User;
 import cn.tannn.jdevelops.demo.jpa.page.dto.UserFind;
 import cn.tannn.jdevelops.demo.jpa.service.UserService;
 import cn.tannn.jdevelops.jpa.request.Pagings;
-import cn.tannn.jdevelops.jpa.request.Sorteds;
-import cn.tannn.jdevelops.jpa.utils.SpecificationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
-import static cn.hutool.core.collection.IterUtil.forEach;
-
 /**
- * 测试分页
+ * 测试 j2service 分页
  *
  * @author <a href="https://tannn.cn/">tan</a>
  * @date 2024/5/16 上午10:08

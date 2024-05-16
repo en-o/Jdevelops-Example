@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 
 /**
- * 简单示例
+ * 测试 j2service entity manageer 简单示例
  *
  * <p> https://developer.aliyun.com/article/885236
  *

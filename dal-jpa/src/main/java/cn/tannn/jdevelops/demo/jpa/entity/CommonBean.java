@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.*;
 
-import javax.persistence.*;
 import javax.persistence.AccessType;
+import javax.persistence.*;
 
 /**
  * 公共的实体类

@@ -1,7 +1,6 @@
 package cn.tannn.jdevelops.demo.jpa.controller.pojo;
 
 import cn.tannn.jdevelops.annotations.jpa.JpaSelectIgnoreField;
-import cn.tannn.jdevelops.jpa.request.PagingSorteds;
 import cn.tannn.jdevelops.jpa.request.Pagings;
 import lombok.Data;
 

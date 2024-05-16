@@ -4,7 +4,6 @@ import cn.tannn.jdevelops.annotations.jpa.JpaSelectOperator;
 import cn.tannn.jdevelops.annotations.jpa.JpaUpdate;
 import cn.tannn.jdevelops.annotations.jpa.enums.SQLConnect;
 import cn.tannn.jdevelops.annotations.jpa.enums.SQLOperatorWrapper;
-import cn.tannn.jdevelops.jpa.constant.SQLOperator;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

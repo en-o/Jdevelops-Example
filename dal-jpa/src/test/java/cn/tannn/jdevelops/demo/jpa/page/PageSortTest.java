@@ -2,10 +2,7 @@ package cn.tannn.jdevelops.demo.jpa.page;
 
 import cn.tannn.jdevelops.demo.jpa.page.dto.UserFind;
 import cn.tannn.jdevelops.demo.jpa.service.UserService;
-import cn.tannn.jdevelops.jpa.constant.SQLOperator;
 import cn.tannn.jdevelops.jpa.request.PagingSorteds;
-import cn.tannn.jdevelops.jpa.request.Pagings;
-import cn.tannn.jdevelops.jpa.request.Sorteds;
 import cn.tannn.jdevelops.result.request.Sorted;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -13,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * 测试分页排序
+ * 测试 j2service 分页排序
  *
  * @author <a href="https://tannn.cn/">tan</a>
  * @date 2024/5/16 上午10:09

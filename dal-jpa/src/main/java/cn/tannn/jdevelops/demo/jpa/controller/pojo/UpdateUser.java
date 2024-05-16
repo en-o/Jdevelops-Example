@@ -1,6 +1,5 @@
 package cn.tannn.jdevelops.demo.jpa.controller.pojo;
 
-import cn.hutool.core.date.DateTime;
 import cn.tannn.jdevelops.annotations.jpa.JpaUpdate;
 import cn.tannn.jdevelops.jpa.constant.SQLOperator;
 import cn.tannn.jdevelops.jpa.service.J2Service;

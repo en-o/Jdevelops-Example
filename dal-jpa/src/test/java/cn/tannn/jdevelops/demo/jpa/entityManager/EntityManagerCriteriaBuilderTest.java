@@ -14,7 +14,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
- * CriteriaBuilder
+ * 测试 j2service entity manageer CriteriaBuilder 简单示例
  *
  * @author <a href="https://tannn.cn/">tnnn</a>
  * @version V1.0

@@ -14,7 +14,7 @@ import javax.persistence.TypedQuery;
 
 
 /**
- * 测试 {@link J2Service#getJpaBasicsDao()}  {@link J2Service#getEntityManager()}
+ * 测试 j2service  {@link J2Service#getJpaBasicsDao()}  {@link J2Service#getEntityManager()}
  */
 @SpringBootTest
 class OrmTest {
