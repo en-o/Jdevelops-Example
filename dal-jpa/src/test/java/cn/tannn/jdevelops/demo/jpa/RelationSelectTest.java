@@ -7,6 +7,7 @@ import cn.tannn.jdevelops.demo.jpa.entity.Company;
 import cn.tannn.jdevelops.demo.jpa.service.CompanyService;
 import cn.tannn.jdevelops.jpa.constant.SQLOperator;
 import cn.tannn.jdevelops.jpa.request.Pagings;
+import cn.tannn.jdevelops.jpa.select.EnhanceSpecification;
 import cn.tannn.jdevelops.result.bean.ColumnUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,11 +125,11 @@ public class RelationSelectTest {
 //        companyService.finds(ColumnUtil.getFieldName(Address::getCode), SQLOperator.EQ, byCode).forEach(System.out::println);
 //    }
 
-//    /**
-//     *  查询通过地址查询 - Specifications.where attribute
-//     */
-//    @Test
-//    void testRelationSelect_address3(){
+    /**
+     *  查询通过地址查询 - Specifications.where attribute
+     */
+    @Test
+    void testRelationSelect_address3(){
 //        Address byCode = new Address();
 //        // 只能通过id查询，其他的不行,如果能值得得到id就不用像上面那种先查询一次了
 //        byCode.setId(2L);
@@ -136,18 +137,20 @@ public class RelationSelectTest {
 //        // left outer join relation_company_address company0_1_
 //        // on company0_.id=company0_1_.id where company0_1_.address_id=?
 //        companyService.finds("Company::getAddress",byCode).forEach(System.out::println);
-//
-//        // 自定义模拟 findBeanList
-//        // from sys_company company0_
-//        // left outer join relation_company_address company0_1_
-//        // on company0_.id=company0_1_.id
-//        // left outer join sys_address address1_
-//        // on company0_1_.address_id=address1_.id
-//        // where address1_.path=?
-//        Specification<Company> where = Specifications.where(e -> e.eq(true,
-//                "address.path",
-//                "重庆"));
-//        companyService.getJpaBasicsDao().findAll(where).forEach(System.out::println);
-//    }
+
+
+
+        // 使用  EnhanceSpecification 通过级联字段查询
+        // from sys_company company0_
+        // left outer join relation_company_address company0_1_
+        // on company0_.id=company0_1_.id
+        // left outer join sys_address address1_
+        // on company0_1_.address_id=address1_.id
+        // where address1_.path=?
+        Specification<Company> where = EnhanceSpecification.where(e -> e.eq(true,
+                "address.path",
+                "重庆"));
+        companyService.getJpaBasicsDao().findAll(where).forEach(System.out::println);
+    }
 
 }
