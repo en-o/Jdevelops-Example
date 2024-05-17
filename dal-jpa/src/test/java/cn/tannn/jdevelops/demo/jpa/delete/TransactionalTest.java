@@ -23,7 +23,7 @@ public class TransactionalTest {
      */
     @Test
     void normalDelete(){
-        userService.delete("userNo", "delete6");
+        userService.deleteEq("userNo", "delete6");
     }
 
     /**
@@ -32,7 +32,7 @@ public class TransactionalTest {
     @Test
     @Transactional(rollbackFor = Exception.class)
     void testDeleteTransactional() {
-        userService.delete("userNo", "delete6");
+        userService.deleteEq("userNo", "delete6");
         System.out.println(1 / 0);
     }
 
@@ -41,7 +41,7 @@ public class TransactionalTest {
      */
     @Test
     void testDeleteTransactional1(){
-        userService.delete("userNo", "delete6");
+        userService.deleteEq("userNo", "delete6");
         System.out.println(1/0);
     }
 
@@ -53,7 +53,7 @@ public class TransactionalTest {
     @Transactional(rollbackFor = Exception.class)
     @Rollback(value = false)// 事务自动回滚，默认是true。可以不写
     void testDeleteTransactional2(){
-        userService.delete("userNo", "delete6");
+        userService.deleteEq("userNo", "delete6");
         try {
             System.out.println(1/0);
         }catch (Exception e){
