@@ -3,3 +3,7 @@ spring:
     name: dal-jpa
   profiles:
     active: dev
+jdevelops:
+  swagger:
+    base-package: cn.tannn.jdevelops.demo.jpa
+    security-scheme-default: false
