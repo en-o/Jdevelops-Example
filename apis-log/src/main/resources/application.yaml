@@ -1,0 +1,25 @@
+spring:
+  profiles:
+    active: dev
+#logging:
+#  level:
+#    root: error
+#  org.springframework.boot: debug
+
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+jdevelops:
+  api:
+    log:
+      enabled: false
