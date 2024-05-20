@@ -102,8 +102,6 @@ public class AnnotationController {
     @PostMapping("/v7")
     @ApiLog(type = OperateType.GET,
             expression = "#{user}",
-            logResultData = false,
-            logArgs = false,
             description = "测试v7",
             chineseApi = "v7")
     public ResultVO<UserEntity> v7(@RequestBody UserEntity user, HttpServletRequest request, HttpServletResponse response) {
