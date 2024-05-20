@@ -97,7 +97,7 @@ public class AnnotationController {
 
 
     /**
-     * 不记录入参和出参 - 返回state : false
+     * 记录入参和出参 - 返回state : false
      */
     @PostMapping("/v7")
     @ApiLog(type = OperateType.GET,
@@ -108,5 +108,22 @@ public class AnnotationController {
         log.info("{}", user.toString());
         return ResultVO.fail(user);
     }
+
+
+    /**
+     * 不记录入参和出参 - 返回state : false
+     */
+    @PostMapping("/v8")
+    @ApiLog(type = OperateType.GET,
+            logResultData = false,
+            logArgs = false,
+            expression = "#{user}",
+            description = "测试v8",
+            chineseApi = "v8")
+    public ResultVO<UserEntity> v8(@RequestBody UserEntity user, HttpServletRequest request, HttpServletResponse response) {
+        log.info("{}", user.toString());
+        return ResultVO.fail(user);
+    }
+
 
 }
