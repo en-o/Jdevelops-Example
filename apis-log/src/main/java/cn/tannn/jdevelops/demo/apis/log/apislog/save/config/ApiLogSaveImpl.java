@@ -3,6 +3,7 @@ package cn.tannn.jdevelops.demo.apis.log.apislog.save.config;
 import cn.tannn.jdevelops.apis.log.ApiLogSave;
 import cn.tannn.jdevelops.apis.log.module.ApiMonitoring;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class ApiLogSaveImpl implements ApiLogSave {
     @Override
+    @Async("apiLogAsyncTaskExecutor")
     public void saveLog(ApiMonitoring apilog) {
        log.info("你可以做入库操作同时也可做数据库打印操作："+apilog.toString());
     }

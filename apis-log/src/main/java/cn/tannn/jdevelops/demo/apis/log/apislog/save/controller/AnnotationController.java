@@ -125,5 +125,19 @@ public class AnnotationController {
         return ResultVO.fail(user);
     }
 
-
+    /**
+     * 不记录入参和出参 和 不影响 GlobalApiLogPrint
+     */
+    @PostMapping("/v9")
+    @ApiLog(type = OperateType.GET,
+            expression = "#{user}",
+            logResultData = false,
+            logArgs = false,
+            description = "测试v9",
+            consolEenable = false,
+            chineseApi = "v9")
+    public ResultVO<UserEntity> v9(@RequestBody UserEntity user, HttpServletRequest request, HttpServletResponse response) {
+        log.info("{}", user.toString());
+        return ResultVO.success(user);
+    }
 }
