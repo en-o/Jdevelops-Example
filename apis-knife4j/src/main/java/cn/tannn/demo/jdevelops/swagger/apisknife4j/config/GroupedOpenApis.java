@@ -25,7 +25,7 @@ public class GroupedOpenApis {
         //  /** 表示 packagesToScan下的所有接口
         String[] pathsToMatch = { "/**" };
         // 需要扫描的包路径
-        String[] packagesToScan = {"cn.tannn.springbootparentswagger.groups.groupapi1"};
+        String[] packagesToScan = {"cn.tannn.demo.jdevelops.swagger.apisknife4j.groups.groupapi1"};
         return GroupedOpenApi.builder().group("api2")
                 .pathsToMatch(pathsToMatch)
                 // todo: Authorize 未生效，请求header里未包含参数 - 临时处理方法
@@ -37,7 +37,7 @@ public class GroupedOpenApis {
     public GroupedOpenApi api3(SwaggerProperties swaggerProperties){
         BuildSecuritySchemes buildSecuritySchemes = buildSecuritySchemes(swaggerProperties.getSwaggerSecuritySchemes());
         String[] pathsToMatch = { "/**" };
-        String[] packagesToScan = {"cn.tannn.springbootparentswagger.groups.groupapi2"};
+        String[] packagesToScan = {"cn.tannn.demo.jdevelops.swagger.apisknife4j.groups.groupapi2"};
         return GroupedOpenApi.builder().group("api3")
                 .pathsToMatch(pathsToMatch)
                 // todo: Authorize 未生效，请求header里未包含参数 - 临时处理方法

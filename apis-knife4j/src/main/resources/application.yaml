@@ -10,8 +10,8 @@ knife4j:
 jdevelops:
   swagger:
     base-package:
-      - cn.tannn.springbootparentswagger.controller
-      - cn.tannn.springbootparentswagger.api
+      - cn.tannn.demo.jdevelops.swagger.apisknife4j.controller
+      - cn.tannn.demo.jdevelops.swagger.apisknife4j.api
     security-scheme-default: true
     swagger-security-schemes:
       - {
