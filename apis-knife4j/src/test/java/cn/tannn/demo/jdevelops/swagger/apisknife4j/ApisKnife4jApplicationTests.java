@@ -1,4 +1,4 @@
-package cn.tannn.jdevelops.demo.swagger.apisknife4j;
+package cn.tannn.demo.jdevelops.swagger.apisknife4j;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
