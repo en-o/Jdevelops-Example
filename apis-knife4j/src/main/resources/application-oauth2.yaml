@@ -1,0 +1,31 @@
+
+jdevelops:
+  swagger:
+    base-package:
+      - cn.tannn.demo.jdevelops.swagger.apisknife4j.controller
+      - cn.tannn.demo.jdevelops.swagger.apisknife4j.api
+    security-scheme-default: true
+    swagger-security-schemes:
+      - {
+        security: false,
+        scheme:
+          {
+            in: HEADER,
+            type: APIKEY,
+            name: tokens,
+          }
+      }
+      - {
+        security: true,
+        scheme:
+          {
+            type: OAUTH2,
+            flows:{
+              password:
+                {
+                  token-url: http://ballcat-admin:8080/oauth/token
+                }
+            }
+          }
+      }
+debug: true
