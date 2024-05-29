@@ -1,9 +1,7 @@
 package cn.tannn.delayredis;
 
-import cn.jdevelops.delay.core.entity.DelayQueueMessage;
+import cn.tannn.jdevelops.delays.core.entity.DelayQueueMessage;
 import lombok.*;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeUtils;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 

@@ -1,9 +1,8 @@
 package cn.tannn.delayredis.execute;
 
-import cn.jdevelops.delay.core.entity.DelayQueueMessage;
-import cn.jdevelops.delay.core.execute.DelayExecute;
 import cn.tannn.delayredis.CustomDelayQueueMessage;
 import cn.tannn.delayredis.constant.RedisDelayMessageChannel;
+import cn.tannn.jdevelops.delays.core.execute.DelayExecute;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

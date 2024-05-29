@@ -1,7 +1,7 @@
 package cn.tannn.delayredis;
 
-import cn.jdevelops.delay.core.service.DelayService;
-import cn.jdevelops.delay.redis.RedisDelayService;
+import cn.tannn.jdevelops.delays.core.service.DelayService;
+import cn.tannn.jdevelops.delays.redis.RedisDelayService;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
