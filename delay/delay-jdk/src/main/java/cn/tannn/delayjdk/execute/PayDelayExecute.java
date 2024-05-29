@@ -1,8 +1,8 @@
 package cn.tannn.delayjdk.execute;
 
-import cn.jdevelops.delay.core.entity.DelayQueueMessage;
-import cn.jdevelops.delay.core.execute.DelayExecute;
 import cn.tannn.delayjdk.constant.JdkDelayMessageChannel;
+import cn.tannn.jdevelops.delays.core.entity.DelayQueueMessage;
+import cn.tannn.jdevelops.delays.core.execute.DelayExecute;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,7 @@
 package cn.tannn.delayjdk;
 
-import cn.jdevelops.delay.core.service.DelayService;
-import cn.jdevelops.delay.jdk.task.DelayTask;
+import cn.tannn.jdevelops.delays.core.service.DelayService;
+import cn.tannn.jdevelops.delays.jdk.task.DelayTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

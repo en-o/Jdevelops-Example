@@ -1,8 +1,8 @@
 package cn.tannn.delayjdk.controller;
 
-import cn.jdevelops.delay.core.service.DelayService;
-import cn.jdevelops.delay.jdk.task.DelayTask;
 import cn.tannn.delayjdk.constant.JdkDelayMessageChannel;
+import cn.tannn.jdevelops.delays.core.service.DelayService;
+import cn.tannn.jdevelops.delays.jdk.task.DelayTask;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
