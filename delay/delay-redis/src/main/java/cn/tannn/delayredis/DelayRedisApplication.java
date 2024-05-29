@@ -1,7 +1,7 @@
 package cn.tannn.delayredis;
 
-import cn.jdevelops.delay.core.entity.DelayQueueMessage;
-import cn.jdevelops.delay.core.service.DelayService;
+import cn.tannn.jdevelops.delays.core.entity.DelayQueueMessage;
+import cn.tannn.jdevelops.delays.core.service.DelayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

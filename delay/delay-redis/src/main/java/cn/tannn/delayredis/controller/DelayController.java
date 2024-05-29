@@ -1,8 +1,8 @@
 package cn.tannn.delayredis.controller;
 
-import cn.jdevelops.delay.core.entity.DelayQueueMessage;
-import cn.jdevelops.delay.core.service.DelayService;
 import cn.tannn.delayredis.constant.RedisDelayMessageChannel;
+import cn.tannn.jdevelops.delays.core.entity.DelayQueueMessage;
+import cn.tannn.jdevelops.delays.core.service.DelayService;
 import com.alibaba.fastjson2.JSON;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
