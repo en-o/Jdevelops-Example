@@ -1,13 +1,18 @@
 //package cn.tannn.delayredis.service;
 //
-//import cn.jdevelops.delay.core.entity.DelayQueueMessage;
-//import cn.jdevelops.delay.core.factory.DelayFactory;
-//import cn.jdevelops.delay.core.service.DelayService;
+//import cn.tannn.jdevelops.delays.core.entity.DelayQueueMessage;
+//import cn.tannn.jdevelops.delays.core.factory.DelayFactory;
+//import cn.tannn.jdevelops.delays.core.service.DelayService;
+//import cn.tannn.jdevelops.delays.redis.RedisDelayService;
 //import com.alibaba.fastjson2.JSON;
 //import lombok.extern.slf4j.Slf4j;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
+//import org.springframework.dao.DataAccessException;
+//import org.springframework.data.redis.core.RedisOperations;
 //import org.springframework.data.redis.core.RedisTemplate;
+//import org.springframework.data.redis.core.SessionCallback;
+//import org.springframework.data.redis.core.ZSetOperations;
 //import org.springframework.data.redis.core.script.DefaultRedisScript;
 //import org.springframework.stereotype.Service;
 //import org.springframework.util.CollectionUtils;
@@ -17,7 +22,6 @@
 //import java.util.HashSet;
 //import java.util.List;
 //import java.util.Set;
-//import java.util.concurrent.DelayQueue;
 //import java.util.concurrent.ScheduledThreadPoolExecutor;
 //import java.util.concurrent.TimeUnit;
 //import java.util.concurrent.atomic.AtomicInteger;
@@ -32,7 +36,7 @@
 //@Slf4j
 //public class RefactorRedisDelayService implements DelayService<DelayQueueMessage> {
 //
-//    private static final Logger logger = LoggerFactory.getLogger(cn.jdevelops.delay.redis.RedisDelayService.class);
+//    private static final Logger logger = LoggerFactory.getLogger(RefactorRedisDelayService.class);
 //
 //    @Resource
 //    private RedisTemplate<String, String> redisTemplate;
@@ -77,6 +81,31 @@
 //            produce(message);
 //        });
 //    }
+//
+//    @Override
+//    public void cancel(String delayMessage) {
+//        logger.warn("===> redis delete delay  at risk , new  data may be lost, delete value: {}", delayMessage);
+//        // 获取有序集合操作对象
+//        ZSetOperations<String, String> zSetOps = redisTemplate.opsForZSet();
+//        // 开启事务
+//        SessionCallback<Object> callback = new SessionCallback<Object>() {
+//            @Override
+//            public Object execute(RedisOperations operations) throws DataAccessException {
+//                operations.multi(); // 标记事务开始
+//                zSetOps.remove(DELAY_QUEUE, delayMessage);
+//                // 执行其他操作...
+//                return operations.exec(); // 提交事务
+//            }
+//        };
+//        redisTemplate.execute(callback);
+//    }
+//
+//    @Override
+//    public void cancel(DelayQueueMessage delayMessage) {
+//        String value = JSON.toJSONString(delayMessage);
+//        cancel(value);
+//    }
+//
 //
 //    @Override
 //    public void consumeDelay() {
