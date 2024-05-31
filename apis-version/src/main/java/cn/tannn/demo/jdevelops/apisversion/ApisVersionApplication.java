@@ -1,13 +1,13 @@
-package com.example.jdevelopsapiversiondemo;
+package cn.tannn.demo.jdevelops.apisversion;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JdevelopsApiVersionDemoApplication {
+public class ApisVersionApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(JdevelopsApiVersionDemoApplication.class, args);
+        SpringApplication.run(ApisVersionApplication.class, args);
     }
 
 }
