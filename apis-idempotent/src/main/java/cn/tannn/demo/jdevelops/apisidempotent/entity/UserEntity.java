@@ -1,4 +1,4 @@
-package com.example.jdevelopsapiidempotentdemo.entity;
+package cn.tannn.demo.jdevelops.apisidempotent.entity;
 
 /**
  * @author tnnn

@@ -1,13 +1,13 @@
-package com.example.jdevelopsapiidempotentdemo;
+package cn.tannn.demo.jdevelops.apisidempotent;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JdevelopsApiIdempotentDemoApplication {
+public class ApisIdempotentApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(JdevelopsApiIdempotentDemoApplication.class, args);
+        SpringApplication.run(ApisIdempotentApplication.class, args);
     }
 
 }

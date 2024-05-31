@@ -1,7 +1,5 @@
-package com.example.jdevelopsapiidempotentdemo;
+package cn.tannn.demo.jdevelops.apisidempotent;
 
-import cn.jdevelops.api.idempotent.annotation.ApiIdempotent;
-import cn.jdevelops.api.result.response.ResultVO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

@@ -5,41 +5,47 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.9</version>
+        <version>2.7.15</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>jdevelops-api-idempotent-demo</artifactId>
+    <groupId>cn.tannn.jdevelops</groupId>
+    <artifactId>apis-idempotent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>jdevelops-api-idempotent-demo</name>
-    <description>jdevelops-api-idempotent-demo</description>
+    <name>apis-idempotent</name>
+    <description>apis-idempotent</description>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>8</java.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!--idempotent -->
         <dependency>
-            <groupId>cn.jdevelops</groupId>
-            <artifactId>jdevelops-api-idempotent</artifactId>
-            <version>2.0.7</version>
+            <groupId>cn.tannn.jdevelops</groupId>
+            <artifactId>jdevelops-apis-idempotent</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>cn.jdevelops</groupId>
-            <artifactId>jdevelops-caches-redis</artifactId>
-            <version>2.0.7</version>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+        </dependency>
+        <!--idempotent -->
+
+        <dependency>
+            <groupId>cn.tannn.jdevelops</groupId>
+            <artifactId>jdevelops-apis-exception</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>cn.jdevelops</groupId>
-            <artifactId>jdevelops-api-exception</artifactId>
-            <version>2.0.7</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.jdevelops</groupId>
-            <artifactId>jdevelops-api-log</artifactId>
-            <version>2.0.7</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -53,6 +59,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
