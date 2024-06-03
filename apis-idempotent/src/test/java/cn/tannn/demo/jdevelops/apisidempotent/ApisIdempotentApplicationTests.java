@@ -1,4 +1,4 @@
-package cn.tannn.jdevelops.apisidempotent;
+package cn.tannn.demo.jdevelops.apisidempotent;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

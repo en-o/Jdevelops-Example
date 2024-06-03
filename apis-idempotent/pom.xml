@@ -8,7 +8,7 @@
         <version>2.7.15</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>cn.tannn.jdevelops</groupId>
+    <groupId>cn.tannn.jdevelops.demo.idempotent</groupId>
     <artifactId>apis-idempotent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>apis-idempotent</name>
@@ -19,13 +19,13 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <!--idempotent -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
         <dependency>
             <groupId>cn.tannn.jdevelops</groupId>
             <artifactId>jdevelops-apis-idempotent</artifactId>
