@@ -42,6 +42,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+        <!-- 测试多个 redisTemplate bean存在的时候 -->
+        <dependency>
+            <groupId>cn.tannn.jdevelops</groupId>
+            <artifactId>jdevelops-apis-idempotent</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.tannn.jdevelops</groupId>
+            <artifactId>jdevelops-apis-exception</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
