@@ -2,6 +2,8 @@ package cn.tannn.demo.jdevelops.apisidempotent;
 
 import cn.tannn.demo.jdevelops.apisidempotent.entity.UserEntity;
 import cn.tannn.demo.jdevelops.apisidempotent.entity.UserEntity2;
+import cn.tannn.jdevelops.idempotent.annotation.ApiIdempotent;
+import cn.tannn.jdevelops.result.response.ResultVO;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
