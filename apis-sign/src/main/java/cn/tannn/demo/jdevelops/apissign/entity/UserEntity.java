@@ -1,4 +1,4 @@
-package com.example.jdevelopsapisigndemo.entity;
+package cn.tannn.demo.jdevelops.apissign.entity;
 
 import lombok.*;
 

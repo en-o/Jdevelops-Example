@@ -1,9 +1,9 @@
-package com.example.jdevelopsapisigndemo.controller;
+package cn.tannn.demo.jdevelops.apissign.controller;
 
-import cn.jdevelops.api.result.response.ResultVO;
-import cn.jdevelops.api.sign.annotation.Signature;
-import cn.jdevelops.api.sign.enums.SginEnum;
-import com.example.jdevelopsapisigndemo.entity.UserEntity;
+import cn.tannn.demo.jdevelops.apissign.entity.UserEntity;
+import cn.tannn.jdevelops.result.response.ResultVO;
+import cn.tannn.jdevelops.sign.annotation.Signature;
+import cn.tannn.jdevelops.sign.enums.SginEnum;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -25,7 +25,7 @@ public class SignParamsMD5Controller {
     @GetMapping(value = "/isSign")
     @Signature(type = SginEnum.ANY)
     public ResultVO<String> isSign(String name, String age) {
-        return ResultVO.successForData(name + age);
+        return ResultVO.success(name + age);
     }
 
     /**
@@ -35,7 +35,7 @@ public class SignParamsMD5Controller {
     @GetMapping(value = "/isSignMD5")
     @Signature(type = SginEnum.MD5)
     public ResultVO<String> isSignMD5(String name, String age) {
-        return ResultVO.successForData(name + age);
+        return ResultVO.success(name + age);
     }
 
 
@@ -46,7 +46,7 @@ public class SignParamsMD5Controller {
     @GetMapping(value = "/isSignMD5Bean")
     @Signature(type = SginEnum.MD5)
     public ResultVO<UserEntity> isSignMD5Bean(UserEntity UserEntity) {
-        return ResultVO.successForData(UserEntity);
+        return ResultVO.success(UserEntity);
     }
 
     /**
@@ -56,7 +56,7 @@ public class SignParamsMD5Controller {
     @PostMapping(value = "/isSignMD5BeanP")
     @Signature(type = SginEnum.MD5)
     public ResultVO<UserEntity> isSignMD5BeanP(UserEntity userEntity) {
-        return ResultVO.successForData(userEntity);
+        return ResultVO.success(userEntity);
     }
 
     /**
@@ -66,7 +66,7 @@ public class SignParamsMD5Controller {
     @Signature(type = SginEnum.MD5)
     public ResultVO<UserEntity> isSignMD5BeanPJson(@RequestBody(required = false) UserEntity userEntity) {
         System.out.println("userEntity.toString() = " + userEntity.toString());
-        return ResultVO.successForData(userEntity);
+        return ResultVO.success(userEntity);
     }
 
 }

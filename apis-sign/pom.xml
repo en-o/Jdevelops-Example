@@ -5,37 +5,38 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.9</version>
+        <version>2.7.15</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>jdevelops-api-sign-demo</artifactId>
+    <groupId>cn.tannn.demo.jdevelops</groupId>
+    <artifactId>apis-sign</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>jdevelops-api-sign-demo</name>
-    <description>jdevelops-api-sign-demo</description>
+    <name>apis-sign</name>
+    <description>apis-sign</description>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>8</java.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- 验签 -->
+        <!-- 接口验签 -->
         <dependency>
-            <groupId>cn.jdevelops</groupId>
-            <artifactId>jdevelops-api-sign</artifactId>
-            <version>2.0.7</version>
+            <groupId>cn.tannn.jdevelops</groupId>
+            <artifactId>jdevelops-apis-sign</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!-- 全局异常 -->
+        <!-- 异常 -->
         <dependency>
-            <groupId>cn.jdevelops</groupId>
-            <artifactId>jdevelops-api-exception</artifactId>
-            <version>2.0.7</version>
+            <groupId>cn.tannn.jdevelops</groupId>
+            <artifactId>jdevelops-apis-exception</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -43,9 +44,14 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -55,6 +61,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>

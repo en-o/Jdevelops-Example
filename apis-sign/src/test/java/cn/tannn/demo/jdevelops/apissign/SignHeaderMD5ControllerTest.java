@@ -1,9 +1,9 @@
-package com.example.jdevelopsapisigndemo.controller;
+package cn.tannn.demo.jdevelops.apissign;
 
+import cn.tannn.demo.jdevelops.apissign.entity.UserEntity;
+import cn.tannn.demo.jdevelops.apissign.utils.SignUtil;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import com.example.jdevelopsapisigndemo.entity.UserEntity;
-import com.example.jdevelopsapisigndemo.utils.SignUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;

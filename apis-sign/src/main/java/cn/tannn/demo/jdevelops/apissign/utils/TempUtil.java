@@ -1,4 +1,4 @@
-package com.example.jdevelopsapisigndemo.utils;
+package cn.tannn.demo.jdevelops.apissign.utils;
 
 import com.alibaba.fastjson2.JSONObject;
 import org.apache.commons.beanutils.PropertyUtilsBean;

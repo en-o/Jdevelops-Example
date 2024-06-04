@@ -1,10 +1,9 @@
-package com.example.jdevelopsapisigndemo.controller;
+package cn.tannn.demo.jdevelops.apissign.controller;
 
-import cn.jdevelops.api.result.response.ResultVO;
-import cn.jdevelops.api.sign.annotation.Signature;
-import cn.jdevelops.api.sign.enums.SginEnum;
-import com.alibaba.fastjson2.JSONObject;
-import com.example.jdevelopsapisigndemo.entity.UserEntity;
+import cn.tannn.demo.jdevelops.apissign.entity.UserEntity;
+import cn.tannn.jdevelops.result.response.ResultVO;
+import cn.tannn.jdevelops.sign.annotation.Signature;
+import cn.tannn.jdevelops.sign.enums.SginEnum;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -23,7 +22,7 @@ public class SignParamsSHAController {
     @GetMapping(value = "/isSignSHA")
     @Signature(type = SginEnum.SHA)
     public ResultVO<String> isSignSHA(String name, String age){
-        return ResultVO.successForData(name+age);
+        return ResultVO.success(name+age);
     }
 
 
@@ -33,7 +32,7 @@ public class SignParamsSHAController {
     @GetMapping(value = "/isSignSHABean")
     @Signature(type = SginEnum.SHA)
     public ResultVO<UserEntity> isSignSHABean(UserEntity userEntity){
-        return ResultVO.success(JSONObject.toJSONString(userEntity));
+        return ResultVO.success(userEntity);
     }
 
     /**
@@ -42,7 +41,7 @@ public class SignParamsSHAController {
     @PostMapping(value = "/isSignSHABeanP")
     @Signature(type = SginEnum.SHA)
     public ResultVO<UserEntity> isSignSHABeanP(UserEntity userEntity){
-        return ResultVO.successForData(userEntity);
+        return ResultVO.success(userEntity);
     }
 
     /**
@@ -52,6 +51,6 @@ public class SignParamsSHAController {
     @Signature(type = SginEnum.SHA)
     public ResultVO<UserEntity> isSignSHABeanPJson(@RequestBody UserEntity userEntity){
         System.out.println("userEntity.toString() = " + userEntity.toString());
-        return ResultVO.successForData(userEntity);
+        return ResultVO.success(userEntity);
     }
 }

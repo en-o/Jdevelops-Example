@@ -1,9 +1,9 @@
-package com.example.jdevelopsapisigndemo.controller;
+package cn.tannn.demo.jdevelops.apissign.controller;
 
-import cn.jdevelops.api.result.response.ResultVO;
-import cn.jdevelops.api.sign.annotation.Signature;
-import cn.jdevelops.api.sign.enums.SginEnum;
-import com.example.jdevelopsapisigndemo.entity.UserEntity;
+import cn.tannn.demo.jdevelops.apissign.entity.UserEntity;
+import cn.tannn.jdevelops.result.response.ResultVO;
+import cn.tannn.jdevelops.sign.annotation.Signature;
+import cn.tannn.jdevelops.sign.enums.SginEnum;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class SignHeaderMD5Controller {
     @Signature(type = SginEnum.MD5HEADER)
     public ResultVO<UserEntity> isSignMD5BeanPJsonH(@RequestBody UserEntity userEntity) {
         System.out.println("userEntity.toString() = " + userEntity.toString());
-        return ResultVO.successForData(userEntity);
+        return ResultVO.success(userEntity);
     }
 
     /**
@@ -39,7 +39,7 @@ public class SignHeaderMD5Controller {
     @GetMapping(value = "/isSignMD5BeanH")
     @Signature(type = SginEnum.MD5HEADER)
     public ResultVO<UserEntity> isSignMD5BeanH(UserEntity userEntity) {
-        return ResultVO.successForData(userEntity);
+        return ResultVO.success(userEntity);
     }
 
     /**
@@ -49,7 +49,7 @@ public class SignHeaderMD5Controller {
     @PostMapping(value = "/isSignMD5ListBeanPH")
     @Signature(type = SginEnum.MD5HEADER)
     public ResultVO<List<UserEntity>> isSignMD5ListBeanPH(@RequestBody List<UserEntity> list) {
-        return ResultVO.successForData(list);
+        return ResultVO.success(list);
     }
 
 

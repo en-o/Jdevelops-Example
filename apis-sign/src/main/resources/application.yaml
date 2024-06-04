@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: apis-sign
+jdevelops:
+  apisign:
+    salt: ataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

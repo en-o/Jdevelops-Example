@@ -1,13 +1,11 @@
-package com.example.jdevelopsapisigndemo.controller;
+package cn.tannn.demo.jdevelops.apissign;
 
-
+import cn.tannn.demo.jdevelops.apissign.entity.UserEntity;
+import cn.tannn.demo.jdevelops.apissign.entity.UserEntity2;
+import cn.tannn.demo.jdevelops.apissign.utils.SignUtil;
+import cn.tannn.demo.jdevelops.apissign.utils.TempUtil;
 import com.alibaba.fastjson2.JSONObject;
-import com.example.jdevelopsapisigndemo.entity.UserEntity;
-import com.example.jdevelopsapisigndemo.entity.UserEntity2;
-import com.example.jdevelopsapisigndemo.utils.SignUtil;
-import com.example.jdevelopsapisigndemo.utils.TempUtil;
 import org.apache.commons.beanutils.BeanUtils;
-import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -16,8 +14,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Map;
 
@@ -25,14 +23,13 @@ import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 /**
- * Signature(type = SginEnum.MD5)
+ * @Signature(type = SginEnum.SHA)
  */
 @RunWith(MockitoJUnitRunner.class)
 @AutoConfigureMockMvc
 @SpringBootTest
-class SignParamsMD5ControllerTest {
+class SignParamsSHAControllerTest {
 
     /**
      * 模拟mvc测试对象
@@ -41,29 +38,16 @@ class SignParamsMD5ControllerTest {
     private MockMvc mockMvc;
 
     /**
-     * 不签名
+     * 验证SHA加密 get 拼接
      */
     @Test
-    void isSign() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/params/md5/isSign")
-                .contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.success", Is.is(true)))
-                .andReturn();
-    }
-
-    /**
-     * 验证MD5加密 - get 拼接
-     */
-    @Test
-    void isSignMD5() throws Exception {
-
+    void isSignSHA() throws Exception {
         String userParams = String.format("name=%s&age=%s", "谭宁", "123");
         // 获取加密串
-        String sign = SignUtil.getMd5SignBymap2Str(userParams);
+        String sign = SignUtil.getShaSign(userParams);
         String userParamsOK =  String.format(userParams+"&sign=%s", sign);
         // 正确
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/params/md5/isSignMD5?"+userParamsOK))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/params/sha/isSignSHA?"+userParamsOK))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(true)))
                 .andReturn();
@@ -71,34 +55,34 @@ class SignParamsMD5ControllerTest {
         // - 模拟数据中途被篡改
         // 参数顺序错误  加密顺序 age,name  传入参数顺序name,age ()，get方式强制严重参数顺序
         String userParamsSortError = String.format("age=%s&name=%s", "123", "谭宁");
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/params/md5/isSignMD5?"+userParamsSortError))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/params/sha/isSignSHA?"+userParamsSortError))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect(jsonPath("$.message", is("接口签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
 
         // 数据更改
         String userParamsUpdateError = String.format("name=%s&age=%s", "谭宁", "13123");
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/params/md5/isSignMD5?"+userParamsUpdateError))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/params/sha/isSignSHA?"+userParamsUpdateError))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect(jsonPath("$.message", is("接口签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
     }
 
     /**
-     * 验证MD5加密 - get bean 拼接
+     * 验证SHA加密Map 拼接
      */
     @Test
-    void isSignMD5Bean() throws Exception {
+    void isSignSHABean() throws Exception {
         UserEntity user = UserEntity.builder().age("123").name("谭宁").build();
         Map<String, Object> beanToMap = TempUtil.beanToMap(user);
-        // 获取加密串
-        String sign = SignUtil.getMd5SignByMap2Str(beanToMap);
         String userParams = SignUtil.map2Str(beanToMap);
+        // 获取加密串
+        String sign = SignUtil.getShaSign(userParams);
         String userParamsOK =  String.format(userParams+"&sign=%s", sign);
         // 正确
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/params/md5/isSignMD5Bean?"+userParamsOK)
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/params/sha/isSignSHABean?"+userParamsOK)
                 .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(true)))
@@ -110,24 +94,24 @@ class SignParamsMD5ControllerTest {
         Map<String, Object> beanToUpdateMap = TempUtil.beanToMap(userUpdate);
         String userUpdateParams = SignUtil.map2Str(beanToUpdateMap);
         String userParamsUpdateError =  String.format(userUpdateParams+"&sign=%s", sign);
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/params/md5/isSignMD5Bean?"+userParamsUpdateError)
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/params/sha/isSignSHABean?"+userParamsUpdateError)
                 .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect( jsonPath("$.message", is("接口签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
     }
 
     /**
-     * 验证MD5加密 - post bean
+     * POST验证SHA加密Bean
      */
     @Test
-    void isSignMD5BeanP() throws Exception {
+    void isSignSHABeanP() throws Exception {
         UserEntity user = UserEntity.builder().age("123").name("谭宁").build();
         // 获取加密串
-        String sign = SignUtil.getMd5SignBymap2Str(SignUtil.map2Str(TempUtil.beanToLinkedHashMap(user)));
+        String sign = SignUtil.getShaSign(SignUtil.map2Str(TempUtil.beanToLinkedHashMap(user)));
         // 正确
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/params/md5/isSignMD5BeanP")
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/params/sha/isSignSHABeanP")
                 .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
                 .param("name","谭宁")
                 .param("age","123")
@@ -138,41 +122,40 @@ class SignParamsMD5ControllerTest {
 
         // - 模拟数据中途被篡改
         // 参数顺序错误 加密顺序name,age,   传入参数顺序 age,name
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/params/md5/isSignMD5BeanP")
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/params/sha/isSignSHABeanP")
                 .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
                 .param("age","123")
                 .param("name","谭宁")
                 .param("sign",sign))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect(jsonPath("$.message", is("接口签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
 
         // 数据更改
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/params/md5/isSignMD5BeanP")
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/params/sha/isSignSHABeanP")
                 .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
                 .param("name","谭E宁")
                 .param("age","123")
                 .param("sign",sign))
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect(jsonPath("$.message", is("接口签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
     }
 
     /**
-     * 验证MD5加密 - post json
-     * 注意 传入的bean要用 LinkedHashMap 装，因为要强制验证顺序
+     * POST验证SHA加密BeanJson
      */
     @Test
-    void isSignMD5BeanPJson() throws Exception {
+    void isSignSHABeanPJson() throws Exception {
         UserEntity user = UserEntity.builder().age("123").name("谭宁").build();
         UserEntity2 userEntity2 = new UserEntity2();
         BeanUtils.copyProperties(userEntity2, user);
         // 获取加密串
-        String sign = SignUtil.getMd5SignByBean2LinkedHashMap2Str(user);
+        String sign = SignUtil.getShaSign(SignUtil.map2Str(TempUtil.beanToLinkedHashMap(user)));
         userEntity2.setSign(sign);
         // 正确
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/params/md5/isSignMD5BeanPJson")
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/params/sha/isSignSHABeanPJson")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 // 注意 传入的bean要用 LinkedHashMap 装，因为要强制验证顺序
                 .content(JSONObject.toJSONString(TempUtil.beanToLinkedHashMap(userEntity2))))
@@ -182,24 +165,24 @@ class SignParamsMD5ControllerTest {
 
         // - 模拟数据中途被篡改
         // 参数顺序错误 加密顺序name,age,   传入参数顺序 age,name
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/params/md5/isSignMD5BeanPJson")
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/params/sha/isSignSHABeanPJson")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 // 无序传入
                 .content(JSONObject.toJSONString(userEntity2)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect(jsonPath("$.message", is("接口签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
 
 //        // 数据更改
         userEntity2.setName("tatt");
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/params/md5/isSignMD5BeanPJson")
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/params/sha/isSignSHABeanPJson")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 // 注意 传入的bean要用 LinkedHashMap 装，因为要强制验证顺序
                 .content(JSONObject.toJSONString(TempUtil.beanToLinkedHashMap(userEntity2))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success", is(false)))
-                .andExpect(jsonPath("$.message", is("接口签名不正确")))
+                .andExpect((ResultMatcher) jsonPath("$.message", is("接口签名不正确")))
                 .andReturn();
     }
 }
