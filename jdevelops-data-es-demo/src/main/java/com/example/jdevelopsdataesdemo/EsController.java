@@ -1,12 +1,5 @@
 package com.example.jdevelopsdataesdemo;
 
-import co.elastic.clients.elasticsearch._types.Result;
-import com.example.jdevelopsdataesdemo.entity.TestResArticleESNestedChild2;
-
-import java.time.LocalDateTime;
-
-import com.example.jdevelopsdataesdemo.entity.TestResArticleESNestedChild;
-
 import cn.jdevelops.api.result.response.ResultVO;
 import cn.jdevelops.api.result.util.uuid.UUIDUtils;
 import cn.jdevelops.data.es.core.ElasticService;
@@ -18,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 
 /**

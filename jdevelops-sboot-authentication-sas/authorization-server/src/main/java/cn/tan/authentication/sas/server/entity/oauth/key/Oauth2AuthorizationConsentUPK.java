@@ -1,6 +1,9 @@
 package cn.tan.authentication.sas.server.entity.oauth.key;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.Comment;
 import org.springframework.security.core.userdetails.UserDetails;
 

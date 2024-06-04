@@ -1,6 +1,5 @@
 package cn.tan.authentication.sas.server.config.password;
 
-import cn.tan.authentication.sas.error.CustomAuthenticationException;
 import cn.tan.authentication.sas.server.constant.OAuth2Constant;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

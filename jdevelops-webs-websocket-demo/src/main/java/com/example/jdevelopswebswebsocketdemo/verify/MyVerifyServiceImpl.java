@@ -4,9 +4,6 @@ import cn.jdevelops.util.jwt.constant.JwtConstant;
 import cn.jdevelops.util.jwt.core.JwtService;
 import cn.jdevelops.webs.websocket.CommonConstant;
 import cn.jdevelops.webs.websocket.service.VerifyService;
-import cn.jdevelops.webs.websocket.util.SocketUtil;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;

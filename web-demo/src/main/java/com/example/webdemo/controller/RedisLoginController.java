@@ -5,7 +5,6 @@ import cn.jdevelops.api.annotation.mapping.PathRestController;
 import cn.jdevelops.api.result.response.ResultVO;
 import cn.jdevelops.sboot.authentication.jredis.entity.RedisAccount;
 import cn.jdevelops.sboot.authentication.jredis.entity.sign.RedisSignEntity;
-
 import cn.jdevelops.sboot.authentication.jredis.service.RedisLoginService;
 import cn.jdevelops.sboot.authentication.jredis.util.RsJwtWebUtil;
 import cn.jdevelops.sboot.authentication.jwt.annotation.ApiMapping;

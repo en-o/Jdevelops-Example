@@ -2,14 +2,11 @@ package com.example.webdemo.controller;
 
 
 import cn.jdevelops.api.annotation.mapping.PathRestController;
-import cn.jdevelops.api.result.response.ResultVO;
-import cn.jdevelops.sboot.authentication.jredis.entity.sign.RedisSignEntity;
 import cn.jdevelops.sboot.authentication.jredis.util.RsJwtWebUtil;
 import cn.jdevelops.sboot.authentication.jwt.server.LoginService;
 import cn.jdevelops.util.jwt.entity.SignEntity;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;

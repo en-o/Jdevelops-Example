@@ -1,7 +1,5 @@
 package cn.tan.authentication.sas.error;
 
-import cn.jdevelops.api.result.emums.ExceptionCode;
-import cn.jdevelops.api.result.emums.TokenExceptionCode;
 import cn.tan.authentication.sas.error.respone.ResponseUtil;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;

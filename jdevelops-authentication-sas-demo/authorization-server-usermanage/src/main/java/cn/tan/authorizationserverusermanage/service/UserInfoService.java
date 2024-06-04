@@ -1,6 +1,5 @@
 package cn.tan.authorizationserverusermanage.service;
 
-import cn.tan.authorizationserverusermanage.dao.UserInfoDao;
 import org.springframework.stereotype.Service;
 
 /**

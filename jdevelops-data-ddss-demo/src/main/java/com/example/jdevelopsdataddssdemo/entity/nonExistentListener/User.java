@@ -7,7 +7,6 @@ import lombok.ToString;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.persistence.*;
 

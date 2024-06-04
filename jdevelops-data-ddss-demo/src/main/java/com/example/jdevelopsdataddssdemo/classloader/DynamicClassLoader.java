@@ -1,6 +1,5 @@
 package com.example.jdevelopsdataddssdemo.classloader;
 
-import com.example.jdevelopsdataddssdemo.JdevelopsDataDdssDemoApplication;
 import com.example.jdevelopsdataddssdemo.controller.DriverController;
 
 import java.io.File;

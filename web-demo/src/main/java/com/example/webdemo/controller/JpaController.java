@@ -1,14 +1,11 @@
 package com.example.webdemo.controller;
 
 import cn.jdevelops.api.annotation.mapping.PathRestController;
-import cn.jdevelops.api.result.request.SortDTO;
 import cn.jdevelops.api.result.response.ResultPageVO;
 import cn.jdevelops.api.result.response.ResultVO;
 import cn.jdevelops.api.result.util.ListTo;
 import cn.jdevelops.api.result.util.uuid.UUIDUtils;
 import cn.jdevelops.data.jap.page.JpaPageResult;
-import cn.jdevelops.data.jap.util.JPageUtil;
-import cn.jdevelops.data.jap.util.JpaUtils;
 import com.example.webdemo.controller.dto.UserFindDTO;
 import com.example.webdemo.controller.dto.UserPage;
 import com.example.webdemo.controller.dto.UserSort;
@@ -18,8 +15,9 @@ import com.example.webdemo.entity.User;
 import com.example.webdemo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 import java.util.List;

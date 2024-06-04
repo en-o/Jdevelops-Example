@@ -6,7 +6,6 @@ import cn.tannn.jdevelops.demo.jpa.entity.User;
 import cn.tannn.jdevelops.demo.jpa.lists.dto.UserComplexFind;
 import cn.tannn.jdevelops.demo.jpa.lists.dto.UserComplexFind2;
 import cn.tannn.jdevelops.demo.jpa.page.dto.UserFind;
-import cn.tannn.jdevelops.demo.jpa.service.UserService;
 import cn.tannn.jdevelops.jpa.select.EnhanceSpecification;
 import cn.tannn.jdevelops.jpa.utils.JpaUtils;
 import org.junit.jupiter.api.Test;

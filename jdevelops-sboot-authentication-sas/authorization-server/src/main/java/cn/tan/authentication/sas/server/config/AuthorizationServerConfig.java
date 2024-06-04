@@ -20,7 +20,6 @@ import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
-
 import org.apache.catalina.util.StandardSessionIdGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +52,10 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 
 import javax.annotation.Resource;
 import java.time.Instant;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 

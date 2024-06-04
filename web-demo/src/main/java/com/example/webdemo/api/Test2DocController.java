@@ -4,7 +4,6 @@ import cn.jdevelops.api.annotation.mapping.PathRestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 测试多包扫描 jdevelops.swagger.basePackage=cn.tannn.springbootparentswagger.controller,cn.tannn.springbootparentswagger.api

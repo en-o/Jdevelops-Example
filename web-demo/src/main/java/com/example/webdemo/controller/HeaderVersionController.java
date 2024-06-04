@@ -4,7 +4,6 @@ import cn.jdevelops.api.annotation.mapping.PathRestController;
 import cn.jdevelops.api.version.annotation.ApiVersion;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 版本

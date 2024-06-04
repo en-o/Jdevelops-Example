@@ -1,6 +1,5 @@
 package cn.tannn.jdevelops.demo.jpa.update.dto;
 
-import cn.tannn.jdevelops.annotations.jpa.JpaSelectOperator;
 import cn.tannn.jdevelops.annotations.jpa.JpaUpdate;
 import cn.tannn.jdevelops.jpa.constant.SQLOperator;
 import cn.tannn.jdevelops.jpa.service.J2Service;

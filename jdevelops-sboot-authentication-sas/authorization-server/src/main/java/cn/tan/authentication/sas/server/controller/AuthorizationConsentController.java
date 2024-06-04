@@ -15,13 +15,6 @@
  */
 package cn.tan.authentication.sas.server.controller;
 
-import java.security.Principal;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsent;
@@ -33,6 +26,9 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.security.Principal;
+import java.util.*;
 
 /**
  * 自定义授权

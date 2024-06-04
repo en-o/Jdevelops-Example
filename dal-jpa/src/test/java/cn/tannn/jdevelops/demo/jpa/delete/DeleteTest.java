@@ -3,7 +3,6 @@ package cn.tannn.jdevelops.demo.jpa.delete;
 import cn.tannn.jdevelops.demo.jpa.delete.dto.UserDelete;
 import cn.tannn.jdevelops.demo.jpa.entity.User;
 import cn.tannn.jdevelops.demo.jpa.service.UserService;
-import cn.tannn.jdevelops.demo.jpa.vo.UserVO;
 import cn.tannn.jdevelops.jpa.constant.SQLOperator;
 import cn.tannn.jdevelops.jpa.utils.SpecificationUtil;
 import org.junit.jupiter.api.Test;

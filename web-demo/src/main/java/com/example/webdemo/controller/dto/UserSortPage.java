@@ -1,7 +1,6 @@
 package com.example.webdemo.controller.dto;
 
 import cn.jdevelops.api.result.bean.SerializableBean;
-import cn.jdevelops.api.result.request.PageDTO;
 import cn.jdevelops.api.result.request.SortPageDTO;
 import cn.jdevelops.data.jap.annotation.JpaSelectIgnoreField;
 import cn.jdevelops.data.jap.annotation.JpaSelectOperator;

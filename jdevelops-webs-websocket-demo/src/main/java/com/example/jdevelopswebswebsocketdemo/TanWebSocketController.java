@@ -7,8 +7,6 @@ import org.jose4j.lang.JoseException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
-
 /**
  * @author tn
  * @ClassName WebSocketController

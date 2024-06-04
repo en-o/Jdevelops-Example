@@ -2,7 +2,10 @@ package cn.tan.authentication.sas.server.entity.oauth.key;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.Comment;
 import org.springframework.security.core.userdetails.UserDetails;
 

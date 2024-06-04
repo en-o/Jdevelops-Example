@@ -6,7 +6,6 @@ import lombok.ToString;
 import org.hibernate.annotations.Comment;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.core.oidc.OidcScopes;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

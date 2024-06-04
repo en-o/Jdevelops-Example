@@ -5,7 +5,6 @@ import cn.tannn.jdevelops.demo.jpa.entity.User;
 import cn.tannn.jdevelops.demo.jpa.service.UserService;
 import cn.tannn.jdevelops.jpa.constant.SQLOperator;
 import cn.tannn.jdevelops.jpa.exception.JpaException;
-import cn.tannn.jdevelops.jpa.request.Sorteds;
 import cn.tannn.jdevelops.jpa.utils.JpaUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

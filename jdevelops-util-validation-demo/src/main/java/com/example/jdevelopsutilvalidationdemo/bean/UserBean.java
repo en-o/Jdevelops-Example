@@ -6,7 +6,8 @@ import cn.jdevelops.uitl.validation.datetime.DateTime;
 import cn.jdevelops.uitl.validation.idcard.IdCard;
 import cn.jdevelops.uitl.validation.mobile.Mobile;
 import cn.jdevelops.uitl.validation.password.Password;
-import lombok.*;
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
 
 
 /**

@@ -4,7 +4,6 @@ import cn.tannn.jdevelops.apis.log.ApiLogSave;
 import cn.tannn.jdevelops.apis.log.module.ApiMonitoring;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
 
 /**
  * 重新实现ApiLog日志保存方法

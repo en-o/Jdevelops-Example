@@ -1,6 +1,5 @@
 package cn.tan.authentication.sas.server.config.mobile;
 
-import cn.tan.authentication.sas.server.config.password.PasswordGrantAuthenticationProvider;
 import cn.tan.authentication.sas.server.constant.OAuth2Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
