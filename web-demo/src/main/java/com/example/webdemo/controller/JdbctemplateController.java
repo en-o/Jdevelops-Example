@@ -30,7 +30,7 @@ public class JdbctemplateController {
     public ResultVO<UserVO> findById(){
         User byId = userService.findById(1);
         UserVO userVO = byId.to(UserVO.class);
-        return ResultVO.successForData(userVO);
+        return ResultVO.success(userVO);
     }
 
     @Operation(summary = "findByBean")
@@ -41,6 +41,6 @@ public class JdbctemplateController {
         userBO.setLoginName("admin");
         User byBean = userService.findByBean(userBO);
         UserVO userVO = byBean.to(UserVO.class);
-        return ResultVO.successForData(userVO);
+        return ResultVO.success(userVO);
     }
 }

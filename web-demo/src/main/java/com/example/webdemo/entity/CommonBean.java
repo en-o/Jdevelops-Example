@@ -1,7 +1,7 @@
 package com.example.webdemo.entity;
 
 
-import cn.jdevelops.data.jap.entity.JpaAuditFields;
+import cn.jdevelops.data.jap.modle.JpaAuditFields;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
