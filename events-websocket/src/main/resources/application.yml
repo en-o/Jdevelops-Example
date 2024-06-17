@@ -1,0 +1,7 @@
+jdevelops:
+  websocket:
+    multipart: true
+    on-close: true
+    verify-path-no: true
+    token-name: tn
+    token-secret: 123
