@@ -1,4 +1,4 @@
-package com.example.jdevelopseventredisdemo;
+package cn.tannn.demo.jdevelops.eventsredis;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,14 +36,15 @@ public class RedisMessageController {
      */
     @GetMapping(value = "/syncmessage")
     public String SyncMessage(){
-        for(int i = 1; i <= 5; i++){
-            try{
-                // 为了模拟消息，sleep一下。
-                Thread.sleep(2000);
-            }catch(InterruptedException ex){}
-            template.convertAndSend("tn", String.format("tn - 我是消息{%d}号: %tT", i, new Date()));
-        }
-
+        new Thread( () -> {
+            for(int i = 1; i <= 5; i++){
+                try{
+                    // 为了模拟消息，sleep一下。
+                    Thread.sleep(2000);
+                }catch(InterruptedException ex){}
+                template.convertAndSend("tn", String.format("tn - 我是消息{%d}号: %tT", i, new Date()));
+            }
+        }).start();
         return "success";
     }
 

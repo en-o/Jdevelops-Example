@@ -1,14 +1,14 @@
-package com.example.jdevelopseventredisdemo;
+package cn.tannn.demo.jdevelops.eventsredis;
 
 
-import cn.jdevelops.event.redis.server.RedisReceiverServer;
+import cn.tannn.jdevelops.events.redis.server.RedisReceiverServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.stereotype.Service;
 
 /**
- * 消息监听数据展示实现了
+ * 自定义 项目里的订阅处理方式 - 默认控制台打印
  * @author tn
  * @date 2020-09-11 10:36
  */
