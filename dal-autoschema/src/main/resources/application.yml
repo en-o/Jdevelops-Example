@@ -1,18 +1,21 @@
 spring:
   profiles:
-    active: pgsql
-#    active: mysql
+#    active: pgsql
+    active: mysql
   application:
     name: AutoSchema
+#jdevelops:
+#  autoschema:
+#    enabled: true
+
 
 ---
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-#    url: jdbc:postgresql://192.168.0.173:5432/test_auto_schema?allowMultiQueries=true
-    url: jdbc:postgresql://192.168.1.141:8720/test_auto_schema
+    url: jdbc:postgresql://192.168.1.141:5432/test_auto_schema
+    password: pg2peter
     username: postgres
-    password: pg@detabes
     hikari:
         connection-timeout: 30000
         idle-timeout: 600000
@@ -61,6 +64,6 @@ spring:
   config:
     activate:
       on-profile: mysql
-jdevelops:
-  database:
-    init-script: db/create_schema_mysql.sql
+#jdevelops:
+#  database:
+#    init-script: db/create_schema_mysql.sql

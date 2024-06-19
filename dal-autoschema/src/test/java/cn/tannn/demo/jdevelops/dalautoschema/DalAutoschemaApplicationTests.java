@@ -1,10 +1,10 @@
-package com.example.jdevelopsdataautoschemademo;
+package cn.tannn.demo.jdevelops.dalautoschema;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JdevelopsDataAutoSchemaDemoApplicationTests {
+class DalAutoschemaApplicationTests {
 
     @Test
     void contextLoads() {
