@@ -9,12 +9,15 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.tannn.demo.jdevelops</groupId>
-    <artifactId>dal-autoschema</artifactId>
+    <artifactId>dal-ddss</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>dal-autoschema</name>
-    <description>dal-autoschema</description>
+    <name>dal-ddss</name>
+    <description>dal-ddss</description>
     <properties>
-        <java.version>8</java.version>
+        <java.version>1.8</java.version>
+        <jdevelops.version>2.0.7</jdevelops.version>
+        <sqljdbc4.version>4.0</sqljdbc4.version>
+        <postgresql.version>42.5.1</postgresql.version>
     </properties>
     <dependencies>
         <dependency>
@@ -26,21 +29,48 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- 动态数据源 -->
+        <dependency>
+            <groupId>cn.tannn.jdevelops</groupId>
+            <artifactId>jdevelops-dals-ddss</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!-- 自定建库 -->
         <dependency>
             <groupId>cn.tannn.jdevelops</groupId>
             <artifactId>jdevelops-dals-autoschema</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+        <!-- 辅助 -->
+        <dependency>
+            <groupId>cn.tannn.jdevelops</groupId>
+            <artifactId>jdevelops-apis-knife4j</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.tannn.jdevelops</groupId>
+            <artifactId>jdevelops-apis-exception</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!--驱动-->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!-- pgsql -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
+        </dependency>
+        <!--sqlserver-->
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>sqljdbc4</artifactId>
+            <version>${sqljdbc4.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
