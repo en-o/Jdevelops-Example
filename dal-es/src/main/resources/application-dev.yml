@@ -1,11 +1,11 @@
 spring:
   elasticsearch:
-    uris: 192.168.1.141:141
+    uris: 192.168.1.141:9200
     username: elastic
     password: elastic
     socket-timeout: 600000
     connection-timeout: 500000
 jdevelops:
   elasticsearch:
-    base-package: com.example.jdevelopsdataesdemo.entity
+    base-package: cn.tannn.demo.jdevelops.dales.entity
     socket-timeout: 60001

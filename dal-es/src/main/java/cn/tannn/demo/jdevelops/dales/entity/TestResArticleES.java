@@ -1,19 +1,18 @@
-package com.example.jdevelopsdataesdemo.entity;
+package cn.tannn.demo.jdevelops.dales.entity;
 
-
-import cn.jdevelops.annotation.es.EsField;
-import cn.jdevelops.annotation.es.EsFieldIgnore;
-import cn.jdevelops.annotation.es.EsIndex;
-import cn.jdevelops.annotation.es.basic.EsFieldBasic;
-import cn.jdevelops.annotation.es.constant.EsDdlAuto;
-import cn.jdevelops.annotation.es.constant.EsType;
+import cn.tannn.jdevelops.annotations.es.EsField;
+import cn.tannn.jdevelops.annotations.es.EsIndex;
+import cn.tannn.jdevelops.annotations.es.basic.EsFieldBasic;
+import cn.tannn.jdevelops.annotations.es.basic.EsFieldMultiType;
+import cn.tannn.jdevelops.annotations.es.constant.EsDdlAuto;
+import cn.tannn.jdevelops.annotations.es.constant.EsType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
 
-import static cn.jdevelops.annotation.es.constant.EsTypeDataFormat.*;
+import static cn.tannn.jdevelops.annotations.es.constant.EsTypeDataFormat.*;
 
 
 /**
@@ -25,8 +24,8 @@ import static cn.jdevelops.annotation.es.constant.EsTypeDataFormat.*;
 @Getter
 @Setter
 @ToString
-@EsIndex(name = "jdevelops_ignore_res_article", ddlAuto = EsDdlAuto.CREATE)
-public class IgnoreResArticleES {
+@EsIndex(name = "jdevelops_test_res_article", ddlAuto = EsDdlAuto.UPDATE)
+public class TestResArticleES {
 
 
     @EsField(basic = @EsFieldBasic(type = EsType.LONG, index = false))
@@ -35,27 +34,35 @@ public class IgnoreResArticleES {
     /**
      * 唯一标识ID
      */
-    @EsField(basic = @EsFieldBasic(type = EsType.keyword))
     String uid;
 
     /**
      * DOI
      */
-    @EsField(basic = @EsFieldBasic(type = EsType.keyword))
     String doi;
 
 
     /**
      * PMID
      */
-    @EsField(basic = @EsFieldBasic(type = EsType.keyword))
+    @EsField(basic = @EsFieldBasic(type = EsType.text, analyzer = "english"))
     String pmid;
 
 
     /**
      * PMCID
      */
-    @EsField(basic = @EsFieldBasic(type = EsType.keyword))
+    @EsField(
+            basic = @EsFieldBasic(type = EsType.text),
+            fields = {
+                    @EsFieldMultiType(
+                            alias = "PMCIDnickname",
+                            basic = @EsFieldBasic(
+                                    type = EsType.text,
+                                    analyzer = "english")
+                    )
+            }
+    )
     String pmcid;
 
 
@@ -81,10 +88,29 @@ public class IgnoreResArticleES {
     /**
      * 发布日期
      */
-    @EsField(basic = @EsFieldBasic(
-            type = EsType.date,
-            format = {YYYYMMDDHHMMSS,YYYYMMDD,YYYYMM,YYYY,EPOCH_MILLIS,STRICT_DATE_OPTIONAL_TIME}
-    ))
+
+    @EsField(
+            basic = @EsFieldBasic(
+                    type = EsType.date,
+                    format = {YYYYMMDDHHMMSS, YYYYMMDD, YYYYMM, YYYY, EPOCH_MILLIS, STRICT_DATE_OPTIONAL_TIME}
+            ),
+            fields = {
+                    @EsFieldMultiType(
+                            alias = "pubDate2",
+                            basic = @EsFieldBasic(
+                                    type = EsType.date,
+                                    format = {YYYYMMDDHHMMSS, YYYYMMDD, YYYYMM, YYYY, EPOCH_MILLIS, STRICT_DATE_OPTIONAL_TIME}
+                            )
+                    ),
+                    @EsFieldMultiType(
+                            alias = "pubDate3",
+                            basic = @EsFieldBasic(
+                                    type = EsType.date,
+                                    format = {YYYYMMDDHHMMSS, YYYYMMDD, YYYYMM, YYYY, EPOCH_MILLIS, STRICT_DATE_OPTIONAL_TIME}
+                            )
+                    )
+            }
+    )
     String pubDate;
 
     /**
@@ -166,10 +192,8 @@ public class IgnoreResArticleES {
     /**
      * 表示该字段为创建时间字段，在这个实体被insert的时候，会自动为其赋值
      */
-    @EsField(basic = @EsFieldBasic(
-            type = EsType.date,
-            format = {YYYYMMDDHHMMSS,YYYYMMDD,YYYYMM,YYYY,EPOCH_MILLIS,STRICT_DATE_OPTIONAL_TIME}
-    ))
+    @EsField(basic = @EsFieldBasic(type = EsType.date,
+            format = {YYYYMMDDHHMMSS, YYYYMMDD, YYYYMM, YYYY, EPOCH_MILLIS, STRICT_DATE_OPTIONAL_TIME}))
     private LocalDateTime createTime;
 
     /**
@@ -181,16 +205,25 @@ public class IgnoreResArticleES {
     /**
      * 表示该字段为修改时间字段，在这个实体被update的时候，会自动为其赋值
      */
-    @EsField(basic = @EsFieldBasic(
-            type = EsType.date,
-            format = {YYYYMMDDHHMMSS,YYYYMMDD,YYYYMM,YYYY,EPOCH_MILLIS,STRICT_DATE_OPTIONAL_TIME}
-    ))
-    @EsFieldIgnore
+    @EsField(basic = @EsFieldBasic(type = EsType.date,
+            format = {YYYYMMDDHHMMSS, YYYYMMDD, YYYYMM, YYYY, EPOCH_MILLIS, STRICT_DATE_OPTIONAL_TIME}))
     private LocalDateTime updateTime;
 
     /**
      * 表示该字段为修改人，在这个实体被update的时候，会自动为其赋值
      */
-    @EsFieldIgnore
+    @EsField(basic = @EsFieldBasic(type = EsType.keyword))
     private String updateUserName;
+
+    /**
+     * 测试嵌套
+     */
+    @EsField(basic = @EsFieldBasic(type = EsType.nested))
+    private TestResArticleESNestedChild nestedChild;
+
+    /**
+     * 测试嵌套
+     */
+    @EsField(basic = @EsFieldBasic(type = EsType.nested))
+    private TestResArticleESNestedChild2 nestedChild21;
 }

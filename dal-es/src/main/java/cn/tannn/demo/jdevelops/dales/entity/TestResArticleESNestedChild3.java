@@ -1,9 +1,9 @@
-package com.example.jdevelopsdataesdemo.entity;
+package cn.tannn.demo.jdevelops.dales.entity;
 
 
-import cn.jdevelops.annotation.es.EsField;
-import cn.jdevelops.annotation.es.basic.EsFieldBasic;
-import cn.jdevelops.annotation.es.constant.EsType;
+import cn.tannn.jdevelops.annotations.es.EsField;
+import cn.tannn.jdevelops.annotations.es.basic.EsFieldBasic;
+import cn.tannn.jdevelops.annotations.es.constant.EsType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,32 +17,29 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class TestResArticleESNestedChild2 {
+public class TestResArticleESNestedChild3 {
+
 
 
     /**
      * 唯一标识ID
      */
     @EsField(basic = @EsFieldBasic(type = EsType.keyword))
-    String fix2;
+    String fix3;
 
     /**
      * DOI
      */
     @EsField(basic = @EsFieldBasic(type = EsType.keyword))
-    String sex2;
+    String sex3;
 
 
     /**
      * PMID
      */
     @EsField(basic = @EsFieldBasic(type = EsType.keyword))
-    String name2;
+    String name3;
 
-    /**
-     * 测试嵌套
-     */
-    @EsField(basic = @EsFieldBasic(type = EsType.nested))
-    private TestResArticleESNestedChild3 nestedChild3;
+
 
 }

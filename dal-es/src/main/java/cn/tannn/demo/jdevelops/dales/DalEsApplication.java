@@ -1,13 +1,13 @@
-package com.example.jdevelopsdataesdemo;
+package cn.tannn.demo.jdevelops.dales;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JdevelopsDataEsDemoApplication {
+public class DalEsApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(JdevelopsDataEsDemoApplication.class, args);
+        SpringApplication.run(DalEsApplication.class, args);
     }
 
 }

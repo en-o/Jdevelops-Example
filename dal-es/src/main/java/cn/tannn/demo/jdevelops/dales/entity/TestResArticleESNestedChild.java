@@ -1,11 +1,11 @@
-package com.example.jdevelopsdataesdemo.entity;
+package cn.tannn.demo.jdevelops.dales.entity;
 
 
 
-import cn.jdevelops.annotation.es.EsField;
-import cn.jdevelops.annotation.es.basic.EsFieldBasic;
-import cn.jdevelops.annotation.es.basic.EsFieldMultiType;
-import cn.jdevelops.annotation.es.constant.EsType;
+import cn.tannn.jdevelops.annotations.es.EsField;
+import cn.tannn.jdevelops.annotations.es.basic.EsFieldBasic;
+import cn.tannn.jdevelops.annotations.es.basic.EsFieldMultiType;
+import cn.tannn.jdevelops.annotations.es.constant.EsType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

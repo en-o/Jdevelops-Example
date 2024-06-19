@@ -1,11 +1,11 @@
-package com.example.jdevelopsdataesdemo;
+package cn.tannn.demo.jdevelops.dales;
 
-import cn.jdevelops.api.result.response.ResultVO;
-import cn.jdevelops.api.result.util.uuid.UUIDUtils;
-import cn.jdevelops.data.es.core.ElasticService;
+import cn.tannn.demo.jdevelops.dales.entity.TestResArticleES;
+import cn.tannn.jdevelops.es.core.ElasticService;
+import cn.tannn.jdevelops.result.response.ResultVO;
+import cn.tannn.jdevelops.result.utils.UUIDUtils;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
-import com.example.jdevelopsdataesdemo.entity.TestResArticleES;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
