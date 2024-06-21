@@ -1,7 +1,7 @@
-package com.example.jdevelopsutilvalidationdemo.bean;
+package cn.tannn.demo.jdevelops.utilsvalidation.bean;
 
-import cn.jdevelops.uitl.desensitized.annotation.Cover;
-import cn.jdevelops.uitl.desensitized.enums.CoverRuleEnum;
+import cn.tannn.jdevelops.utils.desensitized.annotation.Cover;
+import cn.tannn.jdevelops.utils.desensitized.enums.CoverRuleEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

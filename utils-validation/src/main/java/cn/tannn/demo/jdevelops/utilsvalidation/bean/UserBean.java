@@ -1,13 +1,12 @@
-package com.example.jdevelopsutilvalidationdemo.bean;
+package cn.tannn.demo.jdevelops.utilsvalidation.bean;
 
-import cn.jdevelops.uitl.validation.account.Account;
-import cn.jdevelops.uitl.validation.cname.Cname;
-import cn.jdevelops.uitl.validation.datetime.DateTime;
-import cn.jdevelops.uitl.validation.idcard.IdCard;
-import cn.jdevelops.uitl.validation.mobile.Mobile;
-import cn.jdevelops.uitl.validation.password.Password;
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
+import cn.tannn.jdevelops.utils.validation.account.Account;
+import cn.tannn.jdevelops.utils.validation.cname.Cname;
+import cn.tannn.jdevelops.utils.validation.datetime.DateTime;
+import cn.tannn.jdevelops.utils.validation.idcard.IdCard;
+import cn.tannn.jdevelops.utils.validation.mobile.Mobile;
+import cn.tannn.jdevelops.utils.validation.password.Password;
+import lombok.*;
 
 
 /**
@@ -59,7 +58,6 @@ public class UserBean {
      */
     @Account
     String account;
-
 
 
 }
