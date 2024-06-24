@@ -25,6 +25,11 @@ class QueryTest {
     }
 
     @Test
+    void findByIdByBo() {
+        System.out.println(queryUserServiceImpl.findByIdByBo());
+    }
+
+    @Test
     void findById2() {
         System.out.println(queryUserServiceImpl.findById(2));
     }
@@ -66,7 +71,7 @@ class QueryTest {
 
     @Test
     void findIdByName() {
-        System.out.println(queryUserServiceImpl.findIdByName("超级管理员"));
+        System.out.println(queryUserServiceImpl.findIdByName("用户1"));
     }
 
 }

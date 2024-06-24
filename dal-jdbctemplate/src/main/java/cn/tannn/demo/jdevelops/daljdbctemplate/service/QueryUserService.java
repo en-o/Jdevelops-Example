@@ -25,6 +25,11 @@ public interface QueryUserService {
     @Query("select * from sys_user where id = 1 ")
     User findById();
 
+
+
+    @Query("select * from sys_user where id = 1 ")
+    UserBO findByIdByBo();
+
     @Query("select * from sys_user where id = #{id} ")
     User findById(Integer id);
 
