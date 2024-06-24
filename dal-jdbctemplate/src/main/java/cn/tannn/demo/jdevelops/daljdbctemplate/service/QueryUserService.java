@@ -3,7 +3,7 @@ package cn.tannn.demo.jdevelops.daljdbctemplate.service;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.User;
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserBO;
-import cn.tannn.jdevelops.jdectemplate.annotation.JdecTemplate;
+import cn.tannn.jdevelops.jdectemplate.annotation.JdbcTemplate;
 import cn.tannn.jdevelops.jdectemplate.annotation.Query;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2022-08-01 13:41
  */
 @Service
-@JdecTemplate
+@JdbcTemplate
 public interface QueryUserService {
 
 
