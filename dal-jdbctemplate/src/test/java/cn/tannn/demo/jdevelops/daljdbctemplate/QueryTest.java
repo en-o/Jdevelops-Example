@@ -85,16 +85,30 @@ class QueryTest {
     void findAllPage() {
 //        queryUserServiceImpl.findAllPage(new Paging(1, 2))
 //                .getRows().forEach(it -> System.out.printf(it.toString()));
-        System.out.println("第一页："+queryUserServiceImpl.findAllPage(new Paging(1, 2)));
-        System.out.println("第二页："+queryUserServiceImpl.findAllPage(new Paging(2, 2)));
+        System.out.println("第一页：" + queryUserServiceImpl.findAllPage(new Paging(1, 2)));
+        System.out.println("第二页：" + queryUserServiceImpl.findAllPage(new Paging(2, 2)));
     }
 
     @Test
     void findAllPage_2() {
 //        queryUserServiceImpl.findAllPage(new Paging(1, 2))
 //                .getRows().forEach(it -> System.out.printf(it.toString()));
-        System.out.println("第一页："+queryUserServiceImpl.findAllPage("111","重庆",new Paging(1, 2)));
-        System.out.println("第二页："+queryUserServiceImpl.findAllPage("111","重庆",new Paging(2, 2)));
+        System.out.println("第一页：" + queryUserServiceImpl.findAllPage("111", "重庆", new Paging(1, 2)));
+        System.out.println("第二页：" + queryUserServiceImpl.findAllPage("111", "重庆", new Paging(2, 2)));
     }
 
+    /**
+     * 排序 - 写死
+     */
+    @Test
+    void findAllOrderD() {
+        queryUserServiceImpl.findAllOrderD().forEach(it -> System.out.printf(it.toString()));
+    }
+    /**
+     * 排序 - 写死
+     */
+    @Test
+    void findAllOrderA() {
+        queryUserServiceImpl.findAllOrderA().forEach(it -> System.out.printf(it.toString()));
+    }
 }
