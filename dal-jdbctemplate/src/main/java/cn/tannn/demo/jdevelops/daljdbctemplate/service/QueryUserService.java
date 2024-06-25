@@ -50,6 +50,10 @@ public interface QueryUserService {
     @Query("select id from sys_user where name = '#{name}' ")
     Integer findIdByName(String name);
 
+    @Query("select * from sys_user where name = '#{name}' and address = '#{address}' ")
+    User findIdByNameAndAddress(String name,String address);
+
+
     @Query("select id from sys_user")
     List<Integer> findId();
 }

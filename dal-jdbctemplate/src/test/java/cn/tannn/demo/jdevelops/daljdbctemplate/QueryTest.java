@@ -74,4 +74,9 @@ class QueryTest {
         System.out.println(queryUserServiceImpl.findIdByName("用户1"));
     }
 
+    @Test
+    void findIdByName2() {
+        System.out.println(queryUserServiceImpl.findIdByNameAndAddress("111","重庆"));
+    }
+
 }
