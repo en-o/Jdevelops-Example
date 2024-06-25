@@ -97,6 +97,14 @@ class QueryTest {
         System.out.println("第二页：" + queryUserServiceImpl.findAllPage("111", "重庆", new Paging(2, 2)));
     }
 
+    @Test
+    void findAllPageByName() {
+//        queryUserServiceImpl.findAllPage(new Paging(1, 2))
+//                .getRows().forEach(it -> System.out.printf(it.toString()));
+        System.out.println("第一页：" + queryUserServiceImpl.findAllPageByName(new Paging(1, 2)));
+        System.out.println("第二页：" + queryUserServiceImpl.findAllPageByName(new Paging(2, 2)));
+    }
+
     /**
      * 排序 - 写死
      */

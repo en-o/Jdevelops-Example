@@ -66,6 +66,9 @@ public interface QueryUserService {
     @Query("select * from sys_user where name = '#{name}' and address = '#{address}'")
     PageResult<User> findAllPage(String name, String address, Paging paging);
 
+    // 分页
+    @Query("select name from sys_user")
+    PageResult<String> findAllPageByName(Paging paging);
 
     @Query("select * from sys_user order by id desc ")
     List<User> findAllOrderD();
