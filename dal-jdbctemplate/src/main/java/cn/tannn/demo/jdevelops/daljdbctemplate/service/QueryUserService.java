@@ -5,6 +5,8 @@ import cn.tannn.demo.jdevelops.daljdbctemplate.entity.User;
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserBO;
 import cn.tannn.jdevelops.annotations.jdbctemplate.JdbcTemplate;
 import cn.tannn.jdevelops.annotations.jdbctemplate.Query;
+import cn.tannn.jdevelops.result.request.Paging;
+import cn.tannn.jdevelops.result.response.PageResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +26,6 @@ public interface QueryUserService {
 
     @Query("select * from sys_user where id = 1 ")
     User findById();
-
 
 
     @Query("select * from sys_user where id = 1 ")
@@ -51,9 +52,17 @@ public interface QueryUserService {
     Integer findIdByName(String name);
 
     @Query("select * from sys_user where name = '#{name}' and address = '#{address}' ")
-    User findIdByNameAndAddress(String name,String address);
+    User findIdByNameAndAddress(String name, String address);
 
 
     @Query("select id from sys_user")
     List<Integer> findId();
+
+    // 分页
+    @Query("select * from sys_user")
+    PageResult<User> findAllPage(Paging paging);
+
+    // 分页
+    @Query("select * from sys_user where name = '#{name}' and address = '#{address}'")
+    PageResult<User> findAllPage(String name, String address, Paging paging);
 }

@@ -2,6 +2,7 @@ package cn.tannn.demo.jdevelops.daljdbctemplate;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserBO;
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserService;
+import cn.tannn.jdevelops.result.request.Paging;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ class QueryTest {
     void findAll() {
         queryUserServiceImpl.findAll().forEach(it -> System.out.printf(it.toString()));
     }
+
     @Test
     void findById() {
         System.out.println(queryUserServiceImpl.findById());
@@ -36,7 +38,7 @@ class QueryTest {
 
     @Test
     void findById3() {
-        Assertions.assertThrows(EmptyResultDataAccessException.class, () ->{
+        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
             queryUserServiceImpl.findById(10);
         });
     }
@@ -76,7 +78,23 @@ class QueryTest {
 
     @Test
     void findIdByName2() {
-        System.out.println(queryUserServiceImpl.findIdByNameAndAddress("111","重庆"));
+        System.out.println(queryUserServiceImpl.findIdByNameAndAddress("111", "重庆"));
+    }
+
+    @Test
+    void findAllPage() {
+//        queryUserServiceImpl.findAllPage(new Paging(1, 2))
+//                .getRows().forEach(it -> System.out.printf(it.toString()));
+        System.out.println("第一页："+queryUserServiceImpl.findAllPage(new Paging(1, 2)));
+        System.out.println("第二页："+queryUserServiceImpl.findAllPage(new Paging(2, 2)));
+    }
+
+    @Test
+    void findAllPage_2() {
+//        queryUserServiceImpl.findAllPage(new Paging(1, 2))
+//                .getRows().forEach(it -> System.out.printf(it.toString()));
+        System.out.println("第一页："+queryUserServiceImpl.findAllPage("111","重庆",new Paging(1, 2)));
+        System.out.println("第二页："+queryUserServiceImpl.findAllPage("111","重庆",new Paging(2, 2)));
     }
 
 }
