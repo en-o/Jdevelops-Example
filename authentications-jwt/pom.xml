@@ -29,6 +29,11 @@
         </dependency>
         <dependency>
             <groupId>cn.tannn.jdevelops</groupId>
+            <artifactId>jdevelops-authentications-jwt</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.tannn.jdevelops</groupId>
             <artifactId>jdevelops-apis-exception</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
