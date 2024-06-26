@@ -1,16 +1,12 @@
 package cn.tannn.demo.jdevelops.authenticationsjwt.interceptor;
 
-import cn.jdevelops.authentication.jredis.entity.only.StorageToken;
-import cn.jdevelops.authentication.jredis.service.RedisToken;
-import cn.jdevelops.authentication.jredis.service.RedisUserState;
-import cn.jdevelops.authentication.jwt.exception.ExpiredRedisException;
-import cn.jdevelops.authentication.jwt.server.CheckTokenInterceptor;
-import cn.jdevelops.spi.JoinSPI;
-import cn.jdevelops.util.jwt.util.JwtContextUtil;
+
+import cn.tannn.jdevelops.jwt.standalone.service.CheckTokenInterceptor;
+import cn.tannn.jdevelops.spi.JoinSPI;
+import cn.tannn.jdevelops.utils.jwt.core.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Objects;
 
 /**
  * redis 验证token 默认的redisinterceptor可以实现完整功能，这里只是测试下能不能在实现一次
@@ -26,24 +22,13 @@ public class ReRedisInterceptor implements CheckTokenInterceptor {
 
     @Override
     public boolean checkToken(String token) {
-        RedisToken jwtRedisService = JwtContextUtil.getBean(RedisToken.class);
-        StorageToken storageToken = jwtRedisService.verifyByToken(token);
-        return Objects.nonNull(storageToken) && storageToken.getToken().equalsIgnoreCase(token);
-    }
-    @Override
-    public void refreshToken(String token) {
-        RedisToken redisToken = JwtContextUtil.getBean(RedisToken.class);
-        redisToken.refreshByToken(token);
+        LOG.info("========> 定义token验证");
+        try {
+            return JwtService.validateTokenByBoolean(token);
+        }catch (Exception e){
+            LOG.error("验证token",e);
+        }
+        return false;
     }
 
-    /**
-     * 2.0.6 版本才有的功能
-     * @param token token
-     * @throws ExpiredRedisException Exception
-     */
-    @Override
-    public void checkUserStatus(String token) throws ExpiredRedisException {
-        RedisUserState redisUserState = JwtContextUtil.getBean(RedisUserState.class);
-        redisUserState.verifyByToken(token);
-    }
 }

@@ -1,0 +1,1 @@
+#defaultInterceptor=cn.tannn.demo.jdevelops.authenticationsjwt.interceptor.ReRedisInterceptor
