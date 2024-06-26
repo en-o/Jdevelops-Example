@@ -3,6 +3,7 @@ package cn.tannn.demo.jdevelops.authenticationsjwt.controller;
 import cn.tannn.demo.jdevelops.authenticationsjwt.bean.TestBean;
 import cn.tannn.demo.jdevelops.authenticationsjwt.reset.ReplaceResultVO;
 import cn.tannn.jdevelops.annotations.web.authentication.ApiMapping;
+import cn.tannn.jdevelops.jwt.standalone.pojo.TokenSign;
 import cn.tannn.jdevelops.jwt.standalone.service.LoginService;
 import cn.tannn.jdevelops.jwt.standalone.util.JwtWebUtil;
 import cn.tannn.jdevelops.result.response.ResultVO;
@@ -56,21 +57,21 @@ public class JwtController {
     }
 
     @GetMapping("/login")
-    public String token(){
+    public TokenSign token(){
         SignEntity<String> signEntity = new SignEntity<>("tan");
         signEntity.setMap("hi");
         return loginService.login(signEntity);
     }
 
     @ApiMapping(value = "/login2",checkToken = false)
-    public String token2(){
+    public TokenSign token2(){
         SignEntity<TestBean> signEntity = new SignEntity<>("tan",new TestBean("hi"));
         return loginService.login(signEntity);
     }
 
 
     @ApiMapping(value = "/login3",checkToken = false)
-    public String token3(){
+    public TokenSign token3(){
         Map<String, String> info = new HashMap<>();
         info.put("nickname","ning");
         SignEntity<Map<String, String>> signEntity = new SignEntity<>("tan",info);
@@ -78,7 +79,7 @@ public class JwtController {
     }
 
     @ApiMapping(value = "/login4", checkToken = false)
-    public String token4() {
+    public TokenSign token4() {
         Map<String, String> info = new HashMap<>();
         info.put("nickname", "ning");
         SignEntity<LoginJwtExtendInfo<Map<String, String>>> signEntity = new SignEntity<>("tan",
