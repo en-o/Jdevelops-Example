@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    password: sa
+    username: sa
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:sqlserver://127.0.0.1:1433;DatabaseName=test_p6spy;trustServerCertificate=true;
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000 # \u8FDE\u63A5\u6700\u5927\u5B58\u6D3B\u65F6\u95F4.\u4E0D\u7B49\u4E8E0\u4E14\u5C0F\u4E8E30\u79D2\uFF0C\u4F1A\u88AB\u91CD\u7F6E\u4E3A\u9ED8\u8BA4\u503C30\u5206\u949F(1800000).\u8BBE\u7F6E\u5E94\u8BE5\u6BD4mysql\u8BBE\u7F6E\u7684\u8D85\u65F6\u65F6\u95F4\u77ED
+      maximum-pool-size: 15 # ((core_count * 2) + effective_spindle_count)
+      pool-name: ${spring.application.name}
+      minimum-idle: 15 # \u548C\u6700\u5927\u8FDE\u63A5\u6570\u4FDD\u6301\u4E00\u81F4
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    database: sql_server

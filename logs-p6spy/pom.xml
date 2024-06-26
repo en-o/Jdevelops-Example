@@ -32,6 +32,7 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+<!--        com.microsoft.sqlserver.jdbc.SQLServerDriver-->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
