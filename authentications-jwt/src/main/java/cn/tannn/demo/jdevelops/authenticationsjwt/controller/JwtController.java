@@ -13,6 +13,7 @@ import cn.tannn.jdevelops.utils.jwt.module.SignEntity;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -118,6 +119,7 @@ public class JwtController {
     @Operation(summary = "解析token")
     @ApiOperationSupport(order = 10)
     @GetMapping("/parseJwt")
+    @Parameter(description = "0:login4, 1:login2, 2:login3, 其他:login1", name = "type")
     public SignEntity<Object> parseJwt(HttpServletRequest request, int type){
         if(type == 0){
             return JwtWebUtil.getTokenBySignEntity(request, LoginJwtExtendInfo.class);
