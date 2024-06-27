@@ -9,5 +9,12 @@ jdevelops:
     cookie:
       cookie: true
     verify-platform: true
+    oss:
+      enable: true
   swagger:
     base-package: cn.tannn.demo.jdevelops.authenticationsjwt.controller
+  oss:
+    local:
+      upload-dir: H:/test/file
+      contextPath: /image
+    browse-url: http://127.0.0.1:8080
