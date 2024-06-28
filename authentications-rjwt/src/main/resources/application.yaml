@@ -1,0 +1,22 @@
+# \u6570\u636E\u5E93\u914D\u7F6E
+spring:
+  redis:
+    database: 8
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
+jdevelops:
+  jwt:
+    expire-time: 100000
+    token-secret: b5c33a6f172f13f91500b6c437a78d2cc5e5e9973e7dee431a1e8c34e68d365e
+    web:
+      interceptor:
+        #  add-path-patterns: /**
+        exclude-path-patterns: [/letGo,/letGo2,/login]
+    cookie:
+      cookie: true
+    verify-platform: true
+    prefix: test
+    verify-permission: true
+  swagger:
+    base-package: cn.tannn.demo.jdevelops.authenticationsrjwt.controller
