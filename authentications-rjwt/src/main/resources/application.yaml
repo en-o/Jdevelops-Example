@@ -6,6 +6,11 @@ spring:
     port: 6379
     password: 123456
 jdevelops:
+  login:
+    limit:
+      prefix: ltest
+      limit: 6
+      expire-time: 60000
   jwt:
     expire-time: 100000
     token-secret: b5c33a6f172f13f91500b6c437a78d2cc5e5e9973e7dee431a1e8c34e68d365e
