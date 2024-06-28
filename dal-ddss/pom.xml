@@ -18,6 +18,7 @@
         <jdevelops.version>2.0.7</jdevelops.version>
         <sqljdbc4.version>4.0</sqljdbc4.version>
         <postgresql.version>42.5.1</postgresql.version>
+        <sqlserver.version>10.2.3.jre8</sqlserver.version>
     </properties>
     <dependencies>
         <dependency>
@@ -67,10 +68,16 @@
             <artifactId>postgresql</artifactId>
         </dependency>
         <!--sqlserver-->
+<!--        <dependency>-->
+<!--            <groupId>com.microsoft.sqlserver</groupId>-->
+<!--            <artifactId>sqljdbc4</artifactId>-->
+<!--            <version>${sqljdbc4.version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>sqljdbc4</artifactId>
-            <version>${sqljdbc4.version}</version>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>${sqlserver.version}</version>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
