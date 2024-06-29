@@ -15,7 +15,6 @@
     <description>delay-redis</description>
     <properties>
         <java.version>1.8</java.version>
-        <jdevelops.version>0.0.1-SNAPSHOT</jdevelops.version>
     </properties>
     <dependencies>
         <dependency>
@@ -26,12 +25,12 @@
         <dependency>
             <groupId>cn.tannn.jdevelops</groupId>
             <artifactId>jdevelops-delays-redis</artifactId>
-            <version>${jdevelops.version}</version>
+            <version>0.0.1</version>
         </dependency>
         <dependency>
             <groupId>cn.tannn.jdevelops</groupId>
             <artifactId>jdevelops-apis-knife4j</artifactId>
-            <version>${jdevelops.version}</version>
+            <version>0.0.2</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba.fastjson2</groupId>

@@ -24,7 +24,7 @@
 		<dependency>
 			<groupId>cn.tannn.jdevelops</groupId>
 			<artifactId>jdevelops-dals-jdbctemplate</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
