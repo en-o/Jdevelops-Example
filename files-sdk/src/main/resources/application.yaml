@@ -1,0 +1,35 @@
+jdevelops:
+  swagger:
+    base-package: cn.tannn.demo.jdevelops.filessdk.controller
+
+  oss:
+    master: local_storage
+    ftp:
+      config:
+        browse-url: http://127.0.0.1:8080/
+        port: 21
+        hostname: 127.0.0.1
+    #        use-prefix:
+    #        username: ftp
+    #        password: 123456
+    local:
+      config:
+        browse-url: http://127.0.0.1:8080/
+        upload-dir: H:/test/file
+        context-path: /images
+    qiniu:
+      config:
+        browse-url: https://oss.tannn.cn
+        https: true
+        access-key: ak
+        secret-key: sk
+        region-id: z0
+    minio:
+      config:
+        browse-url: https://oss.xx.com
+        upload-url: oss.xx.com
+        https: true
+        port: 443
+        access-key: ak
+        secret-key: sk
+
