@@ -106,7 +106,8 @@ public class User extends CommonBean<User> {
 	@Override
 	public String toString() {
 		return "User{" +
-				"userNo='" + userNo + '\'' +
+			   "id="  + getId() + '\'' +
+				", userNo='" + userNo + '\'' +
 				", name='" + name + '\'' +
 				", address='" + address + '\'' +
 				", loginName='" + loginName + '\'' +
@@ -115,6 +116,7 @@ public class User extends CommonBean<User> {
 				", userIcon='" + userIcon + '\'' +
 				'}';
 	}
+
 
 
 

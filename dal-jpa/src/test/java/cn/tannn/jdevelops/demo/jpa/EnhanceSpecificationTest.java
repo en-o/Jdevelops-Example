@@ -13,6 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.domain.Specification;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Root;
 import java.util.Arrays;
 
 /**
@@ -223,6 +228,21 @@ WHERE
         })));
     }
 
-    ;
 
+    @Test
+    void likeLongInt() {
+        //  question: long int not like
+        // error
+//        userDao.findAll(EnhanceSpecification.where(e ->{
+//            e.likes(true,"id",1+"");
+//        })).forEach(System.out::println);
+
+        // ok
+        userDao.findAll(EnhanceSpecification.where(e ->{
+            // 将 Long 类型字段转换为字符串进行 like 操作
+            e.likes(e.getBuilder().function("str", String.class, e.getRoot().get("id")),1+"");
+        })).forEach(System.out::println);
+
+
+    }
 }
