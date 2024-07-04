@@ -86,7 +86,7 @@ public class FileController {
     @Operation(summary = "下载文件")
     @Parameter(name = "fileStorageId", description = "文件索引的ID", required = true)
     public void download(@RequestBody @Valid FileIndex fileIndex, HttpServletResponse response) {
-        // FileIndex 一般会存在库里，真实情况下只需要传入一个唯一ID进行查询 fileIndex数据然后传入就行了
+        // FileIndex(上传接口返回的数据) 一般会存在库里，真实情况下只需要传入一个唯一ID进行查询 fileIndex数据然后传入就行了
         fileOperateService.download(fileIndex, response);
     }
 
@@ -101,7 +101,7 @@ public class FileController {
     @Operation(summary = "删除文件")
     @Parameter(name = "fileIndexId", description = "文件索引的ID", required = true)
     public ResultVO<String> remove(@RequestBody @Valid FileIndex fileIndex) {
-        // FileIndex 一般会存在库里，真实情况下只需要传入一个唯一ID进行查询 fileIndex数据然后传入就行了
+        // FileIndex(上传接口返回的数据) 一般会存在库里，真实情况下只需要传入一个唯一ID进行查询 fileIndex数据然后传入就行了
         fileOperateService.remove(fileIndex);
         return ResultVO.successMessage("删除成功");
     }
