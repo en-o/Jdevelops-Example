@@ -37,7 +37,8 @@ public class FtpController {
     @Parameter(name = "filePath", description = "文件索引的path", required = true)
     @Parameter(name = "storage", description = "文件存储器类型字典", required = true)
     @GetMapping(value ="/operation/"+ OSSConstants.FTP_VIEWS_API_NAME + "/{storage}")
-    public void views(@PathVariable("storage") String storage, @RequestParam("filePath") String filePath, HttpServletResponse response) {
+    public void views(@PathVariable("storage") String storage, @RequestParam("filePath") String filePath
+            , HttpServletResponse response) {
         // 最好用 fileIndex ，我这里只是个测试所以有些参数是写死的
 //        FileIndx fileIndex = fileIndexMetaService.findPathAndStorage;
 //        FTPClient ftpClient = FtpUtils.createFtpClient(fileIndexgetStorageId());
