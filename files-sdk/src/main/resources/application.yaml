@@ -1,7 +1,7 @@
 jdevelops:
   swagger:
     base-package: cn.tannn.demo.jdevelops.filessdk.controller
-
+    security-scheme-default: false
   oss:
     master: local_storage
     ftp:
