@@ -6,7 +6,7 @@ jdevelops:
     master: local_storage
     ftp:
       config:
-        browse-url: http://127.0.0.1:8080/
+        browse-url: http://127.0.0.1:8080
         port: 21
         hostname: 192.168.1.71
     #        use-prefix:
@@ -14,7 +14,7 @@ jdevelops:
     #        password: 123456
     local:
       config:
-        browse-url: http://127.0.0.1:8080/
+        browse-url: http://127.0.0.1:8080
         upload-dir: H:/test/file
         context-path: /images
     qiniu:
