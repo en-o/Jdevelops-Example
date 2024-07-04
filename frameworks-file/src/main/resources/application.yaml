@@ -6,7 +6,7 @@ spring:
   datasource:
     password: root
     username: root
-    diver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/test_file_starter?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
     hikari:
       connection-timeout: 30000
