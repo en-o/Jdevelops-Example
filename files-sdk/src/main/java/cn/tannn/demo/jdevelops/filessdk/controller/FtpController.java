@@ -10,9 +10,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
@@ -39,7 +37,7 @@ public class FtpController {
     @Parameter(name = "filePath", description = "文件索引的path", required = true)
     @Parameter(name = "storage", description = "文件存储器类型字典", required = true)
     @GetMapping(value ="/operation/"+ OSSConstants.FTP_VIEWS_API_NAME + "/{storage}")
-    public void views(String storage, String filePath, HttpServletResponse response) {
+    public void views(@PathVariable("storage") String storage, @RequestParam("filePath") String filePath, HttpServletResponse response) {
         // 最好用 fileIndex ，我这里只是个测试所以有些参数是写死的
 //        FileIndx fileIndex = fileIndexMetaService.findPathAndStorage;
 //        FTPClient ftpClient = FtpUtils.createFtpClient(fileIndexgetStorageId());
