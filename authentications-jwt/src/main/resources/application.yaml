@@ -11,6 +11,9 @@ jdevelops:
     verify-platform: true
     oss:
       enable: true
+#      oss-local-jwt-key: token
+#      verify-local-oss-resource-context-path: ""
+#      verify-local-oss-resource-up-dir: ""
   swagger:
     base-package: cn.tannn.demo.jdevelops.authenticationsjwt.controller
   oss:
