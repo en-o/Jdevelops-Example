@@ -15,7 +15,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -32,6 +31,13 @@ public class TestController {
 
     public TestController(TestService testService) {
         this.testService = testService;
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "根据ID获取详情", description = "save")
+    public ResultVO<TestWeb> save(@PathVariable("id") Long id) {
+        TestWeb bean = testService.findOnly("id", id).orElse(new TestWeb());
+        return ResultVO.success(bean);
     }
 
     @PostMapping("save")

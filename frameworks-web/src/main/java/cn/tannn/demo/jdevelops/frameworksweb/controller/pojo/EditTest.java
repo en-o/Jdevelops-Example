@@ -1,11 +1,9 @@
 package cn.tannn.demo.jdevelops.frameworksweb.controller.pojo;
 
-import cn.tannn.demo.jdevelops.frameworksweb.entity.TestWeb;
 import cn.tannn.jdevelops.annotations.jpa.JpaUpdate;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
