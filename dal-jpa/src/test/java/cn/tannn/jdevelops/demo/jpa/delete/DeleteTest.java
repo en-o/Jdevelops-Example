@@ -61,7 +61,10 @@ public class DeleteTest {
     @Test
     void deleteParameter_IN(){
         // delete from sys_user where name in (? , ?)
+        // delete from sys_user where name in ('in_tan2' , 'in_tan3')
         userService.delete("name", SQLOperator.IN,"in_tan2","in_tan3");
+        // delete from sys_user where name in ('in_tan4' , 'in_tan5')
+        userService.delete("name", SQLOperator.IN,Arrays.asList("in_tan4","in_tan5"));
     }
     @Test
     void deleteParameter_ISNULL(){
