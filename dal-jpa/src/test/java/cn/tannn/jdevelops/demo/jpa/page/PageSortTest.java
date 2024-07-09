@@ -29,6 +29,9 @@ public class PageSortTest {
         userService.findPage(new PagingSorteds(1, 2)).forEach(System.out::println);
         //  1,2 user0_.name desc
         userService.findPage(new PagingSorteds(1, 2, new Sorted("name"))).forEach(System.out::println);
+
+        //  limit 2, 2
+        userService.findPage(new PagingSorteds(2, 2)).forEach(System.out::println);
     }
 
 
