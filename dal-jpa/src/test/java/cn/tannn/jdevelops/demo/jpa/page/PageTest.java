@@ -46,12 +46,18 @@ public class PageTest {
 
     @Test
     void sortBeanPagingsSort() {
-        // findPage(Pagings) order by user0_.phone
+//        // findPage(Pagings) order by user0_.phone
         userService.findPage(new UserFind("重庆"), new Pagings().sort(Sort.by("phone")))
                 .forEach(System.out::println);
-        //  1,2 order by user0_.phone
+//        //  1,2 order by user0_.phone
         userService.findPage(new UserFind("重庆"), new Pagings(1, 2)
                 .sort(Sort.by("phone"))).forEach(System.out::println);
 
+        //  limit 2, 2
+        userService.findPage(new UserFind("重庆"), new Pagings(2, 2)
+                .sort(Sort.by("phone"))).forEach(System.out::println);
+        // limit 4, 2
+        userService.findPage(new UserFind("重庆"), new Pagings(3, 2)
+                .sort(Sort.by("phone"))).forEach(System.out::println);
     }
 }
