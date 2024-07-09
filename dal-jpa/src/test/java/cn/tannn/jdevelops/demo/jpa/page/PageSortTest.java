@@ -73,5 +73,10 @@ public class PageSortTest {
         userService.findPage(
                 new PagingSorteds(1, 2, 1,"id").append("phone")
         ).forEach(System.out::println);
+
+        //  2,2  order by user0_.id desc, user0_.phone desc
+        userService.findPage(
+                new PagingSorteds(2, 2, 1,"id").append("phone")
+        ).forEach(System.out::println);
     }
 }
