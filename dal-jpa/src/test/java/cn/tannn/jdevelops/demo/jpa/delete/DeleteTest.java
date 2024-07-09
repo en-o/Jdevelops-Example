@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 测试 j2service 删除
@@ -64,7 +66,19 @@ public class DeleteTest {
         // delete from sys_user where name in ('in_tan2' , 'in_tan3')
         userService.delete("name", SQLOperator.IN,"in_tan2","in_tan3");
         // delete from sys_user where name in ('in_tan4' , 'in_tan5')
-        userService.delete("name", SQLOperator.IN,Arrays.asList("in_tan4","in_tan5"));
+        userService.delete("name", SQLOperator.IN, Arrays.asList("in_tan4","in_tan5"));
+
+        // sys_user where id in (10 , 20)
+        List<Long> ids = new ArrayList<>();
+        ids.add(10L);
+        ids.add(20L);
+        userService.delete("id", SQLOperator.IN, ids);
+
+        // delete from sys_user where name in ('in_tan8' , 'in_tan7')
+        List<String> idss = new ArrayList<>();
+        idss.add("in_tan8");
+        idss.add("in_tan7");
+        userService.delete("name", SQLOperator.IN, idss);
     }
     @Test
     void deleteParameter_ISNULL(){
