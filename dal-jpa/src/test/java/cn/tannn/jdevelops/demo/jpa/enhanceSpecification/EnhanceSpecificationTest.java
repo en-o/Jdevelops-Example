@@ -1,4 +1,4 @@
-package cn.tannn.jdevelops.demo.jpa;
+package cn.tannn.jdevelops.demo.jpa.enhanceSpecification;
 
 import cn.tannn.jdevelops.annotations.jpa.enums.SpecBuilderDateFun;
 import cn.tannn.jdevelops.demo.jpa.dao.UserDao;
@@ -13,11 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Root;
 import java.util.Arrays;
 
 /**
