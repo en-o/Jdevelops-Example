@@ -2,7 +2,7 @@ package cn.tannn.demo.jdevelops.swagger.apisknife4j.config;
 
 import cn.tannn.jdevelops.knife4j.core.entity.BuildSecuritySchemes;
 import cn.tannn.jdevelops.knife4j.domain.SwaggerProperties;
-import org.springdoc.core.GroupedOpenApi;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 

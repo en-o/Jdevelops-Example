@@ -3,10 +3,10 @@ package cn.tannn.demo.jdevelops.swagger.apisknife4j.controller;
 import cn.tannn.demo.jdevelops.swagger.apisknife4j.controller.vo.TestVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 测试接口单包扫描， jdevelops.swagger.basePackage=cn.tannn.springbootparentswagger.controller

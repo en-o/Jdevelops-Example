@@ -7,7 +7,7 @@ knife4j:
     language: zh-CN
     custom-code: 500
     enable-footer-custom: false
-
+    enable-dynamic-parameter: true
 
 spring:
   profiles:
