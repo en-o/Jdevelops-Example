@@ -1,11 +1,12 @@
 # redis
 spring:
-  redis:
-    database: 2
-    port: 6379
-    timeout: 2000
-    password: 123456
-    host: 127.0.0.1
+  data:
+    redis:
+      database: 2
+      port: 6379
+      timeout: 2000
+      password: 123456
+      host: 127.0.0.1
 jdevelops:
   swagger:
     base-package: cn.tannn.delayredis.controller
