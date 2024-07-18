@@ -1,11 +1,12 @@
 spring:
   application:
     name: apis-idempotent
-  redis:
-    database: 9
-    host: 127.0.0.1
-    port: 6379
-    password: 123456
+  data:
+    redis:
+      database: 9
+      password: 123456
+      port: 6379
+      host: 127.0.0.1
 jdevelops:
   idempotent:
     expire-time: 120000
