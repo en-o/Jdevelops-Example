@@ -3,9 +3,8 @@ package cn.tannn.demo.jdevelops.eventswebsocket.verify;
 import cn.tannn.jdevelops.events.websocket.config.WebSocketConfig;
 import cn.tannn.jdevelops.events.websocket.core.CommonConstant;
 import cn.tannn.jdevelops.events.websocket.service.VerifyService;
-import org.springframework.stereotype.Service;
+import jakarta.servlet.http.HttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 
