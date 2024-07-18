@@ -4,11 +4,11 @@ import cn.tannn.jdevelops.apis.log.annotation.ApiLog;
 import cn.tannn.jdevelops.apis.log.constants.OperateType;
 import cn.tannn.jdevelops.demo.apis.log.apislog.console.entity.UserEntity;
 import cn.tannn.jdevelops.result.response.ResultVO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 @RequestMapping("annotation/test")
