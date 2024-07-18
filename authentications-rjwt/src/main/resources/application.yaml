@@ -1,10 +1,11 @@
 # \u6570\u636E\u5E93\u914D\u7F6E
 spring:
-  redis:
-    database: 8
-    host: 127.0.0.1
-    port: 6379
-    password: 123456
+  data:
+    redis:
+      database: 8
+      host: 127.0.0.1
+      port: 6379
+      password: 123456
 jdevelops:
   login:
     limit:

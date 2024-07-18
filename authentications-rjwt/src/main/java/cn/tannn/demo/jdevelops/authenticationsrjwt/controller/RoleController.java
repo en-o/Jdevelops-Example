@@ -3,11 +3,11 @@ package cn.tannn.demo.jdevelops.authenticationsrjwt.controller;
 import cn.tannn.jdevelops.annotations.web.authentication.ApiPermission;
 import cn.tannn.jdevelops.jwt.redis.service.RedisLoginService;
 import cn.tannn.jdevelops.result.response.ResultVO;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 权限测试
