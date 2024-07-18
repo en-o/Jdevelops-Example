@@ -14,7 +14,7 @@
     <name>apis-sign</name>
     <description>apis-sign</description>
     <properties>
-        <java.version>8</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>
