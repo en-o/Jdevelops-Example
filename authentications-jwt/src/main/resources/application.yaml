@@ -12,12 +12,14 @@ jdevelops:
     oss:
       enable: true
 #      oss-local-jwt-key: token
-#      verify-local-oss-resource-context-path: ""
-#      verify-local-oss-resource-up-dir: ""
+      verify-local-oss-resource-context-path: "jdevelops.oss.local.config.context-path"
+      verify-local-oss-resource-up-dir: "jdevelops.oss.local.config.upload-dir"
   swagger:
     base-package: cn.tannn.demo.jdevelops.authenticationsjwt.controller
   oss:
+    master: local_storage
     local:
-      upload-dir: H:/test/file
-      contextPath: /image
-    browse-url: http://127.0.0.1:8080
+      config:
+        browse-url: http://127.0.0.1:8080
+        upload-dir: H:/test/file
+        context-path: /images

@@ -1,87 +1,109 @@
 package cn.tannn.demo.jdevelops.authenticationsjwt.controller;
-
-import cn.jdevelops.file.oss.api.OssOperateAPI;
-import cn.jdevelops.file.oss.api.bean.*;
-import cn.tannn.jdevelops.exception.built.BusinessException;
+import cn.tannn.cat.file.sdk.api.UploadFile;
+import cn.tannn.cat.file.sdk.api.UploadFiles;
+import cn.tannn.cat.file.sdk.bean.FileIndex;
+import cn.tannn.jdevelops.files.sdk.FileOperateService;
 import cn.tannn.jdevelops.result.response.ResultVO;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springdoc.api.annotations.ParameterObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.util.List;
+import java.io.IOException;
 
 /**
- * 测试本地文件访问呢鉴权
- * @see <a href="https://www.yuque.com/tanning/yg9ipo/lkyzxvgfqgwqrtkt">Local OSS Resource access authentication</a>
+ * @author <a href="https://t.tannn.cn/">tan</a>
+ * @date 2024/7/2 下午1:37
  */
+@RequestMapping("files")
+@Slf4j
 @RestController
-@Tag(name = "文件上传下载",description = "文件测试")
 public class FileController {
 
+	private final FileOperateService fileOperateService;
 
-	@Autowired
-	private OssOperateAPI fileOperation;
+	public FileController(FileOperateService fileOperateService) {
+		this.fileOperateService = fileOperateService;
+	}
 
-
-	@Operation(summary = "文件上传")
+	/**
+	 * master上传
+	 *
+	 * @param upload UploadFile
+	 * @return FileStorageVO
+	 * @throws IOException Exception
+	 */
 	@PostMapping(value = "upload")
-	public ResultVO<FilePathResult> upload(@Valid UploadDTO uploadDTO) {
-		try {
-			FilePathResult filePathResult = fileOperation.uploadFile(uploadDTO);
-			return ResultVO.success(filePathResult);
-		} catch (Exception e) {
-			throw new BusinessException("文件上传失败！", e);
-		}
+	@Operation(summary = "上传文件", description = "master上传")
+	public ResultVO<FileIndex> upload(@Valid UploadFile upload) throws IOException {
+		FileIndex fileIndex = fileOperateService.upload(upload);
+		return ResultVO.success(fileIndex);
 	}
 
 
-	@Operation(summary = "批量文件上传")
+	/**
+	 * 选择存储器上传
+	 *
+	 * @param upload    UploadFile
+	 * @param storageId 存储器ID [ftp:1, local:2 , minio:3 , qiniu:4 ] ,必须是配置了
+	 * @return FileStorageVO
+	 * @throws IOException Exception
+	 */
+	@PostMapping(value = "upload/{storageId}")
+	@Operation(summary = "上传文件", description = "选择存储器上传")
+	public ResultVO<FileIndex> upload(@PathVariable("storageId") Long storageId, @Valid UploadFile upload) throws IOException {
+		FileIndex fileIndex = fileOperateService.upload(storageId, upload);
+		return ResultVO.success(fileIndex);
+	}
+
+
+	/**
+	 * master 批量上传文件
+	 *
+	 * @param uploads UploadFiles
+	 * @return String
+	 * @throws IOException Exception
+	 */
+
 	@PostMapping(value = "uploads")
-	public ResultVO<List<FilePathResult>> uploads(@Valid UploadsDTO uploadDTO) {
-		try {
-			return ResultVO.success(fileOperation.uploadFile(uploadDTO));
-		} catch (Exception e) {
-			throw new BusinessException("文件上传失败！", e);
-		}
+	@Operation(summary = "批量上传文件", description = "master上传")
+	public ResultVO<String> uploads(@Valid UploadFiles uploads) throws IOException {
+		fileOperateService.uploads(uploads);
+		return ResultVO.success("批量上传成功");
 	}
 
 
-
-	@GetMapping("/download")
-	@Operation(summary = "文件下载")
-	public void download(@ParameterObject  @Valid DownloadDTO dto, HttpServletResponse response) {
-		try {
-			fileOperation.downloadFile(response, dto);
-		} catch (Exception e) {
-			throw new BusinessException("文件下载失败！",e);
-		}
-	}
-
-	@GetMapping("/expiry/url")
-	@Operation(summary = "获取有效期访问地址")
-	public ResultVO<String> getExpiryObjectUrl(@ParameterObject @Valid ExpireDateDTO dto) {
-		try {
-			String url = fileOperation.expireDateUrl(dto);
-			return ResultVO.success(url);
-		} catch (Exception e) {
-			throw new BusinessException("获取有效期访问地址失败！");
-		}
+	/**
+	 * 下载文件
+	 *
+	 * @param fileIndex 文件存储的索引
+	 * @param response  HttpServletResponse
+	 */
+	@PostMapping(value = "download")
+	@Operation(summary = "下载文件")
+	@Parameter(name = "fileStorageId", description = "文件索引的ID", required = true)
+	public void download(@RequestBody @Valid FileIndex fileIndex, HttpServletResponse response) {
+		// FileIndex(上传接口返回的数据) 一般会存在库里，真实情况下只需要传入一个唯一ID进行查询 fileIndex数据然后传入就行了
+		fileOperateService.download(fileIndex, response);
 	}
 
 
-
+	/**
+	 * 删除文件
+	 *
+	 * @param fileIndex 文件存储的索引
+	 * @return String
+	 */
 	@DeleteMapping("/remove")
-	@Operation(summary = "删除")
-	public ResultVO<List<String>> removeObjects(@RequestBody @Valid RemoveFileDTO dto) {
-		try {
-			fileOperation.removeFiles(dto);
-			return ResultVO.success();
-		} catch (Exception e) {
-			throw new BusinessException("删除失败！",e);
-		}
+	@Operation(summary = "删除文件")
+	@Parameter(name = "fileIndexId", description = "文件索引的ID", required = true)
+	public ResultVO<String> remove(@RequestBody @Valid FileIndex fileIndex) {
+		// FileIndex(上传接口返回的数据) 一般会存在库里，真实情况下只需要传入一个唯一ID进行查询 fileIndex数据然后传入就行了
+		fileOperateService.remove(fileIndex);
+		return ResultVO.successMessage("删除成功");
 	}
+
+
 }
