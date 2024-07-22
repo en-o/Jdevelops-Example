@@ -1,13 +1,14 @@
 package cn.tannn.jdevelops.demo.jpa.entity;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
 
 /**
  * 公司
@@ -17,7 +18,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "sys_company")
-@org.hibernate.annotations.Table(appliesTo = "sys_company", comment = "公司")
+@Comment("公司")
 @Getter
 @Setter
 @RequiredArgsConstructor

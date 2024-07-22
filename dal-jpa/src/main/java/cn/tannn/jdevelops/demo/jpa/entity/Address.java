@@ -1,14 +1,15 @@
 package cn.tannn.jdevelops.demo.jpa.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 /**
  * 地址
@@ -18,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sys_address")
-@org.hibernate.annotations.Table(appliesTo = "sys_address", comment = "地址")
+@Comment("地址")
 @Getter
 @Setter
 @ToString

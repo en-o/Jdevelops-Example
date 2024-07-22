@@ -2,12 +2,12 @@ package cn.tannn.jdevelops.demo.jpa.entity;
 
 
 import cn.tannn.jdevelops.jpa.modle.fn.JpaAuditFnFields;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.*;
 
-import javax.persistence.AccessType;
-import javax.persistence.*;
+
 
 /**
  * 公共的实体类

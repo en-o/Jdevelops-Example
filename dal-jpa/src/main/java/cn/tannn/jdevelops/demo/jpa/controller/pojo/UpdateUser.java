@@ -4,10 +4,10 @@ import cn.tannn.jdevelops.annotations.jpa.JpaUpdate;
 import cn.tannn.jdevelops.jpa.constant.SQLOperator;
 import cn.tannn.jdevelops.jpa.service.J2Service;
 import cn.tannn.jdevelops.jpa.utils.JpaUtils;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Id;
 import lombok.Data;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 

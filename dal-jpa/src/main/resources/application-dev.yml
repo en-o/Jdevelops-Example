@@ -16,6 +16,5 @@ spring:
       ddl-auto: update
     open-in-view: false
     database: mysql
-    database-platform:  org.hibernate.dialect.MySQL8Dialect
     show-sql: true
 
