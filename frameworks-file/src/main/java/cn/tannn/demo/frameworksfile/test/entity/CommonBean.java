@@ -4,12 +4,11 @@ package cn.tannn.demo.frameworksfile.test.entity;
 import cn.tannn.jdevelops.jpa.modle.fn.JpaAuditFnFields;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.*;
 
-import javax.persistence.AccessType;
-import javax.persistence.*;
 
 /**
  * 公共的实体类

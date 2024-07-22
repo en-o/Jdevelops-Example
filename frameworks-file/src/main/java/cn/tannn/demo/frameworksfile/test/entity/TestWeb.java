@@ -1,14 +1,13 @@
 package cn.tannn.demo.frameworksfile.test.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 /**
  * @author <a href="https://t.tannn.cn/">tnnn</a>
