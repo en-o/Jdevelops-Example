@@ -35,7 +35,8 @@ public class EsController {
     @GetMapping("/add")
     public ResultVO<String> addTest() throws IOException {
         TestResArticleES testResArticleES = new TestResArticleES();
-        testResArticleES.setUid(UUIDUtils.getInstance().generateShortUuid());
+        Long id = UUIDUtils.getInstance().generateShortUuidLong();
+        testResArticleES.setUid(String.valueOf(id));
         testResArticleES.setDoi("test");
         testResArticleES.setPmid("test");
         testResArticleES.setPmcid("test");
@@ -59,7 +60,6 @@ public class EsController {
         testResArticleES.setCreateUserName("test");
         testResArticleES.setUpdateTime(LocalDateTime.now());
         testResArticleES.setUpdateUserName("test");
-        Long id = UUIDUtils.getInstance().generateShortUuidLong();
         testResArticleES.setId(id);
         elasticService.addDocument("jdevelops_test_res_article",
                 id.toString(), testResArticleES);
