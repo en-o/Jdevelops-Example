@@ -2,6 +2,7 @@ package cn.tannn.demo.jdevelops.daljdbctemplate;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserBO;
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserService;
+import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserServiceImpl;
 import cn.tannn.jdevelops.result.request.Paging;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,35 +12,35 @@ import org.springframework.dao.EmptyResultDataAccessException;
 
 
 @SpringBootTest
-class QueryTest {
+class QueryImplTest {
 
     @Autowired
-    private QueryUserService queryUserService;
+    private QueryUserServiceImpl queryUserServiceImpl;
 
     @Test
     void findAll() {
-        queryUserService.findAll().forEach(it -> System.out.printf(it.toString()));
+        queryUserServiceImpl.findAll().forEach(it -> System.out.printf(it.toString()));
     }
 
     @Test
     void findById() {
-        System.out.println(queryUserService.findById());
+        System.out.println(queryUserServiceImpl.findById());
     }
 
     @Test
     void findByIdByBo() {
-        System.out.println(queryUserService.findByIdByBo());
+        System.out.println(queryUserServiceImpl.findByIdByBo());
     }
 
     @Test
     void findById2() {
-        System.out.println(queryUserService.findById(2));
+        System.out.println(queryUserServiceImpl.findById(2));
     }
 
     @Test
     void findById3() {
         Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-            queryUserService.findById(10);
+            queryUserServiceImpl.findById(10);
         });
     }
 
@@ -48,7 +49,7 @@ class QueryTest {
         UserBO userBO = new UserBO();
         userBO.setName("超级管理员");
         userBO.setLoginName("admin");
-        System.out.println(queryUserService.findByBean(userBO));
+        System.out.println(queryUserServiceImpl.findByBean(userBO));
     }
 
     @Test
@@ -56,53 +57,53 @@ class QueryTest {
         UserBO userBO = new UserBO();
         userBO.setName("111");
         userBO.setLoginName("SH-01");
-        queryUserService.findByBean2(userBO).forEach(it -> System.out.println(it.toString()));
+        queryUserServiceImpl.findByBean2(userBO).forEach(it -> System.out.println(it.toString()));
     }
 
     @Test
     void findName() {
-        queryUserService.findName().forEach(System.out::println);
+        queryUserServiceImpl.findName().forEach(System.out::println);
     }
 
 
     @Test
     void findId() {
-        System.out.println(queryUserService.findId());
+        System.out.println(queryUserServiceImpl.findId());
     }
 
 
     @Test
     void findIdByName() {
-        System.out.println(queryUserService.findIdByName("用户1"));
+        System.out.println(queryUserServiceImpl.findIdByName("用户1"));
     }
 
     @Test
     void findIdByName2() {
-        System.out.println(queryUserService.findIdByNameAndAddress("111", "重庆"));
+        System.out.println(queryUserServiceImpl.findIdByNameAndAddress("111", "重庆"));
     }
 
     @Test
     void findAllPage() {
 //        queryUserServiceImpl.findAllPage(new Paging(1, 2))
 //                .getRows().forEach(it -> System.out.printf(it.toString()));
-        System.out.println("第一页：" + queryUserService.findAllPage(new Paging(1, 2)));
-        System.out.println("第二页：" + queryUserService.findAllPage(new Paging(2, 2)));
+        System.out.println("第一页：" + queryUserServiceImpl.findAllPage(new Paging(1, 2)));
+        System.out.println("第二页：" + queryUserServiceImpl.findAllPage(new Paging(2, 2)));
     }
 
     @Test
     void findAllPage_2() {
 //        queryUserServiceImpl.findAllPage(new Paging(1, 2))
 //                .getRows().forEach(it -> System.out.printf(it.toString()));
-        System.out.println("第一页：" + queryUserService.findAllPage("111", "重庆", new Paging(1, 2)));
-        System.out.println("第二页：" + queryUserService.findAllPage("111", "重庆", new Paging(2, 2)));
+        System.out.println("第一页：" + queryUserServiceImpl.findAllPage("111", "重庆", new Paging(1, 2)));
+        System.out.println("第二页：" + queryUserServiceImpl.findAllPage("111", "重庆", new Paging(2, 2)));
     }
 
     @Test
     void findAllPageByName() {
 //        queryUserServiceImpl.findAllPage(new Paging(1, 2))
 //                .getRows().forEach(it -> System.out.printf(it.toString()));
-        System.out.println("第一页：" + queryUserService.findAllPageByName(new Paging(1, 2)));
-        System.out.println("第二页：" + queryUserService.findAllPageByName(new Paging(2, 2)));
+        System.out.println("第一页：" + queryUserServiceImpl.findAllPageByName(new Paging(1, 2)));
+        System.out.println("第二页：" + queryUserServiceImpl.findAllPageByName(new Paging(2, 2)));
     }
 
     /**
@@ -110,13 +111,13 @@ class QueryTest {
      */
     @Test
     void findAllOrderD() {
-        queryUserService.findAllOrderD().forEach(it -> System.out.printf(it.toString()));
+        queryUserServiceImpl.findAllOrderD().forEach(it -> System.out.printf(it.toString()));
     }
     /**
      * 排序 - 写死
      */
     @Test
     void findAllOrderA() {
-        queryUserService.findAllOrderA().forEach(it -> System.out.printf(it.toString()));
+        queryUserServiceImpl.findAllOrderA().forEach(it -> System.out.printf(it.toString()));
     }
 }
