@@ -13,7 +13,7 @@ spring:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://192.168.1.141:5432/test_auto_schema
+    url: jdbc:postgresql://192.168.1.141:5432/test_auto_schema_jdk17
     password: pg2peter
     username: postgres
     hikari:
@@ -28,7 +28,6 @@ spring:
       ddl-auto: update
     open-in-view: false
     database: postgresql
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties:
       hibernate:
         temp:
@@ -47,7 +46,7 @@ spring:
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://127.0.0.1:3306/test_auto_schema
-    url: jdbc:mysql://127.0.0.1:3306/test_auto_schema?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://127.0.0.1:3306/test_auto_schema_jdk17?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
     hikari:
       connection-timeout: 30000
       idle-timeout: 600000
@@ -60,7 +59,6 @@ spring:
       ddl-auto: update
     open-in-view: false
     database: mysql
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   config:
     activate:
       on-profile: mysql
