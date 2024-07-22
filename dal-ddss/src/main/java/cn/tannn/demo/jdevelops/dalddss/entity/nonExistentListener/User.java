@@ -1,5 +1,6 @@
 package cn.tannn.demo.jdevelops.dalddss.entity.nonExistentListener;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -8,7 +9,6 @@ import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
 
 /**
  * 用户表
@@ -20,7 +20,7 @@ import javax.persistence.*;
 		indexes = {
 				@Index(name = "user_no_index", columnList = "userNo", unique = true),
 		})
-@org.hibernate.annotations.Table(appliesTo = "sys_user", comment = "用户表")
+@Comment("用户表")
 @Getter
 @Setter
 @ToString

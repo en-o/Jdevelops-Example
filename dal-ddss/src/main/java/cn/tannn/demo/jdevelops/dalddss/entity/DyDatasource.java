@@ -1,5 +1,9 @@
 package cn.tannn.demo.jdevelops.dalddss.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -8,10 +12,6 @@ import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * 数据源管理
@@ -22,7 +22,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "dy_datasource")
-@org.hibernate.annotations.Table(appliesTo = "dy_datasource", comment = "数据源管理")
+@Comment("数据源管理")
 @Getter
 @Setter
 @ToString
