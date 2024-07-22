@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.EmptyResultDataAccessException;
 
-
+/**
+ * 这样是不行，  我没有适配 class 只支持 interface ，也不打算支持，因为不美观
+ */
 @SpringBootTest
 class QueryImplTest {
 
