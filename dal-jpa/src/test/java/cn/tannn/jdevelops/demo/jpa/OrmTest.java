@@ -5,12 +5,12 @@ import cn.tannn.jdevelops.demo.jpa.entity.User;
 import cn.tannn.jdevelops.demo.jpa.entityManager.EntityManagerBasicTest;
 import cn.tannn.jdevelops.demo.jpa.service.UserService;
 import cn.tannn.jdevelops.jpa.service.J2Service;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
 
 /**

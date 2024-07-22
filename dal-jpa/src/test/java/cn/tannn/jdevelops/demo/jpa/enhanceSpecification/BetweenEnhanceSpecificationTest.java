@@ -1,18 +1,10 @@
 package cn.tannn.jdevelops.demo.jpa.enhanceSpecification;
 
-import cn.tannn.jdevelops.annotations.jpa.JpaSelectOperator;
-import cn.tannn.jdevelops.annotations.jpa.enums.SQLOperatorWrapper;
-import cn.tannn.jdevelops.annotations.jpa.enums.SpecBuilderDateFun;
 import cn.tannn.jdevelops.demo.jpa.dao.UserDao;
 import cn.tannn.jdevelops.demo.jpa.enhanceSpecification.pojo.TestLoginPwdBetween;
 import cn.tannn.jdevelops.demo.jpa.enhanceSpecification.pojo.TestTimeBetween;
 import cn.tannn.jdevelops.demo.jpa.entity.User;
-import cn.tannn.jdevelops.demo.jpa.lists.dto.UserComplexFind;
-import cn.tannn.jdevelops.demo.jpa.lists.dto.UserComplexFind2;
-import cn.tannn.jdevelops.demo.jpa.page.dto.UserFind;
 import cn.tannn.jdevelops.jpa.select.EnhanceSpecification;
-import cn.tannn.jdevelops.jpa.utils.JpaUtils;
-import lombok.Data;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

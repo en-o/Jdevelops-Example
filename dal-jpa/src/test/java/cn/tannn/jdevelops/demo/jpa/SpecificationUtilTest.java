@@ -5,12 +5,12 @@ import cn.tannn.jdevelops.demo.jpa.entity.User;
 import cn.tannn.jdevelops.demo.jpa.service.UserService;
 import cn.tannn.jdevelops.jpa.utils.JpaUtils;
 import cn.tannn.jdevelops.jpa.utils.SpecificationUtil;
+import jakarta.persistence.criteria.Path;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.Path;
 import java.util.List;
 
 /**

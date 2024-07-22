@@ -3,12 +3,12 @@ package cn.tannn.jdevelops.demo.jpa.entityManager;
 import cn.tannn.jdevelops.demo.jpa.entity.User;
 import cn.tannn.jdevelops.demo.jpa.service.UserService;
 import cn.tannn.jdevelops.result.utils.UUIDUtils;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 
 /**

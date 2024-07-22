@@ -6,13 +6,13 @@ import cn.tannn.jdevelops.demo.jpa.service.UserService;
 import cn.tannn.jdevelops.jpa.constant.SQLOperator;
 import cn.tannn.jdevelops.jpa.exception.JpaException;
 import cn.tannn.jdevelops.jpa.utils.JpaUtils;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.Predicate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.Predicate;
 
 /**
  * 测试 jpaUtils中的一些方法
