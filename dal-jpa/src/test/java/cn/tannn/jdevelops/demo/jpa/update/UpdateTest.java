@@ -3,6 +3,7 @@ package cn.tannn.jdevelops.demo.jpa.update;
 import cn.tannn.jdevelops.demo.jpa.entity.User;
 import cn.tannn.jdevelops.demo.jpa.service.UserService;
 import cn.tannn.jdevelops.demo.jpa.update.dto.UserUpdate;
+import cn.tannn.jdevelops.demo.jpa.update.dto.UserUpdateSlf4j;
 import cn.tannn.jdevelops.jpa.constant.SQLOperator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,18 @@ public class UpdateTest {
     @Test
     void update2(){
         UserUpdate userUpdate = new UserUpdate();
+//        userUpdate.setUserNo(userNo);
+        userUpdate.setUserNo("1791001704666087424");
+        userUpdate.setName("update_tan_2");
+        userUpdate.setPhone("123444");
+        // unique存在的话以当前输入为准 update_user_name=? where name=?
+        userService.update(userUpdate, SQLOperator.EQ,"name");
+    }
+
+    // 测试 打上 slf4j 注解后会报错 - 1.0.1 解决了这个问题
+    @Test
+    void updateSlf4j(){
+        UserUpdateSlf4j userUpdate = new UserUpdateSlf4j();
 //        userUpdate.setUserNo(userNo);
         userUpdate.setUserNo("1791001704666087424");
         userUpdate.setName("update_tan_2");
