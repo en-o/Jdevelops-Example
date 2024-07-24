@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "test_convert")
-@Comment("测试建表的字段顺序")
+@Comment("测试内置的convert")
 @Getter
 @Setter
 @ToString
