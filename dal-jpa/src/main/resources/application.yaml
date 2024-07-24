@@ -4,6 +4,10 @@ spring:
   profiles:
     active: dev
 jdevelops:
+  jpa:
+    column:
+#      order: alphabet
+      order: field
   swagger:
     base-package: cn.tannn.jdevelops.demo.jpa
     security-scheme-default: false
