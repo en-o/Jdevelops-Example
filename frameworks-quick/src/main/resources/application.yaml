@@ -44,7 +44,7 @@ spring:
 jdevelops:
   quartz:
 #    enabled: false
-    base-package: cn.tannn.demo.jdevelops.frameworksquick.job
+#    base-package: cn.tannn.demo.jdevelops.frameworksquick.job
   swagger:
     base-package: cn.tannn
     security-scheme-default: false
