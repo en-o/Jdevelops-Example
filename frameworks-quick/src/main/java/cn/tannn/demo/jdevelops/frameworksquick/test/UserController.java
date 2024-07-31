@@ -22,9 +22,10 @@ public class UserController {
     private UserDao userDao;
 
     @GetMapping("init")
-    public void init(){
+    public String init(){
         userDao.save(User.create("张三", "北京", "zhangsan", "12345678901"));
         userDao.save(User.create("李四", "重庆", "cq", "1254889"));
+        return "init";
     }
 
     @GetMapping("find")
