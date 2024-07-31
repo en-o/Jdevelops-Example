@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    password: root
+    username: root
+    driver-class-name:
+    url: jdbc:mysql://127.0.0.1:3306/test_quick?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 120000 # \u8FDE\u63A5\u6700\u5927\u5B58\u6D3B\u65F6\u95F4.\u4E0D\u7B49\u4E8E0\u4E14\u5C0F\u4E8E30\u79D2\uFF0C\u4F1A\u88AB\u91CD\u7F6E\u4E3A\u9ED8\u8BA4\u503C30\u5206\u949F(1800000).\u8BBE\u7F6E\u5E94\u8BE5\u6BD4mysql\u8BBE\u7F6E\u7684\u8D85\u65F6\u65F6\u95F4\u77ED
+      maximum-pool-size: 15 # ((core_count * 2) + effective_spindle_count)
+      pool-name: ${spring.application.name}
+      minimum-idle: 15 # \u548C\u6700\u5927\u8FDE\u63A5\u6570\u4FDD\u6301\u4E00\u81F4
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    database: mysql
+    show-sql: true
+  quartz:
+    job-store-type: jdbc # \u9ED8\u8BA4\u4E3A\u5185\u5B58 memory \u7684\u65B9\u5F0F\uFF0C\u8FD9\u91CC\u6211\u4EEC\u4F7F\u7528\u6570\u636E\u5E93\u7684\u5F62\u5F0F
+    wait-for-jobs-to-complete-on-shutdown: true # \u5173\u95ED\u65F6\u7B49\u5F85\u4EFB\u52A1\u5B8C\u6210
+    overwrite-existing-jobs: true # \u53EF\u4EE5\u8986\u76D6\u5DF2\u6709\u7684\u4EFB\u52A1
+    jdbc:
+      initialize-schema: never # \u662F\u5426\u81EA\u52A8\u4F7F\u7528 SQL \u521D\u59CB\u5316 Quartz \u8868\u7ED3\u6784
+    properties: # quartz\u539F\u751F\u914D\u7F6E
+      org:
+        quartz:
+          scheduler:
+            instanceName: scheduler # \u8C03\u5EA6\u5668\u5B9E\u4F8B\u540D\u79F0
+            instanceId: AUTO # \u8C03\u5EA6\u5668\u5B9E\u4F8BID\u81EA\u52A8\u751F\u6210
+          # JobStore \u76F8\u5173\u914D\u7F6E
+          jobStore:
+            class: org.springframework.scheduling.quartz.LocalDataSourceJobStore # JobStore \u5B9E\u73B0\u7C7B
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate # \u4F7F\u7528\u5B8C\u5168\u517C\u5BB9JDBC\u7684\u9A71\u52A8
+            tablePrefix: QRTZ_ # Quartz \u8868\u524D\u7F00
+            useProperties: false # \u662F\u5426\u5C06JobDataMap\u4E2D\u7684\u5C5E\u6027\u8F6C\u4E3A\u5B57\u7B26\u4E32\u5B58\u50A8
+          # \u7EBF\u7A0B\u6C60\u76F8\u5173\u914D\u7F6E
+          threadPool:
+            threadCount: 25 # \u7EBF\u7A0B\u6C60\u5927\u5C0F\u3002\u9ED8\u8BA4\u4E3A 10 \u3002
+            threadPriority: 5 # \u7EBF\u7A0B\u4F18\u5148\u7EA7
+            class: org.quartz.simpl.SimpleThreadPool # \u6307\u5B9A\u7EBF\u7A0B\u6C60\u5B9E\u73B0\u7C7B\uFF0C\u5BF9\u8C03\u5EA6\u5668\u63D0\u4F9B\u56FA\u5B9A\u5927\u5C0F\u7684\u7EBF\u7A0B\u6C60
+
+jdevelops:
+  swagger:
+    base-package: cn.tannn
+    security-scheme-default: false
