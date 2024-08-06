@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: dep
 jdevelops:
   swagger:
     security-scheme-default: false

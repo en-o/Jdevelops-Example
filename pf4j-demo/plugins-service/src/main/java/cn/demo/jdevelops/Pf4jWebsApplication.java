@@ -1,20 +1,18 @@
 package cn.demo.jdevelops;
 
-import cn.demo.jdevelops.service.GreetingService;
-import org.pf4j.PluginWrapper;
+import cn.tannn.jdevelops.pf4j.service.PluginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.stream.Collectors;
 
 @SpringBootApplication
 public class Pf4jWebsApplication implements ApplicationRunner {
 
     @Autowired
-    private GreetingService greetingService;
+    private PluginService pluginService;
 
     public static void main(String[] args) {
         // 设置运行模式
@@ -26,8 +24,8 @@ public class Pf4jWebsApplication implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        System.out.println("====================starter============ ");
-        System.out.println(greetingService.greetingsId());
-        System.out.println("====================end============ ");
+        System.out.println("====================starter plugins ids============ ");
+        System.out.println(pluginService.pluginsId());
+        System.out.println("====================end plugins ids============ ");
     }
 }
