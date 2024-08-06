@@ -12,7 +12,7 @@
     <artifactId>plugins</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>HelloGreetiong</module>
+        <module>HelloGreeting</module>
     </modules>
 
     <properties>
