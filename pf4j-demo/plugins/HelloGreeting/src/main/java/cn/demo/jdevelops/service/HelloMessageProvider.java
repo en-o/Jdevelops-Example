@@ -21,7 +21,7 @@ public class HelloMessageProvider implements MessageProvider {
             properties.load(getClass().getClassLoader().getResourceAsStream("version.properties"));
             return properties.getProperty("project.version");
         }catch (Exception e){
-           return "0.0.1";
+           return "0.0.2";
         }
     }
 

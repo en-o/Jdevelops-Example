@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: dev
+jdevelops:
+  swagger:
+    security-scheme-default: false
+    base-package: cn.demo.jdevelops.controller
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  pf4j:
+    enabled: true
+    path: G:/项目/Jdevelops-Example/pf4j-demo/plugins
+    runtime-mode: development
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dep
+  pf4j:
+    enabled: true
+    path: G:/项目/Jdevelops-Example/pf4j-demo/plugins/plugins
+    runtime-mode: deployment

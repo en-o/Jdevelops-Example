@@ -11,6 +11,7 @@
     <modules>
         <module>plugins</module>
         <module>greeting-api</module>
+        <module>plugins-service</module>
     </modules>
 
     <properties>
