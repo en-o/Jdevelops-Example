@@ -10,6 +10,10 @@
     </parent>
 
     <artifactId>plugins</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>HelloGreetiong</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -22,6 +26,12 @@
             <groupId>org.pf4j</groupId>
             <artifactId>pf4j-spring</artifactId>
             <version>0.9.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.tannn.demo.pf4j.greeting.api</groupId>
+            <artifactId>greeting-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
