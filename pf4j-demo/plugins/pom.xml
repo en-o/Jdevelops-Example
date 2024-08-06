@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>HelloGreeting</module>
+        <module>WelcomeGreeting</module>
     </modules>
 
     <properties>
