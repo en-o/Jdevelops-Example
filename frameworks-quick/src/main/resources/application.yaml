@@ -3,7 +3,7 @@ spring:
     password: root
     username: root
     driver-class-name:
-    url: jdbc:mysql://127.0.0.1:3306/test_quick?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://127.0.0.1:3306/test_quick_j17?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
     hikari:
       connection-timeout: 30000
       idle-timeout: 600000

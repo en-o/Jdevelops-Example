@@ -7,6 +7,8 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
 /**
+ * 0/2 * * * * ?
+ * 0 15 0 * * ?
  * @author tnnn
  * @version V1.0
  * @date 2023-03-09 14:26
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 // 自定注册 - 也可以不用这个注解，使用接口注册
-@Job(cron = "0 15 0 * * ?", jobName = "TestQuartzJobBean", isStartNow = true)
+@Job(cron = "0/2 * * * * ?", jobName = "TestQuartzJobBean", isStartNow = true)
 public class TestQuartzJobBean extends QuartzJobBean {
 
 
