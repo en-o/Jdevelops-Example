@@ -24,5 +24,5 @@ spring:
       on-profile: dep
   pf4j:
     enabled: true
-    path: G:/项目/Jdevelops-Example/pf4j-demo/plugins/plugins
+    path: G:/项目/Jdevelops-Example/pf4j-demo/pluginsJar
     runtime-mode: deployment

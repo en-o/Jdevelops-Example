@@ -6,18 +6,18 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.15</version>
+        <version>3.2.7</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>cn.demo.jdevelops</groupId>
     <artifactId>plugins-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
 
     <properties>
-        <java.version>8</java.version>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
@@ -28,18 +28,18 @@
         <dependency>
             <groupId>cn.tannn.jdevelops</groupId>
             <artifactId>jdevelops-pf4j-spring-starter</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>cn.tannn.demo.pf4j.greeting.api</groupId>
             <artifactId>greeting-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>cn.tannn.jdevelops</groupId>
             <artifactId>jdevelops-apis-knife4j</artifactId>
-            <version>0.0.2</version>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
