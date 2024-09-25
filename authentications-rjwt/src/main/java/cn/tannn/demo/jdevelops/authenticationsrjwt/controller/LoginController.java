@@ -77,8 +77,8 @@ public class LoginController {
                             login.getPermissions()),
                     new StorageUserState(
                             login.getUsername(),
-                            login.isDisabledAccount(),
-                            login.isExcessiveAttempts())
+                            login.getStatus(),
+                            login.getStatusMark())
             );
             TokenSign sign = redisLoginService.login(redisSignEntity);
             Map<String, String> responseData = Collections.singletonMap("token", sign.getSign());

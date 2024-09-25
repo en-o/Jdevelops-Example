@@ -44,7 +44,7 @@ public class JwtServiceController {
      * platformConstant
      */
     @GetMapping("/platformConstant")
-    public ResultVO<List<PlatformConstant>> userId(HttpServletRequest request) {
+    public ResultVO<List<String>> userId(HttpServletRequest request) {
         return ResultVO.success(JwtService.getPlatformConstantExpires(JwtWebUtil.getToken(request)));
     }
 

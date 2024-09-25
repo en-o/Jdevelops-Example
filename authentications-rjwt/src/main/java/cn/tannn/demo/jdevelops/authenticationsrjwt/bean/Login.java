@@ -1,6 +1,7 @@
 package cn.tannn.demo.jdevelops.authenticationsrjwt.bean;
 
 import cn.tannn.jdevelops.annotations.web.constant.PlatformConstant;
+import cn.tannn.jdevelops.utils.jwt.constant.UserStatusMark;
 import lombok.Data;
 
 import java.util.Arrays;
@@ -17,18 +18,17 @@ public class Login {
     String username;
 
     String password;
+    /**
+     * 状态:1[正常],2[锁定],3[逻辑删除]
+     */
+    Integer status;
 
     /**
-     * 禁用[账号禁用，跟锁定有点像，但是这个是没有失效，除非管理员主动解除], 同类状态有：
-     * - 删除
-     * - 停用
+     * 状态标记说明
+     *
+     * @see UserStatusMark
      */
-    private boolean disabledAccount;
-
-    /**
-     * 锁定[过度的尝试，判断未异常操作进行账号锁定，一般是有时效的]
-     */
-    private boolean excessiveAttempts;
+    String statusMark;
 
     /**
      * 以前的是否会被挤下线
@@ -55,9 +55,9 @@ public class Login {
     /**
      * 登录平台，默认 COMMON
      */
-    List<PlatformConstant> platform;
+    List<String> platform;
 
-    public List<PlatformConstant> getPlatform() {
+    public List<String> getPlatform() {
         return platform==null||platform.isEmpty()? Collections.singletonList(PlatformConstant.COMMON) :platform;
     }
 }
