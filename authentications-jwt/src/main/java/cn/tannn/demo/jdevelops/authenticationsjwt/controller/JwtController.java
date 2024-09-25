@@ -72,7 +72,7 @@ public class JwtController {
     @ApiOperationSupport(order = 6)
     @GetMapping("/login")
     public TokenSign token(){
-        SignEntity<String> signEntity = new SignEntity<>("tan");
+        SignEntity<String> signEntity = SignEntity.init("tan");
         signEntity.setMap("hi");
         return loginService.login(signEntity);
     }
@@ -82,7 +82,7 @@ public class JwtController {
     @ApiOperationSupport(order = 7)
     @ApiMapping(value = "/login2",checkToken = false)
     public TokenSign token2(){
-        SignEntity<TestBean> signEntity = new SignEntity<>("tan",new TestBean("hi"));
+        SignEntity<TestBean> signEntity = SignEntity.initMap("tan",new TestBean("hi"));
         return loginService.login(signEntity);
     }
 
@@ -92,7 +92,7 @@ public class JwtController {
     public TokenSign token3(){
         Map<String, String> info = new HashMap<>();
         info.put("nickname","ning");
-        SignEntity<Map<String, String>> signEntity = new SignEntity<>("tan",info);
+        SignEntity<Map<String, String>> signEntity = SignEntity.initMap("tan",info);
         return loginService.login(signEntity);
     }
 
@@ -102,7 +102,7 @@ public class JwtController {
     public TokenSign token4() {
         Map<String, String> info = new HashMap<>();
         info.put("nickname", "ning");
-        SignEntity<LoginJwtExtendInfo<Map<String, String>>> signEntity = new SignEntity<>("tan",
+        SignEntity<LoginJwtExtendInfo<Map<String, String>>> signEntity = SignEntity.initMap("tan",
                 new LoginJwtExtendInfo("tan", "1", "宁", info));
         return loginService.login(signEntity);
     }

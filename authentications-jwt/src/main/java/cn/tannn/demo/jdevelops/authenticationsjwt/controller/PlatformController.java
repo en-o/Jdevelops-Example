@@ -25,8 +25,8 @@ public class PlatformController {
     private LoginService loginService;
 
     @ApiMapping(value = "/loginPlatform",checkToken = false, method = RequestMethod.POST)
-    public TokenSign loginPlatform(@RequestBody List<PlatformConstant> platform){
-        SignEntity<String> signEntity = new SignEntity<>("tan", platform);
+    public TokenSign loginPlatform(@RequestBody List<String> platform){
+        SignEntity<String> signEntity = SignEntity.initPlatform("tan", platform);
         return loginService.login(signEntity);
     }
 
