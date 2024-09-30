@@ -41,4 +41,5 @@ jdevelops:
         port: 443
         access-key: ak
         secret-key: sk
+    filter: [png, jpg, gif,jpeg,pdf,doc,docx,html]
 
