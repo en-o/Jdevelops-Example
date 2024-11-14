@@ -75,4 +75,9 @@ public interface QueryUserService {
 
     @Query("select * from sys_user order by id asc ")
     List<User> findAllOrderA();
+
+
+    // 分页 - like
+    @Query("select * from sys_user where name like '#{name}' ")
+    PageResult<User> findLikePage(String name, Paging paging);
 }

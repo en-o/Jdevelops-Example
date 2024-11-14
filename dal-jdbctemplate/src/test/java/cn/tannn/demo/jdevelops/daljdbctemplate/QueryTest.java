@@ -119,4 +119,18 @@ class QueryTest {
     void findAllOrderA() {
         queryUserService.findAllOrderA().forEach(it -> System.out.printf(it.toString()));
     }
+
+
+    /**
+     * page - like
+     */
+    @Test
+    void findLikePage() {
+        // currentPage=2, pageSize=2, totalPages=2, total=4
+
+        // sql select * from sys_user where name like '%用户%'
+        // sql SELECT COUNT(*) from sys_user where name like '%用户%'
+        System.out.println("第一页：" + queryUserService.findLikePage("%用户%", new Paging(1, 2)));
+        System.out.println("第二页：" + queryUserService.findLikePage("%用户%", new Paging(2, 2)));
+    }
 }
