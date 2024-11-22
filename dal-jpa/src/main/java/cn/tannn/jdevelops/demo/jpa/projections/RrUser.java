@@ -1,4 +1,4 @@
-package cn.tannn.jdevelops.demo.jpa.module;
+package cn.tannn.jdevelops.demo.jpa.projections;
 
 /**
  * @author <a href="https://t.tannn.cn/">tan</a>

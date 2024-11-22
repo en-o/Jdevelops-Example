@@ -2,8 +2,6 @@ package cn.tannn.jdevelops.demo.jpa;
 
 import cn.tannn.jdevelops.demo.jpa.dao.UserDao;
 import cn.tannn.jdevelops.demo.jpa.entity.User;
-import cn.tannn.jdevelops.demo.jpa.module.RcUser;
-import cn.tannn.jdevelops.demo.jpa.module.RiUser;
 import cn.tannn.jdevelops.jpa.utils.SpecificationUtil;
 import com.alibaba.fastjson2.JSON;
 import org.junit.jupiter.api.Test;
@@ -13,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.repository.query.FluentQuery;
 
 /**
  * Fluent API

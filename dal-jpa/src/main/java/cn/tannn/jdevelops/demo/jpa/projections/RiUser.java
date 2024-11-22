@@ -1,9 +1,4 @@
-package cn.tannn.jdevelops.demo.jpa.module;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+package cn.tannn.jdevelops.demo.jpa.projections;
 
 /**
  * @author <a href="https://t.tannn.cn/">tan</a>
@@ -13,6 +8,6 @@ import lombok.Setter;
 
 public interface RiUser {
     String getName();
-    String getAddress(); 
+    String getAddress();
     String getLoginName();
 }

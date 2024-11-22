@@ -2,18 +2,14 @@ package cn.tannn.jdevelops.demo.jpa;
 
 import cn.tannn.jdevelops.annotations.jpa.enums.SpecBuilderDateFun;
 import cn.tannn.jdevelops.demo.jpa.entity.User;
-import cn.tannn.jdevelops.demo.jpa.module.RcUser;
-import cn.tannn.jdevelops.demo.jpa.module.RiUser;
-import cn.tannn.jdevelops.demo.jpa.module.RrUser;
+import cn.tannn.jdevelops.demo.jpa.projections.RiUser;
 import cn.tannn.jdevelops.demo.jpa.service.UserService;
 import cn.tannn.jdevelops.jpa.utils.JpaUtils;
 import cn.tannn.jdevelops.jpa.utils.SpecificationUtil;
 import jakarta.persistence.criteria.Path;
-import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;

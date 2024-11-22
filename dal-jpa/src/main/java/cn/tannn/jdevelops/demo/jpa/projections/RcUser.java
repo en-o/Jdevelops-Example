@@ -1,4 +1,4 @@
-package cn.tannn.jdevelops.demo.jpa.module;
+package cn.tannn.jdevelops.demo.jpa.projections;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

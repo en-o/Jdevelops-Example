@@ -2,6 +2,9 @@ package cn.tannn.jdevelops.demo.jpa.dao;
 
 
 import cn.tannn.jdevelops.demo.jpa.entity.User;
+import cn.tannn.jdevelops.demo.jpa.projections.RcUser;
+import cn.tannn.jdevelops.demo.jpa.projections.RiUser;
+import cn.tannn.jdevelops.demo.jpa.projections.RrUser;
 import cn.tannn.jdevelops.jpa.repository.JpaBasicsRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -37,4 +40,25 @@ public interface UserDao extends JpaBasicsRepository<User, Long> {
      * @param <S>
      */
     <S> List<S> findByNameLike(String name, Class<S> rclazz);
+
+
+    /**
+     * @param name
+     * @return
+     */
+    List<RrUser> findByNameLike(String name);
+
+
+    /**
+     * @param address
+     * @return
+     */
+    List<RiUser> findByAddress(String address);
+
+    /**
+     * @param address
+     * @return
+     */
+    @Query("select new cn.tannn.jdevelops.demo.jpa.projections.RcUser(name,address,loginName) from User where address = ?1")
+    List<RcUser> findByAddress2(String address);
 }
