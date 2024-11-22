@@ -12,5 +12,7 @@ import lombok.Setter;
  */
 
 public interface RiUser {
-    String getName(); String getAddress(); String getLoginName();
+    String getName();
+    String getAddress(); 
+    String getLoginName();
 }

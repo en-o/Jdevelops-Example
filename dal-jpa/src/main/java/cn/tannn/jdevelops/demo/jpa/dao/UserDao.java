@@ -29,4 +29,12 @@ public interface UserDao extends JpaBasicsRepository<User, Long> {
      */
     @Query("select u from User u ")
     List<User> customSql();
+
+    /**
+     * @param name
+     * @param rclazz 返回类型
+     * @return
+     * @param <S>
+     */
+    <S> List<S> findByNameLike(String name, Class<S> rclazz);
 }
