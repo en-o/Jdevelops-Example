@@ -2,13 +2,18 @@ package cn.tannn.jdevelops.demo.jpa;
 
 import cn.tannn.jdevelops.annotations.jpa.enums.SpecBuilderDateFun;
 import cn.tannn.jdevelops.demo.jpa.entity.User;
+import cn.tannn.jdevelops.demo.jpa.module.RcUser;
+import cn.tannn.jdevelops.demo.jpa.module.RiUser;
+import cn.tannn.jdevelops.demo.jpa.module.RrUser;
 import cn.tannn.jdevelops.demo.jpa.service.UserService;
 import cn.tannn.jdevelops.jpa.utils.JpaUtils;
 import cn.tannn.jdevelops.jpa.utils.SpecificationUtil;
 import jakarta.persistence.criteria.Path;
+import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
@@ -142,5 +147,20 @@ public class SpecificationUtilTest {
             return path.in("111", "超级管理员");
         });
         userService.getJpaBasicsDao().findAll(in).forEach(System.out::println);
+    }
+
+
+    @Test
+    void testProjections(){
+        SpecificationUtil<User> instance = SpecificationUtil.getInstance();
+        Specification<User> in = instance.specification((r,q,b)->{
+           return b.like(r.get("name"), "%用户%");
+        });
+//        userService.getJpaBasicsDao()
+//                .findBy(in, r -> r.project("name","address","loginName").as(RcUser.class).all())
+//                .forEach(System.out::println);
+//        userService.getJpaBasicsDao().findBy(in, r -> r.as(RcUser.class).all()).forEach(System.out::println);
+//        userService.getJpaBasicsDao().findBy(in, r -> r.as(RrUser.class).all()).forEach(System.out::println);
+        userService.getJpaBasicsDao().findBy(in, r -> r.as(RiUser.class).all()).forEach(System.out::println);
     }
 }
