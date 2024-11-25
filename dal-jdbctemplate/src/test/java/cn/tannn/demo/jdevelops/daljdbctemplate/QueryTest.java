@@ -1,14 +1,14 @@
 package cn.tannn.demo.jdevelops.daljdbctemplate;
 
+import cn.tannn.demo.jdevelops.daljdbctemplate.entity.User;
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserBO;
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserService;
 import cn.tannn.jdevelops.result.request.Paging;
+import cn.tannn.jdevelops.result.response.PageResult;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -98,7 +98,9 @@ class QueryTest {
     void findAllPage() {
 //        queryUserServiceImpl.findAllPage(new Paging(1, 2))
 //                .getRows().forEach(it -> System.out.printf(it.toString()));
-        System.out.println("第一页：" + queryUserService.findAllPage(new Paging(1, 2)));
+
+        PageResult<User> allPage = queryUserService.findAllPage(new Paging(1, 2));
+        System.out.println("第一页：" + allPage);
         System.out.println("第二页：" + queryUserService.findAllPage(new Paging(2, 2)));
     }
 
