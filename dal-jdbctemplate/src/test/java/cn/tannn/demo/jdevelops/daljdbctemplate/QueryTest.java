@@ -5,9 +5,13 @@ import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserService;
 import cn.tannn.jdevelops.result.request.Paging;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @SpringBootTest
@@ -38,9 +42,11 @@ class QueryTest {
 
     @Test
     void findById3() {
-        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-            queryUserService.findById(10);
-        });
+//        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+//            queryUserService.findById(10);
+//        });
+            //优化成 null 了
+        Assertions.assertNull(queryUserService.findById(10));
     }
 
     @Test
@@ -78,7 +84,14 @@ class QueryTest {
 
     @Test
     void findIdByName2() {
-        System.out.println(queryUserService.findIdByNameAndAddress("111", "重庆"));
+        assertEquals("User{id=6, userNo='1469200914007695361', name='111', address='重庆', loginName='XX-01', loginPwd='1231', phone='1312', userIcon='null'}"
+                , queryUserService.findIdByNameAndAddress("111", "重庆").toString());
+        // null
+        Assertions.assertNull(queryUserService.findIdByNameAndAddress("112", "重庆"));
+        Assertions.assertThrows(IncorrectResultSizeDataAccessException.class, () -> {
+            // IncorrectResultSizeDataAccessException
+            queryUserService.findIdByNameAndAddress("test2", "重庆test");
+        });
     }
 
     @Test
