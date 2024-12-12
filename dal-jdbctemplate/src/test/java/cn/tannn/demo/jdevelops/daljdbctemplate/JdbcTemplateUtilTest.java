@@ -1,6 +1,7 @@
 package cn.tannn.demo.jdevelops.daljdbctemplate;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.User;
+import cn.tannn.jdevelops.jdectemplate.util.InteriorJdbcTemplateUtil;
 import cn.tannn.jdevelops.jdectemplate.util.JdbcTemplateUtil;
 import cn.tannn.jdevelops.result.request.Paging;
 import cn.tannn.jdevelops.result.response.PageResult;
@@ -26,11 +27,11 @@ public class JdbcTemplateUtilTest {
     void testPageFullSql(){
         Paging paging1 = new Paging(1, 2);
         Paging paging2 = new Paging(2, 2);
-        PageResult<User> p1 = JdbcTemplateUtil.paging(jdbcTemplate
+        PageResult<User> p1 = InteriorJdbcTemplateUtil.paging(jdbcTemplate
                 , "select * from sys_user where name like '%用户%'"
                 , User.class, paging1);
 
-        PageResult<User> p2 = JdbcTemplateUtil.paging(jdbcTemplate
+        PageResult<User> p2 = InteriorJdbcTemplateUtil.paging(jdbcTemplate
                 , "select * from sys_user where name like '%用户%'"
                 , User.class, paging2);
 
@@ -40,7 +41,7 @@ public class JdbcTemplateUtilTest {
 
     @Test
     void testPagePlaceholderSql(){
-        PageResult<User> paging = JdbcTemplateUtil.paging(jdbcTemplate
+        PageResult<User> paging = InteriorJdbcTemplateUtil.paging(jdbcTemplate
                 , "select * from sys_user where name like ? "
                 , User.class, new Paging(1, 2), "%用户%");
         System.out.println(paging);

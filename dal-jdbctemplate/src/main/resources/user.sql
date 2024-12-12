@@ -13,13 +13,12 @@ CREATE TABLE `sys_user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户表';
 
 
-
-INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`, `update_user_name`, `create_user_name`, `create_time`, `update_time`) VALUES (1, '重庆1', 'admin', '1231', '用户1', '15888888888', '头像', 'admin', 'tann', NULL, '2024-02-18 17:08:53', '2024-01-18 17:08:53');
-INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`, `update_user_name`, `create_user_name`, `create_time`, `update_time`) VALUES (2, '重庆2', 'user', '1234', '用户2', '123', NULL, '1466645430750781440', NULL, NULL, '2024-04-18 17:08:53', NULL);
-INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`, `update_user_name`, `create_user_name`, `create_time`, `update_time`) VALUES (3, '重庆', 'user02', '123', '用户3', '123', NULL, '1466649744075108352', NULL, NULL, '2024-03-18 17:08:53', '2024-01-18 17:14:45');
-INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`, `update_user_name`, `create_user_name`, `create_time`, `update_time`) VALUES (4, '222', 'SH-01', '123', '用户4', '', NULL, '1469200870634397696', NULL, NULL, '2024-06-18 17:08:53', NULL);
-INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`, `update_user_name`, `create_user_name`, `create_time`, `update_time`) VALUES (5, '222', 'LR-01', '1231', '111', '1312', NULL, '1469200914007695360', NULL, NULL, '2024-05-18 17:08:53', NULL);
-INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`, `update_user_name`, `create_user_name`, `create_time`, `update_time`) VALUES (6, '222', 'XX-01', '1231', '111', '1312', NULL, '1469200914007695361', NULL, NULL, '2024-05-18 17:08:53', NULL);
-INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`, `update_user_name`, `create_user_name`, `create_time`, `update_time`) VALUES (6, '重庆', 'XX-01', '1231', '111', '1312', NULL, '1469200914007695361', NULL, NULL, '2024-05-18 17:08:53', NULL);
-INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`, `update_user_name`, `create_user_name`, `create_time`, `update_time`) VALUES (7, '重庆test', '重庆test', '111', 'test2', NULL, NULL, '1231', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`, `update_user_name`, `create_user_name`, `create_time`, `update_time`) VALUES (8, '重庆test', '重庆test2', 'test2', 'test2', NULL, NULL, 'test2', NULL, NULL, NULL, NULL);
+INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`) VALUES (1, '重庆1', 'admin', '1231', '用户1', '15888888888', '头像', 'admin' );
+INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`) VALUES (2, '重庆2', 'user', '1234', '用户2', '123', NULL, '1466645430750781440' );
+INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`) VALUES (3, '重庆', 'user02', '123', '用户3', '123', NULL, '1466649744075108352' );
+INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`) VALUES (4, '222', 'SH-01', '123', '用户4', '', NULL, '1469200870634397696' );
+INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`) VALUES (5, '222', 'LR-01', '1231', '111', '1312', NULL, '1469200914007695360' );
+INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`) VALUES (6, '222', 'XX-01', '1231', '111', '1312', NULL, '1469200914007695361' );
+INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`) VALUES (9, '重庆', 'XX-01', '1231', '111', '1312', NULL, '1469200914007695362' );
+INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`) VALUES (7, '重庆test', '重庆test', '111', 'test2', NULL, NULL, '1231' );
+INSERT INTO `sys_user` (`id`, `address`, `login_name`, `login_pwd`, `name`, `phone`, `user_icon`, `user_no`) VALUES (8, '重庆test', '重庆test2', 'test2', 'test2', NULL, NULL, 'test2' );
