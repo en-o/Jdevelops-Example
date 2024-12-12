@@ -16,7 +16,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 @SpringBootApplication
 public class DalJdbctemplateApplication  {
 
-
+	// 目前无法通过注入的方式，创建bean太晚导致 直接注入使用失败，只能通过下面的getbean加载
 	public static void main(String[] args) {
 		ConfigurableApplicationContext run = SpringApplication.run(DalJdbctemplateApplication.class, args);
 		QueryUserService queryUserService = run.getBean(QueryUserService.class);
