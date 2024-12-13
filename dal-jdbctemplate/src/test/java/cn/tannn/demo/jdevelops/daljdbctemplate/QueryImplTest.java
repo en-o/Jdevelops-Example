@@ -3,6 +3,7 @@ package cn.tannn.demo.jdevelops.daljdbctemplate;
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserBO;
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserService;
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserServiceImpl;
+import cn.tannn.jdevelops.annotations.jdbctemplate.JdbcTemplate;
 import cn.tannn.jdevelops.result.request.Paging;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 @SpringBootTest
 class QueryImplTest {
 
-    @Autowired
+    @JdbcTemplate
     private QueryUserServiceImpl queryUserServiceImpl;
 
     @Test

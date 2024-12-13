@@ -3,11 +3,11 @@ package cn.tannn.demo.jdevelops.daljdbctemplate;
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.User;
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserBO;
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserService;
+import cn.tannn.jdevelops.annotations.jdbctemplate.JdbcTemplate;
 import cn.tannn.jdevelops.result.request.Paging;
 import cn.tannn.jdevelops.result.response.PageResult;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class QueryTest {
 
-    @Autowired
+    @JdbcTemplate
     private QueryUserService queryUserService;
 
     @Test
