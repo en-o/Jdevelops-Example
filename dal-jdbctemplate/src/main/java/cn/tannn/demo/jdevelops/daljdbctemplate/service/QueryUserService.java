@@ -17,7 +17,6 @@ import java.util.List;
  * @date 2022-08-01 13:41
  */
 @Service
-@JdbcTemplate
 public interface QueryUserService {
 
 
