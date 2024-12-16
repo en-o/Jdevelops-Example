@@ -3,6 +3,7 @@ package cn.tannn.demo.jdevelops.daljdbctemplate.service;
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.User;
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserBO;
 import cn.tannn.jdevelops.annotations.jdbctemplate.Query;
+import org.springframework.stereotype.Service;
 
 /**
  * xx
@@ -11,6 +12,7 @@ import cn.tannn.jdevelops.annotations.jdbctemplate.Query;
  * @version V1.0
  * @date 2024/12/16 09:59
  */
+@Service
 public class ExistInterfaceImpl implements ExistInterface {
     @Override
     public User findById() {

@@ -1,5 +1,7 @@
 package cn.tannn.demo.jdevelops.daljdbctemplate;
 
+import cn.tannn.demo.jdevelops.daljdbctemplate.service.ExistInterface;
+import cn.tannn.demo.jdevelops.daljdbctemplate.service.NoInterfaceQueryImpl;
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserService;
 import cn.tannn.jdevelops.annotations.jdbctemplate.JdbcTemplate;
 import org.springframework.boot.ApplicationArguments;
@@ -16,8 +18,19 @@ public class TestScanner implements ApplicationRunner {
 
     @JdbcTemplate
     QueryUserService queryUserService;
+
+
+    @JdbcTemplate
+    NoInterfaceQueryImpl noInterfaceQuery;
+
+    @JdbcTemplate
+    ExistInterface existInterface;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         queryUserService.findAll().forEach(it -> System.out.printf(it.toString()));
+        System.out.println("noInterfaceQuery"+noInterfaceQuery.findById());
+        System.out.println("existInterface"+existInterface.findById());
+        System.out.println("existInterface"+existInterface.findByIdByBo());
     }
 }
