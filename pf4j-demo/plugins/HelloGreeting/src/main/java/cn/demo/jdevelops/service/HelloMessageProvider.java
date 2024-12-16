@@ -1,6 +1,5 @@
 package cn.demo.jdevelops.service;
 
-import java.io.IOException;
 import java.util.Properties;
 
 public class HelloMessageProvider implements MessageProvider {

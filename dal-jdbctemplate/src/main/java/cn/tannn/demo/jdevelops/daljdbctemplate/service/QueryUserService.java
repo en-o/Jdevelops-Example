@@ -3,7 +3,6 @@ package cn.tannn.demo.jdevelops.daljdbctemplate.service;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.User;
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserBO;
-import cn.tannn.jdevelops.annotations.jdbctemplate.JdbcTemplate;
 import cn.tannn.jdevelops.annotations.jdbctemplate.Query;
 import cn.tannn.jdevelops.result.request.Paging;
 import cn.tannn.jdevelops.result.response.PageResult;

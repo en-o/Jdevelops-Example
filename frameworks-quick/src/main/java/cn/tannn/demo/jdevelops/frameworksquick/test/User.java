@@ -1,6 +1,6 @@
 package cn.tannn.demo.jdevelops.frameworksquick.test;
-import cn.tannn.jdevelops.result.utils.UUIDUtils;
 
+import cn.tannn.jdevelops.result.utils.UUIDUtils;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

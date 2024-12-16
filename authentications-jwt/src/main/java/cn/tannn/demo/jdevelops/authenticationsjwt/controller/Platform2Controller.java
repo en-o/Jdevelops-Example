@@ -5,8 +5,6 @@ import cn.tannn.jdevelops.annotations.web.constant.PlatformConstant;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 /**
  * 测试 apiPlatform注解
  *

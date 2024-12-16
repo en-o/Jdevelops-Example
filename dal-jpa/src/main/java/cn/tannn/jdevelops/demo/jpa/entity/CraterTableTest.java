@@ -1,6 +1,5 @@
 package cn.tannn.jdevelops.demo.jpa.entity;
 
-import cn.tannn.jdevelops.demo.jpa.entity.CommonBean;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;

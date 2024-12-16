@@ -2,7 +2,6 @@ package cn.tannn.demo.jdevelops.daljdbctemplate;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserService;
 import cn.tannn.jdevelops.annotations.jdbctemplate.JdbcTemplate;
-
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;

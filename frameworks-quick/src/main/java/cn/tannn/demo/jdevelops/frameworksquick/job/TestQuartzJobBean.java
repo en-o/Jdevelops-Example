@@ -2,7 +2,9 @@ package cn.tannn.demo.jdevelops.frameworksquick.job;
 
 import cn.tannn.jdevelops.quartz.Job;
 import lombok.extern.slf4j.Slf4j;
-import org.quartz.*;
+import org.quartz.JobDetail;
+import org.quartz.JobExecutionContext;
+import org.quartz.Trigger;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 

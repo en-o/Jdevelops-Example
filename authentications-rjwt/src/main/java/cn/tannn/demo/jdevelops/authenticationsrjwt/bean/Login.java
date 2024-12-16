@@ -4,7 +4,6 @@ import cn.tannn.jdevelops.annotations.web.constant.PlatformConstant;
 import cn.tannn.jdevelops.utils.jwt.constant.UserStatusMark;
 import lombok.Data;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

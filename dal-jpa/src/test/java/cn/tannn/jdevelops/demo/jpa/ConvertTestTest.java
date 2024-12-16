@@ -2,7 +2,6 @@ package cn.tannn.jdevelops.demo.jpa;
 
 import cn.tannn.jdevelops.demo.jpa.dao.ConvertTestDao;
 import cn.tannn.jdevelops.demo.jpa.entity.ConvertTest;
-import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

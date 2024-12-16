@@ -1,7 +1,6 @@
 package cn.tannn.demo.jdevelops.authenticationsrjwt.controller;
 
 
-import cn.tannn.jdevelops.annotations.web.constant.PlatformConstant;
 import cn.tannn.jdevelops.jwt.standalone.util.JwtWebUtil;
 import cn.tannn.jdevelops.result.response.ResultVO;
 import cn.tannn.jdevelops.utils.jwt.core.JwtService;

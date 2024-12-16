@@ -1,7 +1,10 @@
 package cn.tannn.demo.jdevelops.frameworksweb.entity;
 
 import cn.tannn.demo.jdevelops.frameworksweb.CommonBean;
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 

@@ -1,6 +1,5 @@
 package cn.tannn.jdevelops.demo.jpa.dao;
 
-import cn.tannn.jdevelops.demo.jpa.entity.Address;
 import cn.tannn.jdevelops.demo.jpa.entity.ExpressionRootDemo;
 import cn.tannn.jdevelops.jpa.repository.JpaBasicsRepository;
 import org.springframework.data.jpa.repository.Query;
