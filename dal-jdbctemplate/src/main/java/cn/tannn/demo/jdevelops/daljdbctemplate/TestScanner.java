@@ -30,7 +30,7 @@ public class TestScanner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         queryUserService.findAll().forEach(it -> System.out.printf(it.toString()));
         System.out.println("noInterfaceQuery"+noInterfaceQuery.findById());
-        System.out.println("existInterface"+existInterface.findById());
-        System.out.println("existInterface"+existInterface.findByIdByBo());
+        System.out.println("existInterface:"+existInterface.findById());
+        System.out.println("existInterface#findByIdByBo:"+existInterface.findByIdByBo());
     }
 }
