@@ -97,7 +97,7 @@ class QueryTest {
 
     @Test
     void findIdByName2() {
-        assertEquals("User{id=6, userNo='1469200914007695361', name='111', address='重庆', loginName='XX-01', loginPwd='1231', phone='1312', userIcon='null'}"
+        assertEquals("User{id=9, userNo='1469200914007695362', name='111', address='重庆', loginName='XX-01', loginPwd='1231', phone='1312', userIcon='null'}"
                 , queryUserService.findIdByNameAndAddress("111", "重庆").toString());
         // null
         Assertions.assertNull(queryUserService.findIdByNameAndAddress("112", "重庆"));
