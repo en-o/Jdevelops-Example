@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 无法使用到class 上，只能在接口中使用，这里是作为错误示范的
  *
  * @author tnnn
  * @version V1.0
