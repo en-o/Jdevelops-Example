@@ -17,7 +17,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
+/**
+ * 适配 interface
+ */
 @SpringBootTest
 class QueryTest {
 
@@ -28,7 +30,7 @@ class QueryTest {
 
     @BeforeEach
     void x(){
-        queryUserService = (QueryUserService)CreateProxy.createQueryProxy(QueryUserService.class, jdbcTemplate, Query.class);
+        queryUserService = (QueryUserService)CreateProxy.createQueryProxy(QueryUserService.class, jdbcTemplate);
     }
 
     @Test

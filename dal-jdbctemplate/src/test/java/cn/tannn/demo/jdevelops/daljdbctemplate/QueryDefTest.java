@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
+/**
+ * 适配 interface default
+ */
 @SpringBootTest
 class QueryDefTest {
 
@@ -20,7 +22,7 @@ class QueryDefTest {
 
     @BeforeEach
     void x(){
-        defQueryUserService = (DefQueryUserService) CreateProxy.createQueryProxy(DefQueryUserService.class, jdbcTemplate, Query.class);
+        defQueryUserService = (DefQueryUserService) CreateProxy.createQueryProxy(DefQueryUserService.class, jdbcTemplate);
     }
     @Test
     void findAll() {

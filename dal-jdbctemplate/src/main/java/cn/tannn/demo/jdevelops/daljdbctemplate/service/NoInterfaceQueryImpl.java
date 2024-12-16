@@ -11,13 +11,13 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 无法使用到class 上，只能在接口中使用，这里是作为错误示范的
+ *  没有接口的class
  * @author tnnn
  * @version V1.0
  * @date 2022-08-01 13:41
  */
 @Service
-public  class QueryUserServiceImpl {
+public  class NoInterfaceQueryImpl {
 
     @Query("select * from sys_user")
     public List<User> findAll() {
@@ -104,5 +104,9 @@ public  class QueryUserServiceImpl {
     @Query("select * from sys_user order by id asc ")
     public List<User> findAllOrderA() {
         return Collections.emptyList();
+    }
+
+    public String noQuery() {
+        return "no @Query";
     }
 }

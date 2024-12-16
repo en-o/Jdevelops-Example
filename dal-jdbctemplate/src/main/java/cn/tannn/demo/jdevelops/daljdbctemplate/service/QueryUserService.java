@@ -15,10 +15,7 @@ import java.util.List;
  * @version V1.0
  * @date 2022-08-01 13:41
  */
-@Service
 public interface QueryUserService {
-
-
     @Query("select * from sys_user")
     List<User> findAll();
 
