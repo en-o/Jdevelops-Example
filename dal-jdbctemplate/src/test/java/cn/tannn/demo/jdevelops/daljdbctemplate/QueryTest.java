@@ -2,6 +2,7 @@ package cn.tannn.demo.jdevelops.daljdbctemplate;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.User;
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserBO;
+import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserRecord;
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserService;
 import cn.tannn.jdevelops.annotations.jdbctemplate.Query;
 import cn.tannn.jdevelops.jdectemplate.core.CreateProxy;
@@ -160,5 +161,18 @@ class QueryTest {
         // sql SELECT COUNT(*) from sys_user where name like '%用户%'
         System.out.println("第一页：" + queryUserService.findLikePage("%用户%", new Paging(1, 2)));
         System.out.println("第二页：" + queryUserService.findLikePage("%用户%", new Paging(2, 2)));
+    }
+
+
+    /**
+     * page - like
+     */
+    @Test
+    void findUserRecord() {
+        queryUserService.findUserRecord().forEach(System.out::println);
+        UserRecord userRecord2 = queryUserService.findUserRecord2();
+        System.out.println("userRecord2 = " + userRecord2);
+        System.out.println("userRecord2#loginName = " + userRecord2.loginName());
+        System.out.println("userRecord2#name = " + userRecord2.name());
     }
 }

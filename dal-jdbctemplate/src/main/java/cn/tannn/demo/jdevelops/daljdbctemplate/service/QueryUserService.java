@@ -3,6 +3,7 @@ package cn.tannn.demo.jdevelops.daljdbctemplate.service;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.User;
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserBO;
+import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserRecord;
 import cn.tannn.jdevelops.annotations.jdbctemplate.Query;
 import cn.tannn.jdevelops.result.request.Paging;
 import cn.tannn.jdevelops.result.response.PageResult;
@@ -75,4 +76,12 @@ public interface QueryUserService {
     // 分页 - like
     @Query("select * from sys_user where name like '#{name}' ")
     PageResult<User> findLikePage(String name, Paging paging);
+
+
+
+    @Query("select * from sys_user order by id asc ")
+    List<UserRecord> findUserRecord();
+
+    @Query("select * from sys_user where id = 1  ")
+    UserRecord findUserRecord2();
 }
