@@ -3,13 +3,18 @@ package cn.tannn.demo.jdevelops.daljdbctemplate;
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.User;
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserBO;
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserService;
-import cn.tannn.jdevelops.annotations.jdbctemplate.JdbcTemplate;
+import cn.tannn.jdevelops.annotations.jdbctemplate.Query;
+import cn.tannn.jdevelops.jdectemplate.core.CreateProxy;
 import cn.tannn.jdevelops.result.request.Paging;
 import cn.tannn.jdevelops.result.response.PageResult;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -17,8 +22,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class QueryTest {
 
-    @JdbcTemplate
-    private QueryUserService queryUserService;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    QueryUserService queryUserService;
+
+    @BeforeEach
+    void x(){
+        queryUserService = (QueryUserService)CreateProxy.createQueryProxy(QueryUserService.class, jdbcTemplate, Query.class);
+    }
 
     @Test
     void findAll() {

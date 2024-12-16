@@ -1,11 +1,15 @@
 package cn.tannn.demo.jdevelops.daljdbctemplate;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserBO;
+import cn.tannn.demo.jdevelops.daljdbctemplate.service.DefQueryUserService;
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserService;
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserServiceImpl;
 import cn.tannn.jdevelops.annotations.jdbctemplate.JdbcTemplate;
+import cn.tannn.jdevelops.annotations.jdbctemplate.Query;
+import cn.tannn.jdevelops.jdectemplate.core.CreateProxy;
 import cn.tannn.jdevelops.result.request.Paging;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +23,15 @@ class QueryImplTest {
 
     @JdbcTemplate
     private QueryUserServiceImpl queryUserServiceImpl;
+    @Autowired
+    private org.springframework.jdbc.core.JdbcTemplate jdbcTemplate;
+
+
+    @BeforeEach
+    void x(){
+        queryUserServiceImpl = (QueryUserServiceImpl) CreateProxy.createQueryProxy(QueryUserServiceImpl.class, jdbcTemplate, Query.class);
+    }
+
 
     @Test
     void findAll() {
