@@ -2,6 +2,7 @@ package cn.tannn.jdevelops.demo.jpa.enhanceSpecification;
 
 import cn.tannn.jdevelops.annotations.jpa.enums.SpecBuilderDateFun;
 import cn.tannn.jdevelops.demo.jpa.dao.UserDao;
+import cn.tannn.jdevelops.demo.jpa.enhanceSpecification.pojo.TestOr;
 import cn.tannn.jdevelops.demo.jpa.entity.User;
 import cn.tannn.jdevelops.demo.jpa.lists.dto.UserComplexFind;
 import cn.tannn.jdevelops.demo.jpa.lists.dto.UserComplexFind2;
@@ -240,4 +241,51 @@ WHERE
 
 
     }
+
+    @Test
+    void testOr() {
+        TestOr testOr = new TestOr("1466","a");
+        Specification<User> beanWhere = EnhanceSpecification.beanWhere(testOr);
+        userDao.findAll(beanWhere).forEach(System.out::println);
+    }
+
+    @Test
+    void testOrOr() {
+        // from sys_user u1_0 where u1_0.name='用户1' or u1_0.user_no='1466645430750781440'
+        Specification<User> wheres = EnhanceSpecification.where(e -> {
+            e.or(e1 -> {
+                e1.eq(true,"name","用户1");
+                e1.eq(true,"userNo","1466645430750781440");
+            });
+        });
+        userDao.findAll(wheres).forEach(System.out::println);
+    }
+
+    @Test
+    void testAnd() {
+        //  from sys_user u1_0 where u1_0.name='用户1' and u1_0.user_no='1466645430750781440'
+        Specification<User> wheres = EnhanceSpecification.where(e -> {
+            e.and(e1 -> {
+                e1.eq(true,"name","用户1");
+                e1.eq(true,"userNo","1466645430750781440");
+            });
+        });
+        userDao.findAll(wheres).forEach(System.out::println);
+    }
+
+
+
+    @Test
+    void testOrAnd() {
+        // from sys_user u1_0 where u1_0.name='用户1' or u1_0.user_no='1466645430750781440'
+        Specification<User> wheres = EnhanceSpecification.where(e -> {
+            e.or(e1 -> {
+                e1.eq(true,"name","用户1");
+                e1.eq(true,"userNo","1466645430750781440");
+            });
+            e.and(e2 -> e2.eq(true,"loginName","user"));
+        });
+        userDao.findAll(wheres).forEach(System.out::println);
+    }
+
 }
