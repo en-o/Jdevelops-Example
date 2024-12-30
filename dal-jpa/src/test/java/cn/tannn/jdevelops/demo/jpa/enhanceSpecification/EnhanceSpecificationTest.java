@@ -2,6 +2,7 @@ package cn.tannn.jdevelops.demo.jpa.enhanceSpecification;
 
 import cn.tannn.jdevelops.annotations.jpa.enums.SpecBuilderDateFun;
 import cn.tannn.jdevelops.demo.jpa.dao.UserDao;
+import cn.tannn.jdevelops.demo.jpa.enhanceSpecification.pojo.TestOr;
 import cn.tannn.jdevelops.demo.jpa.entity.User;
 import cn.tannn.jdevelops.demo.jpa.lists.dto.UserComplexFind;
 import cn.tannn.jdevelops.demo.jpa.lists.dto.UserComplexFind2;
@@ -237,6 +238,21 @@ WHERE
             // 将 Long 类型字段转换为字符串进行 like 操作
             e.likes(e.getBuilder().function("str", String.class, e.getRoot().get("id")),1+"");
         })).forEach(System.out::println);
+
+
+    }
+
+
+
+
+
+
+    @Test
+    void testOr() {
+        TestOr testOr = new TestOr();
+        testOr.setUserNo("1466645430750781440");
+        // ok
+        userDao.findAll(EnhanceSpecification.beanWhere(testOr)).forEach(System.out::println);
 
 
     }
