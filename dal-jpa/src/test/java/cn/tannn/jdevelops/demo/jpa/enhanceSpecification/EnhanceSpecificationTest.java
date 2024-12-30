@@ -289,7 +289,7 @@ WHERE
     }
     @Test
     void testOrAnd2() {
-        // where (u1_0.user_no='1466645430750781440') and u1_0.login_name='user' and u1_0.name='用户1'
+        // where (u1_0.user_no='1466645430750781440' or u1_0.login_name='user' and u1_0.name='用户1')
         Specification<User> wheres = EnhanceSpecification.where(e -> {
             e.or(e1 -> {
                 e1.eq(true,"userNo","1466645430750781440");
@@ -305,7 +305,7 @@ WHERE
 
     @Test
     void testOrAnd3() {
-        // where (u1_0.user_no='1466645430750781440' or u1_0.user_no='1466645430750781440') and u1_0.name='用户1'
+        // where (u1_0.user_no='1466645430750781440' or u1_0.user_no='1466645430750781440' or u1_0.name='用户1')
         Specification<User> wheres = EnhanceSpecification.where(e -> {
             e.or(e1 -> {
                 e1.eq(true,"userNo","1466645430750781440");
