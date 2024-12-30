@@ -251,9 +251,6 @@ WHERE
     void testOr() {
         TestOr testOr = new TestOr();
         testOr.setUserNo("1466645430750781440");
-        // ok
         userDao.findAll(EnhanceSpecification.beanWhere(testOr)).forEach(System.out::println);
-
-
     }
 }
