@@ -242,15 +242,82 @@ WHERE
 
     }
 
+    @Test
+    void testOr() {
+        TestOr testOr = new TestOr("1466","a");
+        Specification<User> beanWhere = EnhanceSpecification.beanWhere(testOr);
+        userDao.findAll(beanWhere).forEach(System.out::println);
+    }
 
+    @Test
+    void testOrOr() {
+        // from sys_user u1_0 where u1_0.name='用户1' or u1_0.user_no='1466645430750781440'
+        Specification<User> wheres = EnhanceSpecification.where(e -> {
+            e.or(e1 -> {
+                e1.eq(true,"name","用户1");
+                e1.eq(true,"userNo","1466645430750781440");
+            });
+        });
+        userDao.findAll(wheres).forEach(System.out::println);
+    }
 
+    @Test
+    void testAnd() {
+        //  from sys_user u1_0 where u1_0.name='用户1' and u1_0.user_no='1466645430750781440'
+        Specification<User> wheres = EnhanceSpecification.where(e -> {
+            e.and(e1 -> {
+                e1.eq(true,"name","用户1");
+                e1.eq(true,"userNo","1466645430750781440");
+            });
+        });
+        userDao.findAll(wheres).forEach(System.out::println);
+    }
 
 
 
     @Test
-    void testOr() {
-        TestOr testOr = new TestOr();
-        testOr.setUserNo("1466645430750781440");
-        userDao.findAll(EnhanceSpecification.beanWhere(testOr)).forEach(System.out::println);
+    void testOrAnd() {
+        // where (u1_0.name='用户1' or u1_0.user_no='1466645430750781440') and u1_0.login_name='user'
+        Specification<User> wheres = EnhanceSpecification.where(e -> {
+            e.or(e1 -> {
+                e1.eq(true,"name","用户1");
+                e1.eq(true,"userNo","1466645430750781440");
+            });
+            e.and(e2 -> e2.eq(true,"loginName","user"));
+        });
+        userDao.findAll(wheres).forEach(System.out::println);
     }
+    @Test
+    void testOrAnd2() {
+        // where (u1_0.user_no='1466645430750781440' or u1_0.login_name='user' and u1_0.name='用户1')
+        Specification<User> wheres = EnhanceSpecification.where(e -> {
+            e.or(e1 -> {
+                e1.eq(true,"userNo","1466645430750781440");
+            });
+            e.and(e2 -> {
+                e2.eq(true,"loginName","user");
+                e2.eq(true,"name","用户1");
+            });
+        });
+        userDao.findAll(wheres).forEach(System.out::println);
+    }
+
+
+    @Test
+    void testOrAnd3() {
+        // where (u1_0.user_no='1466645430750781440' or u1_0.user_no='1466645430750781440') and u1_0.name='用户1'
+        Specification<User> wheres = EnhanceSpecification.where(e -> {
+            e.or(e1 -> {
+                e1.eq(true,"userNo","1466645430750781440");
+            });
+            e.or(e3 -> {
+                e3.eq(true,"userNo","1466645430750781440");
+            });
+            e.and(e2 -> {
+                e2.eq(true,"name","用户1");
+            });
+        });
+        userDao.findAll(wheres).forEach(System.out::println);
+    }
+
 }
