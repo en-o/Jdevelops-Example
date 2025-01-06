@@ -15,7 +15,7 @@ spring:
       on-profile: dev
 jdevelops:
   exception:
-    log-input: false
+    log-input: true
     http-servlet-response-status: true
 
 ---
