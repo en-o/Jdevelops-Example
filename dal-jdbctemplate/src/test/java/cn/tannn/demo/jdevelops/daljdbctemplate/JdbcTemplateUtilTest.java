@@ -1,13 +1,18 @@
 package cn.tannn.demo.jdevelops.daljdbctemplate;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.User;
+import cn.tannn.jdevelops.jdectemplate.enums.SelectType;
 import cn.tannn.jdevelops.jdectemplate.util.InteriorJdbcTemplateUtil;
+import cn.tannn.jdevelops.jdectemplate.util.JdbcTemplateUtil;
 import cn.tannn.jdevelops.result.request.Paging;
 import cn.tannn.jdevelops.result.response.PageResult;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 测试JdbcTemplateUtil
@@ -44,5 +49,22 @@ public class JdbcTemplateUtilTest {
                 , "select * from sys_user where name like ? "
                 , User.class, new Paging(1, 2), "%用户%");
         System.out.println(paging);
+    }
+
+    @Test
+    void testONLY(){
+        Integer object = (Integer) JdbcTemplateUtil.queryForObject(jdbcTemplate
+                , SelectType.ONLY, Integer.class
+                , "select count(*) from sys_user"
+        );
+        System.out.println(object);
+    }
+    @Test
+    void testARRAYS(){
+        List<Integer> id = (List<Integer>) JdbcTemplateUtil.queryForObject(jdbcTemplate
+                , SelectType.ARRAYS, Integer.class
+                , "select id from sys_user"
+        );
+        System.out.println(id);
     }
 }
