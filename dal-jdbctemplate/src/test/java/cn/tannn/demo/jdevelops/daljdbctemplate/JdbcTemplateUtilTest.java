@@ -67,4 +67,14 @@ public class JdbcTemplateUtilTest {
         );
         System.out.println(id);
     }
+
+
+    @Test
+    void testLIST(){
+        List<User> id = (List<User>) JdbcTemplateUtil.queryForObject(jdbcTemplate
+                , SelectType.LIST,  User.class
+                , "select id,name from sys_user"
+        );
+        id.forEach(System.out::println);
+    }
 }
