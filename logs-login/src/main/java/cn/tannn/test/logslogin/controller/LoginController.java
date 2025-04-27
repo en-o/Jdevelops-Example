@@ -13,6 +13,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.security.auth.login.LoginException;
@@ -34,7 +36,7 @@ public class LoginController {
     @ApiOperationSupport(order = 6)
     @ApiMapping(value = "/login",checkToken = false)
     @LoginLog(type = LoginType.ADMIN_ACCOUNT_PASSWORD)
-    public TokenSign token(){
+    public TokenSign login1(){
         SignEntity<String> signEntity = SignEntity.init("tan");
         signEntity.setMap("hi");
         return loginService.login(signEntity);
@@ -44,8 +46,49 @@ public class LoginController {
     @Operation(summary = "记录登录错误日志")
     @ApiMapping(value = "/error",checkToken = false)
     @LoginLog(type = LoginType.ADMIN_ACCOUNT_PASSWORD)
-    public void subject(HttpServletRequest request) throws LoginException {
+    public void login2(HttpServletRequest request) throws LoginException {
       throw new LoginException("账号密码错误");
     }
 
+
+
+    @Operation(summary = "记录登录日志 - 登录名 1 ")
+    @ApiOperationSupport(order = 6)
+    @ApiMapping(value = "/login3",checkToken = false)
+    @LoginLog(type = LoginType.ADMIN_ACCOUNT_PASSWORD)
+    public TokenSign login3(String name){
+        SignEntity<String> signEntity = SignEntity.init(name);
+        signEntity.setMap("hi");
+        return loginService.login(signEntity);
+    }
+
+    @Operation(summary = "记录登录日志 - 登录名 error (必须放到第一位 ")
+    @ApiMapping(value = "/login6",checkToken = false)
+    @LoginLog(type = LoginType.ADMIN_ACCOUNT_PASSWORD)
+    public TokenSign login6(String paw , String name){
+        SignEntity<String> signEntity = SignEntity.init(name);
+        signEntity.setMap("hi");
+        return loginService.login(signEntity);
+    }
+
+
+    @Operation(summary = "记录登录日志 - 登录名 2 ")
+    @ApiOperationSupport(order = 6)
+    @ApiMapping(value = "/login4",checkToken = false, method = RequestMethod.POST)
+    @LoginLog(type = LoginType.ADMIN_ACCOUNT_PASSWORD)
+    public TokenSign login4(@RequestBody LoginDto1 name){
+        SignEntity<String> signEntity = SignEntity.init(name.loginName);
+        signEntity.setMap("hi");
+        return loginService.login(signEntity);
+    }
+
+    @Operation(summary = "记录登录日志 - 登录名 3 ")
+    @ApiOperationSupport(order = 6)
+    @ApiMapping(value = "/login5",checkToken = false, method = RequestMethod.POST)
+    @LoginLog(type = LoginType.ADMIN_ACCOUNT_PASSWORD,loginNameKey = "username")
+    public TokenSign login5(@RequestBody LoginDto2 name){
+        SignEntity<String> signEntity = SignEntity.init(name.username);
+        signEntity.setMap("hi");
+        return loginService.login(signEntity);
+    }
 }
