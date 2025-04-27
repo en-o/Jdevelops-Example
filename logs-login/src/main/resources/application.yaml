@@ -1,0 +1,9 @@
+jdevelops:
+  jwt:
+    expire-time: 100000
+    token-secret: c4c33a6f172f13f91500b6c437a78d2cc5e5e9973e7dee431a1e8c34e68d365e
+    cookie:
+      cookie: true
+    verify-platform: true
+  swagger:
+    base-package: cn.tannn.test.logslogin.controller
