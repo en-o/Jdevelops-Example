@@ -5,7 +5,7 @@ import cn.tannn.jdevelops.jwt.standalone.pojo.TokenSign;
 import cn.tannn.jdevelops.jwt.standalone.service.LoginService;
 import cn.tannn.jdevelops.jwt.standalone.util.JwtWebUtil;
 import cn.tannn.jdevelops.logs.LoginLog;
-import cn.tannn.jdevelops.logs.enums.LoginType;
+import cn.tannn.jdevelops.logs.constant.LoginType;
 import cn.tannn.jdevelops.utils.jwt.core.JwtService;
 import cn.tannn.jdevelops.utils.jwt.module.SignEntity;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -40,7 +40,7 @@ public class LoginController {
 
     @Operation(summary = "记录登录日志")
     @GetMapping("/record")
-    @LoginLog(type = LoginType.ADMIN_ACCOUNT_PASSWORD.)
+    @LoginLog(type = LoginType.ADMIN_ACCOUNT_PASSWORD)
     public String subject(HttpServletRequest request){
         String token = JwtWebUtil.getToken(request);
         return JwtService.getSubjectExpires(token);
