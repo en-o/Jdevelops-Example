@@ -58,9 +58,9 @@ public class EnhanceSpecificationTest {
         /*
         from sys_user user0_ where
         (
-            ( user0_.user_no like ? or user0_.name in (? , ?) )
-             and user0_.login_name=?
-             and (user0_.user_icon like ?) or user0_.login_pwd=?
+            ( user0_.user_no like ? or user0_.name in (? , ?)
+             or user0_.login_name=?)
+             and user0_.user_icon like ?  and user0_.login_pwd=?
          )
          and user0_.address=?
          and date_format(user0_.create_time, ?)=?
@@ -289,7 +289,7 @@ WHERE
     }
     @Test
     void testOrAnd2() {
-        // where (u1_0.user_no='1466645430750781440' or u1_0.login_name='user' and u1_0.name='用户1')
+        // where (u1_0.user_no='1466645430750781440') and u1_0.login_name='user' and u1_0.name='用户1'
         Specification<User> wheres = EnhanceSpecification.where(e -> {
             e.or(e1 -> {
                 e1.eq(true,"userNo","1466645430750781440");

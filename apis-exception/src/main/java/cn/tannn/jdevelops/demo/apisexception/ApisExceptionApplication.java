@@ -3,13 +3,13 @@ package cn.tannn.jdevelops.demo.apisexception;
 import cn.tannn.jdevelops.demo.apisexception.reset.ReplaceResultVO;
 import cn.tannn.jdevelops.exception.built.BusinessException;
 import cn.tannn.jdevelops.exception.built.LoginLimitException;
+import cn.tannn.jdevelops.result.exception.ExceptionCode;
 import cn.tannn.jdevelops.result.response.ResultVO;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static cn.tannn.jdevelops.result.constant.UserCode.LOGIN_LIMIT;
 
 @SpringBootApplication
 @RestController
@@ -66,8 +66,19 @@ public class ApisExceptionApplication {
      */
     @GetMapping("/testGlobalTry3")
     public ReplaceResultVO<Integer> testGlobalTry3(){
-//        throw new BusinessException(LOGIN_LIMIT).setHttpServletResponseStatus(true);
         // 默认false以全局为主
-        throw new LoginLimitException(LOGIN_LIMIT).setHttpServletResponseStatus(false);
+        throw new LoginLimitException(new ExceptionCode(403, "频繁登录请稍后再试")).setHttpServletResponseStatus(false);
+    }
+
+
+    /**
+     * 测试覆盖全局的  httpServletResponseStatus
+     *
+     * @return ResultVO
+     */
+    @GetMapping("/testException")
+    public ReplaceResultVO<Integer> testException() throws Exception {
+        // 默认false以全局为主
+        throw new Exception("testException");
     }
 }

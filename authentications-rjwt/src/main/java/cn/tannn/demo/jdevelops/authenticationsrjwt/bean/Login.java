@@ -59,4 +59,8 @@ public class Login {
     public List<String> getPlatform() {
         return platform==null||platform.isEmpty()? Collections.singletonList(PlatformConstant.COMMON) :platform;
     }
+
+    public Integer getStatus() {
+        return status==null?1:status;
+    }
 }

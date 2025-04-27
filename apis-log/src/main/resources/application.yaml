@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: api
 #logging:
 #  level:
 #    root: error
@@ -23,3 +23,14 @@ jdevelops:
   api:
     log:
       enabled: false
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: api
+jdevelops:
+  api:
+    log:
+      intercept-apis: ["/post/v1","/post/v2"]
