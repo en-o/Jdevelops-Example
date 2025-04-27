@@ -7,3 +7,8 @@ jdevelops:
     verify-platform: true
   swagger:
     base-package: cn.tannn.test.logslogin.controller
+knife4j:
+  production: true
+springdoc:
+  api-docs:
+    enabled: false
