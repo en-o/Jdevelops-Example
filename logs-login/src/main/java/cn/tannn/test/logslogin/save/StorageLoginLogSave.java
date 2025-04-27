@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 
@@ -26,11 +27,17 @@ public class StorageLoginLogSave implements LoginLogSave {
 
 
     @Override
+    @Async
     public void saveLog(LoginLogRecord audit) {
-        SignEntity<Object> tokenBySignEntity = JwtWebUtil.getTokenBySignEntity(audit.getRequest());
-        System.out.println("=======================");
-        System.out.println(tokenBySignEntity);
-        System.out.println("=======================");
+        try {
+            SignEntity<Object> tokenBySignEntity = JwtWebUtil.getTokenBySignEntity(audit.getRequest());
+            System.out.println("=======================");
+            System.out.println(tokenBySignEntity);
+            System.out.println("=======================");
+        }catch (Exception e){
+
+        }
+
         log.info("{}-日志自定义输出:{}", System.currentTimeMillis(), audit.toString());
     }
 }

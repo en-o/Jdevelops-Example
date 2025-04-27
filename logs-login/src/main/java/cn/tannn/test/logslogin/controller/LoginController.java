@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.security.auth.login.LoginException;
+
 
 /**
  * @author tn
@@ -28,9 +30,10 @@ public class LoginController {
     private LoginService loginService;
 
 
-    @Operation(summary = "login")
+    @Operation(summary = "记录登录日志")
     @ApiOperationSupport(order = 6)
     @ApiMapping(value = "/login",checkToken = false)
+    @LoginLog(type = LoginType.ADMIN_ACCOUNT_PASSWORD)
     public TokenSign token(){
         SignEntity<String> signEntity = SignEntity.init("tan");
         signEntity.setMap("hi");
@@ -38,12 +41,11 @@ public class LoginController {
     }
 
 
-    @Operation(summary = "记录登录日志")
-    @GetMapping("/record")
+    @Operation(summary = "记录登录错误日志")
+    @ApiMapping(value = "/error",checkToken = false)
     @LoginLog(type = LoginType.ADMIN_ACCOUNT_PASSWORD)
-    public String subject(HttpServletRequest request){
-        String token = JwtWebUtil.getToken(request);
-        return JwtService.getSubjectExpires(token);
+    public void subject(HttpServletRequest request) throws LoginException {
+      throw new LoginException("账号密码错误");
     }
 
 }
