@@ -6,6 +6,7 @@ import cn.tannn.jdevelops.jwt.standalone.service.LoginService;
 import cn.tannn.jdevelops.jwt.standalone.util.JwtWebUtil;
 import cn.tannn.jdevelops.logs.LoginLog;
 import cn.tannn.jdevelops.logs.constant.LoginType;
+import cn.tannn.jdevelops.logs.context.LoginContextHolder;
 import cn.tannn.jdevelops.utils.jwt.core.JwtService;
 import cn.tannn.jdevelops.utils.jwt.module.SignEntity;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -88,6 +89,19 @@ public class LoginController {
     @LoginLog(type = LoginType.ADMIN_ACCOUNT_PASSWORD,loginNameKey = "username")
     public TokenSign login5(@RequestBody LoginDto2 name){
         SignEntity<String> signEntity = SignEntity.init(name.username);
+        signEntity.setMap("hi");
+        return loginService.login(signEntity);
+    }
+
+
+
+    @Operation(summary = "记录登录日志 - 登录名 3 ")
+    @ApiOperationSupport(order = 7)
+    @ApiMapping(value = "/login6",checkToken = false, method = RequestMethod.POST)
+    @LoginLog(type = LoginType.ADMIN_ACCOUNT_PASSWORD,loginNameKey = "username")
+    public TokenSign login7(@RequestBody LoginDto2 name){
+        SignEntity<String> signEntity = SignEntity.init(name.username);
+        LoginContextHolder.getContext().setLoginName("taaaaaaaaa").setUserId(name.getId());
         signEntity.setMap("hi");
         return loginService.login(signEntity);
     }
