@@ -9,9 +9,9 @@ jdevelops:
     base-package: cn.tannn.test.logslogin.controller
 knife4j:
   production: true
-  enable: false
-springdoc:
-  api-docs:
-    enabled: false
+  enable: true
+#springdoc:
+#  api-docs:
+#    enabled: false
 #  swagger-ui:
 #    enabled: false
