@@ -8,7 +8,7 @@ jdevelops:
   swagger:
     base-package: cn.tannn.test.logslogin.controller
 knife4j:
-  production: true
+  production: false
   enable: true
 #springdoc:
 #  api-docs:
