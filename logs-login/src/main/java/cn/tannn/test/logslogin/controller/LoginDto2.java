@@ -1,5 +1,6 @@
 package cn.tannn.test.logslogin.controller;
 
+import cn.tannn.jdevelops.result.utils.UUIDUtils;
 import lombok.Data;
 
 /**
@@ -9,6 +10,11 @@ import lombok.Data;
  */
 @Data
 public class LoginDto2 {
+    String id;
     String username;
     String password;
+
+    public String getId() {
+        return UUIDUtils.getInstance().generateShortUuid();
+    }
 }

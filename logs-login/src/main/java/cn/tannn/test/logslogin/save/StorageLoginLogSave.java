@@ -2,14 +2,10 @@ package cn.tannn.test.logslogin.save;
 
 import cn.tannn.jdevelops.jwt.standalone.util.JwtWebUtil;
 import cn.tannn.jdevelops.logs.model.LoginLogRecord;
-import cn.tannn.jdevelops.logs.service.DefLoginLogSave;
 import cn.tannn.jdevelops.logs.service.LoginLogSave;
 import cn.tannn.jdevelops.utils.jwt.module.SignEntity;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -22,22 +18,23 @@ import org.springframework.stereotype.Service;
  * @date 2024/5/20 下午3:01
  */
 @Service
-@Slf4j
 public class StorageLoginLogSave implements LoginLogSave {
 
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(StorageLoginLogSave.class);
 
     @Override
     @Async
     public void saveLog(LoginLogRecord audit) {
-        try {
-            SignEntity<Object> tokenBySignEntity = JwtWebUtil.getTokenBySignEntity(audit.getRequest());
-            System.out.println("=======================");
-            System.out.println(tokenBySignEntity);
-            System.out.println("=======================");
-        }catch (Exception e){
+//        try {
+//            SignEntity<Object> tokenBySignEntity = JwtWebUtil.getTokenBySignEntity(audit.getRequest());
+//            System.out.println("=======================");
+//            System.out.println(tokenBySignEntity);
+//            System.out.println("=======================");
+//        }catch (Exception e){
+//
+//        }
 
-        }
-
-        log.info("{}-日志自定义输出:{}", System.currentTimeMillis(), audit.toString());
+        LOGGER.info("{}-日志自定义输出:{}", System.currentTimeMillis(), audit.toStyle());
     }
 }
