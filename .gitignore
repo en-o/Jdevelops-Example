@@ -95,3 +95,4 @@ hs_err_pid*
 file/src/main/resources/application-qiniu1.yml
 file/src/main/resources/application-dev.yml
 file/src/main/resources/application-minio1.yml
+/file/src/main/resources/application-1.yml12
