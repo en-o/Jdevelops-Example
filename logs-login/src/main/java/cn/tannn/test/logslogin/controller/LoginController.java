@@ -110,7 +110,10 @@ public class LoginController {
     @LoginLog(type = LoginType.ADMIN_ACCOUNT_PASSWORD)
     public TokenSign login7(@RequestBody LoginDto1 name){
         SignEntity<String> signEntity = SignEntity.init(name.loginName);
-        LoginContextHolder.getContext().setLoginName("taaaaaaaaa").setUserId(name.getId());
+        LoginContextHolder.getContext()
+                .setLoginName(name.loginName)
+                .setUserId(name.getId())
+                .setName(name.name);
         signEntity.setMap("hi");
         return loginService.login(signEntity);
     }

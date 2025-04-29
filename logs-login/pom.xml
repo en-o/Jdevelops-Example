@@ -29,13 +29,27 @@
         </dependency>
         <dependency>
             <groupId>cn.tannn.jdevelops</groupId>
+            <artifactId>jdevelops-logs-login</artifactId>
+            <version>1.0.2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.tannn.jdevelops</groupId>
             <artifactId>jdevelops-authentications-jwt</artifactId>
             <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>cn.tannn.jdevelops</groupId>
-            <artifactId>jdevelops-logs-login</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <artifactId>jdevelops-dals-jpa</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.tannn.jdevelops</groupId>
+            <artifactId>jdevelops-dals-autoschema</artifactId>
+            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

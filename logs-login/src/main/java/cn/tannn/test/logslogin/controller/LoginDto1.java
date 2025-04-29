@@ -13,6 +13,7 @@ public class LoginDto1 {
     String id;
     String loginName;
     String password;
+    String name;
 
     public String getId() {
         return UUIDUtils.getInstance().generateShortUuid();

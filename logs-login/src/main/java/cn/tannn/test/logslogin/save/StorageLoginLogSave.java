@@ -4,8 +4,11 @@ import cn.tannn.jdevelops.jwt.standalone.util.JwtWebUtil;
 import cn.tannn.jdevelops.logs.model.LoginLogRecord;
 import cn.tannn.jdevelops.logs.service.LoginLogSave;
 import cn.tannn.jdevelops.utils.jwt.module.SignEntity;
+import cn.tannn.test.logslogin.storage.LoginLog;
+import cn.tannn.test.logslogin.storage.LoginLogDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +23,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class StorageLoginLogSave implements LoginLogSave {
 
-
+    @Autowired
+    private LoginLogDao loginLogDao;
     private static final Logger LOGGER = LoggerFactory.getLogger(StorageLoginLogSave.class);
 
     @Override
@@ -35,6 +39,7 @@ public class StorageLoginLogSave implements LoginLogSave {
 //
 //        }
 
-        LOGGER.info("{}-日志自定义输出:{}", System.currentTimeMillis(), audit.toStyle());
+//        LOGGER.info("{}-日志自定义输出:{}", System.currentTimeMillis(), audit.toStyle());
+        loginLogDao.save(new LoginLog().value(audit));
     }
 }
