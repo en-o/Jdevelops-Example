@@ -116,7 +116,7 @@ public class LoginLog {
         this.logout = logRecord.isLogout();
         this.description = logRecord.getDescription();
         this.type = logRecord.getType();
-        this.platform = logRecord.getPlatform();
+
         this.loginTime = logRecord.getLoginTime();
         LoginContext loginContext = logRecord.getLoginContext();
         if (loginContext != null) {
@@ -126,10 +126,10 @@ public class LoginLog {
             if(loginContext.getLoginName()!=null){
                 this.loginName = loginContext.getLoginName();
             }
-        }else {
-            this.loginName = logRecord.getLoginName();
+            if(loginContext.getPlatform()!=null){
+                this.platform = loginContext.getPlatform();
+            }
         }
-
         this.expression = logRecord.getExpression();
         this.userAgent = logRecord.getUserAgent();
         this.ipAddress = logRecord.getIpAddress();

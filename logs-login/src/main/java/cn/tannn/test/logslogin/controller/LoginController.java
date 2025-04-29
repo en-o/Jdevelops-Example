@@ -1,11 +1,13 @@
 package cn.tannn.test.logslogin.controller;
 
 import cn.tannn.jdevelops.annotations.web.authentication.ApiMapping;
+import cn.tannn.jdevelops.annotations.web.constant.PlatformConstant;
 import cn.tannn.jdevelops.jwt.standalone.pojo.TokenSign;
 import cn.tannn.jdevelops.jwt.standalone.service.LoginService;
 import cn.tannn.jdevelops.jwt.standalone.util.JwtWebUtil;
 import cn.tannn.jdevelops.logs.LoginLog;
 import cn.tannn.jdevelops.logs.constant.LoginType;
+import cn.tannn.jdevelops.logs.context.LoginContext;
 import cn.tannn.jdevelops.logs.context.LoginContextHolder;
 import cn.tannn.jdevelops.utils.jwt.core.JwtService;
 import cn.tannn.jdevelops.utils.jwt.module.SignEntity;
@@ -108,12 +110,17 @@ public class LoginController {
     @ApiOperationSupport(order = 7)
     @ApiMapping(value = "/login6",checkToken = false, method = RequestMethod.POST)
     @LoginLog(type = LoginType.ADMIN_ACCOUNT_PASSWORD)
-    public TokenSign login7(@RequestBody LoginDto1 name){
+    public TokenSign login7(@RequestBody LoginDto1 name) throws LoginException {
         SignEntity<String> signEntity = SignEntity.init(name.loginName);
-        LoginContextHolder.getContext()
+        LoginContext loginContext = LoginContextHolder.getContext()
                 .setLoginName(name.loginName)
                 .setUserId(name.getId())
                 .setName(name.name);
+        if("user42".equals(name.getLoginName())){
+            loginContext.setPlatform(PlatformConstant.APPLET);
+        } else if ("demo55".equals(name.getLoginName())) {
+            throw new LoginException("登录失败");
+        }
         signEntity.setMap("hi");
         return loginService.login(signEntity);
     }
