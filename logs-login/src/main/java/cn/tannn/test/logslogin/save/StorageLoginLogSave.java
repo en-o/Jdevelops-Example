@@ -1,9 +1,7 @@
 package cn.tannn.test.logslogin.save;
 
-import cn.tannn.jdevelops.jwt.standalone.util.JwtWebUtil;
 import cn.tannn.jdevelops.logs.model.LoginLogRecord;
 import cn.tannn.jdevelops.logs.service.LoginLogSave;
-import cn.tannn.jdevelops.utils.jwt.module.SignEntity;
 import cn.tannn.test.logslogin.storage.LoginLog;
 import cn.tannn.test.logslogin.storage.LoginLogDao;
 import org.slf4j.Logger;
