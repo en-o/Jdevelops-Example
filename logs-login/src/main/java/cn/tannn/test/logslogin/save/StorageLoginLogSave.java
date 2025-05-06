@@ -28,14 +28,6 @@ public class StorageLoginLogSave implements LoginLogSave {
     @Override
     @Async
     public void saveLog(LoginLogRecord audit) {
-//        try {
-//            SignEntity<Object> tokenBySignEntity = JwtWebUtil.getTokenBySignEntity(audit.getRequest());
-//            System.out.println("=======================");
-//            System.out.println(tokenBySignEntity);
-//            System.out.println("=======================");
-//        }catch (Exception e){
-//
-//        }
 
 //        LOGGER.info("{}-日志自定义输出:{}", System.currentTimeMillis(), audit.toStyle());
         loginLogDao.save(new LoginLog().value(audit));
