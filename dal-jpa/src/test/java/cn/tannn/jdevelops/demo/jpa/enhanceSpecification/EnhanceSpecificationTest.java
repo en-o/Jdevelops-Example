@@ -233,7 +233,7 @@ WHERE
 //            e.likes(true,"id",1+"");
 //        })).forEach(System.out::println);
 
-        // ok
+        // ok  where cast(u1_0.id as char) like '%1%' escape ''
         userDao.findAll(EnhanceSpecification.where(e ->{
             // 将 Long 类型字段转换为字符串进行 like 操作
             e.likes(e.getBuilder().function("str", String.class, e.getRoot().get("id")),1+"");
@@ -274,6 +274,9 @@ WHERE
     }
 
 
+    /**
+     * v1.0.1 + 已修复，（不包含 v1.0.1
+     */
     @Test
     void testOrOrNull_V101() {
         //  from sys_user u1_0 where 1<>1 (v1.0.1 版本)
