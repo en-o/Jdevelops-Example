@@ -275,7 +275,7 @@ WHERE
 
 
     @Test
-    void testOrOrNull() {
+    void testOrOrNull_V101() {
         //  from sys_user u1_0 where 1<>1 (v1.0.1 版本)
         Specification<User> wheres = EnhanceSpecification.where(e -> {
             e.or(e1 -> {
@@ -284,7 +284,7 @@ WHERE
             });
         });
         userDao.findAll(wheres).forEach(System.out::println);
-        // 上面的解决方案如下：
+        // 上面的（v1.0.1 版本）解决方案如下：
         Specification<User> wheres2 = EnhanceSpecification.where(e -> {
             // 将 值空判断提升到这里
            if(false){
