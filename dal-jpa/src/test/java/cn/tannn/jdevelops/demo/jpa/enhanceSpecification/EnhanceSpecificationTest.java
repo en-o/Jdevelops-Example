@@ -250,6 +250,18 @@ WHERE
     }
 
     @Test
+    void testOrNull() {
+        // 注解 的 or 不会出现  1<>1 ： https://www.yuque.com/tanning/yg9ipo/iqogdp9hsz4pqg5c#Yhdrk
+        TestOr testOr = new TestOr();
+        Specification<User> beanWhere = EnhanceSpecification.beanWhere(testOr);
+        userDao.findAll(beanWhere).forEach(System.out::println);
+
+        userDao.findAll(EnhanceSpecification.beanWhere(new TestOr("1466",null)))
+                .forEach(System.out::println);
+    }
+
+
+    @Test
     void testOrOr() {
         // from sys_user u1_0 where u1_0.name='用户1' or u1_0.user_no='1466645430750781440'
         Specification<User> wheres = EnhanceSpecification.where(e -> {

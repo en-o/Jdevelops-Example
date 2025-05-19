@@ -21,4 +21,6 @@ public class TestOr {
     @JpaSelectOperator( operatorWrapper = SQLOperatorWrapper.LIKE, connect = SQLConnect.OR)
     private String userNo;
 
+    public TestOr() {
+    }
 }
