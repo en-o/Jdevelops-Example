@@ -283,9 +283,8 @@ WHERE
                 e1.eq(false,"userNo","1466645430750781440");
             });
         });
-        // 上面的解决方案如下：
         userDao.findAll(wheres).forEach(System.out::println);
-
+        // 上面的解决方案如下：
         Specification<User> wheres2 = EnhanceSpecification.where(e -> {
             // 将 值空判断提升到这里
            if(false){
