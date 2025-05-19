@@ -273,6 +273,31 @@ WHERE
         userDao.findAll(wheres).forEach(System.out::println);
     }
 
+
+    @Test
+    void testOrOrNull() {
+        //  from sys_user u1_0 where 1<>1 (v1.0.1 版本)
+        Specification<User> wheres = EnhanceSpecification.where(e -> {
+            e.or(e1 -> {
+                e1.eq(false,"name","用户1");
+                e1.eq(false,"userNo","1466645430750781440");
+            });
+        });
+        // 上面的解决方案如下：
+        userDao.findAll(wheres).forEach(System.out::println);
+
+        Specification<User> wheres2 = EnhanceSpecification.where(e -> {
+            // 将 值空判断提升到这里
+           if(false){
+               e.or(e1 -> {
+                   e1.eq(true,"name","用户1");
+                   e1.eq(true,"userNo","1466645430750781440");
+               });
+           }
+        });
+        userDao.findAll(wheres2).forEach(System.out::println);
+    }
+
     @Test
     void testAnd() {
         //  from sys_user u1_0 where u1_0.name='用户1' and u1_0.user_no='1466645430750781440'
