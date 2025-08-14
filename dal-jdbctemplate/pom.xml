@@ -27,6 +27,11 @@
 			<version>1.0.1</version>
 		</dependency>
 		<dependency>
+			<groupId>cn.tannn.jdevelops</groupId>
+			<artifactId>jdevelops-apis-result</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.27</version>
