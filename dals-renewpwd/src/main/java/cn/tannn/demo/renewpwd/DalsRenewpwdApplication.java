@@ -31,6 +31,7 @@ public class DalsRenewpwdApplication implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         try(PwdCheckDetector detector =  PwdCheckDetector.builder()
+                // 这里的当前密码可能不是spring.datasource.password，看怎么处理一下
                 .pwdExpireSupplier(()-> new PwdExpireInfo(currentPassword,checkPassword()))
                 .build() ) {
             // 触发器会自动循环运行
