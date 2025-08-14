@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    password: 123456
+    username: tan
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/standAloneConfigdb?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
+    hikari:
+      max-lifetime: 180000
+      connection-timeout: 3000
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    database: mysql
+    properties:
+      hibernate:
+        format_sql: true
+jdevelops:
+  renewpwd:
+    passwords: ["123","456"]
+#    enabled: true # 这个可以控制注解中的enabled，这不代表不写注解，注解必须写
