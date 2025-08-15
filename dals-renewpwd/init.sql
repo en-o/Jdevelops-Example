@@ -1,5 +1,11 @@
 CREATE DATABASE  IF NOT EXISTS  `test_renewpwd`  DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ;
 
+CREATE TABLE `test_demo` (
+                             `id` int NOT NULL AUTO_INCREMENT COMMENT 'id',
+                             `name` varchar(64) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'name',
+                             PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='测试';
+
 
 
 INSERT INTO `test_renewpwd`.`test_demo` (`id`, `name`) VALUES (1, '韦致远');
