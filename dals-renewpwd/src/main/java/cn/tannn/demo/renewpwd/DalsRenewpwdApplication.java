@@ -4,6 +4,7 @@ import cn.tannn.jdevelops.renewpwd.PwdCheckDetector;
 import cn.tannn.jdevelops.renewpwd.RenewPwdRefresh;
 import cn.tannn.jdevelops.renewpwd.annotation.EnableRenewpwd;
 import cn.tannn.jdevelops.renewpwd.pojo.PwdExpireInfo;
+import cn.tannn.jdevelops.renewpwd.pojo.RenewpwdConstant;
 import cn.tannn.jdevelops.renewpwd.refresh.RenewpwdDataSourceConfig;
 import cn.tannn.jdevelops.renewpwd.refresh.dataconfig.DataSourceConfigStrategy;
 import lombok.extern.slf4j.Slf4j;
@@ -60,8 +61,8 @@ public class DalsRenewpwdApplication implements ApplicationRunner {
 
 
     public boolean checkPassword() {
-        String sql = "SELECT password_expired FROM mysql.user WHERE user = ?";
-        String expired = jdbcTemplate.queryForObject(sql, new Object[]{currentUsername}, String.class);
+//        String sql = "SELECT password_expired FROM mysql.user WHERE user = ?";
+        String expired = jdbcTemplate.queryForObject(RenewpwdConstant.MYSQL_PASSWORD_EXPIRED_SQL, new Object[]{currentUsername}, String.class);
         if ("Y".equalsIgnoreCase(expired)) {
             System.out.println("当前账户密码已过期");
             return true;
