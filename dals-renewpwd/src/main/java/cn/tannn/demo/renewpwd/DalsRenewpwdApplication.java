@@ -4,6 +4,8 @@ import cn.tannn.jdevelops.renewpwd.PwdCheckDetector;
 import cn.tannn.jdevelops.renewpwd.RenewPwdRefresh;
 import cn.tannn.jdevelops.renewpwd.annotation.EnableRenewpwd;
 import cn.tannn.jdevelops.renewpwd.pojo.PwdExpireInfo;
+import cn.tannn.jdevelops.renewpwd.refresh.RenewpwdDataSourceConfig;
+import cn.tannn.jdevelops.renewpwd.refresh.dataconfig.DataSourceConfigStrategy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +14,11 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import java.util.List;
 
 @SpringBootApplication
 @EnableRenewpwd
@@ -28,7 +34,6 @@ public class DalsRenewpwdApplication implements ApplicationRunner {
 
     @Autowired
     private ApplicationContext applicationContext;
-
 
     public static void main(String[] args) {
         SpringApplication.run(DalsRenewpwdApplication.class, args);
