@@ -20,5 +20,6 @@ spring:
 jdevelops:
   renewpwd:
     backup-password: "ENC(+7TSMol4SfIFVGkPffTlqw==)"
+#    pwd-encrypt-key: 1234567890abcdef
 #    backup-password: "123"
 #    enabled: true # 这个可以控制注解中的enabled，这不代表不写注解，注解必须写
