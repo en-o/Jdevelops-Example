@@ -11,6 +11,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 @SpringBootApplication
@@ -22,11 +23,11 @@ public class DalsRenewpwdApplication implements ApplicationRunner {
     @Value("${spring.datasource.username}")
     private String currentUsername;
 
-    @Value("${spring.datasource.password}")
-    private String currentPassword;
-
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
 
     public static void main(String[] args) {
@@ -38,9 +39,9 @@ public class DalsRenewpwdApplication implements ApplicationRunner {
         log.info("密码续命触发器启动");
         try {
             PwdCheckDetector detector = PwdCheckDetector.builder()
-                    // 这里的当前密码可能不是spring.datasource.password，看怎么处理一下
-                    .pwdExpireSupplier(() -> new PwdExpireInfo(currentPassword, checkPassword()))
+                    .pwdExpireSupplier(() -> new PwdExpireInfo(checkPassword()))
                     .retryIntervalMinutes(1) // 探测间隔，默认5分钟
+                    .applicationContext(applicationContext)
                     .build();
             // 触发器会自动循环运行
             detector.start();
