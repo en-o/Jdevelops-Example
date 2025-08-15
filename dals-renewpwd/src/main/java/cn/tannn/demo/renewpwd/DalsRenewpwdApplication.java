@@ -17,12 +17,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.List;
 
 @SpringBootApplication
 @EnableRenewpwd
 @Slf4j
+@EnableScheduling
 public class DalsRenewpwdApplication implements ApplicationRunner {
 
 
@@ -45,7 +47,7 @@ public class DalsRenewpwdApplication implements ApplicationRunner {
         try {
             PwdCheckDetector detector = PwdCheckDetector.builder()
                     .pwdExpireSupplier(() -> new PwdExpireInfo(checkPassword()))
-                    .retryIntervalMinutes(1) // 探测间隔，默认5分钟
+                    .retryIntervalMinutes(2) // 探测间隔，默认5分钟
                     .applicationContext(applicationContext)
                     .build();
             // 触发器会自动循环运行

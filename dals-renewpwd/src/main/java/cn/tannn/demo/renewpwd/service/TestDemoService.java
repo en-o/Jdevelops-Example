@@ -37,5 +37,9 @@ public class TestDemoService {
         return testDemoDao.findAll();
     }
 
+    public Object jpa2(){
+        return testDemoDao.findAll().get(0);
+    }
+
 
 }

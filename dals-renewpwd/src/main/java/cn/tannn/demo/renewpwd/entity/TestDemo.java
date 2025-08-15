@@ -33,4 +33,9 @@ public class TestDemo {
     @Comment("name")
     @Column(columnDefinition = "varchar(64) not null")
     private String name;
+
+    @Override
+    public String toString() {
+        return "id=" + id +", name='" + name + '\'';
+    }
 }
