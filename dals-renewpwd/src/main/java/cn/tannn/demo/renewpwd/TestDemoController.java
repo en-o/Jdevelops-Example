@@ -2,9 +2,13 @@ package cn.tannn.demo.renewpwd;
 
 import cn.tannn.demo.renewpwd.service.TestDemoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Arrays;
 
 /**
  * 测试数据库操作
@@ -19,6 +23,15 @@ public class TestDemoController {
 
     @Autowired
     private TestDemoService testDemoService;
+
+    @Autowired
+    private Environment environment;
+
+
+    @GetMapping("/environmentPassword")
+    public Object environmentPassword(){
+       return environment.getProperty("spring.datasource.password");
+    }
 
     @GetMapping("/jdbc")
     public Object jdbcTemplateQuery() {
