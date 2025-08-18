@@ -31,7 +31,7 @@ public class TestDemo {
      * name
      */
     @Comment("name")
-    @Column(columnDefinition = "varchar(64) not null")
+    @Column(columnDefinition = "varchar(64)",nullable = false)
     private String name;
 
     @Override

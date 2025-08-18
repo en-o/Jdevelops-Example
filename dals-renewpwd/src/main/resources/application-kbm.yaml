@@ -1,0 +1,22 @@
+# kingbase8 mysql模式
+spring:
+  datasource:
+    password: ${MYSQL_PWD:xxxxxxxx}
+    username: root
+    driver-class-name: com.kingbase8.Driver
+    url: jdbc:kingbase8://113.207.101.75:54321/test_renewpwd?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
+    hikari:
+      max-lifetime: 30000
+      connection-timeout: 3000
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    database-platform: org.hibernate.dialect.Kingbase8Dialect
+jdevelops:
+  renewpwd:
+#    backup-password: "ENC(+7TSMol4SfIFVGkPffTlqw==)"
+    backup-password: "123"
+    enabled: false
+#    pwd-encrypt-key: 1234567890abcdef
+#    enabled: true # 默认true
