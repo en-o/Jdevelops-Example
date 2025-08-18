@@ -17,7 +17,7 @@ import java.util.Map;
  * @version V1.0
  * @date 2025/8/11 22:29
  */
-@Component
+//@Component
 public class Timer {
 
     @Autowired

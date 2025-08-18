@@ -1,6 +1,7 @@
 package cn.tannn.demo.renewpwd;
 
 import cn.tannn.demo.renewpwd.service.TestDemoService;
+import cn.tannn.jdevelops.renewpwd.RenewPwdRefresh;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -27,6 +28,9 @@ public class TestDemoController {
     @Autowired
     private Environment environment;
 
+    @Autowired(required = false)
+    private RenewPwdRefresh refresh;
+
 
     @GetMapping("/environmentPassword")
     public Object environmentPassword(){
@@ -46,5 +50,12 @@ public class TestDemoController {
     @GetMapping("/jpa")
     public Object jpa() {
         return testDemoService.jpa();
+    }
+
+
+    @GetMapping("/fixPassword")
+    public Object fixPassword() {
+         refresh.fixPassword();
+         return "修改成功";
     }
 }
