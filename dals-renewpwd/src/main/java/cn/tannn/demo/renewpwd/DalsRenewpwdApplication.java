@@ -15,7 +15,7 @@ public class DalsRenewpwdApplication{
 
 
     public static void main(String[] args) {
-        log.warn("不用定时器，用异常代替定时器，直接在异常中处理密码过期");
+//        log.warn("不用定时器，用异常代替定时器，直接在异常中处理密码过期");
         SpringApplication.run(DalsRenewpwdApplication.class, args);
     }
 
