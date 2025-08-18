@@ -1,7 +1,7 @@
 spring:
   datasource:
-#    password: 123456
-    password: ENC(Q9EdfyQZC4KchRNWK3uufQ==)
+    password: 123456
+#    password: ENC(Q9EdfyQZC4KchRNWK3uufQ==)
     username: tan
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test_renewpwd?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
@@ -19,7 +19,8 @@ spring:
         format_sql: true
 jdevelops:
   renewpwd:
-    backup-password: "ENC(+7TSMol4SfIFVGkPffTlqw==)"
+#    backup-password: "ENC(+7TSMol4SfIFVGkPffTlqw==)"
+    backup-password: "123"
+    enabled: false
 #    pwd-encrypt-key: 1234567890abcdef
-#    backup-password: "123"
-#    enabled: true # 这个可以控制注解中的enabled，这不代表不写注解，注解必须写
+#    enabled: true # 默认true
