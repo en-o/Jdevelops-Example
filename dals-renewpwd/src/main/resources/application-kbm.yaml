@@ -1,7 +1,6 @@
 # kingbase8 mysql模式
 spring:
   datasource:
-#    password: 123456
     password: ENC(Q9EdfyQZC4KchRNWK3uufQ==)
     username: tan
     driver-class-name: com.kingbase8.Driver
@@ -18,7 +17,6 @@ spring:
 jdevelops:
   renewpwd:
     backup-password: "ENC(+7TSMol4SfIFVGkPffTlqw==)"
-#    backup-password: "123"
     root:
       username: root
       password:
