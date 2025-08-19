@@ -27,18 +27,20 @@ ALTER USER tan WITH PASSWORD '新密码';
 */
 ALTER USER tan VALID UNTIL '1970-01-01';
 
+
 /* 5.2 设置密码 N 天后过期 */
 ALTER USER tan VALID UNTIL current_date + 90;   -- 90 天后过期
-
-/* 5.3 全局默认有效期（对所有新建用户生效）
-   需要在 kingbase.conf 中配置：
-   password_policy = 'expire=90d'     -- 单位支持 d(天)、h(小时)
-   修改后 reload 配置：
-   SELECT sys_reload_conf();
-*/
+-- 修改密码的同时修改过期时间
+-- SELECT (CURRENT_TIMESTAMP + INTERVAL '90 days')::timestamp(0);
+ALTER ROLE username WITH PASSWORD 'new_password' VALID UNTIL 'YYYY-MM-DD HH:MM:SS';
 
 /* 5.4 禁用单个用户密码过期 */
 ALTER USER tan VALID UNTIL 'infinity';
+
+SELECT rolname,
+       rolcanlogin  -- 为 false 表示 NOLOGIN
+FROM   pg_roles
+WHERE  rolname = 'tan';
 
 /* 6. 查看密码过期信息
    KingbaseES 中口令信息记录在系统视图 sys_user
