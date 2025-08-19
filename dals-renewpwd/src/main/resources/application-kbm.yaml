@@ -18,6 +18,9 @@ jdevelops:
   renewpwd:
 #    backup-password: "ENC(+7TSMol4SfIFVGkPffTlqw==)"
     backup-password: "123"
+    root:
+      username: root
+      password:
 #    enabled: false
 #    pwd-encrypt-key: 1234567890abcdef
 #    enabled: true # 默认true
