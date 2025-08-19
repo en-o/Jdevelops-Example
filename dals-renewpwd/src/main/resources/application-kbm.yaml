@@ -1,7 +1,8 @@
 # kingbase8 mysql模式
 spring:
   datasource:
-    password: 123456
+#    password: 123456
+    password: ENC(Q9EdfyQZC4KchRNWK3uufQ==)
     username: tan
     driver-class-name: com.kingbase8.Driver
     url: jdbc:kingbase8://113.207.101.75:54321/test_renewpwd?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
@@ -16,8 +17,8 @@ spring:
     database-platform: org.hibernate.dialect.Kingbase8Dialect
 jdevelops:
   renewpwd:
-#    backup-password: "ENC(+7TSMol4SfIFVGkPffTlqw==)"
-    backup-password: "123"
+    backup-password: "ENC(+7TSMol4SfIFVGkPffTlqw==)"
+#    backup-password: "123"
     root:
       username: root
       password:
