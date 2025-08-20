@@ -1,11 +1,20 @@
 package cn.tannn.demo.jdevelops.dales;
 
 import cn.tannn.demo.jdevelops.dales.entity.TestResArticleES;
+import cn.tannn.jdevelops.es.antlr.ElasticSearchQueryBuilder;
 import cn.tannn.jdevelops.es.core.ElasticService;
+import cn.tannn.jdevelops.exception.built.BusinessException;
 import cn.tannn.jdevelops.result.response.ResultVO;
 import cn.tannn.jdevelops.result.utils.UUIDUtils;
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
+import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.SearchResponse;
+import co.elastic.clients.elasticsearch.core.search.Hit;
+import com.alibaba.fastjson2.JSON;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -22,8 +33,10 @@ import java.time.LocalDateTime;
  * @date 2023/11/6 11:10
  */
 @RestController
+@Slf4j
 public class EsController {
-
+    @Resource
+    private ElasticsearchClient client;
     private final ElasticService elasticService;
 
     public EsController(ElasticService elasticService) {
@@ -79,6 +92,35 @@ public class EsController {
         return ResultVO.successMessage("修改title成功");
     }
 
+    /**
+     * @see <a href="https://www.yuque.com/tanning/yg9ipo/tmem9nvor2rhgd6o#x9qmO">自定义SQL查询</a>
+     *
+     * @param sql 自定义SQL查询
+     * @return Object
+     * @throws IOException
+     */
+    @GetMapping("/search/{sql}")
+    public Object search(@PathVariable("sql") String sql) throws IOException {
+        // 创建查询构建器
+        ElasticSearchQueryBuilder queryBuilder = new ElasticSearchQueryBuilder.Builder()
+                .build();
+        Query buildQuery = queryBuilder.buildDemoQuery(sql);
+        try {
+            SearchRequest.Builder searchBuilder = new SearchRequest.Builder();
+            searchBuilder.index("jdevelops_test_res_article");
+            // boolQuery添加到请求体中
+            searchBuilder.query(buildQuery);
+            // 数据总条数据
+            searchBuilder.trackTotalHits(t -> t.enabled(true));
+            SearchRequest searchRequest = searchBuilder.build();
+            log.info("======> 查询DSL:{}", JSON.toJSONString(searchRequest));
+            SearchResponse<Map> search = client.search(searchRequest, Map.class);
+            return search.hits().hits();
+        } catch (IOException e) {
+            log.error("查询失败，==>{}", e.getMessage());
+            throw new BusinessException("查询失败！");
+        }
+    }
 
 
 
