@@ -30,9 +30,9 @@ public class EsController {
     }
 
     /**
-     * 添加测试数据
+     * 添加测试数据 - 索引操作
      */
-    @GetMapping("/add")
+    @GetMapping("/index/data/add")
     public ResultVO<String> addTest() throws IOException {
         TestResArticleES testResArticleES = new TestResArticleES();
         Long id = UUIDUtils.getInstance().generateShortUuidLong();
@@ -66,7 +66,10 @@ public class EsController {
         return ResultVO.successMessage("测试数据新增成功");
     }
 
-    @GetMapping("/update/{title}/{uid}")
+    /**
+     * 测试修改单个字段值 - 索引操作
+     */
+    @GetMapping("/index/data/update/{title}/{uid}")
     public ResultVO<String> updateValue(@PathVariable("title") String title, @PathVariable("uid") String uid) throws IOException {
         Query query = TermQuery.of(t -> t.field("uid").value(uid))._toQuery();
         elasticService.updateFieldValue("jdevelops_test_res_article", query, "title", title);
