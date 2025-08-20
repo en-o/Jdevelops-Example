@@ -139,10 +139,10 @@ public class EsController {
     }
 
     private String generateRandomChineseString(int length) {
-        Faker faker = new Faker(new Locale("zh-CN"));
+        Faker faker = new Faker(Locale.CHINA);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            sb.append(faker.lorem().character());
+            sb.append(faker.name().fullName());
         }
         return sb.toString();
     }
