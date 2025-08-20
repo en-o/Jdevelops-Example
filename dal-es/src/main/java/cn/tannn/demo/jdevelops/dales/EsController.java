@@ -115,7 +115,9 @@ public class EsController {
             SearchRequest searchRequest = searchBuilder.build();
             log.info("======> 查询DSL:{}", JSON.toJSONString(searchRequest));
             SearchResponse<Map> search = client.search(searchRequest, Map.class);
-            return search.hits().hits();
+            return search.hits().hits().stream()
+                    .map(Hit::source)
+                    .toList();
         } catch (IOException e) {
             log.error("查询失败，==>{}", e.getMessage());
             throw new BusinessException("查询失败！");
@@ -135,9 +137,10 @@ public class EsController {
     }
 
     private String generateRandomChineseString(int length) {
+        Faker faker = new Faker(new Locale("zh-CN"));
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            sb.append((char) (0x4e00 + (int) (Math.random() * (0x9fa5 - 0x4e00 + 1))));
+            sb.append(faker.lorem().character());
         }
         return sb.toString();
     }
