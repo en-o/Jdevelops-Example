@@ -115,7 +115,7 @@ public class EsController {
             // 数据总条数据
             searchBuilder.trackTotalHits(t -> t.enabled(true));
             SearchRequest searchRequest = searchBuilder.build();
-            log.info("======> 查询DSL:{}", JSON.toJSONString(searchRequest));
+            log.info("======> 查询DSL:{}", searchRequest.toString());
             SearchResponse<Map> search = client.search(searchRequest, Map.class);
             return search.hits().hits().stream()
                     .map(Hit::source)
