@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    password: 123456
+#    password: ENC(Q9EdfyQZC4KchRNWK3uufQ==)
+    username: tan
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:mysql://localhost:3306/test_renewpwd?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
+    hikari:
+      max-lifetime: 30000
+      connection-timeout: 3000
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    database: mysql
+    properties:
+      hibernate:
+        format_sql: true
+jdevelops:
+  renewpwd:
+#    backup-password: "ENC(+7TSMol4SfIFVGkPffTlqw==)"
+    backup-password: "123"
+#    enabled: false
+#    pwd-encrypt-key: 1234567890abcdef
+#    enabled: true # 默认true

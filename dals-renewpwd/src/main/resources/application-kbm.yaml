@@ -3,8 +3,10 @@ spring:
   datasource:
     password: ENC(Q9EdfyQZC4KchRNWK3uufQ==)
     username: tan
-    driver-class-name: com.kingbase8.Driver
-    url: jdbc:kingbase8://113.207.101.75:54321/test_renewpwd?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
+#    driver-class-name: com.kingbase8.Driver
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+#    url: jdbc:kingbase8://127.0.0.1:54321/test_renewpwd?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
+    url: jdbc:p6spy:kingbase8://127.0.0.1:54321/test_renewpwd?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
     hikari:
       max-lifetime: 30000
       connection-timeout: 3000
@@ -19,7 +21,7 @@ jdevelops:
     backup-password: "ENC(+7TSMol4SfIFVGkPffTlqw==)"
     root:
       username: root
-      password:
+      password: 
 #    enabled: false
 #    pwd-encrypt-key: 1234567890abcdef
 #    enabled: true # 默认true
