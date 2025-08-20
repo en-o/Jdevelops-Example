@@ -4,7 +4,7 @@ spring:
 #    password: ENC(Q9EdfyQZC4KchRNWK3uufQ==)
     username: tan
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    url: jdbc:mysql://localhost:3306/test_renewpwd?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
+    url: jdbc:p6spy:mysql://localhost:3306/test_renewpwd?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
     hikari:
       max-lifetime: 30000
       connection-timeout: 3000
