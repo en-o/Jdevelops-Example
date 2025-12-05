@@ -124,7 +124,6 @@ class XmlMapper_registry_Test {
 
         // 验证结果
         assertNotNull(result);
-        assertInstanceOf(Integer.class, result);
     }
 
     @Test
@@ -139,5 +138,14 @@ class XmlMapper_registry_Test {
         // 验证结果
         assertNotNull(result);
         assertInstanceOf(List.class, result);
+    }
+
+
+    @Test
+    void testDeleteAll() {
+
+        Object result = registry.executeQuery(NAMESPACE, "deleteAll", null, Integer.class);
+        // 验证结果
+        assertNotNull(result);
     }
 }

@@ -119,6 +119,15 @@ public interface UserMapper {
     @XmlDelete("deleteByIds")
     int deleteByIds(UserQuery query);
 
+
+    /**
+     * 删除所有用户
+     *
+     * @return 影响的行数
+     */
+    @XmlDelete("deleteAll")
+    int deleteAll();
+
     /**
      * 统计用户数量
      * <p>

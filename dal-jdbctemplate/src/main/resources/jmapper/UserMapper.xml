@@ -108,6 +108,12 @@
         </foreach>
     </delete>
 
+    <!-- 批量删除 -->
+    <delete id="deleteAll">
+        DELETE FROM users_mapper
+    </delete>
+
+
     <!-- 统计查询 -->
     <select id="countUsers" resultType="java.lang.Integer">
         SELECT COUNT(*)
