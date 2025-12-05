@@ -61,7 +61,7 @@
 
     <!-- 插入操作 -->
     <insert id="insertUser">
-        INSERT INTO users (username, email, age, status, created_at)
+        INSERT INTO users_mapper (username, email, age, status, created_at)
         VALUES (#{username}, #{email}, #{age}, #{status}, NOW())
     </insert>
 
