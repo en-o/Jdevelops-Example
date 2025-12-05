@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Chongqing&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  level:
+    org.springframework.jdbc.core.JdbcTemplate: DEBUG
+    cn.tannn: debug
+    root: error
+
+jdevelops:
+  jdbc:
+    base-package: cn.tannn.demo.jdevelops.daljdbctemplate
+    xmlmapper:
+      base-packages: cn.tannn.demo.jdevelops.daljdbctemplate.mapper
