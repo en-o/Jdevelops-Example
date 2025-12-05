@@ -29,6 +29,9 @@ public class UserQuery {
     // ID 列表
     private List<Long> ids;
 
+    // 单个 ID（用于 findById）
+    private Long id;
+
     // 批量插入
     private List<UserMapperEntity> userMapperEntities;
 
@@ -138,6 +141,14 @@ public class UserQuery {
 
     public void setIds(List<Long> ids) {
         this.ids = ids;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public List<UserMapperEntity> getUsers() {

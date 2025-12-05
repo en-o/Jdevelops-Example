@@ -144,7 +144,7 @@ class XmlMapper_registry_Test {
     @Test
     void testDeleteAll() {
 
-        Object result = registry.executeQuery(NAMESPACE, "deleteAll", null, Integer.class);
+        Integer result = (Integer) registry.executeQuery(NAMESPACE, "deleteAll", null, Integer.class);
         // 验证结果
         assertNotNull(result);
     }

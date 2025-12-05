@@ -28,7 +28,7 @@ class XmlMapper_annotation_Test {
     void testFindById() {
         // 创建查询参数
         UserQuery query = new UserQuery();
-        query.setIds(List.of(1L));
+        query.setId(1L);
 
         // 执行查询
         UserMapperEntity result = userMapper.findById(query);
