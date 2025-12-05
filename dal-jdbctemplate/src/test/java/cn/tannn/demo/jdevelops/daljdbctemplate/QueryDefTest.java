@@ -1,8 +1,7 @@
 package cn.tannn.demo.jdevelops.daljdbctemplate;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.DefQueryUserService;
-import cn.tannn.jdevelops.annotations.jdbctemplate.Query;
-import cn.tannn.jdevelops.jdectemplate.core.CreateProxy;
+import cn.tannn.jdevelops.jdectemplate.proxysql.core.CreateProxy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,8 +4,7 @@ import cn.tannn.demo.jdevelops.daljdbctemplate.entity.User;
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserBO;
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserRecord;
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserService;
-import cn.tannn.jdevelops.annotations.jdbctemplate.Query;
-import cn.tannn.jdevelops.jdectemplate.core.CreateProxy;
+import cn.tannn.jdevelops.jdectemplate.proxysql.core.CreateProxy;
 import cn.tannn.jdevelops.result.request.Paging;
 import cn.tannn.jdevelops.result.response.PageResult;
 import org.junit.jupiter.api.Assertions;
@@ -31,7 +30,7 @@ class QueryTest {
 
     @BeforeEach
     void x(){
-        queryUserService = (QueryUserService)CreateProxy.createQueryProxy(QueryUserService.class, jdbcTemplate);
+        queryUserService = (QueryUserService) CreateProxy.createQueryProxy(QueryUserService.class, jdbcTemplate);
     }
 
     @Test

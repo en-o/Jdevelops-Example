@@ -2,7 +2,7 @@ package cn.tannn.demo.jdevelops.daljdbctemplate;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserBO;
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.NoInterfaceQueryImpl;
-import cn.tannn.jdevelops.jdectemplate.core.CreateProxy;
+import cn.tannn.jdevelops.jdectemplate.proxysql.core.CreateProxy;
 import cn.tannn.jdevelops.result.request.Paging;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

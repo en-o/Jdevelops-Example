@@ -1,6 +1,6 @@
 package cn.tannn.demo.jdevelops.daljdbctemplate;
 
-import cn.tannn.jdevelops.annotations.jdbctemplate.JdbcTemplate;
+import cn.tannn.jdevelops.annotations.jdbctemplate.proxysql.JdbcTemplate;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 import org.springframework.boot.test.context.SpringBootTest;

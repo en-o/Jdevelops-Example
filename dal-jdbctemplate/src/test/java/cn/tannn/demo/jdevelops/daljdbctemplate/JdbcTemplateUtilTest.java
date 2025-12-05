@@ -1,7 +1,7 @@
 package cn.tannn.demo.jdevelops.daljdbctemplate;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.User;
-import cn.tannn.jdevelops.jdectemplate.enums.SelectType;
+import cn.tannn.jdevelops.annotations.jdbctemplate.sql.enums.SelectType;
 import cn.tannn.jdevelops.jdectemplate.util.InteriorJdbcTemplateUtil;
 import cn.tannn.jdevelops.jdectemplate.util.JdbcTemplateUtil;
 import cn.tannn.jdevelops.result.request.Paging;
