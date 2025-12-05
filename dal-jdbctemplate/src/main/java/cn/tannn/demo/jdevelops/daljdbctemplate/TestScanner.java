@@ -3,7 +3,7 @@ package cn.tannn.demo.jdevelops.daljdbctemplate;
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.ExistInterface;
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.NoInterfaceQueryImpl;
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserService;
-import cn.tannn.jdevelops.annotations.jdbctemplate.JdbcTemplate;
+import cn.tannn.jdevelops.annotations.jdbctemplate.proxysql.JdbcTemplate;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;

@@ -2,7 +2,7 @@ package cn.tannn.demo.jdevelops.daljdbctemplate.service;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.User;
 import cn.tannn.demo.jdevelops.daljdbctemplate.entity.UserBO;
-import cn.tannn.jdevelops.annotations.jdbctemplate.Query;
+import cn.tannn.jdevelops.annotations.jdbctemplate.proxysql.Query;
 import org.springframework.stereotype.Service;
 
 /**

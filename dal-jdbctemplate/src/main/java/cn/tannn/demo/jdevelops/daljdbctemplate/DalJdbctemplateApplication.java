@@ -1,7 +1,7 @@
 package cn.tannn.demo.jdevelops.daljdbctemplate;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserService;
-import cn.tannn.jdevelops.annotations.jdbctemplate.JdbcTemplate;
+import cn.tannn.jdevelops.annotations.jdbctemplate.proxysql.JdbcTemplate;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,6 +21,7 @@ public class DalJdbctemplateApplication implements ApplicationRunner  {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		queryUserService.findAll().forEach(it -> System.out.printf(it.toString()));
+		// jdbc template 注入测试， 可以在接口上写sql完成查询动作
+//		queryUserService.findAll().forEach(it -> System.out.printf(it.toString()));
 	}
 }

@@ -24,12 +24,12 @@
 		<dependency>
 			<groupId>cn.tannn.jdevelops</groupId>
 			<artifactId>jdevelops-dals-jdbctemplate</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.4-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>cn.tannn.jdevelops</groupId>
 			<artifactId>jdevelops-apis-result</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.3</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
