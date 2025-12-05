@@ -1,6 +1,7 @@
 package cn.tannn.demo.jdevelops.daljdbctemplate;
 
 import cn.tannn.jdevelops.annotations.jdbctemplate.proxysql.JdbcTemplate;
+import org.junit.jupiter.api.Test;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +19,7 @@ import java.util.Set;
 public class TestScannerXXX {
 
 
-//    @Test
+    @Test
     void mainxxx() {
         // 指定要扫描的基础包
         String basePackage = "cn.tannn.demo.jdevelops.daljdbctemplate";
