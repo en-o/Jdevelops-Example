@@ -22,6 +22,6 @@ public class DalJdbctemplateApplication implements ApplicationRunner  {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		// jdbc template 注入测试， 可以在接口上写sql完成查询动作
-//		queryUserService.findAll().forEach(it -> System.out.printf(it.toString()));
+		queryUserService.findAll().forEach(it -> System.out.printf(it.toString()));
 	}
 }
