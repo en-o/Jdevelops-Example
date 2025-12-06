@@ -1,9 +1,8 @@
 package cn.tannn.demo.jdevelops.daljdbctemplate;
 
-import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.UserMapper;
 import cn.tannn.demo.jdevelops.daljdbctemplate.service.QueryUserService;
 import cn.tannn.jdevelops.annotations.jdbctemplate.proxysql.JdbcTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
+import cn.tannn.jdevelops.jdectemplate.xmlmapper.XmlMapperScan;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
+@XmlMapperScan  // 默认扫描 cn.tannn.demo.jdevelops.daljdbctemplate 包及其子包
 public class DalJdbctemplateApplication implements ApplicationRunner  {
 
 	@JdbcTemplate

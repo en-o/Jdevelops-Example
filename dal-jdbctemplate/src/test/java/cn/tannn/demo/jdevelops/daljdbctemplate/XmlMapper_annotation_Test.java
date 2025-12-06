@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class XmlMapper_annotation_Test {
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private UserMapper userMapper;
 
