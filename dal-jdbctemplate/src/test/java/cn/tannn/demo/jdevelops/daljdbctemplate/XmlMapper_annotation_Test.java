@@ -529,9 +529,6 @@ class XmlMapper_annotation_Test {
         System.out.println("插入的ID: id1=" + id1 + ", id2=" + id2);
         System.out.println("对象的ID: user1.id=" + user1.getId() + ", user2.id=" + user2.getId());
 
-        // 创建删除参数
-        UserQuery query = new UserQuery();
-        query.setIds(Arrays.asList(id1, id2));
 
         // 先验证数据是否插入成功
         UserQuery checkQuery1 = new UserQuery();
@@ -545,6 +542,10 @@ class XmlMapper_annotation_Test {
         System.out.println("删除前查询 id2: " + (check2 != null ? check2.getUsername() : "未找到"));
 
         // 执行批量删除
+
+        // 创建删除参数
+        UserQuery query = new UserQuery();
+        query.setIds(Arrays.asList(id1, id2));
         int rows = userMapper.deleteByIds(query);
 
         // 验证结果
