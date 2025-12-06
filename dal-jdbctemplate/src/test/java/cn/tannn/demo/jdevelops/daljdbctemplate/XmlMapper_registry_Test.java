@@ -268,8 +268,8 @@ class XmlMapper_registry_Test {
         Object queryResult = registry.executeQuery(NAMESPACE, "findById", query, UserMapperEntity.class);
 
         assertNotNull(queryResult, "查询结果不应为空");
-        UserMapperEntity user = (UserMapperEntity) queryResult;
-        assertEquals("registry_updated", user.getUsername(), "用户名应该已更新");
+        List<UserMapperEntity> user = (List<UserMapperEntity>) queryResult;
+        assertEquals("registry_updated", user.get(0).getUsername(), "用户名应该已更新");
     }
 
     // ==================== 删除测试 ====================
