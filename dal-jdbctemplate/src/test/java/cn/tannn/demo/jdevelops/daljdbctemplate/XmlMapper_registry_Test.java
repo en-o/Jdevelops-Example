@@ -440,6 +440,50 @@ class XmlMapper_registry_Test {
     }
 
     @Test
+    @Order(56)
+    @DisplayName("56. 【框架内置分页】Registry 方式一键分页")
+    void testPageQueryAutoWithRegistry() {
+        // 创建分页参数（使用框架提供的 PageRequest）
+        cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageRequest pageRequest =
+                new cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageRequest(1, 5);
+        pageRequest.setOrderBy("created_at");
+        pageRequest.setOrderDir("DESC");
+
+        // 创建查询条件
+        UserQuery query = new UserQuery();
+        query.setStatus(1);
+
+        // 使用 Registry 的 executePageQuery 方法，框架自动处理分页
+        cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageResult<UserMapperEntity> pageResult =
+                registry.executePageQuery(
+                        NAMESPACE,
+                        "findUsersPageWithTotal",      // 数据查询 SQL
+                        "countUsersByCondition",       // 统计查询 SQL
+                        query,                         // 查询参数
+                        pageRequest,                   // 分页参数
+                        UserMapperEntity.class         // 结果类型
+                );
+
+        // 验证结果
+        assertNotNull(pageResult, "分页结果不应为空");
+        assertNotNull(pageResult.getList(), "数据列表不应为空");
+        assertTrue(pageResult.getList().size() <= 5, "每页最多5条");
+        assertNotNull(pageResult.getTotal(), "总数不应为空");
+        assertTrue(pageResult.getTotal() > 0, "总数应该>0");
+
+        System.out.println("=========================================");
+        System.out.println("【Registry 内置分页】测试结果:");
+        System.out.println("当前页码: " + pageResult.getPageNum());
+        System.out.println("每页大小: " + pageRequest.getPageSize());
+        System.out.println("总记录数: " + pageResult.getTotal());
+        System.out.println("总页数: " + pageResult.getPages());
+        System.out.println("当前页数据量: " + pageResult.getList().size());
+        System.out.println("是否有下一页: " + pageResult.getHasNext());
+        System.out.println("是否有上一页: " + pageResult.getHasPrevious());
+        System.out.println("=========================================");
+    }
+
+    @Test
     @Order(60)
     @DisplayName("60. Registry特性 - 获取已注册的Mapper")
     void testGetRegisteredMappers() {

@@ -331,6 +331,78 @@ class XmlMapper_annotation_Test {
         });
     }
 
+    @Test
+    @Order(11)
+    @DisplayName("11. 【框架内置分页】一键分页查询")
+    void testPageQueryAuto() {
+        // 创建框架提供的分页参数
+        cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageRequest pageRequest =
+                new cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageRequest(1, 5);
+        pageRequest.setOrderBy("created_at");
+        pageRequest.setOrderDir("DESC");
+
+        // 创建查询条件
+        UserQuery query = new UserQuery();
+        query.setStatus(1);
+
+        // 直接调用框架内置分页方法，一行代码完成分页查询
+        cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageResult<UserMapperEntity> pageResult =
+                userMapper.findUsersPageAuto(query, pageRequest);
+
+        // 验证结果
+        assertNotNull(pageResult, "分页结果不应为空");
+        assertNotNull(pageResult.getList(), "数据列表不应为空");
+        assertTrue(pageResult.getList().size() <= 5, "每页最多5条");
+        assertEquals(1, pageResult.getPageNum(), "应该是第1页");
+        assertNotNull(pageResult.getTotal(), "总数不应为空");
+        assertTrue(pageResult.getTotal() > 0, "总数应该>0");
+
+        System.out.println("=========================================");
+        System.out.println("【框架内置分页】测试结果:");
+        System.out.println("当前页码: " + pageResult.getPageNum());
+        System.out.println("每页大小: " + pageRequest.getPageSize());
+        System.out.println("总记录数: " + pageResult.getTotal());
+        System.out.println("总页数: " + pageResult.getPages());
+        System.out.println("当前页数据量: " + pageResult.getList().size());
+        System.out.println("是否有下一页: " + pageResult.getHasNext());
+        System.out.println("是否有上一页: " + pageResult.getHasPrevious());
+        System.out.println("=========================================");
+    }
+
+    @Test
+    @Order(12)
+    @DisplayName("12. 【框架内置分页】多条件分页")
+    void testPageQueryAutoWithConditions() {
+        // 创建分页参数
+        cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageRequest pageRequest =
+                new cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageRequest(1, 3);
+        pageRequest.setOrderBy("age");
+        pageRequest.setOrderDir("ASC");
+
+        // 创建查询条件
+        UserQuery query = new UserQuery();
+        query.setStatus(1);
+        query.setMinAge(20);
+        query.setMaxAge(28);
+
+        // 框架自动处理分页
+        cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageResult<UserMapperEntity> pageResult =
+                userMapper.findUsersPageAuto(query, pageRequest);
+
+        // 验证结果
+        assertNotNull(pageResult, "分页结果不应为空");
+        assertTrue(pageResult.getList().size() <= 3, "每页最多3条");
+
+        System.out.println("【框架内置分页】多条件查询: 总数=" + pageResult.getTotal() +
+                ", 当前页=" + pageResult.getList().size());
+
+        // 验证数据
+        pageResult.getList().forEach(user -> {
+            assertTrue(user.getAge() >= 20 && user.getAge() <= 28, "年龄应该在20-28之间");
+            assertEquals(1, user.getStatus(), "状态应该为1");
+        });
+    }
+
     // ==================== 插入测试 ====================
 
     @Test

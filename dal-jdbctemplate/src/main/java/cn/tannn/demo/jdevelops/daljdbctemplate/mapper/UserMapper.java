@@ -4,6 +4,7 @@ import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.PageRequest;
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity;
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserQuery;
 import cn.tannn.jdevelops.annotations.jdbctemplate.xml.*;
+import cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageResult;
 
 import java.util.List;
 
@@ -184,4 +185,23 @@ public interface UserMapper {
      */
     @XmlSelect("countUsersByCondition")
     Long countUsersByCondition(UserQuery query);
+
+    /**
+     * 【框架内置分页】分页查询用户
+     * <p>
+     * 使用 @XmlPageSelect 注解，框架自动处理分页逻辑
+     * <p>
+     * 只需要指定数据查询SQL和统计SQL，框架会自动：
+     * <ul>
+     *     <li>执行数据查询</li>
+     *     <li>执行统计查询</li>
+     *     <li>组装成 PageResult 返回</li>
+     * </ul>
+     *
+     * @param query 查询参数
+     * @param pageRequest 分页参数（框架提供的 cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageRequest）
+     * @return 分页结果（框架提供的 cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageResult）
+     */
+    @XmlPageSelect(dataStatement = "findUsersPageWithTotal", countStatement = "countUsersByCondition")
+    PageResult<UserMapperEntity> findUsersPageAuto(UserQuery query, cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageRequest pageRequest);
 }
