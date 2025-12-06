@@ -233,7 +233,6 @@
         FROM users_mapper
         <include refid="pageWhereConditions"/>
     </select>
-
     <!-- 框架内置分页查询（自动） -->
     <select id="findUsersPageAuto" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
         SELECT
@@ -265,4 +264,5 @@
         </if>
         LIMIT #{arg1.pageSize} OFFSET #{arg1.offset}
     </select>
+
 </mapper>
