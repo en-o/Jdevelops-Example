@@ -60,7 +60,7 @@
     </select>
 
     <!-- 插入操作 -->
-    <insert id="insertUser">
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO users_mapper (username, email, age, status, created_at)
         VALUES (#{username}, #{email}, #{age}, #{status}, NOW())
     </insert>

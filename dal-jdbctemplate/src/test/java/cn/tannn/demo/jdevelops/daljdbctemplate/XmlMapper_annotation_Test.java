@@ -76,10 +76,10 @@ class XmlMapper_annotation_Test {
         user.setStatus(1);
 
         // 执行插入
-        int rows = userMapper.insertUser(user);
+        Long userId = userMapper.insertUser(user);
 
         // 验证结果
-        assertEquals(1, rows);
+        assertNotNull(userId);
     }
 
     @Test
@@ -105,11 +105,11 @@ class XmlMapper_annotation_Test {
         insertUser.setEmail("delete" + System.currentTimeMillis() + "@example.com");
         insertUser.setAge(20);
         insertUser.setStatus(1);
-        userMapper.insertUser(insertUser);
+        Long userId = userMapper.insertUser(insertUser);
 
         // 创建删除参数（使用实际存在的ID）
         UserMapperEntity user = new UserMapperEntity();
-        user.setId(1L);
+        user.setId(userId);
 
         // 执行删除
         int rows = userMapper.deleteById(user);

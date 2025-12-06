@@ -68,10 +68,10 @@ public interface UserMapper {
      * 对应 XML 中的 &lt;insert id="insertUser"&gt;
      *
      * @param user 用户对象
-     * @return 影响的行数
+     * @return 自增ID
      */
     @XmlInsert("insertUser")
-    int insertUser(UserMapperEntity user);
+    Long insertUser(UserMapperEntity user);
 
     /**
      * 批量插入用户
