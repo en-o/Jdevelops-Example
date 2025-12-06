@@ -526,14 +526,30 @@ class XmlMapper_annotation_Test {
         Long id1 = userMapper.insertUser(user1);
         Long id2 = userMapper.insertUser(user2);
 
+        // 打印调试信息
+        System.out.println("插入的ID: id1=" + id1 + ", id2=" + id2);
+        System.out.println("对象的ID: user1.id=" + user1.getId() + ", user2.id=" + user2.getId());
+
         // 创建删除参数
         UserQuery query = new UserQuery();
         query.setIds(Arrays.asList(id1, id2));
+
+        // 先验证数据是否插入成功
+        UserQuery checkQuery1 = new UserQuery();
+        checkQuery1.setId(id1);
+        UserMapperEntity check1 = userMapper.findById(checkQuery1);
+        System.out.println("删除前查询 id1: " + (check1 != null ? check1.getUsername() : "未找到"));
+
+        UserQuery checkQuery2 = new UserQuery();
+        checkQuery2.setId(id2);
+        UserMapperEntity check2 = userMapper.findById(checkQuery2);
+        System.out.println("删除前查询 id2: " + (check2 != null ? check2.getUsername() : "未找到"));
 
         // 执行批量删除
         int rows = userMapper.deleteByIds(query);
 
         // 验证结果
+        System.out.println("批量删除影响行数: " + rows);
         assertTrue(rows >= 2, "批量删除影响行数应该>=2");
         System.out.println("批量删除 " + rows + " 条记录");
     }
