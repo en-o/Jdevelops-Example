@@ -1,12 +1,15 @@
 package cn.tannn.demo.jdevelops.daljdbctemplate;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.UserMapper;
+import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.PageRequest;
+import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.PageResult;
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity;
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserQuery;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,22 +42,59 @@ class XmlMapper_annotation_Test {
     @Autowired
     private UserMapper userMapper;
 
+    /**
+     * 准备测试数据
+     */
+    @BeforeAll
+    static void prepareTestData(@Autowired UserMapper userMapper) {
+        System.out.println("========== 准备测试数据 ==========");
+
+        // 1. 清空所有数据
+        int deleted = userMapper.deleteAll();
+        System.out.println("清空数据: " + deleted + " 条");
+
+        // 2. 插入测试数据(20条)
+        List<UserMapperEntity> testUsers = new ArrayList<>();
+        for (int i = 1; i <= 20; i++) {
+            UserMapperEntity user = new UserMapperEntity();
+            user.setUsername("test_user_" + i);
+            user.setEmail("test" + i + "@example.com");
+            user.setAge(20 + (i % 15));  // 年龄 20-34
+            user.setStatus(i % 2 == 0 ? 1 : 2);  // 状态交替1和2
+            testUsers.add(user);
+        }
+
+        // 批量插入
+        int inserted = userMapper.batchInsert(testUsers);
+        System.out.println("插入测试数据: " + inserted + " 条");
+        System.out.println("========== 测试数据准备完成 ==========\n");
+    }
+
     // ==================== 查询测试 ====================
 
     @Test
     @Order(1)
     @DisplayName("01. 根据ID查询单条记录")
     void testFindById() {
+        // 先查询一个用户获取ID
+        UserQuery listQuery = new UserQuery();
+        listQuery.setPageSize(1);
+        listQuery.setOffset(0);
+        List<UserMapperEntity> users = userMapper.findUsersPage(listQuery);
+        assertFalse(users.isEmpty(), "应该至少有一条数据");
+
+        Long userId = users.get(0).getId();
+
         // 创建查询参数
         UserQuery query = new UserQuery();
-        query.setId(1L);
+        query.setId(userId);
 
         // 执行查询
         UserMapperEntity result = userMapper.findById(query);
 
         // 验证结果
         assertNotNull(result, "查询结果不应为空");
-        assertEquals(1L, result.getId(), "用户ID应该为1");
+        assertEquals(userId, result.getId(), "用户ID应该匹配");
         System.out.println("查询到用户: " + result.getUsername());
     }
 
@@ -149,11 +189,153 @@ class XmlMapper_annotation_Test {
         System.out.println("高级查询到 " + result.size() + " 条记录");
     }
 
-    // ==================== 插入测试 ====================
+    @Test
+    @Order(7)
+    @DisplayName("07. 分页查询 - 第一页")
+    void testPageQuery_FirstPage() {
+        // 创建分页参数
+        PageRequest pageRequest = new PageRequest(1, 5);
+        pageRequest.setOrderBy("created_at");
+        pageRequest.setOrderDir("DESC");
+
+        // 创建查询条件
+        UserQuery query = new UserQuery();
+        query.setStatus(1);  // 只查状态为1的用户
+
+        // 查询第一页数据
+        List<UserMapperEntity> list = userMapper.findUsersPageWithTotal(query, pageRequest);
+
+        // 查询总数
+        Long total = userMapper.countUsersByCondition(query);
+
+        // 构建分页结果
+        PageResult<UserMapperEntity> pageResult = new PageResult<>(
+                pageRequest.getPageNum(),
+                pageRequest.getPageSize(),
+                total,
+                list
+        );
+
+        // 验证结果
+        assertNotNull(pageResult.getList(), "数据列表不应为空");
+        assertTrue(pageResult.getList().size() <= 5, "每页最多5条");
+        assertEquals(1, pageResult.getPageNum(), "应该是第1页");
+        assertNotNull(pageResult.getTotal(), "总数不应为空");
+
+        System.out.println("分页查询结果: " + pageResult);
+        System.out.println("第1页数据: " + pageResult.getList().size() + " 条");
+        System.out.println("总记录数: " + pageResult.getTotal());
+        System.out.println("总页数: " + pageResult.getPages());
+    }
+
+    @Test
+    @Order(8)
+    @DisplayName("08. 分页查询 - 第二页")
+    void testPageQuery_SecondPage() {
+        // 创建分页参数(第2页)
+        PageRequest pageRequest = new PageRequest(2, 5);
+
+        // 创建查询条件
+        UserQuery query = new UserQuery();
+        query.setStatus(1);
+
+        // 查询第二页数据
+        List<UserMapperEntity> list = userMapper.findUsersPageWithTotal(query, pageRequest);
+
+        // 查询总数
+        Long total = userMapper.countUsersByCondition(query);
+
+        // 构建分页结果
+        PageResult<UserMapperEntity> pageResult = new PageResult<>(
+                pageRequest.getPageNum(),
+                pageRequest.getPageSize(),
+                total,
+                list
+        );
+
+        // 验证结果
+        assertNotNull(pageResult.getList(), "数据列表不应为空");
+        assertEquals(2, pageResult.getPageNum(), "应该是第2页");
+        assertTrue(pageResult.getHasPrevious(), "应该有上一页");
+
+        System.out.println("第2页数据: " + pageResult.getList().size() + " 条");
+    }
+
+    @Test
+    @Order(9)
+    @DisplayName("09. 分页查询 - 空条件查询所有")
+    void testPageQuery_AllData() {
+        // 创建分页参数
+        PageRequest pageRequest = new PageRequest(1, 10);
+
+        // 不设置任何查询条件
+        UserQuery query = new UserQuery();
+
+        // 查询数据
+        List<UserMapperEntity> list = userMapper.findUsersPageWithTotal(query, pageRequest);
+        Long total = userMapper.countUsersByCondition(query);
+
+        // 构建分页结果
+        PageResult<UserMapperEntity> pageResult = new PageResult<>(
+                pageRequest.getPageNum(),
+                pageRequest.getPageSize(),
+                total,
+                list
+        );
+
+        // 验证结果
+        assertEquals(20L, pageResult.getTotal(), "总共应该有20条测试数据");
+        assertEquals(10, pageResult.getList().size(), "第一页应该有10条数据");
+        assertEquals(2, pageResult.getPages(), "应该有2页");
+        assertTrue(pageResult.getHasNext(), "应该有下一页");
+        assertFalse(pageResult.getHasPrevious(), "不应该有上一页");
+
+        System.out.println("查询所有数据: " + pageResult);
+    }
 
     @Test
     @Order(10)
-    @DisplayName("10. 插入单条记录（返回自增ID）")
+    @DisplayName("10. 分页查询 - 多条件组合")
+    void testPageQuery_WithConditions() {
+        // 创建分页参数
+        PageRequest pageRequest = new PageRequest(1, 5);
+        pageRequest.setOrderBy("age");
+        pageRequest.setOrderDir("ASC");
+
+        // 创建查询条件
+        UserQuery query = new UserQuery();
+        query.setStatus(1);
+        query.setMinAge(25);
+        query.setMaxAge(30);
+
+        // 查询数据
+        List<UserMapperEntity> list = userMapper.findUsersPageWithTotal(query, pageRequest);
+        Long total = userMapper.countUsersByCondition(query);
+
+        // 构建分页结果
+        PageResult<UserMapperEntity> pageResult = new PageResult<>(
+                pageRequest.getPageNum(),
+                pageRequest.getPageSize(),
+                total,
+                list
+        );
+
+        // 验证结果
+        assertNotNull(pageResult.getList(), "数据列表不应为空");
+        System.out.println("多条件分页查询: 总数=" + pageResult.getTotal() + ", 当前页=" + pageResult.getList().size());
+
+        // 验证年龄范围
+        pageResult.getList().forEach(user -> {
+            assertTrue(user.getAge() >= 25 && user.getAge() <= 30, "年龄应该在25-30之间");
+            assertEquals(1, user.getStatus(), "状态应该为1");
+        });
+    }
+
+    // ==================== 插入测试 ====================
+
+    @Test
+    @Order(20)
+    @DisplayName("20. 插入单条记录（返回自增ID）")
     void testInsertUser() {
         // 创建用户对象
         UserMapperEntity user = new UserMapperEntity();

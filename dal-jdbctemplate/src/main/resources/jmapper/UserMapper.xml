@@ -174,4 +174,64 @@
         </if>
     </select>
 
+    <!-- 分页查询 SQL 片段(通用查询条件) -->
+    <sql id="pageWhereConditions">
+        <where>
+            <if test="username != null and username != ''">
+                AND username LIKE CONCAT('%', #{username}, '%')
+            </if>
+            <if test="email != null and email != ''">
+                AND email = #{email}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="minAge != null">
+                AND age >= #{minAge}
+            </if>
+            <if test="maxAge != null">
+                AND age &lt;= #{maxAge}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 分页查询用户(带条件) -->
+    <select id="findUsersPageWithTotal" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <if test="arg0.username != null and arg0.username != ''">
+                AND username LIKE CONCAT('%', #{arg0.username}, '%')
+            </if>
+            <if test="arg0.email != null and arg0.email != ''">
+                AND email = #{arg0.email}
+            </if>
+            <if test="arg0.status != null">
+                AND status = #{arg0.status}
+            </if>
+            <if test="arg0.minAge != null">
+                AND age >= #{arg0.minAge}
+            </if>
+            <if test="arg0.maxAge != null">
+                AND age &lt;= #{arg0.maxAge}
+            </if>
+        </where>
+        ORDER BY
+        <if test="arg1.orderBySql != null and arg1.orderBySql != ''">
+            ${arg1.orderBySql}
+        </if>
+        <if test="arg1.orderBySql == null or arg1.orderBySql == ''">
+            created_at DESC
+        </if>
+        LIMIT #{arg1.pageSize} OFFSET #{arg1.offset}
+    </select>
+
+    <!-- 统计符合条件的用户总数 -->
+    <select id="countUsersByCondition" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM users_mapper
+        <include refid="pageWhereConditions"/>
+    </select>
+
 </mapper>

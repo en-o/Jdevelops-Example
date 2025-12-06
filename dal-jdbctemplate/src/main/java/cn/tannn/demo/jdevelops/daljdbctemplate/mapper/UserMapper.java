@@ -1,5 +1,6 @@
 package cn.tannn.demo.jdevelops.daljdbctemplate.mapper;
 
+import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.PageRequest;
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity;
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserQuery;
 import cn.tannn.jdevelops.annotations.jdbctemplate.xml.*;
@@ -160,4 +161,27 @@ public interface UserMapper {
      */
     @XmlSelect("findUsersAdvanced")
     List<UserMapperEntity> findUsersAdvanced(UserQuery query);
+
+    /**
+     * 分页查询用户(带总数统计)
+     * <p>
+     * 对应 XML 中的 &lt;select id="findUsersPageWithTotal"&gt;
+     *
+     * @param query 查询参数
+     * @param pageRequest 分页参数
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersPageWithTotal")
+    List<UserMapperEntity> findUsersPageWithTotal(UserQuery query, PageRequest pageRequest);
+
+    /**
+     * 统计符合条件的用户总数(用于分页)
+     * <p>
+     * 对应 XML 中的 &lt;select id="countUsersByCondition"&gt;
+     *
+     * @param query 查询参数
+     * @return 总数
+     */
+    @XmlSelect("countUsersByCondition")
+    Long countUsersByCondition(UserQuery query);
 }

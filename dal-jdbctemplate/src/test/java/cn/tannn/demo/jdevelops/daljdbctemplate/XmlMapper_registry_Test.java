@@ -1,5 +1,8 @@
 package cn.tannn.demo.jdevelops.daljdbctemplate;
 
+import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.UserMapper;
+import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.PageRequest;
+import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.PageResult;
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity;
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserQuery;
 import cn.tannn.jdevelops.jdectemplate.xmlmapper.registry.XmlMapperRegistry;
@@ -7,6 +10,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,6 +49,36 @@ class XmlMapper_registry_Test {
 
     @Autowired
     private XmlMapperRegistry registry;
+
+    @Autowired
+    private UserMapper userMapper;
+
+    /**
+     * 准备测试数据
+     */
+    @BeforeAll
+    static void prepareTestData(@Autowired UserMapper userMapper) {
+        System.out.println("========== Registry 测试 - 准备数据 ==========");
+
+        // 1. 清空所有数据
+        int deleted = userMapper.deleteAll();
+        System.out.println("清空数据: " + deleted + " 条");
+
+        // 2. 插入测试数据(20条)
+        List<UserMapperEntity> testUsers = new ArrayList<>();
+        for (int i = 1; i <= 20; i++) {
+            UserMapperEntity user = new UserMapperEntity();
+            user.setUsername("registry_user_" + i);
+            user.setEmail("registry" + i + "@example.com");
+            user.setAge(20 + (i % 15));
+            user.setStatus(i % 2 == 0 ? 1 : 2);
+            testUsers.add(user);
+        }
+
+        int inserted = userMapper.batchInsert(testUsers);
+        System.out.println("插入测试数据: " + inserted + " 条");
+        System.out.println("========== 测试数据准备完成 ==========\n");
+    }
 
     // ==================== 查询测试 ====================
 
@@ -354,6 +388,56 @@ class XmlMapper_registry_Test {
     }
 
     // ==================== Registry 特性测试 ====================
+
+    @Test
+    @Order(55)
+    @DisplayName("55. Registry分页 - 分页查询")
+    void testPageQueryWithRegistry() {
+        // 创建分页参数
+        PageRequest pageRequest = new PageRequest(1, 5);
+        pageRequest.setOrderBy("created_at");
+
+        // 创建查询条件
+        UserQuery query = new UserQuery();
+        query.setStatus(1);
+
+        // 执行分页查询
+        Object listResult = registry.executeQuery(
+                NAMESPACE,
+                "findUsersPageWithTotal",
+                Arrays.asList(query, pageRequest),  // 多参数需要用List传递
+                UserMapperEntity.class
+        );
+
+        // 执行总数查询
+        Object totalResult = registry.executeQuery(
+                NAMESPACE,
+                "countUsersByCondition",
+                query,
+                Long.class
+        );
+
+        // 验证结果
+        assertNotNull(listResult, "数据列表不应为空");
+        assertNotNull(totalResult, "总数不应为空");
+        assertInstanceOf(List.class, listResult, "应该返回List类型");
+        assertInstanceOf(Long.class, totalResult, "应该返回Long类型");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> list = (List<UserMapperEntity>) listResult;
+        Long total = (Long) totalResult;
+
+        // 构建分页结果
+        PageResult<UserMapperEntity> pageResult = new PageResult<>(
+                pageRequest.getPageNum(),
+                pageRequest.getPageSize(),
+                total,
+                list
+        );
+
+        System.out.println("Registry 分页查询: " + pageResult);
+        assertTrue(pageResult.getList().size() <= 5, "每页最多5条");
+    }
 
     @Test
     @Order(60)
