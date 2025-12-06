@@ -345,7 +345,7 @@ class XmlMapper_annotation_Test {
         query.setStatus(1);
 
         // 直接调用框架内置分页方法，一行代码完成分页查询
-        cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageResult<UserMapperEntity> pageResult =
+       PageResult<UserMapperEntity> pageResult =
                 userMapper.findUsersPageAuto(query, pageRequest);
 
         // 验证结果
