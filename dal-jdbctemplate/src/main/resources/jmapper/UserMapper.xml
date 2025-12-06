@@ -233,6 +233,12 @@
         FROM users_mapper
         <include refid="pageWhereConditions"/>
     </select>
+
+    <!-- 测试用: 无条件统计总数 -->
+    <select id="countUsersTotal" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM users_mapper
+    </select>
     <!-- 框架内置分页查询（自动） -->
     <select id="findUsersPageAuto" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
         SELECT
