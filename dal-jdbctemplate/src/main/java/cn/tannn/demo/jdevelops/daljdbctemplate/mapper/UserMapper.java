@@ -202,6 +202,6 @@ public interface UserMapper {
      * @param pageRequest 分页参数（框架提供的 cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageRequest）
      * @return 分页结果（框架提供的 cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageResult）
      */
-    @XmlPageSelect(dataStatement = "findUsersPageWithTotal", countStatement = "countUsersByCondition")
+    @XmlPageSelect(dataStatement = "findUsersPageAuto", countStatement = "countUsersByCondition")
     PageResult<UserMapperEntity> findUsersPageAuto(UserQuery query, PageRequest pageRequest);
 }
