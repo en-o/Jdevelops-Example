@@ -303,7 +303,8 @@ class XmlMapper_registry_Test {
         UserQuery query = new UserQuery();
         query.setId(userId);
         Object queryResult = registry.executeQuery(NAMESPACE, "findById", query, UserMapperEntity.class);
-        assertNull(queryResult, "删除后查询应该为空");
+        List<Object> resultList = (List<Object>) queryResult;
+        assertTrue(resultList.isEmpty(), "删除后查询应该为空");
     }
 
     @Test
