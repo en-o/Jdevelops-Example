@@ -219,7 +219,7 @@
         </where>
         ORDER BY
         <if test="arg1.orderBySql != null and arg1.orderBySql != ''">
-            ${arg1.orderBySql}
+            #{arg1.orderBySql}
         </if>
         <if test="arg1.orderBySql == null or arg1.orderBySql == ''">
             created_at DESC
