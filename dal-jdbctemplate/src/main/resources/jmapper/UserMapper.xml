@@ -69,8 +69,8 @@
     <insert id="batchInsert">
         INSERT INTO users_mapper (username, email, age, status, created_at)
         VALUES
-        <foreach collection="users" item="user" separator=",">
-            (#{user.username}, #{user.email}, #{user.age}, #{user.status}, NOW())
+        <foreach collection="list" separator=",">
+            (#{username}, #{email}, #{age}, #{status}, NOW())
         </foreach>
     </insert>
 

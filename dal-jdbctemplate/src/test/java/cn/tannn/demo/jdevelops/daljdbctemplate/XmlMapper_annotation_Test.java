@@ -155,12 +155,8 @@ class XmlMapper_annotation_Test {
                 createUser("batch3", "batch3@example.com", 23)
         );
 
-        // 创建查询参数
-        UserQuery query = new UserQuery();
-        query.setUsers(users);
-
         // 执行批量插入
-        int rows = userMapper.batchInsert(query);
+        int rows = userMapper.batchInsert(users);
 
         // 验证结果
         assertTrue(rows >= 0);

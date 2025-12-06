@@ -78,11 +78,11 @@ public interface UserMapper {
      * <p>
      * 对应 XML 中的 &lt;insert id="batchInsert"&gt;
      *
-     * @param query 查询参数（包含 users 列表）
+     * @param insert
      * @return 影响的行数
      */
     @XmlInsert("batchInsert")
-    int batchInsert(UserQuery query);
+    int batchInsert(List<UserMapperEntity> insert);
 
     /**
      * 动态更新用户信息
