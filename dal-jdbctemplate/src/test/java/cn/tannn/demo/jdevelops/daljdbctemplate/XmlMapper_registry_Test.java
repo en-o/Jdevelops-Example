@@ -3,7 +3,7 @@ package cn.tannn.demo.jdevelops.daljdbctemplate;
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity;
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserQuery;
 import cn.tannn.jdevelops.jdectemplate.xmlmapper.registry.XmlMapperRegistry;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -13,34 +13,64 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * XML Mapper 测试 使用 XmlMapperRegistry
+ * XML Mapper Registry 测试
+ * <p>
+ * 测试直接使用 XmlMapperRegistry 调用 XML SQL
+ * <p>
+ * 适用场景：
+ * <ul>
+ *     <li>不需要定义接口，直接通过 namespace 和 statementId 调用</li>
+ *     <li>动态 SQL 场景（运行时决定调用哪个 SQL）</li>
+ *     <li>框架内部使用</li>
+ * </ul>
+ * <p>
+ * 涵盖功能：
+ * <ul>
+ *     <li>executeQuery - 执行查询操作</li>
+ *     <li>executeUpdate - 执行更新操作（INSERT/UPDATE/DELETE）</li>
+ *     <li>动态 SQL 测试</li>
+ *     <li>返回类型适配测试</li>
+ * </ul>
  *
  * @author tnnn
  */
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class XmlMapper_registry_Test {
+
+    /**
+     * UserMapper 的命名空间
+     */
     private static final String NAMESPACE = "cn.tannn.demo.jdevelops.daljdbctemplate.mapper.UserMapper";
 
     @Autowired
     private XmlMapperRegistry registry;
 
+    // ==================== 查询测试 ====================
+
     @Test
+    @Order(1)
+    @DisplayName("01. Registry查询 - 根据ID查询单条记录")
     void testFindById() {
         // 创建查询参数
         UserQuery query = new UserQuery();
-        query.setIds(List.of(1L));
+        query.setId(1L);
 
         // 执行查询
         Object result = registry.executeQuery(NAMESPACE, "findById", query, UserMapperEntity.class);
 
         // 验证结果
-        assertNotNull(result);
-        if (result instanceof UserMapperEntity user) {
-            assertEquals(1L, user.getId());
-        }
+        assertNotNull(result, "查询结果不应为空");
+        assertInstanceOf(UserMapperEntity.class, result, "结果应该是 UserMapperEntity 类型");
+
+        UserMapperEntity user = (UserMapperEntity) result;
+        assertEquals(1L, user.getId(), "用户ID应该为1");
+        System.out.println("查询到用户: " + user.getUsername());
     }
 
     @Test
+    @Order(2)
+    @DisplayName("02. Registry查询 - 查询用户列表")
     void testFindUsers() {
         // 创建查询参数
         UserQuery query = new UserQuery();
@@ -51,11 +81,17 @@ class XmlMapper_registry_Test {
         Object result = registry.executeQuery(NAMESPACE, "findUsers", query, UserMapperEntity.class);
 
         // 验证结果
-        assertNotNull(result);
-        assertInstanceOf(List.class, result);
+        assertNotNull(result, "查询结果不应为空");
+        assertInstanceOf(List.class, result, "结果应该是 List 类型");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+        System.out.println("查询到 " + users.size() + " 条用户记录");
     }
 
     @Test
+    @Order(3)
+    @DisplayName("03. Registry查询 - IN查询")
     void testFindByIds() {
         // 创建查询参数
         UserQuery query = new UserQuery();
@@ -65,55 +101,18 @@ class XmlMapper_registry_Test {
         Object result = registry.executeQuery(NAMESPACE, "findByIds", query, UserMapperEntity.class);
 
         // 验证结果
-        assertNotNull(result);
-        assertInstanceOf(List.class, result);
+        assertNotNull(result, "查询结果不应为空");
+        assertInstanceOf(List.class, result, "结果应该是 List 类型");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+        assertTrue(users.size() <= 3, "结果数量不应超过3");
+        System.out.println("批量查询到 " + users.size() + " 条记录");
     }
 
     @Test
-    void testInsertUser() {
-        // 创建用户对象
-        UserMapperEntity user = new UserMapperEntity();
-        user.setUsername("testuser");
-        user.setEmail("test@example.com");
-        user.setAge(25);
-        user.setStatus(1);
-
-        // 执行插入
-        int rows = registry.executeUpdate(NAMESPACE, "insertUser", user);
-
-        // 验证结果
-        assertEquals(1, rows);
-    }
-
-    @Test
-    void testUpdateUser() {
-        // 创建更新参数
-        UserMapperEntity user = new UserMapperEntity();
-        user.setId(1L);
-        user.setUsername("updated_user");
-        user.setEmail("updated@example.com");
-
-        // 执行更新
-        int rows = registry.executeUpdate(NAMESPACE, "updateUser", user);
-
-        // 验证结果
-        assertTrue(rows >= 0);
-    }
-
-    @Test
-    void testDeleteById() {
-        // 创建删除参数
-        UserMapperEntity user = new UserMapperEntity();
-        user.setId(1L);
-
-        // 执行删除
-        int rows = registry.executeUpdate(NAMESPACE, "deleteById", user);
-
-        // 验证结果
-        assertTrue(rows >= 0);
-    }
-
-    @Test
+    @Order(4)
+    @DisplayName("04. Registry查询 - 统计查询")
     void testCountUsers() {
         // 创建查询参数
         UserQuery query = new UserQuery();
@@ -123,29 +122,297 @@ class XmlMapper_registry_Test {
         Object result = registry.executeQuery(NAMESPACE, "countUsers", query, Integer.class);
 
         // 验证结果
-        assertNotNull(result);
+        assertNotNull(result, "统计结果不应为空");
+        assertInstanceOf(Integer.class, result, "结果应该是 Integer 类型");
+
+        Integer count = (Integer) result;
+        assertTrue(count >= 0, "用户数量应该>=0");
+        System.out.println("状态为1的用户数量: " + count);
     }
 
     @Test
-    void testDynamicSql() {
-        // 测试动态 SQL - 只设置部分条件
+    @Order(5)
+    @DisplayName("05. Registry查询 - 分页查询")
+    void testFindUsersPage() {
+        // 创建分页查询参数
         UserQuery query = new UserQuery();
-        query.setUsername("test%");
+        query.setPageSize(5);
+        query.setOffset(0);
 
-        // 执行查询
-        Object result = registry.executeQuery(NAMESPACE, "findUsers", query, UserMapperEntity.class);
+        // 执行分页查询
+        Object result = registry.executeQuery(NAMESPACE, "findUsersPage", query, UserMapperEntity.class);
 
         // 验证结果
-        assertNotNull(result);
-        assertInstanceOf(List.class, result);
+        assertNotNull(result, "查询结果不应为空");
+        assertInstanceOf(List.class, result, "结果应该是 List 类型");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+        assertTrue(users.size() <= 5, "分页大小应该<=5");
+        System.out.println("分页查询到 " + users.size() + " 条记录");
     }
 
+    // ==================== 插入测试 ====================
 
     @Test
-    void testDeleteAll() {
+    @Order(10)
+    @DisplayName("10. Registry更新 - 插入记录（返回自增ID）")
+    void testInsertUser() {
+        // 创建用户对象
+        UserMapperEntity user = new UserMapperEntity();
+        user.setUsername("registry_test_" + System.currentTimeMillis());
+        user.setEmail("registry_" + System.currentTimeMillis() + "@example.com");
+        user.setAge(25);
+        user.setStatus(1);
 
-        Integer result = (Integer) registry.executeQuery(NAMESPACE, "deleteAll", null, Integer.class);
+        // 执行插入（注意：Registry 返回 Object，需要根据配置判断返回值）
+        Object result = registry.executeUpdate(NAMESPACE, "insertUser", user);
+
         // 验证结果
-        assertNotNull(result);
+        assertNotNull(result, "返回结果不应为空");
+        System.out.println("插入操作返回: " + result + " (类型: " + result.getClass().getSimpleName() + ")");
+
+        // 如果配置了 useGeneratedKeys=true，返回的是自增ID
+        if (result instanceof Number) {
+            Number id = (Number) result;
+            assertTrue(id.longValue() > 0, "返回的ID应该>0");
+            System.out.println("自增ID: " + id);
+        }
+    }
+
+    @Test
+    @Order(11)
+    @DisplayName("11. Registry更新 - 批量插入")
+    void testBatchInsert() {
+        // 创建用户列表
+        List<UserMapperEntity> users = Arrays.asList(
+                createUser("registry_batch1", "batch1@example.com", 21),
+                createUser("registry_batch2", "batch2@example.com", 22),
+                createUser("registry_batch3", "batch3@example.com", 23)
+        );
+
+        // 执行批量插入
+        Object result = registry.executeUpdate(NAMESPACE, "batchInsert", users);
+
+        // 验证结果
+        assertNotNull(result, "返回结果不应为空");
+        System.out.println("批量插入返回: " + result);
+    }
+
+    // ==================== 更新测试 ====================
+
+    @Test
+    @Order(20)
+    @DisplayName("20. Registry更新 - 动态更新用户信息")
+    void testUpdateUser() {
+        // 先插入一条测试数据
+        UserMapperEntity insertUser = new UserMapperEntity();
+        insertUser.setUsername("registry_update_" + System.currentTimeMillis());
+        insertUser.setEmail("update_" + System.currentTimeMillis() + "@example.com");
+        insertUser.setAge(30);
+        insertUser.setStatus(1);
+        Object insertResult = registry.executeUpdate(NAMESPACE, "insertUser", insertUser);
+        System.out.println("插入成功，返回: " + insertResult);
+
+        // 使用返回的ID或对象中的ID进行更新
+        Long userId = insertUser.getId();
+
+        // 创建更新参数
+        UserMapperEntity updateUser = new UserMapperEntity();
+        updateUser.setId(userId);
+        updateUser.setUsername("registry_updated");
+        updateUser.setEmail("updated@example.com");
+
+        // 执行更新
+        Object updateResult = registry.executeUpdate(NAMESPACE, "updateUser", updateUser);
+
+        // 验证结果
+        assertNotNull(updateResult, "更新结果不应为空");
+        System.out.println("更新返回: " + updateResult);
+
+        // 查询验证
+        UserQuery query = new UserQuery();
+        query.setId(userId);
+        Object queryResult = registry.executeQuery(NAMESPACE, "findById", query, UserMapperEntity.class);
+
+        assertNotNull(queryResult, "查询结果不应为空");
+        UserMapperEntity user = (UserMapperEntity) queryResult;
+        assertEquals("registry_updated", user.getUsername(), "用户名应该已更新");
+    }
+
+    // ==================== 删除测试 ====================
+
+    @Test
+    @Order(30)
+    @DisplayName("30. Registry更新 - 根据ID删除记录")
+    void testDeleteById() {
+        // 先插入一条测试数据
+        UserMapperEntity insertUser = new UserMapperEntity();
+        insertUser.setUsername("registry_delete_" + System.currentTimeMillis());
+        insertUser.setEmail("delete_" + System.currentTimeMillis() + "@example.com");
+        insertUser.setAge(20);
+        insertUser.setStatus(1);
+        registry.executeUpdate(NAMESPACE, "insertUser", insertUser);
+
+        Long userId = insertUser.getId();
+
+        // 创建删除参数
+        UserMapperEntity deleteUser = new UserMapperEntity();
+        deleteUser.setId(userId);
+
+        // 执行删除
+        Object deleteResult = registry.executeUpdate(NAMESPACE, "deleteById", deleteUser);
+
+        // 验证结果
+        assertNotNull(deleteResult, "删除结果不应为空");
+        System.out.println("删除返回: " + deleteResult);
+
+        // 验证已删除
+        UserQuery query = new UserQuery();
+        query.setId(userId);
+        Object queryResult = registry.executeQuery(NAMESPACE, "findById", query, UserMapperEntity.class);
+        assertNull(queryResult, "删除后查询应该为空");
+    }
+
+    @Test
+    @Order(31)
+    @DisplayName("31. Registry更新 - 批量删除")
+    void testDeleteByIds() {
+        // 先插入测试数据
+        UserMapperEntity user1 = createUser("registry_del1", "del1@example.com", 21);
+        UserMapperEntity user2 = createUser("registry_del2", "del2@example.com", 22);
+        registry.executeUpdate(NAMESPACE, "insertUser", user1);
+        registry.executeUpdate(NAMESPACE, "insertUser", user2);
+
+        Long id1 = user1.getId();
+        Long id2 = user2.getId();
+
+        // 创建删除参数
+        UserQuery query = new UserQuery();
+        query.setIds(Arrays.asList(id1, id2));
+
+        // 执行批量删除
+        Object deleteResult = registry.executeUpdate(NAMESPACE, "deleteByIds", query);
+
+        // 验证结果
+        assertNotNull(deleteResult, "删除结果不应为空");
+        System.out.println("批量删除返回: " + deleteResult);
+    }
+
+    // ==================== 动态SQL测试 ====================
+
+    @Test
+    @Order(40)
+    @DisplayName("40. Registry查询 - 动态SQL测试")
+    void testDynamicSql() {
+        // 测试1: 只设置用户名条件
+        UserQuery query1 = new UserQuery();
+        query1.setUsername("%registry%");
+        Object result1 = registry.executeQuery(NAMESPACE, "findUsers", query1, UserMapperEntity.class);
+        assertNotNull(result1, "查询结果不应为空");
+        System.out.println("按用户名查询结果类型: " + result1.getClass().getSimpleName());
+
+        // 测试2: 设置多个条件
+        UserQuery query2 = new UserQuery();
+        query2.setStatus(1);
+        query2.setMinAge(20);
+        query2.setMaxAge(30);
+        Object result2 = registry.executeQuery(NAMESPACE, "findUsers", query2, UserMapperEntity.class);
+        assertNotNull(result2, "查询结果不应为空");
+
+        // 测试3: 不设置任何条件
+        UserQuery query3 = new UserQuery();
+        Object result3 = registry.executeQuery(NAMESPACE, "findUsers", query3, UserMapperEntity.class);
+        assertNotNull(result3, "查询结果不应为空");
+    }
+
+    // ==================== 边界测试 ====================
+
+    @Test
+    @Order(50)
+    @DisplayName("50. Registry查询 - 查询不存在的记录")
+    void testFindNonExistent() {
+        UserQuery query = new UserQuery();
+        query.setId(999999L);
+
+        Object result = registry.executeQuery(NAMESPACE, "findById", query, UserMapperEntity.class);
+
+        assertNull(result, "查询不存在的ID应该返回null");
+    }
+
+    @Test
+    @Order(51)
+    @DisplayName("51. Registry更新 - 删除不存在的记录")
+    void testDeleteNonExistent() {
+        UserMapperEntity user = new UserMapperEntity();
+        user.setId(999999L);
+
+        Object result = registry.executeUpdate(NAMESPACE, "deleteById", user);
+
+        assertNotNull(result, "删除结果不应为空");
+        System.out.println("删除不存在记录返回: " + result);
+    }
+
+    // ==================== Registry 特性测试 ====================
+
+    @Test
+    @Order(60)
+    @DisplayName("60. Registry特性 - 获取已注册的Mapper")
+    void testGetRegisteredMappers() {
+        // 获取所有已注册的 Mapper
+        var mappers = registry.getRegisteredMappers();
+
+        // 验证结果
+        assertNotNull(mappers, "已注册Mapper列表不应为空");
+        assertFalse(mappers.isEmpty(), "应该至少有一个已注册的Mapper");
+        assertTrue(mappers.contains(NAMESPACE), "应该包含 UserMapper");
+
+        System.out.println("已注册的 Mapper 数量: " + mappers.size());
+        System.out.println("已注册的 Mapper:");
+        mappers.forEach(ns -> System.out.println("  - " + ns));
+    }
+
+    @Test
+    @Order(61)
+    @DisplayName("61. Registry特性 - 获取指定Mapper")
+    void testGetMapper() {
+        // 获取指定的 Mapper
+        var mapper = registry.getMapper(NAMESPACE);
+
+        // 验证结果
+        assertNotNull(mapper, "Mapper不应为空");
+        assertEquals(NAMESPACE, mapper.getNamespace(), "命名空间应该匹配");
+
+        System.out.println("Mapper 命名空间: " + mapper.getNamespace());
+        System.out.println("SQL 语句数量: " + mapper.getSqlStatements().size());
+    }
+
+    @Test
+    @Order(62)
+    @DisplayName("62. Registry特性 - 获取SQL语句配置")
+    void testGetSqlStatement() {
+        // 获取 SQL 语句配置
+        var statement = registry.getSqlStatement(NAMESPACE, "findById");
+
+        // 验证结果
+        assertNotNull(statement, "SQL语句配置不应为空");
+        assertEquals("findById", statement.getId(), "语句ID应该匹配");
+        System.out.println("SQL 语句ID: " + statement.getId());
+        System.out.println("SQL 命令类型: " + statement.getCommandType());
+        System.out.println("返回类型: " + statement.getResultType());
+    }
+
+    // ==================== 辅助方法 ====================
+
+    /**
+     * 辅助方法：创建用户对象
+     */
+    private UserMapperEntity createUser(String username, String email, Integer age) {
+        UserMapperEntity user = new UserMapperEntity();
+        user.setUsername(username + "_" + System.currentTimeMillis());
+        user.setEmail(email.replace("@", "_" + System.currentTimeMillis() + "@"));
+        user.setAge(age);
+        user.setStatus(1);
+        return user;
     }
 }
