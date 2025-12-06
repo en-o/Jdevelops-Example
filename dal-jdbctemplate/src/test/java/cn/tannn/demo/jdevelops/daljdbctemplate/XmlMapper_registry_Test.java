@@ -420,7 +420,7 @@ class XmlMapper_registry_Test {
         assertNotNull(listResult, "数据列表不应为空");
         assertNotNull(totalResult, "总数不应为空");
         assertInstanceOf(List.class, listResult, "应该返回List类型");
-        assertInstanceOf(Integer.class, totalResult, "结果应该是 Integer 类型");
+        assertInstanceOf(Long.class, totalResult, "结果应该是 Long 类型");
 
         @SuppressWarnings("unchecked")
         List<UserMapperEntity> list = (List<UserMapperEntity>) listResult;
