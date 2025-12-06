@@ -155,10 +155,10 @@ class XmlMapper_registry_Test {
 
         // 验证结果
         assertNotNull(result, "统计结果不应为空");
-        assertInstanceOf(Integer.class, result, "结果应该是 Integer 类型");
+        assertInstanceOf(List.class, result, "结果应该是 List 类型");
 
-        Integer count = (Integer) result;
-        assertTrue(count >= 0, "用户数量应该>=0");
+        List count = (List) result;
+        assertTrue(Integer.valueOf(count.get(0).toString()) >= 0, "用户数量应该>=0");
         System.out.println("状态为1的用户数量: " + count);
     }
 
@@ -368,8 +368,8 @@ class XmlMapper_registry_Test {
         query.setId(999999L);
 
         Object result = registry.executeQuery(NAMESPACE, "findById", query, UserMapperEntity.class);
-
-        assertNull(result, "查询不存在的ID应该返回null");
+        List result2 = (List<?>) result;
+        assertTrue(result2.isEmpty(), "查询不存在的ID应该返回null");
     }
 
     @Test
@@ -419,11 +419,12 @@ class XmlMapper_registry_Test {
         assertNotNull(listResult, "数据列表不应为空");
         assertNotNull(totalResult, "总数不应为空");
         assertInstanceOf(List.class, listResult, "应该返回List类型");
-        assertInstanceOf(Long.class, totalResult, "应该返回Long类型");
+        assertInstanceOf(List.class, totalResult, "结果应该是 List 类型");
 
         @SuppressWarnings("unchecked")
         List<UserMapperEntity> list = (List<UserMapperEntity>) listResult;
-        Long total = (Long) totalResult;
+        totalResult = ((List<?>) totalResult).get(0);
+        Long total =Long.valueOf(totalResult.toString());
 
         // 构建分页结果
         PageResult<UserMapperEntity> pageResult = new PageResult<>(
