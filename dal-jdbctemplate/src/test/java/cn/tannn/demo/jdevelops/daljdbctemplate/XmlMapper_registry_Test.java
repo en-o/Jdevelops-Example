@@ -50,8 +50,6 @@ class XmlMapper_registry_Test {
     @Autowired
     private XmlMapperRegistry registry;
 
-    @Autowired
-    private UserMapper userMapper;
 
     /**
      * 准备测试数据
