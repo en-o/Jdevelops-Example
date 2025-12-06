@@ -1,10 +1,10 @@
 package cn.tannn.demo.jdevelops.daljdbctemplate;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.UserMapper;
-import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.PageRequest;
-import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.PageResult;
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity;
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserQuery;
+import cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageRequest;
+import cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageResult;
 import cn.tannn.jdevelops.jdectemplate.xmlmapper.registry.XmlMapperRegistry;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

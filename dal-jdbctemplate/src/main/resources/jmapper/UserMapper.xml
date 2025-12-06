@@ -54,8 +54,8 @@
         <include refid="baseColumns"/>
         FROM users_mapper
         WHERE id IN
-        <foreach collection="ids" item="id" open="(" separator="," close=")">
-            #{id}
+        <foreach collection="ids" item="itemId" open="(" separator="," close=")">
+            #{itemId}
         </foreach>
     </select>
 
@@ -103,8 +103,8 @@
     <delete id="deleteByIds">
         DELETE FROM users_mapper
         WHERE id IN
-        <foreach collection="ids" item="id" open="(" separator="," close=")">
-            #{id}
+        <foreach collection="ids" item="itemId" open="(" separator="," close=")">
+            #{itemId}
         </foreach>
     </delete>
 
@@ -219,7 +219,7 @@
         </where>
         ORDER BY
         <if test="arg1.orderBySql != null and arg1.orderBySql != ''">
-            #{arg1.orderBySql}
+            ${arg1.orderBySql}
         </if>
         <if test="arg1.orderBySql == null or arg1.orderBySql == ''">
             created_at DESC

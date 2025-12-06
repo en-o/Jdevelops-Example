@@ -1,10 +1,10 @@
 package cn.tannn.demo.jdevelops.daljdbctemplate;
 
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.UserMapper;
-import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.PageRequest;
-import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.PageResult;
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity;
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserQuery;
+import cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageRequest;
+import cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageResult;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -336,8 +336,7 @@ class XmlMapper_annotation_Test {
     @DisplayName("11. 【框架内置分页】一键分页查询")
     void testPageQueryAuto() {
         // 创建框架提供的分页参数
-        cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageRequest pageRequest =
-                new cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageRequest(1, 5);
+        PageRequest pageRequest = new PageRequest(1, 5);
         pageRequest.setOrderBy("created_at");
         pageRequest.setOrderDir("DESC");
 

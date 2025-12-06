@@ -1,9 +1,9 @@
 package cn.tannn.demo.jdevelops.daljdbctemplate.mapper;
 
-import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.PageRequest;
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity;
 import cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserQuery;
 import cn.tannn.jdevelops.annotations.jdbctemplate.xml.*;
+import cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageRequest;
 import cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageResult;
 
 import java.util.List;
@@ -203,5 +203,5 @@ public interface UserMapper {
      * @return 分页结果（框架提供的 cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageResult）
      */
     @XmlPageSelect(dataStatement = "findUsersPageWithTotal", countStatement = "countUsersByCondition")
-    PageResult<UserMapperEntity> findUsersPageAuto(UserQuery query, cn.tannn.jdevelops.jdectemplate.xmlmapper.page.PageRequest pageRequest);
+    PageResult<UserMapperEntity> findUsersPageAuto(UserQuery query, PageRequest pageRequest);
 }
