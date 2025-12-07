@@ -679,4 +679,284 @@ class XmlMapper_annotation_Test {
         user.setStatus(1);
         return user;
     }
+
+    // ==================== 特殊符号处理测试 ====================
+
+    @Test
+    @Order(70)
+    @DisplayName("70. 【特殊符号】XML实体转义 - 测试 <、>、<=、>= 符号")
+    void testSpecialChars_EntityEscape() {
+        // 测试条件：查找年龄 > 25 且 < 30 的用户
+        UserQuery query = new UserQuery();
+        query.setMinAge(25);  // age > 25
+        query.setMaxAge(30);  // age < 30
+
+        List<UserMapperEntity> result = userMapper.findUsersWithLessThan(query);
+
+        // 验证结果
+        assertNotNull(result, "查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【XML实体转义测试】查询结果:");
+        System.out.println("查询条件: age > 25 AND age < 30");
+        System.out.println("查询到 " + result.size() + " 条记录");
+        result.forEach(user -> {
+            System.out.println("  - " + user.getUsername() + ", age=" + user.getAge());
+            assertTrue(user.getAge() > 25 && user.getAge() < 30,
+                    "年龄应该在(25, 30)区间内，实际:" + user.getAge());
+        });
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(71)
+    @DisplayName("71. 【特殊符号】CDATA区块 - 测试 <、>、<=、>= 符号")
+    void testSpecialChars_CDATA() {
+        // 使用 CDATA 方式，测试相同的查询条件
+        UserQuery query = new UserQuery();
+        query.setMinAge(20);         // age > 20
+        query.setMaxAgeEqual(28);    // age <= 28
+
+        List<UserMapperEntity> result = userMapper.findUsersWithCDATA(query);
+
+        // 验证结果
+        assertNotNull(result, "查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【CDATA区块测试】查询结果:");
+        System.out.println("查询条件: age > 20 AND age <= 28");
+        System.out.println("查询到 " + result.size() + " 条记录");
+        result.forEach(user -> {
+            System.out.println("  - " + user.getUsername() + ", age=" + user.getAge());
+            assertTrue(user.getAge() > 20 && user.getAge() <= 28,
+                    "年龄应该在(20, 28]区间内，实际:" + user.getAge());
+        });
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(72)
+    @DisplayName("72. 【BETWEEN】年龄范围查询")
+    void testBetween_Age() {
+        // 测试 BETWEEN 语法：查找年龄在 22-27 之间的用户
+        UserQuery query = new UserQuery();
+        query.setMinAge(22);
+        query.setMaxAge(27);
+        query.setStatus(1);
+
+        List<UserMapperEntity> result = userMapper.findUsersBetweenAge(query);
+
+        // 验证结果
+        assertNotNull(result, "查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【BETWEEN测试】年龄范围查询:");
+        System.out.println("查询条件: age BETWEEN 22 AND 27, status=1");
+        System.out.println("查询到 " + result.size() + " 条记录");
+        result.forEach(user -> {
+            System.out.println("  - " + user.getUsername() + ", age=" + user.getAge() + ", status=" + user.getStatus());
+            assertTrue(user.getAge() >= 22 && user.getAge() <= 27,
+                    "年龄应该在[22, 27]区间内，实际:" + user.getAge());
+            assertEquals(1, user.getStatus(), "状态应该为1");
+        });
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(73)
+    @DisplayName("73. 【BETWEEN】日期范围查询（使用CDATA）")
+    void testBetween_Date() {
+        // 测试日期范围查询（使用 CDATA）
+        UserQuery query = new UserQuery();
+        query.setStartDate("2020-01-01");
+        query.setEndDate("2030-12-31");
+
+        List<UserMapperEntity> result = userMapper.findUsersBetweenDate(query);
+
+        // 验证结果
+        assertNotNull(result, "查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【BETWEEN日期测试】日期范围查询:");
+        System.out.println("查询条件: created_at BETWEEN 2020-01-01 AND 2030-12-31");
+        System.out.println("查询到 " + result.size() + " 条记录");
+        System.out.println("说明：此测试验证 CDATA 在日期比较中的使用");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(74)
+    @DisplayName("74. 【复杂条件】AND + OR + NOT 组合")
+    void testComplexConditions() {
+        // 测试复杂条件组合
+        UserQuery query = new UserQuery();
+        query.setMinAge(20);
+        query.setMaxAge(30);
+        query.setStatus1(1);
+        query.setStatus2(2);
+        query.setExcludeUsername("test_user_1");
+        query.setExcludeIds(Arrays.asList(1L, 2L));
+
+        List<UserMapperEntity> result = userMapper.findUsersComplexConditions(query);
+
+        // 验证结果
+        assertNotNull(result, "查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【复杂条件测试】AND + OR + NOT 组合:");
+        System.out.println("查询条件:");
+        System.out.println("  - age >= 20 AND age <= 30");
+        System.out.println("  - status IN (1, 2)");
+        System.out.println("  - username != 'test_user_1'");
+        System.out.println("  - id NOT IN (1, 2)");
+        System.out.println("查询到 " + result.size() + " 条记录");
+        result.forEach(user -> {
+            assertTrue(user.getAge() >= 20 && user.getAge() <= 30, "年龄应在[20,30]区间");
+            assertTrue(user.getStatus() == 1 || user.getStatus() == 2, "状态应为1或2");
+            assertNotEquals("test_user_1", user.getUsername(), "应排除该用户名");
+            assertFalse(Arrays.asList(1L, 2L).contains(user.getId()), "应排除ID 1和2");
+        });
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(75)
+    @DisplayName("75. 【LIKE】模糊查询 - 前缀、全模糊、后缀")
+    void testLike() {
+        // 测试 LIKE 的多种使用方式
+        UserQuery query = new UserQuery();
+        query.setUsernamePrefix("test_user");  // 前缀匹配：test_user%
+
+        List<UserMapperEntity> result1 = userMapper.findUsersWithLike(query);
+        assertNotNull(result1, "前缀匹配结果不应为空");
+
+        System.out.println("========================================");
+        System.out.println("【LIKE测试】模糊查询:");
+        System.out.println("1. 前缀匹配: username LIKE 'test_user%'");
+        System.out.println("   查询到 " + result1.size() + " 条记录");
+
+        // 测试全模糊匹配
+        UserQuery query2 = new UserQuery();
+        query2.setUsernameLike("user");  // 全模糊匹配：%user%
+
+        List<UserMapperEntity> result2 = userMapper.findUsersWithLike(query2);
+        System.out.println("2. 全模糊匹配: username LIKE '%user%'");
+        System.out.println("   查询到 " + result2.size() + " 条记录");
+
+        // 测试后缀匹配
+        UserQuery query3 = new UserQuery();
+        query3.setEmailSuffix("@example.com");  // 后缀匹配：%@example.com
+
+        List<UserMapperEntity> result3 = userMapper.findUsersWithLike(query3);
+        System.out.println("3. 后缀匹配: email LIKE '%@example.com'");
+        System.out.println("   查询到 " + result3.size() + " 条记录");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(76)
+    @DisplayName("76. 【IN】多种数据类型的 IN 查询")
+    void testInConditions() {
+        // 先查询一些用户获取真实数据
+        UserQuery listQuery = new UserQuery();
+        listQuery.setPageSize(5);
+        listQuery.setOffset(0);
+        List<UserMapperEntity> users = userMapper.findUsersPage(listQuery);
+
+        if (users.size() >= 2) {
+            // 测试 ID 的 IN 查询
+            List<Long> ids = Arrays.asList(users.get(0).getId(), users.get(1).getId());
+
+            UserQuery query = new UserQuery();
+            query.setIds(ids);
+            query.setStatusList(Arrays.asList(1, 2));
+
+            List<UserMapperEntity> result = userMapper.findUsersInConditions(query);
+
+            assertNotNull(result, "IN查询结果不应为空");
+            System.out.println("========================================");
+            System.out.println("【IN查询测试】多种数据类型:");
+            System.out.println("查询条件:");
+            System.out.println("  - id IN (" + ids + ")");
+            System.out.println("  - status IN (1, 2)");
+            System.out.println("查询到 " + result.size() + " 条记录");
+            result.forEach(user -> {
+                assertTrue(ids.contains(user.getId()), "ID应在列表中");
+                assertTrue(user.getStatus() == 1 || user.getStatus() == 2, "状态应为1或2");
+            });
+            System.out.println("========================================");
+        }
+    }
+
+    @Test
+    @Order(77)
+    @DisplayName("77. 【NULL处理】IS NULL / IS NOT NULL / COALESCE")
+    void testNullHandling() {
+        // 测试 IS NOT NULL
+        UserQuery query = new UserQuery();
+        query.setEmailIsNotNull(true);
+        query.setDefaultAge(18);
+
+        List<UserMapperEntity> result = userMapper.findUsersWithNull(query);
+
+        assertNotNull(result, "NULL处理查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【NULL处理测试】IS NULL / IS NOT NULL / COALESCE:");
+        System.out.println("查询条件:");
+        System.out.println("  - email IS NOT NULL");
+        System.out.println("  - COALESCE(age, 18) >= 18");
+        System.out.println("查询到 " + result.size() + " 条记录");
+        result.forEach(user -> {
+            assertNotNull(user.getEmail(), "邮箱不应为NULL");
+        });
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(78)
+    @DisplayName("78. 【混合使用】实体转义 + CDATA 混合")
+    void testMixedSpecialChars() {
+        // 测试在同一查询中混合使用两种特殊符号处理方式
+        UserQuery query = new UserQuery();
+        query.setStatus(0);       // status <> 0  (使用实体转义)
+        query.setMinAge(22);      // age > 22     (使用 CDATA)
+        query.setMaxAge(28);      // age < 28     (使用 CDATA)
+        query.setKeyword("test"); // 关键字搜索
+
+        List<UserMapperEntity> result = userMapper.findUsersMixedSpecialChars(query);
+
+        assertNotNull(result, "混合查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【混合使用测试】实体转义 + CDATA:");
+        System.out.println("查询条件:");
+        System.out.println("  - status <> 0  (使用 &lt;&gt;)");
+        System.out.println("  - age > 22 AND age < 28  (使用 CDATA)");
+        System.out.println("  - keyword LIKE '%test%'");
+        System.out.println("查询到 " + result.size() + " 条记录");
+        result.forEach(user -> {
+            assertNotEquals(0, user.getStatus(), "状态不应为0");
+            assertTrue(user.getAge() > 22 && user.getAge() < 28, "年龄应在(22,28)区间");
+        });
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(79)
+    @DisplayName("79. 【数学运算】SQL 中的数学表达式")
+    void testMathExpressions() {
+        // 测试 SQL 中的数学运算
+        UserQuery query = new UserQuery();
+        query.setAgeMultiplier(10);  // age > (10 * 2) = 20
+        query.setAgeBase(20);        // age >= (20 * 100 / 100) = 20
+        query.setAgePercent(100);
+
+        List<UserMapperEntity> result = userMapper.findUsersWithMath(query);
+
+        assertNotNull(result, "数学运算查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【数学运算测试】SQL 数学表达式:");
+        System.out.println("查询条件:");
+        System.out.println("  - age > (10 * 2)         = age > 20");
+        System.out.println("  - age >= (20 * 100 / 100) = age >= 20");
+        System.out.println("查询到 " + result.size() + " 条记录");
+        result.forEach(user -> {
+            assertTrue(user.getAge() > 20 && user.getAge() >= 20, "年龄应>20");
+        });
+        System.out.println("========================================");
+    }
 }

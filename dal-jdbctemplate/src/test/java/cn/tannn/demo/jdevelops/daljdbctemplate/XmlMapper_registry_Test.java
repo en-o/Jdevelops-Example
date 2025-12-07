@@ -542,4 +542,130 @@ class XmlMapper_registry_Test {
         user.setStatus(1);
         return user;
     }
+
+    // ==================== 特殊符号处理测试（Registry方式） ====================
+
+    @Test
+    @Order(70)
+    @DisplayName("70. 【Registry-特殊符号】XML实体转义测试")
+    void testSpecialChars_EntityEscape_Registry() {
+        UserQuery query = new UserQuery();
+        query.setMinAge(25);  // age > 25
+        query.setMaxAge(30);  // age < 30
+
+        Object result = registry.executeQuery(NAMESPACE, "findUsersWithLessThan", query, UserMapperEntity.class);
+
+        assertNotNull(result, "查询结果不应为空");
+        assertInstanceOf(List.class, result, "结果应该是 List 类型");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-XML实体转义测试】:");
+        System.out.println("查询条件: age > 25 AND age < 30");
+        System.out.println("查询到 " + users.size() + " 条记录");
+        users.forEach(user -> {
+            assertTrue(user.getAge() > 25 && user.getAge() < 30, "年龄应在(25,30)区间");
+        });
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(71)
+    @DisplayName("71. 【Registry-特殊符号】CDATA区块测试")
+    void testSpecialChars_CDATA_Registry() {
+        UserQuery query = new UserQuery();
+        query.setMinAge(20);         // age > 20
+        query.setMaxAgeEqual(28);    // age <= 28
+
+        Object result = registry.executeQuery(NAMESPACE, "findUsersWithCDATA", query, UserMapperEntity.class);
+
+        assertNotNull(result, "查询结果不应为空");
+        assertInstanceOf(List.class, result, "结果应该是 List 类型");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-CDATA区块测试】:");
+        System.out.println("查询条件: age > 20 AND age <= 28");
+        System.out.println("查询到 " + users.size() + " 条记录");
+        users.forEach(user -> {
+            assertTrue(user.getAge() > 20 && user.getAge() <= 28, "年龄应在(20,28]区间");
+        });
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(72)
+    @DisplayName("72. 【Registry-BETWEEN】年龄范围查询")
+    void testBetween_Age_Registry() {
+        UserQuery query = new UserQuery();
+        query.setMinAge(22);
+        query.setMaxAge(27);
+        query.setStatus(1);
+
+        Object result = registry.executeQuery(NAMESPACE, "findUsersBetweenAge", query, UserMapperEntity.class);
+
+        assertNotNull(result, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-BETWEEN测试】:");
+        System.out.println("查询条件: age BETWEEN 22 AND 27");
+        System.out.println("查询到 " + users.size() + " 条记录");
+        users.forEach(user -> {
+            assertTrue(user.getAge() >= 22 && user.getAge() <= 27, "年龄应在[22,27]区间");
+        });
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(73)
+    @DisplayName("73. 【Registry-复杂条件】AND + OR + NOT 组合")
+    void testComplexConditions_Registry() {
+        UserQuery query = new UserQuery();
+        query.setMinAge(20);
+        query.setMaxAge(30);
+        query.setStatus1(1);
+        query.setStatus2(2);
+        query.setExcludeUsername("test_user_1");
+        query.setExcludeIds(Arrays.asList(1L, 2L));
+
+        Object result = registry.executeQuery(NAMESPACE, "findUsersComplexConditions", query, UserMapperEntity.class);
+
+        assertNotNull(result, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-复杂条件测试】:");
+        System.out.println("查询到 " + users.size() + " 条记录");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(74)
+    @DisplayName("74. 【Registry-LIKE】模糊查询测试")
+    void testLike_Registry() {
+        UserQuery query = new UserQuery();
+        query.setUsernamePrefix("registry_user");
+
+        Object result = registry.executeQuery(NAMESPACE, "findUsersWithLike", query, UserMapperEntity.class);
+
+        assertNotNull(result, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-LIKE测试】:");
+        System.out.println("查询条件: username LIKE 'registry_user%'");
+        System.out.println("查询到 " + users.size() + " 条记录");
+        System.out.println("========================================");
+    }
 }

@@ -282,4 +282,264 @@
         LIMIT #{arg1.pageSize} OFFSET #{arg1.offset}
     </select>
 
+    <!-- ========================================= -->
+    <!-- 特殊符号处理测试用例                         -->
+    <!-- 演示如何在 XML 中正确处理 <、>、& 等特殊符号  -->
+    <!-- ========================================= -->
+
+    <!-- 测试1: 使用 XML 实体转义处理特殊符号 -->
+    <select id="findUsersWithLessThan" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <!-- 使用实体转义：&lt; 表示 < -->
+            <if test="maxAge != null">
+                AND age &lt; #{maxAge}
+            </if>
+            <!-- 使用实体转义：&gt; 表示 > -->
+            <if test="minAge != null">
+                AND age &gt; #{minAge}
+            </if>
+            <!-- 使用实体转义：&lt;= 表示 <= -->
+            <if test="maxAgeEqual != null">
+                AND age &lt;= #{maxAgeEqual}
+            </if>
+            <!-- 使用实体转义：&gt;= 表示 >= -->
+            <if test="minAgeEqual != null">
+                AND age &gt;= #{minAgeEqual}
+            </if>
+        </where>
+        ORDER BY age ASC
+    </select>
+
+    <!-- 测试2: 使用 CDATA 区块处理特殊符号 -->
+    <select id="findUsersWithCDATA" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <if test="maxAge != null">
+                <![CDATA[
+                AND age < #{maxAge}
+                ]]>
+            </if>
+            <if test="minAge != null">
+                <![CDATA[
+                AND age > #{minAge}
+                ]]>
+            </if>
+            <if test="maxAgeEqual != null">
+                <![CDATA[
+                AND age <= #{maxAgeEqual}
+                ]]>
+            </if>
+            <if test="minAgeEqual != null">
+                <![CDATA[
+                AND age >= #{minAgeEqual}
+                ]]>
+            </if>
+        </where>
+        ORDER BY age ASC
+    </select>
+
+    <!-- 测试3: BETWEEN 范围查询 -->
+    <select id="findUsersBetweenAge" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <!-- BETWEEN 语法 -->
+            <if test="minAge != null and maxAge != null">
+                AND age BETWEEN #{minAge} AND #{maxAge}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+        ORDER BY age ASC
+    </select>
+
+    <!-- 测试4: BETWEEN 日期范围查询（使用 CDATA） -->
+    <select id="findUsersBetweenDate" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <if test="startDate != null and endDate != null">
+                <![CDATA[
+                AND created_at BETWEEN #{startDate} AND #{endDate}
+                ]]>
+            </if>
+            <if test="startDate != null and endDate == null">
+                <![CDATA[
+                AND created_at >= #{startDate}
+                ]]>
+            </if>
+            <if test="startDate == null and endDate != null">
+                <![CDATA[
+                AND created_at <= #{endDate}
+                ]]>
+            </if>
+        </where>
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 测试5: 复杂条件组合（AND + OR + NOT） -->
+    <select id="findUsersComplexConditions" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <!-- 组合条件：年龄在范围内 -->
+            <if test="minAge != null and maxAge != null">
+                <![CDATA[
+                AND (age >= #{minAge} AND age <= #{maxAge})
+                ]]>
+            </if>
+            <!-- OR 条件：状态为1或2 -->
+            <if test="status1 != null and status2 != null">
+                AND (status = #{status1} OR status = #{status2})
+            </if>
+            <!-- NOT 条件：排除某个用户名 -->
+            <if test="excludeUsername != null">
+                AND username != #{excludeUsername}
+            </if>
+            <!-- NOT IN 条件：排除某些ID -->
+            <if test="excludeIds != null and excludeIds.size() > 0">
+                AND id NOT IN
+                <foreach collection="excludeIds" item="excludeId" open="(" separator="," close=")">
+                    #{excludeId}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 测试6: LIKE 模糊查询（多种方式） -->
+    <select id="findUsersWithLike" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <!-- 方式1: 使用 CONCAT 函数 -->
+            <if test="usernamePrefix != null">
+                AND username LIKE CONCAT(#{usernamePrefix}, '%')
+            </if>
+            <!-- 方式2: 使用 CONCAT 实现全模糊匹配 -->
+            <if test="usernameLike != null">
+                AND username LIKE CONCAT('%', #{usernameLike}, '%')
+            </if>
+            <!-- 方式3: 邮箱后缀匹配 -->
+            <if test="emailSuffix != null">
+                AND email LIKE CONCAT('%', #{emailSuffix})
+            </if>
+        </where>
+        ORDER BY username ASC
+    </select>
+
+    <!-- 测试7: IN 查询（多种数据类型） -->
+    <select id="findUsersInConditions" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <!-- IN 条件：ID列表 -->
+            <if test="ids != null and ids.size() > 0">
+                AND id IN
+                <foreach collection="ids" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+            <!-- IN 条件：状态列表 -->
+            <if test="statusList != null and statusList.size() > 0">
+                AND status IN
+                <foreach collection="statusList" item="status" open="(" separator="," close=")">
+                    #{status}
+                </foreach>
+            </if>
+            <!-- IN 条件：用户名列表 -->
+            <if test="usernames != null and usernames.size() > 0">
+                AND username IN
+                <foreach collection="usernames" item="username" open="(" separator="," close=")">
+                    #{username}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY id ASC
+    </select>
+
+    <!-- 测试8: NULL 值处理 -->
+    <select id="findUsersWithNull" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <!-- IS NULL 条件 -->
+            <if test="emailIsNull != null and emailIsNull == true">
+                AND email IS NULL
+            </if>
+            <!-- IS NOT NULL 条件 -->
+            <if test="emailIsNotNull != null and emailIsNotNull == true">
+                AND email IS NOT NULL
+            </if>
+            <!-- COALESCE 函数处理 NULL 值 -->
+            <if test="defaultAge != null">
+                <![CDATA[
+                AND COALESCE(age, #{defaultAge}) >= #{defaultAge}
+                ]]>
+            </if>
+        </where>
+        ORDER BY id ASC
+    </select>
+
+    <!-- 测试9: 混合使用实体转义和 CDATA -->
+    <select id="findUsersMixedSpecialChars" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <!-- 使用实体转义 -->
+            <if test="status != null">
+                AND status &lt;&gt; #{status}
+            </if>
+            <!-- 使用 CDATA -->
+            <if test="minAge != null and maxAge != null">
+                <![CDATA[
+                AND (age > #{minAge} AND age < #{maxAge})
+                ]]>
+            </if>
+            <!-- 嵌套条件 -->
+            <if test="keyword != null">
+                AND (
+                    username LIKE CONCAT('%', #{keyword}, '%')
+                    OR email LIKE CONCAT('%', #{keyword}, '%')
+                )
+            </if>
+        </where>
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 测试10: 数学运算和比较 -->
+    <select id="findUsersWithMath" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <!-- 数学运算：年龄大于某个值的2倍 -->
+            <if test="ageMultiplier != null">
+                <![CDATA[
+                AND age > (#{ageMultiplier} * 2)
+                ]]>
+            </if>
+            <!-- 数学运算：年龄在某个范围的百分比内 -->
+            <if test="ageBase != null and agePercent != null">
+                <![CDATA[
+                AND age >= (#{ageBase} * #{agePercent} / 100)
+                ]]>
+            </if>
+        </where>
+        ORDER BY age DESC
+    </select>
+
 </mapper>

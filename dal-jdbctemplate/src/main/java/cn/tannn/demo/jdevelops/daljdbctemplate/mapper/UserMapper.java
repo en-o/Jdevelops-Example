@@ -220,4 +220,119 @@ public interface UserMapper {
      */
     @XmlInsert("batchInsertFromQuery")
     int batchInsertFromQuery(UserQuery query);
+
+    // ========================================
+    // 特殊符号处理测试方法
+    // 演示如何在 XML 中正确处理 <、>、& 等特殊符号
+    // ========================================
+
+    /**
+     * 测试1: 使用 XML 实体转义处理特殊符号
+     * <p>
+     * 演示如何使用 &lt;、&gt; 等实体转义符号
+     *
+     * @param query 查询参数（支持 minAge、maxAge、minAgeEqual、maxAgeEqual）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersWithLessThan")
+    List<UserMapperEntity> findUsersWithLessThan(UserQuery query);
+
+    /**
+     * 测试2: 使用 CDATA 区块处理特殊符号
+     * <p>
+     * 演示如何使用 &lt;![CDATA[ ... ]]&gt; 区块直接书写特殊符号
+     *
+     * @param query 查询参数（支持 minAge、maxAge、minAgeEqual、maxAgeEqual）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersWithCDATA")
+    List<UserMapperEntity> findUsersWithCDATA(UserQuery query);
+
+    /**
+     * 测试3: BETWEEN 范围查询
+     * <p>
+     * 演示 BETWEEN ... AND ... 语法的使用
+     *
+     * @param query 查询参数（支持 minAge、maxAge、status）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersBetweenAge")
+    List<UserMapperEntity> findUsersBetweenAge(UserQuery query);
+
+    /**
+     * 测试4: BETWEEN 日期范围查询（使用 CDATA）
+     * <p>
+     * 演示日期范围查询和 CDATA 的结合使用
+     *
+     * @param query 查询参数（支持 startDate、endDate）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersBetweenDate")
+    List<UserMapperEntity> findUsersBetweenDate(UserQuery query);
+
+    /**
+     * 测试5: 复杂条件组合（AND + OR + NOT）
+     * <p>
+     * 演示多种条件的组合使用
+     *
+     * @param query 查询参数（支持 minAge、maxAge、status1、status2、excludeUsername、excludeIds）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersComplexConditions")
+    List<UserMapperEntity> findUsersComplexConditions(UserQuery query);
+
+    /**
+     * 测试6: LIKE 模糊查询（多种方式）
+     * <p>
+     * 演示 LIKE 的多种使用方式：前缀匹配、全模糊匹配、后缀匹配
+     *
+     * @param query 查询参数（支持 usernamePrefix、usernameLike、emailSuffix）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersWithLike")
+    List<UserMapperEntity> findUsersWithLike(UserQuery query);
+
+    /**
+     * 测试7: IN 查询（多种数据类型）
+     * <p>
+     * 演示 IN 条件对不同类型字段的使用
+     *
+     * @param query 查询参数（支持 ids、statusList、usernames）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersInConditions")
+    List<UserMapperEntity> findUsersInConditions(UserQuery query);
+
+    /**
+     * 测试8: NULL 值处理
+     * <p>
+     * 演示 IS NULL、IS NOT NULL、COALESCE 等 NULL 值处理方式
+     *
+     * @param query 查询参数（支持 emailIsNull、emailIsNotNull、defaultAge）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersWithNull")
+    List<UserMapperEntity> findUsersWithNull(UserQuery query);
+
+    /**
+     * 测试9: 混合使用实体转义和 CDATA
+     * <p>
+     * 演示在同一个查询中混合使用两种特殊符号处理方式
+     *
+     * @param query 查询参数（支持 status、minAge、maxAge、keyword）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersMixedSpecialChars")
+    List<UserMapperEntity> findUsersMixedSpecialChars(UserQuery query);
+
+    /**
+     * 测试10: 数学运算和比较
+     * <p>
+     * 演示在 SQL 中使用数学运算
+     *
+     * @param query 查询参数（支持 ageMultiplier、ageBase、agePercent）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersWithMath")
+    List<UserMapperEntity> findUsersWithMath(UserQuery query);
 }
