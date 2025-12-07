@@ -74,6 +74,17 @@
         </foreach>
     </insert>
 
+    <!-- 批量插入 - 通过 UserQuery 对象的 users 属性 -->
+    <!-- 场景：参数是对象，对象中包含 List<Bean> 属性 -->
+    <!-- collection="users" 访问 UserQuery.users 属性 -->
+    <insert id="batchInsertFromQuery">
+        INSERT INTO users_mapper (username, email, age, status, created_at)
+        VALUES
+        <foreach collection="users" item="user" separator=",">
+            (#{user.username}, #{user.email}, #{user.age}, #{user.status}, NOW())
+        </foreach>
+    </insert>
+
     <!-- 更新操作 - 使用 set 标签 -->
     <update id="updateUser">
         UPDATE users_mapper

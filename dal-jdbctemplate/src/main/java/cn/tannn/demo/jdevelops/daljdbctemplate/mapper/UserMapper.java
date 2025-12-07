@@ -204,4 +204,20 @@ public interface UserMapper {
      */
     @XmlPageSelect(dataStatement = "findUsersPageAuto", countStatement = "countUsersByCondition")
     PageResult<UserMapperEntity> findUsersPageAuto(UserQuery query, PageRequest pageRequest);
+
+    /**
+     * 批量插入用户 - 通过 UserQuery 对象的 users 属性
+     * <p>
+     * 对应 XML 中的 &lt;insert id="batchInsertFromQuery"&gt;
+     * <p>
+     * 测试场景：当参数是对象，对象中包含 List&lt;Bean&gt; 属性时的处理方式
+     * <p>
+     * UserQuery.users 是 List&lt;UserMapperEntity&gt; 类型，
+     * XML 中使用 collection="users" 访问该属性
+     *
+     * @param query 查询参数（包含 users 列表）
+     * @return 影响的行数
+     */
+    @XmlInsert("batchInsertFromQuery")
+    int batchInsertFromQuery(UserQuery query);
 }

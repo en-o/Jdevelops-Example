@@ -557,6 +557,49 @@ class XmlMapper_annotation_Test {
         System.out.println("批量删除 " + rows + " 条记录");
     }
 
+    @Test
+    @Order(32)
+    @DisplayName("32. 批量插入 - 对象属性是 List<Bean>")
+    void testBatchInsertFromQueryWithListOfBeans() {
+        // 测试场景：参数是对象，对象中包含 List<Bean> 属性
+        // UserQuery.users 是 List<UserMapperEntity> 类型
+        // XML 中使用 collection="users" 访问该属性
+
+        // 创建用户列表
+        List<UserMapperEntity> users = Arrays.asList(
+                createUser("listbean1", "listbean1@example.com", 21),
+                createUser("listbean2", "listbean2@example.com", 22),
+                createUser("listbean3", "listbean3@example.com", 23)
+        );
+
+        // 创建 UserQuery 对象，设置 users 属性
+        UserQuery query = new UserQuery();
+        query.setUsers(users);
+
+        // 执行批量插入
+        int rows = userMapper.batchInsertFromQuery(query);
+
+        // 验证结果
+        assertEquals(3, rows, "批量插入应该影响3行");
+        System.out.println("========================================");
+        System.out.println("【List<Bean> 测试】批量插入成功");
+        System.out.println("影响行数: " + rows);
+        System.out.println("测试说明:");
+        System.out.println("  - 方法参数: UserQuery query");
+        System.out.println("  - query.users 类型: List<UserMapperEntity>");
+        System.out.println("  - XML 中访问: collection=\"users\"");
+        System.out.println("  - 遍历元素: item=\"user\"");
+        System.out.println("  - 访问属性: #{user.username}, #{user.email}");
+        System.out.println("========================================");
+
+        // 验证数据是否插入成功
+        UserQuery checkQuery = new UserQuery();
+        checkQuery.setUsername("%listbean%");
+        List<UserMapperEntity> result = userMapper.findUsers(checkQuery);
+        assertTrue(result.size() >= 3, "应该查询到至少3条记录");
+        System.out.println("验证查询结果: 查询到 " + result.size() + " 条记录");
+    }
+
     // ==================== 动态SQL测试 ====================
 
     @Test
