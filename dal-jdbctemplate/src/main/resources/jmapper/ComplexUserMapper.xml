@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    ComplexUserMapper XML 配置
+    用于测试 Interface 和 Record 返回类型以及复杂属性映射
+-->
+<mapper namespace="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.ComplexUserMapper">
+
+    <!-- ========================================= -->
+    <!-- 数据准备 SQL                              -->
+    <!-- ========================================= -->
+
+    <!-- 批量插入测试数据 -->
+    <insert id="batchInsert">
+        INSERT INTO complex_user (username, email, age, status, platform, tags, role_ids, extras, detail)
+        VALUES
+        <foreach collection="list" item="user" separator=",">
+            (#{user.username}, #{user.email}, #{user.age}, #{user.status}, #{user.platform},
+            #{user.tags}, #{user.roleIds}, #{user.extras}, #{user.detail})
+        </foreach>
+    </insert>
+
+    <!-- 清空表数据 -->
+    <insert id="deleteAll">
+        DELETE FROM complex_user
+    </insert>
+
+
+    <!-- ========================================= -->
+    <!-- Interface 返回类型 SQL                     -->
+    <!-- ========================================= -->
+
+    <!--
+        查询单个用户 - Interface返回类型
+        测试场景：
+        1. 基本类型映射：id, username, email, age, status
+        2. 枚举映射：platform (简单枚举), userStatus (多值枚举，需要根据status转换)
+        3. List映射：tags, roleIds (JSON数组自动转换)
+        4. Map映射：extras (JSON对象自动转换)
+        5. 嵌套对象映射：detail (JSON对象转换为Interface)
+        6. JSON字符串：tagsJson, roleIdsJson等 (返回原始JSON字符串)
+        7. 时间类型：createdAt, updatedAt
+    -->
+    <select id="findByIdInterface" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.ComplexUserInterface">
+        SELECT
+            id,
+            username,
+            email,
+            age,
+            status,
+            platform,
+            -- 枚举字段：框架需要根据status值转换为UserStatus枚举
+            CASE status
+                WHEN 0 THEN 'INACTIVE'
+                WHEN 1 THEN 'ACTIVE'
+                WHEN 2 THEN 'LOCKED'
+                WHEN 9 THEN 'DELETED'
+            END as user_status,
+            -- JSON字段自动转换为List/Map
+            tags,
+            role_ids,
+            extras,
+            detail,
+            -- JSON字段作为字符串返回
+            tags as tags_json,
+            role_ids as role_ids_json,
+            extras as extras_json,
+            detail as detail_json,
+            -- 时间字段
+            created_at,
+            updated_at
+        FROM complex_user
+        WHERE id = #{id}
+    </select>
+
+    <!-- 查询所有用户 - Interface返回类型 -->
+    <select id="findAllInterface" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.ComplexUserInterface">
+        SELECT
+            id,
+            username,
+            email,
+            age,
+            status,
+            platform,
+            CASE status
+                WHEN 0 THEN 'INACTIVE'
+                WHEN 1 THEN 'ACTIVE'
+                WHEN 2 THEN 'LOCKED'
+                WHEN 9 THEN 'DELETED'
+            END as user_status,
+            tags,
+            role_ids,
+            extras,
+            detail,
+            tags as tags_json,
+            role_ids as role_ids_json,
+            extras as extras_json,
+            detail as detail_json,
+            created_at,
+            updated_at
+        FROM complex_user
+        ORDER BY id
+    </select>
+
+    <!-- 根据状态查询 - Interface返回类型 -->
+    <select id="findByStatusInterface" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.ComplexUserInterface">
+        SELECT
+            id,
+            username,
+            email,
+            age,
+            status,
+            platform,
+            CASE status
+                WHEN 0 THEN 'INACTIVE'
+                WHEN 1 THEN 'ACTIVE'
+                WHEN 2 THEN 'LOCKED'
+                WHEN 9 THEN 'DELETED'
+            END as user_status,
+            tags,
+            role_ids,
+            extras,
+            detail,
+            tags as tags_json,
+            role_ids as role_ids_json,
+            extras as extras_json,
+            detail as detail_json,
+            created_at,
+            updated_at
+        FROM complex_user
+        WHERE status = #{status}
+        ORDER BY id
+    </select>
+
+
+    <!-- ========================================= -->
+    <!-- Record 返回类型 SQL                        -->
+    <!-- ========================================= -->
+
+    <!--
+        查询单个用户 - Record返回类型
+        测试场景：
+        1. 基本类型映射：id, username, email, age, status
+        2. 枚举映射：platform (简单枚举), userStatus (多值枚举)
+        3. List映射：tags, roleIds (JSON数组自动转换)
+        4. Map映射：extras (JSON对象自动转换)
+        5. 嵌套Record映射：detail (JSON对象转换为Record)
+        6. JSON字符串：tagsJson, roleIdsJson等 (返回原始JSON字符串)
+        7. 时间类型：createdAt, updatedAt
+    -->
+    <select id="findByIdRecord" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.ComplexUserRecord">
+        SELECT
+            id,
+            username,
+            email,
+            age,
+            status,
+            platform,
+            -- 枚举字段：框架需要根据status值转换为UserStatus枚举
+            CASE status
+                WHEN 0 THEN 'INACTIVE'
+                WHEN 1 THEN 'ACTIVE'
+                WHEN 2 THEN 'LOCKED'
+                WHEN 9 THEN 'DELETED'
+            END as user_status,
+            -- JSON字段自动转换为List/Map
+            tags,
+            role_ids,
+            extras,
+            detail,
+            -- JSON字段作为字符串返回
+            tags as tags_json,
+            role_ids as role_ids_json,
+            extras as extras_json,
+            detail as detail_json,
+            -- 时间字段
+            created_at,
+            updated_at
+        FROM complex_user
+        WHERE id = #{id}
+    </select>
+
+    <!-- 查询所有用户 - Record返回类型 -->
+    <select id="findAllRecord" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.ComplexUserRecord">
+        SELECT
+            id,
+            username,
+            email,
+            age,
+            status,
+            platform,
+            CASE status
+                WHEN 0 THEN 'INACTIVE'
+                WHEN 1 THEN 'ACTIVE'
+                WHEN 2 THEN 'LOCKED'
+                WHEN 9 THEN 'DELETED'
+            END as user_status,
+            tags,
+            role_ids,
+            extras,
+            detail,
+            tags as tags_json,
+            role_ids as role_ids_json,
+            extras as extras_json,
+            detail as detail_json,
+            created_at,
+            updated_at
+        FROM complex_user
+        ORDER BY id
+    </select>
+
+    <!-- 根据状态查询 - Record返回类型 -->
+    <select id="findByStatusRecord" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.ComplexUserRecord">
+        SELECT
+            id,
+            username,
+            email,
+            age,
+            status,
+            platform,
+            CASE status
+                WHEN 0 THEN 'INACTIVE'
+                WHEN 1 THEN 'ACTIVE'
+                WHEN 2 THEN 'LOCKED'
+                WHEN 9 THEN 'DELETED'
+            END as user_status,
+            tags,
+            role_ids,
+            extras,
+            detail,
+            tags as tags_json,
+            role_ids as role_ids_json,
+            extras as extras_json,
+            detail as detail_json,
+            created_at,
+            updated_at
+        FROM complex_user
+        WHERE status = #{status}
+        ORDER BY id
+    </select>
+
+</mapper>
