@@ -12,7 +12,6 @@ import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
-import com.alibaba.fastjson2.JSON;
 import com.github.javafaker.Faker;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
