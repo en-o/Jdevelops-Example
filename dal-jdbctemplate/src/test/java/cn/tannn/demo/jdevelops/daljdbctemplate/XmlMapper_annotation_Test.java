@@ -959,4 +959,244 @@ class XmlMapper_annotation_Test {
         });
         System.out.println("========================================");
     }
+
+    // ==================== 枚举和 Record 类型方法调用测试 ====================
+
+    @Test
+    @Order(80)
+    @DisplayName("80. 【枚举方法调用】测试枚举 name() 方法 - platform.name() != 'NONE'")
+    void testEnumNameMethod() {
+        // 测试场景1: platform 为 NONE，条件不满足，应该查询所有数据（没有 username LIKE '%test%' 的限制）
+        UserQuery query1 = new UserQuery();
+        query1.setPlatform(UserQuery.UserPlatform.NONE);
+        query1.setStatus(1);
+
+        List<UserMapperEntity> result1 = userMapper.findUsersByPlatform(query1);
+
+        assertNotNull(result1, "查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【枚举 name() 方法测试】场景1: NONE 平台");
+        System.out.println("平台: " + query1.getPlatform().name());
+        System.out.println("条件: platform.name() != 'NONE' 为 false");
+        System.out.println("查询到 " + result1.size() + " 条记录");
+        System.out.println("========================================");
+
+        // 测试场景2: platform 为 WEB，条件满足，会添加 username LIKE '%test%' 的限制
+        UserQuery query2 = new UserQuery();
+        query2.setPlatform(UserQuery.UserPlatform.WEB);
+        query2.setStatus(1);
+
+        List<UserMapperEntity> result2 = userMapper.findUsersByPlatform(query2);
+
+        assertNotNull(result2, "查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【枚举 name() 方法测试】场景2: WEB 平台");
+        System.out.println("平台: " + query2.getPlatform().name());
+        System.out.println("条件: platform.name() != 'NONE' 为 true");
+        System.out.println("查询到 " + result2.size() + " 条记录");
+        System.out.println("说明: 此场景会添加 username LIKE '%test%' 条件");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(81)
+    @DisplayName("81. 【枚举方法调用】测试枚举 ordinal() 方法 - platform.ordinal() > 0")
+    void testEnumOrdinalMethod() {
+        // 测试场景1: platform 为 NONE (ordinal=0)，条件不满足
+        UserQuery query1 = new UserQuery();
+        query1.setPlatform(UserQuery.UserPlatform.NONE);
+
+        List<UserMapperEntity> result1 = userMapper.findUsersByPlatformOrdinal(query1);
+
+        assertNotNull(result1, "查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【枚举 ordinal() 方法测试】场景1:");
+        System.out.println("平台: " + query1.getPlatform().name() +
+                          " (ordinal=" + query1.getPlatform().ordinal() + ")");
+        System.out.println("条件: platform.ordinal() > 0 为 false");
+        System.out.println("查询到 " + result1.size() + " 条记录");
+        System.out.println("========================================");
+
+        // 测试场景2: platform 为 MOBILE (ordinal=2)，条件满足
+        UserQuery query2 = new UserQuery();
+        query2.setPlatform(UserQuery.UserPlatform.MOBILE);
+
+        List<UserMapperEntity> result2 = userMapper.findUsersByPlatformOrdinal(query2);
+
+        assertNotNull(result2, "查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【枚举 ordinal() 方法测试】场景2:");
+        System.out.println("平台: " + query2.getPlatform().name() +
+                          " (ordinal=" + query2.getPlatform().ordinal() + ")");
+        System.out.println("条件: platform.ordinal() > 0 为 true");
+        System.out.println("查询到 " + result2.size() + " 条记录");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(82)
+    @DisplayName("82. 【枚举方法调用】测试 arg0.platform.name() 形式")
+    void testEnumNameMethodWithArg0() {
+        // 测试使用 arg0 形式访问枚举的 name() 方法
+        UserQuery query = new UserQuery();
+        query.setPlatform(UserQuery.UserPlatform.DESKTOP);
+        query.setStatus(1);
+        Integer limit = 10;
+
+        List<UserMapperEntity> result = userMapper.findUsersByPlatformWithArg0(query, limit);
+
+        assertNotNull(result, "查询结果不应为空");
+        assertTrue(result.size() <= limit, "结果数量不应超过 limit");
+        System.out.println("========================================");
+        System.out.println("【arg0.platform.name() 测试】:");
+        System.out.println("平台: " + query.getPlatform().name());
+        System.out.println("条件: arg0.platform.name() != 'NONE' 为 true");
+        System.out.println("LIMIT: " + limit);
+        System.out.println("查询到 " + result.size() + " 条记录");
+        System.out.println("说明: 验证了多参数场景下的枚举方法调用");
+        System.out.println("========================================");
+    }
+
+    // ==================== 多值枚举测试 ====================
+
+    @Test
+    @Order(83)
+    @DisplayName("83. 【多值枚举】测试 getCode() 方法 - userStatus.getCode() == 1")
+    void testMultiValueEnumGetCode() {
+        // 测试场景1: userStatus 为 ACTIVE (code=1)，条件满足
+        UserQuery query1 = new UserQuery();
+        query1.setUserStatus(UserQuery.UserStatus.ACTIVE);
+
+        List<UserMapperEntity> result1 = userMapper.findUsersByUserStatusCode(query1);
+
+        assertNotNull(result1, "查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【多值枚举 getCode() 测试】场景1:");
+        System.out.println("状态: " + query1.getUserStatus().name() +
+                          " (code=" + query1.getUserStatus().getCode() + ")");
+        System.out.println("条件: userStatus.getCode() == 1 为 true");
+        System.out.println("查询到 " + result1.size() + " 条记录");
+        System.out.println("========================================");
+
+        // 测试场景2: userStatus 为 LOCKED (code=2)，条件不满足
+        UserQuery query2 = new UserQuery();
+        query2.setUserStatus(UserQuery.UserStatus.LOCKED);
+
+        List<UserMapperEntity> result2 = userMapper.findUsersByUserStatusCode(query2);
+
+        assertNotNull(result2, "查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【多值枚举 getCode() 测试】场景2:");
+        System.out.println("状态: " + query2.getUserStatus().name() +
+                          " (code=" + query2.getUserStatus().getCode() + ")");
+        System.out.println("条件: userStatus.getCode() == 1 为 false");
+        System.out.println("但 userStatus.getCode() != 0 为 true");
+        System.out.println("查询到 " + result2.size() + " 条记录");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(84)
+    @DisplayName("84. 【多值枚举】测试 getName() 方法 - userStatus.getName() == '已激活'")
+    void testMultiValueEnumGetName() {
+        // 测试场景1: userStatus 为 ACTIVE，getName() 返回 "已激活"
+        UserQuery query1 = new UserQuery();
+        query1.setUserStatus(UserQuery.UserStatus.ACTIVE);
+
+        List<UserMapperEntity> result1 = userMapper.findUsersByUserStatusName(query1);
+
+        assertNotNull(result1, "查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【多值枚举 getName() 测试】场景1:");
+        System.out.println("状态: " + query1.getUserStatus().name());
+        System.out.println("名称: " + query1.getUserStatus().getName());
+        System.out.println("条件: userStatus.getName() == '已激活' 为 true");
+        System.out.println("查询到 " + result1.size() + " 条记录");
+        System.out.println("========================================");
+
+        // 测试场景2: userStatus 为 INACTIVE
+        UserQuery query2 = new UserQuery();
+        query2.setUserStatus(UserQuery.UserStatus.INACTIVE);
+
+        List<UserMapperEntity> result2 = userMapper.findUsersByUserStatusName(query2);
+
+        assertNotNull(result2, "查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【多值枚举 getName() 测试】场景2:");
+        System.out.println("状态: " + query2.getUserStatus().name());
+        System.out.println("名称: " + query2.getUserStatus().getName());
+        System.out.println("条件: userStatus.getName() == '已激活' 为 false");
+        System.out.println("查询到 " + result2.size() + " 条记录");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(85)
+    @DisplayName("85. 【多值枚举】测试 getDescription() 方法")
+    void testMultiValueEnumGetDescription() {
+        UserQuery query = new UserQuery();
+        query.setUserStatus(UserQuery.UserStatus.ACTIVE);
+
+        List<UserMapperEntity> result = userMapper.findUsersByUserStatusDescription(query);
+
+        assertNotNull(result, "查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【多值枚举 getDescription() 测试】:");
+        System.out.println("状态: " + query.getUserStatus().name());
+        System.out.println("描述: " + query.getUserStatus().getDescription());
+        System.out.println("条件: userStatus.getDescription() != null 为 true");
+        System.out.println("查询到 " + result.size() + " 条记录");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(86)
+    @DisplayName("86. 【多值枚举】复杂条件组合测试")
+    void testMultiValueEnumComplex() {
+        // 测试使用多个枚举方法的组合
+        UserQuery query = new UserQuery();
+        query.setUserStatus(UserQuery.UserStatus.ACTIVE);
+
+        List<UserMapperEntity> result = userMapper.findUsersByUserStatusComplex(query);
+
+        assertNotNull(result, "查询结果不应为空");
+        System.out.println("========================================");
+        System.out.println("【多值枚举复杂条件测试】:");
+        System.out.println("状态: " + query.getUserStatus().name());
+        System.out.println("Code: " + query.getUserStatus().getCode());
+        System.out.println("Name: " + query.getUserStatus().getName());
+        System.out.println("Description: " + query.getUserStatus().getDescription());
+        System.out.println("组合条件:");
+        System.out.println("  - userStatus.getCode() > 0: true");
+        System.out.println("  - userStatus.name() != 'DELETED': true");
+        System.out.println("  - userStatus.getName() != null: true");
+        System.out.println("查询到 " + result.size() + " 条记录");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(87)
+    @DisplayName("87. 【多值枚举】测试 arg0.userStatus.getCode() 形式")
+    void testMultiValueEnumWithArg0() {
+        UserQuery query = new UserQuery();
+        query.setUserStatus(UserQuery.UserStatus.ACTIVE);
+        Integer limit = 5;
+
+        List<UserMapperEntity> result = userMapper.findUsersByUserStatusWithArg0(query, limit);
+
+        assertNotNull(result, "查询结果不应为空");
+        assertTrue(result.size() <= limit, "结果数量不应超过 limit");
+        System.out.println("========================================");
+        System.out.println("【arg0.userStatus.getCode() 测试】:");
+        System.out.println("状态: " + query.getUserStatus().name());
+        System.out.println("Code: " + query.getUserStatus().getCode());
+        System.out.println("Name: " + query.getUserStatus().getName());
+        System.out.println("条件:");
+        System.out.println("  - arg0.userStatus.getCode() == 1: true");
+        System.out.println("  - arg0.userStatus.getName() == '已激活': true");
+        System.out.println("LIMIT: " + limit);
+        System.out.println("查询到 " + result.size() + " 条记录");
+        System.out.println("说明: 验证了多参数场景下的多值枚举方法调用");
+        System.out.println("========================================");
+    }
 }

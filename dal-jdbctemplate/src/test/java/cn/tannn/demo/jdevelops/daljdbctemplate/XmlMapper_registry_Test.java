@@ -668,4 +668,281 @@ class XmlMapper_registry_Test {
         System.out.println("查询到 " + users.size() + " 条记录");
         System.out.println("========================================");
     }
+
+    // ==================== 枚举和 Record 类型方法调用测试（Registry方式） ====================
+
+    @Test
+    @Order(75)
+    @DisplayName("75. 【Registry-枚举方法】测试枚举 name() 方法")
+    void testEnumNameMethod_Registry() {
+        // 测试场景1: platform 为 NONE，条件不满足
+        UserQuery query1 = new UserQuery();
+        query1.setPlatform(UserQuery.UserPlatform.NONE);
+        query1.setStatus(1);
+
+        Object result1 = registry.executeQuery(NAMESPACE, "findUsersByPlatform", query1, UserMapperEntity.class);
+
+        assertNotNull(result1, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users1 = (List<UserMapperEntity>) result1;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-枚举 name() 方法测试】场景1:");
+        System.out.println("平台: " + query1.getPlatform().name());
+        System.out.println("条件: platform.name() != 'NONE' 为 false");
+        System.out.println("查询到 " + users1.size() + " 条记录");
+        System.out.println("========================================");
+
+        // 测试场景2: platform 为 WEB，条件满足
+        UserQuery query2 = new UserQuery();
+        query2.setPlatform(UserQuery.UserPlatform.WEB);
+        query2.setStatus(1);
+
+        Object result2 = registry.executeQuery(NAMESPACE, "findUsersByPlatform", query2, UserMapperEntity.class);
+
+        assertNotNull(result2, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users2 = (List<UserMapperEntity>) result2;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-枚举 name() 方法测试】场景2:");
+        System.out.println("平台: " + query2.getPlatform().name());
+        System.out.println("条件: platform.name() != 'NONE' 为 true");
+        System.out.println("查询到 " + users2.size() + " 条记录");
+        System.out.println("说明: 此场景会添加 username LIKE '%test%' 条件");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(76)
+    @DisplayName("76. 【Registry-枚举方法】测试枚举 ordinal() 方法")
+    void testEnumOrdinalMethod_Registry() {
+        // 测试场景1: platform 为 NONE (ordinal=0)
+        UserQuery query1 = new UserQuery();
+        query1.setPlatform(UserQuery.UserPlatform.NONE);
+
+        Object result1 = registry.executeQuery(NAMESPACE, "findUsersByPlatformOrdinal", query1, UserMapperEntity.class);
+
+        assertNotNull(result1, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users1 = (List<UserMapperEntity>) result1;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-枚举 ordinal() 方法测试】场景1:");
+        System.out.println("平台: " + query1.getPlatform().name() +
+                          " (ordinal=" + query1.getPlatform().ordinal() + ")");
+        System.out.println("条件: platform.ordinal() > 0 为 false");
+        System.out.println("查询到 " + users1.size() + " 条记录");
+        System.out.println("========================================");
+
+        // 测试场景2: platform 为 DESKTOP (ordinal=3)
+        UserQuery query2 = new UserQuery();
+        query2.setPlatform(UserQuery.UserPlatform.DESKTOP);
+
+        Object result2 = registry.executeQuery(NAMESPACE, "findUsersByPlatformOrdinal", query2, UserMapperEntity.class);
+
+        assertNotNull(result2, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users2 = (List<UserMapperEntity>) result2;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-枚举 ordinal() 方法测试】场景2:");
+        System.out.println("平台: " + query2.getPlatform().name() +
+                          " (ordinal=" + query2.getPlatform().ordinal() + ")");
+        System.out.println("条件: platform.ordinal() > 0 为 true");
+        System.out.println("查询到 " + users2.size() + " 条记录");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(77)
+    @DisplayName("77. 【Registry-枚举方法】测试 arg0.platform.name() 形式")
+    void testEnumNameMethodWithArg0_Registry() {
+        // 测试使用 arg0 形式访问枚举的 name() 方法
+        UserQuery query = new UserQuery();
+        query.setPlatform(UserQuery.UserPlatform.MOBILE);
+        query.setStatus(1);
+        Integer limit = 5;
+
+        Object result = registry.executeQuery(
+                NAMESPACE,
+                "findUsersByPlatformWithArg0",
+                Arrays.asList(query, limit),  // 多参数需要用List传递
+                UserMapperEntity.class
+        );
+
+        assertNotNull(result, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        assertTrue(users.size() <= limit, "结果数量不应超过 limit");
+        System.out.println("========================================");
+        System.out.println("【Registry-arg0.platform.name() 测试】:");
+        System.out.println("平台: " + query.getPlatform().name());
+        System.out.println("条件: arg0.platform.name() != 'NONE' 为 true");
+        System.out.println("LIMIT: " + limit);
+        System.out.println("查询到 " + users.size() + " 条记录");
+        System.out.println("说明: 验证了 Registry 方式下多参数场景的枚举方法调用");
+        System.out.println("========================================");
+    }
+
+    // ==================== 多值枚举测试（Registry方式） ====================
+
+    @Test
+    @Order(78)
+    @DisplayName("78. 【Registry-多值枚举】测试 getCode() 方法")
+    void testMultiValueEnumGetCode_Registry() {
+        // 测试场景1: userStatus 为 ACTIVE (code=1)
+        UserQuery query1 = new UserQuery();
+        query1.setUserStatus(UserQuery.UserStatus.ACTIVE);
+
+        Object result1 = registry.executeQuery(NAMESPACE, "findUsersByUserStatusCode", query1, UserMapperEntity.class);
+
+        assertNotNull(result1, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users1 = (List<UserMapperEntity>) result1;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-多值枚举 getCode() 测试】场景1:");
+        System.out.println("状态: " + query1.getUserStatus().name() +
+                          " (code=" + query1.getUserStatus().getCode() + ")");
+        System.out.println("条件: userStatus.getCode() == 1 为 true");
+        System.out.println("查询到 " + users1.size() + " 条记录");
+        System.out.println("========================================");
+
+        // 测试场景2: userStatus 为 LOCKED (code=2)
+        UserQuery query2 = new UserQuery();
+        query2.setUserStatus(UserQuery.UserStatus.LOCKED);
+
+        Object result2 = registry.executeQuery(NAMESPACE, "findUsersByUserStatusCode", query2, UserMapperEntity.class);
+
+        assertNotNull(result2, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users2 = (List<UserMapperEntity>) result2;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-多值枚举 getCode() 测试】场景2:");
+        System.out.println("状态: " + query2.getUserStatus().name() +
+                          " (code=" + query2.getUserStatus().getCode() + ")");
+        System.out.println("条件: userStatus.getCode() == 1 为 false");
+        System.out.println("但 userStatus.getCode() != 0 为 true");
+        System.out.println("查询到 " + users2.size() + " 条记录");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(79)
+    @DisplayName("79. 【Registry-多值枚举】测试 getName() 方法")
+    void testMultiValueEnumGetName_Registry() {
+        UserQuery query = new UserQuery();
+        query.setUserStatus(UserQuery.UserStatus.ACTIVE);
+
+        Object result = registry.executeQuery(NAMESPACE, "findUsersByUserStatusName", query, UserMapperEntity.class);
+
+        assertNotNull(result, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-多值枚举 getName() 测试】:");
+        System.out.println("状态: " + query.getUserStatus().name());
+        System.out.println("名称: " + query.getUserStatus().getName());
+        System.out.println("条件: userStatus.getName() == '已激活' 为 true");
+        System.out.println("查询到 " + users.size() + " 条记录");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(80)
+    @DisplayName("80. 【Registry-多值枚举】测试 getDescription() 方法")
+    void testMultiValueEnumGetDescription_Registry() {
+        UserQuery query = new UserQuery();
+        query.setUserStatus(UserQuery.UserStatus.ACTIVE);
+
+        Object result = registry.executeQuery(NAMESPACE, "findUsersByUserStatusDescription", query, UserMapperEntity.class);
+
+        assertNotNull(result, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-多值枚举 getDescription() 测试】:");
+        System.out.println("状态: " + query.getUserStatus().name());
+        System.out.println("描述: " + query.getUserStatus().getDescription());
+        System.out.println("条件: userStatus.getDescription() != null 为 true");
+        System.out.println("查询到 " + users.size() + " 条记录");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(81)
+    @DisplayName("81. 【Registry-多值枚举】复杂条件组合测试")
+    void testMultiValueEnumComplex_Registry() {
+        UserQuery query = new UserQuery();
+        query.setUserStatus(UserQuery.UserStatus.ACTIVE);
+
+        Object result = registry.executeQuery(NAMESPACE, "findUsersByUserStatusComplex", query, UserMapperEntity.class);
+
+        assertNotNull(result, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-多值枚举复杂条件测试】:");
+        System.out.println("状态: " + query.getUserStatus().name());
+        System.out.println("Code: " + query.getUserStatus().getCode());
+        System.out.println("Name: " + query.getUserStatus().getName());
+        System.out.println("Description: " + query.getUserStatus().getDescription());
+        System.out.println("组合条件:");
+        System.out.println("  - userStatus.getCode() > 0: true");
+        System.out.println("  - userStatus.name() != 'DELETED': true");
+        System.out.println("  - userStatus.getName() != null: true");
+        System.out.println("查询到 " + users.size() + " 条记录");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(82)
+    @DisplayName("82. 【Registry-多值枚举】测试 arg0.userStatus.getCode() 形式")
+    void testMultiValueEnumWithArg0_Registry() {
+        UserQuery query = new UserQuery();
+        query.setUserStatus(UserQuery.UserStatus.ACTIVE);
+        Integer limit = 5;
+
+        Object result = registry.executeQuery(
+                NAMESPACE,
+                "findUsersByUserStatusWithArg0",
+                Arrays.asList(query, limit),  // 多参数需要用List传递
+                UserMapperEntity.class
+        );
+
+        assertNotNull(result, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        assertTrue(users.size() <= limit, "结果数量不应超过 limit");
+        System.out.println("========================================");
+        System.out.println("【Registry-arg0.userStatus.getCode() 测试】:");
+        System.out.println("状态: " + query.getUserStatus().name());
+        System.out.println("Code: " + query.getUserStatus().getCode());
+        System.out.println("Name: " + query.getUserStatus().getName());
+        System.out.println("条件:");
+        System.out.println("  - arg0.userStatus.getCode() == 1: true");
+        System.out.println("  - arg0.userStatus.getName() == '已激活': true");
+        System.out.println("LIMIT: " + limit);
+        System.out.println("查询到 " + users.size() + " 条记录");
+        System.out.println("说明: 验证了 Registry 方式下多参数场景的多值枚举方法调用");
+        System.out.println("========================================");
+    }
 }

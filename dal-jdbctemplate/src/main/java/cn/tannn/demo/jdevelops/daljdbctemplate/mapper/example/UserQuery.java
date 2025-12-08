@@ -9,11 +9,58 @@ import java.util.List;
  */
 public class UserQuery {
 
+    /**
+     * 用户平台枚举
+     */
+    public enum UserPlatform {
+        NONE,    // 无平台
+        WEB,     // 网页端
+        MOBILE,  // 移动端
+        DESKTOP  // 桌面端
+    }
+
+    /**
+     * 用户状态枚举（多值枚举 - 带有code和description字段）
+     */
+    public enum UserStatus {
+        INACTIVE(0, "未激活", "用户账号未激活"),
+        ACTIVE(1, "已激活", "用户账号正常"),
+        LOCKED(2, "已锁定", "用户账号被锁定"),
+        DELETED(9, "已删除", "用户账号已删除");
+
+        private final int code;
+        private final String name;
+        private final String description;
+
+        UserStatus(int code, String name, String description) {
+            this.code = code;
+            this.name = name;
+            this.description = description;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+
     private String username;
     private String email;
     private Integer status;
     private Integer minAge;
     private Integer maxAge;
+
+    // 枚举测试字段
+    private UserPlatform platform;
+    // 多值枚举测试字段
+    private UserStatus userStatus;
 
     // 高级查询参数
     private String keyword;
@@ -321,5 +368,21 @@ public class UserQuery {
 
     public void setAgePercent(Integer agePercent) {
         this.agePercent = agePercent;
+    }
+
+    public UserPlatform getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(UserPlatform platform) {
+        this.platform = platform;
+    }
+
+    public UserStatus getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(UserStatus userStatus) {
+        this.userStatus = userStatus;
     }
 }

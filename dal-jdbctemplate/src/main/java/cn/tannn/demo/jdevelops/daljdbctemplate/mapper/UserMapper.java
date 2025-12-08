@@ -335,4 +335,129 @@ public interface UserMapper {
      */
     @XmlSelect("findUsersWithMath")
     List<UserMapperEntity> findUsersWithMath(UserQuery query);
+
+    // ========================================
+    // 枚举和 Record 类型方法调用测试
+    // 测试修复：支持枚举的 name()、ordinal() 等方法
+    // ========================================
+
+    /**
+     * 测试11: 枚举 name() 方法调用
+     * <p>
+     * 演示在 XML 中调用枚举的 name() 方法
+     * <p>
+     * XML 中的条件：platform != null and platform.name() != 'NONE'
+     *
+     * @param query 查询参数（包含 platform 枚举字段）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersByPlatform")
+    List<UserMapperEntity> findUsersByPlatform(UserQuery query);
+
+    /**
+     * 测试12: 枚举 ordinal() 方法调用
+     * <p>
+     * 演示在 XML 中调用枚举的 ordinal() 方法
+     * <p>
+     * XML 中的条件：platform != null and platform.ordinal() > 0
+     *
+     * @param query 查询参数（包含 platform 枚举字段）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersByPlatformOrdinal")
+    List<UserMapperEntity> findUsersByPlatformOrdinal(UserQuery query);
+
+    /**
+     * 测试13: 多参数形式的枚举 name() 方法调用 (arg0.platform.name())
+     * <p>
+     * 演示在 XML 中使用 arg0 形式调用枚举的 name() 方法
+     * <p>
+     * XML 中的条件：arg0.platform != null and arg0.platform.name() != 'NONE'
+     *
+     * @param query 查询参数（包含 platform 枚举字段）
+     * @param limit 查询限制数量
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersByPlatformWithArg0")
+    List<UserMapperEntity> findUsersByPlatformWithArg0(UserQuery query, Integer limit);
+
+    // ========================================
+    // 多值枚举测试
+    // 测试修复：支持枚举的 getCode()、getName()、getDescription() 等方法
+    // ========================================
+
+    /**
+     * 测试14: 多值枚举 getCode() 方法调用
+     * <p>
+     * 演示在 XML 中调用多值枚举的 getCode() 方法
+     * <p>
+     * XML 中的条件：userStatus != null and userStatus.getCode() == 1
+     *
+     * @param query 查询参数（包含 userStatus 多值枚举字段）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersByUserStatusCode")
+    List<UserMapperEntity> findUsersByUserStatusCode(UserQuery query);
+
+    /**
+     * 测试15: 多值枚举 getName() 方法调用
+     * <p>
+     * 演示在 XML 中调用多值枚举的 getName() 方法
+     * <p>
+     * XML 中的条件：userStatus != null and userStatus.getName() == '已激活'
+     *
+     * @param query 查询参数（包含 userStatus 多值枚举字段）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersByUserStatusName")
+    List<UserMapperEntity> findUsersByUserStatusName(UserQuery query);
+
+    /**
+     * 测试16: 多值枚举 getDescription() 方法调用
+     * <p>
+     * 演示在 XML 中调用多值枚举的 getDescription() 方法
+     * <p>
+     * XML 中的条件：userStatus != null and userStatus.getDescription() != null
+     *
+     * @param query 查询参数（包含 userStatus 多值枚举字段）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersByUserStatusDescription")
+    List<UserMapperEntity> findUsersByUserStatusDescription(UserQuery query);
+
+    /**
+     * 测试17: 多值枚举复杂条件组合
+     * <p>
+     * 演示在 XML 中组合使用多值枚举的多个方法
+     * <p>
+     * 组合条件：
+     * <ul>
+     *     <li>userStatus.getCode() > 0</li>
+     *     <li>userStatus.name() != 'DELETED'</li>
+     *     <li>userStatus.getName() != null</li>
+     * </ul>
+     *
+     * @param query 查询参数（包含 userStatus 多值枚举字段）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersByUserStatusComplex")
+    List<UserMapperEntity> findUsersByUserStatusComplex(UserQuery query);
+
+    /**
+     * 测试18: 多参数形式的多值枚举方法调用 (arg0.userStatus.getCode())
+     * <p>
+     * 演示在 XML 中使用 arg0 形式调用多值枚举的方法
+     * <p>
+     * XML 中的条件：
+     * <ul>
+     *     <li>arg0.userStatus.getCode() == 1</li>
+     *     <li>arg0.userStatus.getName() == '已激活'</li>
+     * </ul>
+     *
+     * @param query 查询参数（包含 userStatus 多值枚举字段）
+     * @param limit 查询限制数量
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersByUserStatusWithArg0")
+    List<UserMapperEntity> findUsersByUserStatusWithArg0(UserQuery query, Integer limit);
 }

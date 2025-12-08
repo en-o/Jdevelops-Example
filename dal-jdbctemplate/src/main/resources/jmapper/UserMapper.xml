@@ -542,4 +542,158 @@
         ORDER BY age DESC
     </select>
 
+    <!-- ========================================= -->
+    <!-- 枚举和 Record 类型方法调用测试                 -->
+    <!-- 测试修复：支持枚举的 name()、ordinal() 等方法   -->
+    <!-- ========================================= -->
+
+    <!-- 测试11: 枚举 name() 方法调用 -->
+    <select id="findUsersByPlatform" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <!-- 测试枚举的 name() 方法调用 -->
+            <if test="platform != null and platform.name() != 'NONE'">
+                AND username LIKE '%test%'
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 测试12: 枚举 ordinal() 方法调用 -->
+    <select id="findUsersByPlatformOrdinal" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <!-- 测试枚举的 ordinal() 方法调用 -->
+            <if test="platform != null and platform.ordinal() > 0">
+                AND username LIKE '%test%'
+            </if>
+        </where>
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 测试13: 多参数形式的枚举 name() 方法调用 (arg0.platform.name()) -->
+    <select id="findUsersByPlatformWithArg0" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <!-- 测试 arg0.platform.name() 形式的枚举方法调用 -->
+            <if test="arg0.platform != null and arg0.platform.name() != 'NONE'">
+                AND username LIKE '%test%'
+            </if>
+            <if test="arg0.status != null">
+                AND status = #{arg0.status}
+            </if>
+        </where>
+        ORDER BY created_at DESC
+        LIMIT #{arg1}
+    </select>
+
+    <!-- ========================================= -->
+    <!-- 多值枚举测试                               -->
+    <!-- 测试修复：支持枚举的 getCode()、getName() 等方法 -->
+    <!-- ========================================= -->
+
+    <!-- 测试14: 多值枚举 getCode() 方法调用 -->
+    <select id="findUsersByUserStatusCode" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <!-- 测试多值枚举的 getCode() 方法调用 -->
+            <if test="userStatus != null and userStatus.getCode() == 1">
+                AND status = #{userStatus.getCode()}
+            </if>
+            <!-- 也可以测试不等于 -->
+            <if test="userStatus != null and userStatus.getCode() != 0">
+                AND username LIKE '%test%'
+            </if>
+        </where>
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 测试15: 多值枚举 getName() 方法调用 -->
+    <select id="findUsersByUserStatusName" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <!-- 测试多值枚举的 getName() 方法调用 -->
+            <if test="userStatus != null and userStatus.getName() == '已激活'">
+                AND status = 1
+            </if>
+            <if test="userStatus != null and userStatus.getName() != '未激活'">
+                AND username LIKE '%test%'
+            </if>
+        </where>
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 测试16: 多值枚举 getDescription() 方法调用 -->
+    <select id="findUsersByUserStatusDescription" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <!-- 测试多值枚举的 getDescription() 方法调用 -->
+            <if test="userStatus != null and userStatus.getDescription() != null">
+                AND status = #{userStatus.getCode()}
+            </if>
+        </where>
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 测试17: 多值枚举复杂条件组合 -->
+    <select id="findUsersByUserStatusComplex" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <!-- 组合使用多值枚举的多个方法 -->
+            <if test="userStatus != null">
+                <!-- 使用 getCode() 方法 -->
+                <if test="userStatus.getCode() > 0">
+                    <![CDATA[
+                    AND status >= #{userStatus.getCode()}
+                    ]]>
+                </if>
+                <!-- 使用 name() 方法（枚举名称） -->
+                <if test="userStatus.name() != 'DELETED'">
+                    AND username LIKE '%test%'
+                </if>
+                <!-- 使用 getName() 方法（自定义名称字段） -->
+                <if test="userStatus.getName() != null and userStatus.getName() != ''">
+                    AND status != 9
+                </if>
+            </if>
+        </where>
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 测试18: 多参数形式的多值枚举方法调用 (arg0.userStatus.getCode()) -->
+    <select id="findUsersByUserStatusWithArg0" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        <where>
+            <!-- 测试 arg0.userStatus.getCode() 形式的多值枚举方法调用 -->
+            <if test="arg0.userStatus != null and arg0.userStatus.getCode() == 1">
+                AND status = #{arg0.userStatus.getCode()}
+            </if>
+            <!-- 测试 arg0.userStatus.getName() -->
+            <if test="arg0.userStatus != null and arg0.userStatus.getName() == '已激活'">
+                AND username LIKE '%test%'
+            </if>
+        </where>
+        ORDER BY created_at DESC
+        LIMIT #{arg1}
+    </select>
+
 </mapper>
