@@ -84,20 +84,20 @@ class XmlMapper_registry_Test {
     @Order(1)
     @DisplayName("01. Registry查询 - 根据ID查询单条记录")
     void testFindById() {
-        // 创建查询参数
-//        UserQuery query = new UserQuery();
-//        query.setId(1L);
-//
-//        // 执行查询
-//        Object result = registry.executeQuery(NAMESPACE, "findById", query, UserMapperEntity.class);
-//
-//        // 验证结果
-//        assertNotNull(result, "查询结果不应为空");
-//        assertInstanceOf(UserMapperEntity.class, result, "结果应该是 UserMapperEntity 类型");
-//
-//        UserMapperEntity user = (UserMapperEntity) result;
-//        assertEquals(1L, user.getId(), "用户ID应该为1");
-//        System.out.println("查询到用户: " + user.getUsername());
+//         创建查询参数
+        UserQuery query = new UserQuery();
+        query.setId(1L);
+
+        // 执行查询
+        Object result = registry.executeQuery(NAMESPACE, "findById", query, UserMapperEntity.class);
+
+        // 验证结果
+        assertNotNull(result, "查询结果不应为空");
+        assertInstanceOf(UserMapperEntity.class, result, "结果应该是 UserMapperEntity 类型");
+
+        UserMapperEntity user = (UserMapperEntity) result;
+        assertEquals(1L, user.getId(), "用户ID应该为1");
+        System.out.println("查询到用户: " + user.getUsername());
     }
 
     @Test
