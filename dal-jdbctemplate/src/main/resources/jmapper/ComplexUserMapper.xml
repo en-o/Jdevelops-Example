@@ -73,7 +73,7 @@
             created_at,
             updated_at
         FROM complex_user
-        WHERE id = #{id}
+        WHERE id = #{value}
     </select>
 
     <!-- 查询所有用户 - Interface返回类型 -->
@@ -131,7 +131,7 @@
             created_at,
             updated_at
         FROM complex_user
-        WHERE status = #{status}
+        WHERE status = #{value}
         ORDER BY id
     </select>
 
@@ -180,7 +180,7 @@
             created_at,
             updated_at
         FROM complex_user
-        WHERE id = #{id}
+        WHERE id = #{value}
     </select>
 
     <!-- 查询所有用户 - Record返回类型 -->
@@ -238,7 +238,7 @@
             created_at,
             updated_at
         FROM complex_user
-        WHERE status = #{status}
+        WHERE status = #{value}
         ORDER BY id
     </select>
 
