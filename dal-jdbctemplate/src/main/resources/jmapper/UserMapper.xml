@@ -121,7 +121,8 @@
 
     <!-- 批量删除 -->
     <delete id="deleteAll">
-        DELETE FROM users_mapper
+        DELETE FROM users_mapper;
+        ALTER TABLE users_mapper AUTO_INCREMENT = 1;
     </delete>
 
 
