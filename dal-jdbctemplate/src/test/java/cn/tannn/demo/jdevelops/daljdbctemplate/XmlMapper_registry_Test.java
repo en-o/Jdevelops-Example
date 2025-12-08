@@ -945,4 +945,225 @@ class XmlMapper_registry_Test {
         System.out.println("说明: 验证了 Registry 方式下多参数场景的多值枚举方法调用");
         System.out.println("========================================");
     }
+
+    // ==================== 空值判断测试（Registry方式） ====================
+
+    @Test
+    @Order(90)
+    @DisplayName("90. 【Registry-空值判断】空字符串 \"\" 测试")
+    void testEmptyString_Registry() {
+        // 测试空字符串
+        UserQuery query = new UserQuery();
+        query.setUsername("");
+        query.setEmail("");
+
+        Object result = registry.executeQuery(NAMESPACE, "findUsers", query, UserMapperEntity.class);
+
+        assertNotNull(result, "查询结果不应为空");
+        assertInstanceOf(List.class, result, "结果应该是 List 类型");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-空字符串测试】:");
+        System.out.println("username = \"\"");
+        System.out.println("email = \"\"");
+        System.out.println("查询到 " + users.size() + " 条记录");
+        System.out.println("说明: Registry方式测试空字符串在动态SQL中的处理");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(91)
+    @DisplayName("91. 【Registry-空值判断】空格字符串 \" \" 测试")
+    void testBlankString_Registry() {
+        // 测试只包含空格的字符串
+        UserQuery query = new UserQuery();
+        query.setUsername("   ");
+        query.setEmail("  ");
+
+        Object result = registry.executeQuery(NAMESPACE, "findUsers", query, UserMapperEntity.class);
+
+        assertNotNull(result, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-空格字符串测试】:");
+        System.out.println("username = \"   \"");
+        System.out.println("email = \"  \"");
+        System.out.println("查询到 " + users.size() + " 条记录");
+        System.out.println("说明: Registry方式测试空格字符串在动态SQL中的处理");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(92)
+    @DisplayName("92. 【Registry-空值判断】空集合 List.size() == 0 测试")
+    void testEmptyList_Registry() {
+        // 测试空集合
+        UserQuery query = new UserQuery();
+        query.setIds(new ArrayList<>());  // 空集合
+        query.setStatusList(new ArrayList<>());  // 空集合
+
+        Object result = registry.executeQuery(NAMESPACE, "findUsers", query, UserMapperEntity.class);
+
+        assertNotNull(result, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-空集合测试】:");
+        System.out.println("ids.size() = 0");
+        System.out.println("statusList.size() = 0");
+        System.out.println("查询到 " + users.size() + " 条记录");
+        System.out.println("说明: Registry方式测试空集合在foreach标签中的处理");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(93)
+    @DisplayName("93. 【Registry-空值判断】null 值测试")
+    void testNullValue_Registry() {
+        // 测试 null 值
+        UserQuery query = new UserQuery();
+        query.setUsername(null);
+        query.setEmail(null);
+        query.setIds(null);
+        query.setStatusList(null);
+        query.setMinAge(null);
+        query.setMaxAge(null);
+
+        Object result = registry.executeQuery(NAMESPACE, "findUsers", query, UserMapperEntity.class);
+
+        assertNotNull(result, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-null值测试】:");
+        System.out.println("username = null");
+        System.out.println("email = null");
+        System.out.println("ids = null");
+        System.out.println("statusList = null");
+        System.out.println("minAge = null");
+        System.out.println("maxAge = null");
+        System.out.println("查询到 " + users.size() + " 条记录");
+        System.out.println("说明: Registry方式测试null值在动态SQL中的处理");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(94)
+    @DisplayName("94. 【Registry-空值判断】字符串 \"null\" 测试")
+    void testNullString_Registry() {
+        // 测试字符串 "null"
+        UserQuery query = new UserQuery();
+        query.setUsername("null");
+        query.setEmail("null");
+
+        Object result = registry.executeQuery(NAMESPACE, "findUsers", query, UserMapperEntity.class);
+
+        assertNotNull(result, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-字符串\"null\"测试】:");
+        System.out.println("username = \"null\"");
+        System.out.println("email = \"null\"");
+        System.out.println("查询到 " + users.size() + " 条记录");
+        System.out.println("说明: Registry方式测试字符串\"null\"与实际null值的区别");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(95)
+    @DisplayName("95. 【Registry-空值判断】混合空值测试")
+    void testMixedEmptyValues_Registry() {
+        // 混合多种空值情况
+        UserQuery query = new UserQuery();
+        query.setUsername("");           // 空字符串
+        query.setEmail(null);            // null
+        query.setIds(new ArrayList<>());  // 空集合
+        query.setStatusList(null);       // null集合
+        query.setMinAge(null);           // null数值
+        query.setKeyword("   ");         // 空格字符串
+
+        Object result = registry.executeQuery(NAMESPACE, "findUsers", query, UserMapperEntity.class);
+
+        assertNotNull(result, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-混合空值测试】:");
+        System.out.println("username = \"\" (空字符串)");
+        System.out.println("email = null");
+        System.out.println("ids = [] (空集合)");
+        System.out.println("statusList = null");
+        System.out.println("minAge = null");
+        System.out.println("keyword = \"   \" (空格)");
+        System.out.println("查询到 " + users.size() + " 条记录");
+        System.out.println("说明: Registry方式测试多种空值混合场景");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(96)
+    @DisplayName("96. 【Registry-空值判断】数值0测试")
+    void testZeroValue_Registry() {
+        // 测试数值0（区分null和0）
+        UserQuery query = new UserQuery();
+        query.setStatus(0);
+        query.setMinAge(0);
+        query.setMaxAge(0);
+
+        Object result = registry.executeQuery(NAMESPACE, "findUsers", query, UserMapperEntity.class);
+
+        assertNotNull(result, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-数值0测试】:");
+        System.out.println("status = 0");
+        System.out.println("minAge = 0");
+        System.out.println("maxAge = 0");
+        System.out.println("查询到 " + users.size() + " 条记录");
+        System.out.println("说明: Registry方式测试数值0与null的区别（0是有效值）");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(97)
+    @DisplayName("97. 【Registry-空值判断】单元素空字符串集合测试")
+    void testListWithEmptyString_Registry() {
+        // 测试包含空字符串的集合
+        UserQuery query = new UserQuery();
+        List<Long> idsWithZero = new ArrayList<>();
+        idsWithZero.add(0L);  // 添加0值
+        query.setIds(idsWithZero);
+
+        Object result = registry.executeQuery(NAMESPACE, "findByIds", query, UserMapperEntity.class);
+
+        assertNotNull(result, "查询结果不应为空");
+
+        @SuppressWarnings("unchecked")
+        List<UserMapperEntity> users = (List<UserMapperEntity>) result;
+
+        System.out.println("========================================");
+        System.out.println("【Registry-单元素集合测试】:");
+        System.out.println("ids = [0] (包含0的集合)");
+        System.out.println("查询到 " + users.size() + " 条记录");
+        System.out.println("说明: Registry方式测试包含特殊值的非空集合");
+        System.out.println("========================================");
+    }
 }
