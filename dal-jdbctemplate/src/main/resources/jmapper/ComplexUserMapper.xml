@@ -14,17 +14,18 @@
 
     <!-- 批量插入测试数据 -->
     <insert id="batchInsert">
-        INSERT INTO complex_user (username, email, age, status, platform, tags, role_ids, extras, detail)
+        INSERT INTO complex_user (id, username, email, age, status, platform, tags, role_ids, extras, detail)
         VALUES
         <foreach collection="list" item="user" separator=",">
-            (#{user.username}, #{user.email}, #{user.age}, #{user.status}, #{user.platform},
+            (#{user.id}, #{user.username}, #{user.email}, #{user.age}, #{user.status}, #{user.platform},
             #{user.tags}, #{user.roleIds}, #{user.extras}, #{user.detail})
         </foreach>
     </insert>
 
-    <!-- 清空表数据 -->
+    <!-- 清空表数据并重置自增ID -->
     <insert id="deleteAll">
-        DELETE FROM complex_user
+        DELETE FROM complex_user;
+        ALTER TABLE complex_user AUTO_INCREMENT = 1;
     </insert>
 
 

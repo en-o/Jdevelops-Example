@@ -91,8 +91,14 @@ public class ComplexReturnType_Test {
         user3.put("tags", objectMapper.writeValueAsString(Collections.emptyList()));
         user3.put("roleIds", objectMapper.writeValueAsString(Collections.emptyList()));
         user3.put("extras", objectMapper.writeValueAsString(Map.of("level", 3)));
-        user3.put("detail", objectMapper.writeValueAsString(Map.of("address", "广州市天河区", "phone", "13700137003",
-                "avatar", (String) null, "hobbies", Collections.emptyList())));
+
+        // detail 包含 null 值，不能使用 Map.of()
+        Map<String, Object> detail3 = new HashMap<>();
+        detail3.put("address", "广州市天河区");
+        detail3.put("phone", "13700137003");
+        detail3.put("avatar", null);
+        detail3.put("hobbies", Collections.emptyList());
+        user3.put("detail", objectMapper.writeValueAsString(detail3));
         users.add(user3);
 
         int count = complexUserMapper.batchInsert(users);
