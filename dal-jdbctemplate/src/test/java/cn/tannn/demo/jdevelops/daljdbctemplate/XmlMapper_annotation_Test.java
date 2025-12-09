@@ -1505,4 +1505,156 @@ class XmlMapper_annotation_Test {
         System.out.println("说明: 只有status=0条件生效");
         System.out.println("========================================");
     }
+
+    // ==================== Choose/When/Otherwise 测试 ====================
+
+    @Test
+    @Order(102)
+    @DisplayName("102. 【Choose/When/Otherwise】orgNo 特殊值判断")
+    void testChoose_OrgNo() {
+        System.out.println("\n========================================");
+        System.out.println("【Choose/When/Otherwise 测试1】orgNo 特殊值判断");
+        System.out.println("========================================");
+
+        // 场景1: orgNo = "-" (when 分支)
+        UserQuery query1 = new UserQuery();
+        query1.setOrgNo("-");
+        query1.setStatus(1);
+
+        List<UserMapperEntity> result1 = userMapper.findUsersByOrgNoWithChoose(query1);
+        assertNotNull(result1, "查询结果不应为空");
+        System.out.println("\n场景1: orgNo = '-'");
+        System.out.println("  - 条件: orgNo == '-' 为 true");
+        System.out.println("  - 执行: when 分支 (查询组织编号为空的数据)");
+        System.out.println("  - 查询到 " + result1.size() + " 条记录");
+
+        // 场景2: orgNo = "test" (otherwise 分支)
+        UserQuery query2 = new UserQuery();
+        query2.setOrgNo("test");
+        query2.setStatus(1);
+
+        List<UserMapperEntity> result2 = userMapper.findUsersByOrgNoWithChoose(query2);
+        assertNotNull(result2, "查询结果不应为空");
+        System.out.println("\n场景2: orgNo = 'test'");
+        System.out.println("  - 条件: orgNo == '-' 为 false");
+        System.out.println("  - 执行: otherwise 分支 (按 orgNo 查询)");
+        System.out.println("  - 查询到 " + result2.size() + " 条记录");
+        result2.forEach(user -> {
+            assertTrue(user.getUsername().contains("test"),
+                    "用户名应包含 'test'");
+        });
+
+        // 场景3: orgNo = null (otherwise 分支)
+        UserQuery query3 = new UserQuery();
+        query3.setOrgNo(null);
+        query3.setStatus(1);
+
+        List<UserMapperEntity> result3 = userMapper.findUsersByOrgNoWithChoose(query3);
+        assertNotNull(result3, "查询结果不应为空");
+        System.out.println("\n场景3: orgNo = null");
+        System.out.println("  - 条件: orgNo == '-' 为 false (null 不等于 '-')");
+        System.out.println("  - 执行: otherwise 分支");
+        System.out.println("  - 查询到 " + result3.size() + " 条记录");
+
+        System.out.println("\n========================================");
+        System.out.println("✅ Choose/When/Otherwise 测试通过");
+        System.out.println("说明: 成功演示了 choose 标签的二分支用法");
+        System.out.println("========================================");
+    }
+
+    @Test
+    @Order(103)
+    @DisplayName("103. 【Choose/When/Otherwise】年龄级别多分支测试")
+    void testChoose_AgeLevel() {
+        System.out.println("\n========================================");
+        System.out.println("【Choose/When/Otherwise 测试2】年龄级别多分支");
+        System.out.println("========================================");
+
+        // 场景1: ageLevel = "YOUNG" (第一个 when)
+        UserQuery query1 = new UserQuery();
+        query1.setAgeLevel("YOUNG");
+        query1.setStatus(1);
+
+        List<UserMapperEntity> result1 = userMapper.findUsersByAgeLevelWithChoose(query1);
+        assertNotNull(result1, "查询结果不应为空");
+        System.out.println("\n场景1: ageLevel = 'YOUNG'");
+        System.out.println("  - 条件: ageLevel == 'YOUNG' 为 true");
+        System.out.println("  - 执行: 第一个 when 分支 (age >= 18 AND age <= 25)");
+        System.out.println("  - 查询到 " + result1.size() + " 条记录");
+        result1.forEach(user -> {
+            assertTrue(user.getAge() >= 18 && user.getAge() <= 25,
+                    "年龄应在 [18, 25] 区间，实际: " + user.getAge());
+            System.out.println("    - " + user.getUsername() + ", age=" + user.getAge());
+        });
+
+        // 场景2: ageLevel = "MIDDLE" (第二个 when)
+        UserQuery query2 = new UserQuery();
+        query2.setAgeLevel("MIDDLE");
+        query2.setStatus(1);
+
+        List<UserMapperEntity> result2 = userMapper.findUsersByAgeLevelWithChoose(query2);
+        assertNotNull(result2, "查询结果不应为空");
+        System.out.println("\n场景2: ageLevel = 'MIDDLE'");
+        System.out.println("  - 条件: ageLevel == 'MIDDLE' 为 true");
+        System.out.println("  - 执行: 第二个 when 分支 (age >= 26 AND age <= 40)");
+        System.out.println("  - 查询到 " + result2.size() + " 条记录");
+        result2.forEach(user -> {
+            assertTrue(user.getAge() >= 26 && user.getAge() <= 40,
+                    "年龄应在 [26, 40] 区间，实际: " + user.getAge());
+            System.out.println("    - " + user.getUsername() + ", age=" + user.getAge());
+        });
+
+        // 场景3: ageLevel = "SENIOR" (第三个 when)
+        UserQuery query3 = new UserQuery();
+        query3.setAgeLevel("SENIOR");
+        query3.setStatus(1);
+
+        List<UserMapperEntity> result3 = userMapper.findUsersByAgeLevelWithChoose(query3);
+        assertNotNull(result3, "查询结果不应为空");
+        System.out.println("\n场景3: ageLevel = 'SENIOR'");
+        System.out.println("  - 条件: ageLevel == 'SENIOR' 为 true");
+        System.out.println("  - 执行: 第三个 when 分支 (age > 40)");
+        System.out.println("  - 查询到 " + result3.size() + " 条记录");
+        if (result3.isEmpty()) {
+            System.out.println("    - 没有查询到数据（测试数据年龄范围 20-34）");
+        } else {
+            result3.forEach(user -> {
+                assertTrue(user.getAge() > 40,
+                        "年龄应 > 40，实际: " + user.getAge());
+                System.out.println("    - " + user.getUsername() + ", age=" + user.getAge());
+            });
+        }
+
+        // 场景4: ageLevel = null 或其他值 (otherwise)
+        UserQuery query4 = new UserQuery();
+        query4.setAgeLevel(null);  // 不设置或设置其他值
+        query4.setStatus(1);
+
+        List<UserMapperEntity> result4 = userMapper.findUsersByAgeLevelWithChoose(query4);
+        assertNotNull(result4, "查询结果不应为空");
+        System.out.println("\n场景4: ageLevel = null (otherwise 分支)");
+        System.out.println("  - 条件: 所有 when 都不满足");
+        System.out.println("  - 执行: otherwise 分支 (查询所有用户，不限年龄)");
+        System.out.println("  - 查询到 " + result4.size() + " 条记录");
+
+        // 场景5: ageLevel = "OTHER" (otherwise)
+        UserQuery query5 = new UserQuery();
+        query5.setAgeLevel("OTHER");
+        query5.setStatus(1);
+
+        List<UserMapperEntity> result5 = userMapper.findUsersByAgeLevelWithChoose(query5);
+        assertNotNull(result5, "查询结果不应为空");
+        System.out.println("\n场景5: ageLevel = 'OTHER' (otherwise 分支)");
+        System.out.println("  - 条件: 所有 when 都不匹配");
+        System.out.println("  - 执行: otherwise 分支");
+        System.out.println("  - 查询到 " + result5.size() + " 条记录");
+
+        System.out.println("\n========================================");
+        System.out.println("✅ Choose/When/Otherwise 多分支测试通过");
+        System.out.println("说明: 成功演示了 choose 标签的多分支特性");
+        System.out.println("  - choose 只会执行第一个匹配的 when 分支");
+        System.out.println("  - 如果所有 when 都不匹配，执行 otherwise 分支");
+        System.out.println("  - 类似于 Java 的 switch-case 或 if-else if-else");
+        System.out.println("========================================");
+    }
 }

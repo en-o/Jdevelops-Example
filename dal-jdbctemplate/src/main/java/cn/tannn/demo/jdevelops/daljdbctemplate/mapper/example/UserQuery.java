@@ -114,6 +114,10 @@ public class UserQuery {
     private Integer ageBase;          // 年龄基数
     private Integer agePercent;       // 年龄百分比
 
+    // choose/when/otherwise 测试
+    private String orgNo;             // 组织编号（测试 choose/when/otherwise）
+    private String ageLevel;          // 年龄级别（测试 choose 多分支）
+
     public UserQuery() {
     }
 
@@ -384,5 +388,21 @@ public class UserQuery {
 
     public void setUserStatus(UserStatus userStatus) {
         this.userStatus = userStatus;
+    }
+
+    public String getOrgNo() {
+        return orgNo;
+    }
+
+    public void setOrgNo(String orgNo) {
+        this.orgNo = orgNo;
+    }
+
+    public String getAgeLevel() {
+        return ageLevel;
+    }
+
+    public void setAgeLevel(String ageLevel) {
+        this.ageLevel = ageLevel;
     }
 }

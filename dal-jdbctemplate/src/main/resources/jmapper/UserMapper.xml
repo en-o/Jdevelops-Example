@@ -697,4 +697,67 @@
         LIMIT #{arg1}
     </select>
 
+    <!-- ========================================= -->
+    <!-- Choose/When/Otherwise 测试                 -->
+    <!-- 测试新增的 choose 标签支持                  -->
+    <!-- ========================================= -->
+
+    <!-- 测试19: choose/when/otherwise - orgNo 判断 -->
+    <select id="findUsersByOrgNoWithChoose" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        WHERE 1=1
+        <choose>
+            <when test="orgNo == '-'">
+                -- 特殊值 "-" 表示查询组织编号为空的数据
+                AND 1=1  -- orgNo IS NULL (模拟场景，实际表中没有 org_no 字段)
+            </when>
+            <otherwise>
+                -- 其他情况：按实际的 orgNo 查询
+                AND username LIKE CONCAT('%', #{orgNo}, '%')  -- 用 username 模拟 org_no 查询
+            </otherwise>
+        </choose>
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 测试20: choose/when/otherwise - 年龄级别分类查询 -->
+    <select id="findUsersByAgeLevelWithChoose" resultType="cn.tannn.demo.jdevelops.daljdbctemplate.mapper.example.UserMapperEntity">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM users_mapper
+        WHERE 1=1
+        <choose>
+            <when test="ageLevel == 'YOUNG'">
+                <!-- 年轻用户：18-25岁 -->
+                <![CDATA[
+                AND age >= 18 AND age <= 25
+                ]]>
+            </when>
+            <when test="ageLevel == 'MIDDLE'">
+                <!-- 中年用户：26-40岁 -->
+                <![CDATA[
+                AND age >= 26 AND age <= 40
+                ]]>
+            </when>
+            <when test="ageLevel == 'SENIOR'">
+                <!-- 老年用户：41岁以上 -->
+                <![CDATA[
+                AND age > 40
+                ]]>
+            </when>
+            <otherwise>
+                <!-- 默认：查询所有用户（不限年龄） -->
+                AND 1=1
+            </otherwise>
+        </choose>
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+        ORDER BY age ASC, created_at DESC
+    </select>
+
 </mapper>

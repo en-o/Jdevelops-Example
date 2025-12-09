@@ -460,4 +460,45 @@ public interface UserMapper {
      */
     @XmlSelect("findUsersByUserStatusWithArg0")
     List<UserMapperEntity> findUsersByUserStatusWithArg0(UserQuery query, Integer limit);
+
+    // ========================================
+    // Choose/When/Otherwise 测试
+    // 测试新增的 choose 标签支持
+    // ========================================
+
+    /**
+     * 测试19: choose/when/otherwise - orgNo 判断
+     * <p>
+     * 演示 choose 标签的基本用法：
+     * <ul>
+     *     <li>当 orgNo == '-' 时，使用 IS NULL 条件</li>
+     *     <li>其他情况使用 = #{orgNo} 条件</li>
+     * </ul>
+     * <p>
+     * 这是一个典型的业务场景：特殊值 "-" 代表查询组织编号为空的数据
+     *
+     * @param query 查询参数（包含 orgNo 字段）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersByOrgNoWithChoose")
+    List<UserMapperEntity> findUsersByOrgNoWithChoose(UserQuery query);
+
+    /**
+     * 测试20: choose/when/otherwise - 年龄级别分类查询
+     * <p>
+     * 演示 choose 标签的多分支用法：
+     * <ul>
+     *     <li>当 ageLevel == 'YOUNG' 时，查询 18-25 岁用户</li>
+     *     <li>当 ageLevel == 'MIDDLE' 时，查询 26-40 岁用户</li>
+     *     <li>当 ageLevel == 'SENIOR' 时，查询 41 岁以上用户</li>
+     *     <li>otherwise：查询所有用户（不限年龄）</li>
+     * </ul>
+     * <p>
+     * 演示了 choose 类似 switch-case 的特性：只会执行第一个匹配的分支
+     *
+     * @param query 查询参数（包含 ageLevel 字段）
+     * @return 用户列表
+     */
+    @XmlSelect("findUsersByAgeLevelWithChoose")
+    List<UserMapperEntity> findUsersByAgeLevelWithChoose(UserQuery query);
 }
